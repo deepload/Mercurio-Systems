@@ -29,7 +29,7 @@ class Trade(Base):
     # Additional metadata
     confidence = Column(Float)
     model_id = Column(Integer, ForeignKey("ai_models.id"), nullable=True)
-    metadata = Column(JSON, nullable=True)
+    trade_metadata = Column(JSON, nullable=True)
     
     # Relationships
     model = relationship("AIModel", back_populates="trades")

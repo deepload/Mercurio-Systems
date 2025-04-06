@@ -415,7 +415,7 @@ class StrategyManager:
             price=float(trade_data.get('filled_avg_price', 0)),
             quantity=float(trade_data.get('qty', 0)),
             timestamp=datetime.now(),
-            metadata=trade_data
+            trade_metadata=trade_data
         )
         
         # Save to database
