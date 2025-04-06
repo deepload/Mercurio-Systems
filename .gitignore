@@ -4,5 +4,5 @@ venv
 **/__pycache__/
 *.py[cod]
 *$py.class
-app/db/__pycache__/__init__.cpython-310.pyc
-app/db/__pycache__/database.cpython-310.pyc
+models/lstm_predictor_60_50.h5
+models/lstm_predictor_60_50_scaler.pkl

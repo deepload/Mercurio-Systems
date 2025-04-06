@@ -99,7 +99,7 @@ async def run_demo():
     
     # Step 5: Run backtest with moving average strategy
     logger.info("\n\nStep 5: Running backtest with Moving Average strategy...")
-    ma_strategy_name = "MovingAverageCrossover"
+    ma_strategy_name = "MovingAverageStrategy"
     try:
         # Get strategy info
         ma_strategy_info = await strategy_manager.get_strategy_info(ma_strategy_name)
@@ -142,7 +142,7 @@ async def run_demo():
     
     # Step 6: Test LSTM strategy (simplified for demo)
     logger.info("\n\nStep 6: Testing LSTM strategy...")
-    lstm_strategy_name = "LSTMPredictor"
+    lstm_strategy_name = "LSTMPredictorStrategy"
     try:
         # Get strategy info
         lstm_strategy_info = await strategy_manager.get_strategy_info(lstm_strategy_name)
