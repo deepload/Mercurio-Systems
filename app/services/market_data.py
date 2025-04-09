@@ -188,7 +188,7 @@ class MarketDataService:
         
         # Fallback to sample data if API calls fail
         logger.warning(f"Using sample data for {symbol} as fallback")
-        return self._generate_sample_data(symbol, start_date, end_date, timeframe)
+        return await self._generate_sample_data(symbol, start_date, end_date, timeframe)
     
     async def get_latest_price(self, symbol: str, provider_name: Optional[str] = None) -> float:
         """
