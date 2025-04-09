@@ -52,10 +52,16 @@ class MarketDataService:
         self.alpaca_client = None
         if self.alpaca_key and self.alpaca_secret:
             try:
+                # Fix the base_url if it contains /v2 at the end
+                base_url = os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
+                if base_url.endswith("/v2"):
+                    base_url = base_url.rstrip("/v2")
+                    logger.info(f"Removed '/v2' from Alpaca base URL: {base_url}")
+                
                 self.alpaca_client = tradeapi.REST(
                     key_id=self.alpaca_key,
                     secret_key=self.alpaca_secret,
-                    base_url=os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
+                    base_url=base_url
                 )
                 logger.info("Legacy Alpaca client initialized successfully")
                 
