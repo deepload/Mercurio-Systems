@@ -2,21 +2,22 @@
 Market Data Service
 
 Provides access to historical and real-time market data through
-external data providers (IEX Cloud, Alpaca, etc.).
+external data providers with a pluggable provider system.
 """
 import os
 import logging
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Union
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import asyncio
 
-# For IEX Cloud API
-import pyEX as px
-
-# For Alpaca API
+# For Alpaca API (legacy support)
 import alpaca_trade_api as tradeapi
+
+# Import provider system
+from app.services.providers.factory import MarketDataProviderFactory
+from app.services.providers.base import MarketDataProvider
 
 logger = logging.getLogger(__name__)
 
@@ -25,24 +26,27 @@ class MarketDataService:
     Service for retrieving market data from various providers.
     
     Supports:
-    - Historical data from IEX Cloud
-    - Real-time and historical data from Alpaca
-    - Fallback to sample data if no API keys are provided
+    - Multiple pluggable data providers (Polygon.io, Yahoo Finance, etc.)
+    - Legacy support for direct Alpaca API access
+    - Automatic fallback to free providers when paid APIs are unavailable
+    - Sample data generation as a last resort fallback
     """
     
-    def __init__(self):
-        """Initialize the market data service with API clients"""
-        # Initialize IEX Cloud client if API key is available
-        self.iex_api_key = os.getenv("IEX_API_KEY")
-        self.iex_client = None
-        if self.iex_api_key:
-            try:
-                self.iex_client = px.Client(api_token=self.iex_api_key)
-                logger.info("IEX Cloud client initialized successfully")
-            except Exception as e:
-                logger.error(f"Failed to initialize IEX Cloud client: {e}")
+    def __init__(self, provider_name: Optional[str] = None):
+        """
+        Initialize the market data service.
         
-        # Initialize Alpaca client if API key is available
+        Args:
+            provider_name: Optional name of the preferred provider to use
+        """
+        # Initialize provider factory
+        self.provider_factory = MarketDataProviderFactory()
+        
+        # Set active provider based on preference or availability
+        self.active_provider_name = provider_name
+        self._active_provider = None
+        
+        # Initialize legacy Alpaca client for backward compatibility
         self.alpaca_key = os.getenv("ALPACA_KEY")
         self.alpaca_secret = os.getenv("ALPACA_SECRET")
         self.alpaca_client = None
@@ -53,9 +57,87 @@ class MarketDataService:
                     secret_key=self.alpaca_secret,
                     base_url=os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
                 )
-                logger.info("Alpaca client initialized successfully")
+                logger.info("Legacy Alpaca client initialized successfully")
+                
+                # Register Alpaca as a provider option
+                class AlpacaProvider(MarketDataProvider):
+                    def __init__(self, client):
+                        self.client = client
+                    
+                    @property
+                    def name(self):
+                        return "Alpaca"
+                        
+                    @property
+                    def requires_api_key(self):
+                        return True
+                        
+                    async def get_historical_data(self, symbol, start_date, end_date, timeframe="1d"):
+                        # Implementation using self.client
+                        pass
+                        
+                    async def get_latest_price(self, symbol):
+                        # Implementation using self.client
+                        pass
+                        
+                    async def get_market_symbols(self, market_type="stock"):
+                        # Implementation using self.client
+                        pass
+                
+                # Don't actually register this as it's just for compatibility
+                # self.provider_factory.register_provider("alpaca_legacy", AlpacaProvider)
+                
             except Exception as e:
                 logger.error(f"Failed to initialize Alpaca client: {e}")
+    
+    @property
+    def active_provider(self) -> MarketDataProvider:
+        """
+        Get the currently active provider.
+        
+        Returns:
+            The active provider instance
+        """
+        if self._active_provider:
+            return self._active_provider
+            
+        # If user specified a provider, try to use it
+        if self.active_provider_name:
+            provider = self.provider_factory.get_provider(self.active_provider_name)
+            if provider:
+                self._active_provider = provider
+                return provider
+        
+        # Otherwise get the default provider based on availability
+        self._active_provider = self.provider_factory.get_default_provider()
+        return self._active_provider
+        
+    def set_provider(self, provider_name: str) -> bool:
+        """
+        Set the active provider by name.
+        
+        Args:
+            provider_name: Name of the provider to use
+            
+        Returns:
+            True if provider was set successfully, False otherwise
+        """
+        provider = self.provider_factory.get_provider(provider_name)
+        if provider:
+            self._active_provider = provider
+            self.active_provider_name = provider_name
+            logger.info(f"Switched to {provider_name} provider")
+            return True
+        return False
+        
+    def get_available_providers(self) -> List[str]:
+        """
+        Get a list of all available provider names.
+        
+        Returns:
+            List of provider names
+        """
+        return self.provider_factory.get_available_providers()
     
     async def get_historical_data(
         self,
@@ -76,34 +158,7 @@ class MarketDataService:
         Returns:
             DataFrame with historical data
         """
-        # Try to get data from IEX Cloud first
-        if self.iex_client:
-            try:
-                logger.info(f"Fetching historical data for {symbol} from IEX Cloud")
-                
-                # Format dates for IEX API
-                start_str = start_date.strftime("%Y%m%d")
-                
-                # Get historical data
-                data = self.iex_client.chartDF(symbol, timeframe=timeframe, from_=start_str)
-                
-                # Filter by date range
-                if not data.empty:
-                    data = data[(data.index >= pd.Timestamp(start_date)) & 
-                                (data.index <= pd.Timestamp(end_date))]
-                    
-                    # Rename columns to lowercase
-                    data.columns = [col.lower() for col in data.columns]
-                    
-                    # Ensure we have the required columns
-                    required_columns = ['open', 'high', 'low', 'close', 'volume']
-                    if all(col in data.columns for col in required_columns):
-                        return data
-            
-            except Exception as e:
-                logger.error(f"Error fetching data from IEX Cloud: {e}")
-        
-        # Try to get data from Alpaca as a fallback
+        # Get data from Alpaca (primary source)
         if self.alpaca_client:
             try:
                 logger.info(f"Fetching historical data for {symbol} from Alpaca")
@@ -135,79 +190,119 @@ class MarketDataService:
         logger.warning(f"Using sample data for {symbol} as fallback")
         return self._generate_sample_data(symbol, start_date, end_date, timeframe)
     
-    async def get_latest_price(self, symbol: str) -> float:
+    async def get_latest_price(self, symbol: str, provider_name: Optional[str] = None) -> float:
         """
         Get the latest price for a symbol.
         
         Args:
             symbol: The market symbol (e.g., 'AAPL')
+            provider_name: Optional specific provider to use for this request
             
         Returns:
             Latest price
         """
-        # Try IEX Cloud first
-        if self.iex_client:
-            try:
-                quote = self.iex_client.quote(symbol)
-                if quote and 'latestPrice' in quote:
-                    return quote['latestPrice']
-            except Exception as e:
-                logger.error(f"Error fetching latest price from IEX Cloud: {e}")
+        # If a specific provider is requested for this call
+        if provider_name:
+            provider = self.provider_factory.get_provider(provider_name)
+            if provider:
+                try:
+                    return await provider.get_latest_price(symbol)
+                except Exception as e:
+                    logger.error(f"Error fetching latest price from {provider_name}: {e}")
         
-        # Try Alpaca as fallback
+        # Try with the active provider
+        try:
+            logger.info(f"Fetching latest price for {symbol} using {self.active_provider.name}")
+            return await self.active_provider.get_latest_price(symbol)
+        except Exception as e:
+            logger.error(f"Error fetching latest price from {self.active_provider.name}: {e}")
+            
+        # Legacy fallback for backward compatibility
         if self.alpaca_client:
             try:
+                logger.info(f"Falling back to legacy Alpaca client for {symbol} price")
                 last_trade = self.alpaca_client.get_latest_trade(symbol)
                 if last_trade:
                     return last_trade.price
             except Exception as e:
-                logger.error(f"Error fetching latest price from Alpaca: {e}")
+                logger.error(f"Error fetching latest price from legacy Alpaca client: {e}")
         
-        # If all else fails, get the last price from historical data
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=5)
-        df = await self.get_historical_data(symbol, start_date, end_date)
-        if not df.empty:
-            return df['close'].iloc[-1]
+        # Fallback to historical data
+        try:
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=5)
+            df = await self.get_historical_data(symbol, start_date, end_date)
+            if not df.empty:
+                return df['close'].iloc[-1]
+        except Exception as e:
+            logger.error(f"Historical data fallback failed: {e}")
+        
+        # Final fallback - try sample data provider
+        sample_provider = self.provider_factory.get_provider("sample")
+        if sample_provider:
+            try:
+                return await sample_provider.get_latest_price(symbol)
+            except Exception as e:
+                logger.error(f"Sample data provider failed: {e}")
         
         # If we still can't get a price, raise an exception
-        raise ValueError(f"Could not get latest price for {symbol}")
+        raise ValueError(f"Could not get latest price for {symbol} from any source")
     
-    async def get_market_symbols(self, market_type: str = "stock") -> List[str]:
+    async def get_market_symbols(self, market_type: str = "stock", provider_name: Optional[str] = None) -> List[str]:
         """
         Get a list of available market symbols.
         
         Args:
             market_type: Type of market ('stock', 'crypto', etc.)
+            provider_name: Optional specific provider to use for this request
             
         Returns:
             List of available symbols
         """
-        symbols = []
+        # If a specific provider is requested for this call
+        if provider_name:
+            provider = self.provider_factory.get_provider(provider_name)
+            if provider:
+                try:
+                    return await provider.get_market_symbols(market_type)
+                except Exception as e:
+                    logger.error(f"Error fetching symbols from {provider_name}: {e}")
         
-        # Try IEX Cloud first
-        if self.iex_client:
-            try:
-                if market_type == "stock":
-                    symbols_data = self.iex_client.symbols()
-                    symbols = [s['symbol'] for s in symbols_data if s['isEnabled']]
-                return symbols[:100]  # Limit to 100 symbols
-            except Exception as e:
-                logger.error(f"Error fetching symbols from IEX Cloud: {e}")
-        
-        # Try Alpaca as fallback
+        # Try with the active provider
+        try:
+            logger.info(f"Fetching {market_type} symbols using {self.active_provider.name}")
+            return await self.active_provider.get_market_symbols(market_type)
+        except Exception as e:
+            logger.error(f"Error fetching symbols from {self.active_provider.name}: {e}")
+            
+        # Legacy fallback for backward compatibility
         if self.alpaca_client:
             try:
+                logger.info(f"Falling back to legacy Alpaca client for symbols")
                 assets = self.alpaca_client.list_assets(status='active')
                 symbols = [asset.symbol for asset in assets]
                 return symbols[:100]  # Limit to 100 symbols
             except Exception as e:
-                logger.error(f"Error fetching symbols from Alpaca: {e}")
+                logger.error(f"Error fetching symbols from legacy Alpaca client: {e}")
         
-        # Return a default list of common symbols as fallback
-        return ["AAPL", "MSFT", "AMZN", "GOOGL", "FB", "TSLA", "NVDA", "JPM", "JNJ", "V"]
+        # Final fallback - try sample data provider for default symbols
+        sample_provider = self.provider_factory.get_provider("sample")
+        if sample_provider:
+            try:
+                return await sample_provider.get_market_symbols(market_type)
+            except Exception as e:
+                logger.error(f"Sample data provider failed for symbols: {e}")
+                
+        # Return a hardcoded default list if everything fails
+        if market_type == "stock":
+            return ["AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA", "NVDA", "JPM", "JNJ", "V"]
+        elif market_type == "crypto":
+            return ["BTC-USD", "ETH-USD", "XRP-USD", "LTC-USD", "DOGE-USD"]
+        else:
+            return ["AAPL", "MSFT", "AMZN", "GOOGL", "META"]
     
-    def _generate_sample_data(
+    # Legacy method for backward compatibility - delegates to sample provider
+    async def _generate_sample_data(
         self,
         symbol: str,
         start_date: datetime,
@@ -215,7 +310,8 @@ class MarketDataService:
         timeframe: str = "1d"
     ) -> pd.DataFrame:
         """
-        Generate sample market data for testing.
+        Generate realistic sample market data (legacy method).
+        This method is maintained for backward compatibility.
         
         Args:
             symbol: The market symbol (e.g., 'AAPL')
@@ -226,40 +322,10 @@ class MarketDataService:
         Returns:
             DataFrame with sample data
         """
-        # Generate date range
-        if timeframe == "1d":
-            dates = pd.date_range(start=start_date, end=end_date, freq='B')
-        elif timeframe == "1h":
-            dates = pd.date_range(start=start_date, end=end_date, freq='H')
-        else:
-            dates = pd.date_range(start=start_date, end=end_date, freq='D')
-        
-        # Base price depends on the symbol (just for variety in the sample data)
-        symbol_hash = sum(ord(c) for c in symbol) % 100
-        base_price = 50 + symbol_hash
-        
-        # Generate random price data with a slight upward trend
-        n = len(dates)
-        trend = np.linspace(0, 15, n)  # Upward trend
-        noise = np.random.normal(0, 1, n)  # Random noise
-        prices = base_price + trend + noise * 3
-        
-        # Ensure prices are positive
-        prices = np.maximum(prices, 1)
-        
-        # Generate OHLCV data
-        data = {
-            'date': dates,
-            'open': prices,
-            'high': [p * (1 + abs(np.random.normal(0, 0.01))) for p in prices],
-            'low': [p * (1 - abs(np.random.normal(0, 0.01))) for p in prices],
-            'close': [p * (1 + np.random.normal(0, 0.005)) for p in prices],
-            'volume': [int(1000000 * abs(np.random.normal(1, 0.5))) for _ in range(n)]
-        }
-        
-        # Create DataFrame
-        df = pd.DataFrame(data)
-        df.set_index('date', inplace=True)
-        
-        logger.info(f"Generated sample data for {symbol} with {len(df)} data points")
-        return df
+        sample_provider = self.provider_factory.get_provider("sample")
+        if sample_provider:
+            return await sample_provider.get_historical_data(symbol, start_date, end_date, timeframe)
+            
+        # If provider isn't available for some reason, create an empty dataframe
+        logger.error("Sample data provider not available for fallback")
+        return pd.DataFrame()

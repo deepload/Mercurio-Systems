@@ -8,7 +8,7 @@ Mercurio AI is a comprehensive trading platform built with Python, featuring:
 
 - A robust FastAPI backend
 - Pluggable strategy system for custom trading algorithms
-- Market data integration with IEX Cloud and Alpaca
+- Market data integration with multiple providers (Polygon.io, Yahoo Finance, Alpaca) with automatic fallback
 - Real-time and paper trading capabilities
 - Backtesting system for strategy evaluation
 - Asynchronous task processing with Celery
@@ -55,8 +55,9 @@ mercurio_ai/
 
 - Python 3.11 or later
 - Docker and Docker Compose (for containerized deployment)
-- Alpaca API key and secret (for trading)
-- IEX Cloud API key (for market data)
+- Polygon.io API key (recommended for market data)
+- Alpaca API key and secret (for trading and optionally market data)
+- No API key needed if using Yahoo Finance (free) or sample data providers
 
 ### Installation
 
@@ -175,6 +176,8 @@ This project is open-source and available under the MIT License.
 
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
+- [Polygon.io](https://polygon.io/)
+- [Yahoo Finance](https://finance.yahoo.com/)
 - [Alpaca API](https://alpaca.markets/)
-- [IEX Cloud](https://iexcloud.io/)
+- [Alpaca Markets](https://alpaca.markets/)
 - [Backtrader](https://www.backtrader.com/)
