@@ -12,11 +12,22 @@ import numpy as np
 import asyncio
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
+import sys
+import importlib
 
 # Import base provider
 from app.services.providers.base import MarketDataProvider
 
+# Setup logger first
 logger = logging.getLogger(__name__)
+
+# Try to directly import yfinance to make sure it's available
+try:
+    import yfinance as yf
+    YFINANCE_AVAILABLE = True
+except ImportError:
+    YFINANCE_AVAILABLE = False
+    logger.warning("yfinance package not available. If you just installed it, you may need to restart Python.")
 
 class YahooFinanceProvider(MarketDataProvider):
     """
@@ -45,13 +56,8 @@ class YahooFinanceProvider(MarketDataProvider):
     @property
     def is_available(self) -> bool:
         """Check if this provider is available to use"""
-        try:
-            # Check if yfinance is installed
-            import yfinance
-            return True
-        except ImportError:
-            logger.warning("yfinance package not installed, Yahoo Finance provider not available")
-            return False
+        # Use the global flag we set during import
+        return YFINANCE_AVAILABLE
     
     async def get_historical_data(
         self,
@@ -82,8 +88,12 @@ class YahooFinanceProvider(MarketDataProvider):
             start_date = end_date - timedelta(days=60)
         
         try:
-            # Import here to avoid dependency issues if Yahoo is not used
-            import yfinance as yf
+            # If yfinance isn't available, we wouldn't get here, but just to be safe
+            if not YFINANCE_AVAILABLE:
+                logger.error("yfinance package is required but not available")
+                raise ValueError("Could not get latest price - yfinance package not available")
+                
+            # No need to import again as we've already imported it globally if available
             
             # Run download in a thread to avoid blocking the event loop
             loop = asyncio.get_event_loop()
@@ -136,8 +146,12 @@ class YahooFinanceProvider(MarketDataProvider):
             Latest price
         """
         try:
-            # Import here to avoid dependency issues if Yahoo is not used
-            import yfinance as yf
+            # If yfinance isn't available, we wouldn't get here, but just to be safe
+            if not YFINANCE_AVAILABLE:
+                logger.error("yfinance package is required but not available")
+                raise ValueError("Could not get latest price - yfinance package not available")
+                
+            # No need to import again as we've already imported it globally if available
             
             # Run ticker info in a thread to avoid blocking the event loop
             loop = asyncio.get_event_loop()
