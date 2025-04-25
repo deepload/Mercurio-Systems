@@ -1,0 +1,48 @@
+2025-04-25 23:32:43,199 - INFO - Initialized PaperTrader with strategy MovingAverageStrategy
+2025-04-25 23:32:43,199 - INFO - Trading symbols: AAPL
+2025-04-25 23:32:43,199 - INFO - Risk limit per position: 2.0%
+2025-04-25 23:32:43,199 - INFO - Transaction costs: 0.100% + $0.00 (min: $0.00)
+2025-04-25 23:32:44,001 - INFO - Setting up services...
+2025-04-25 23:32:44,001 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:32:44,002 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:32:44,145 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:32:44,145 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:32:44,146 - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-25 23:32:44,147 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:32:44,147 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:32:44,147 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:32:44,147 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:32:44,587 - INFO - Connected to paper trading account: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-04-25 23:32:44,588 - INFO - Account status: ACTIVE
+2025-04-25 23:32:44,588 - INFO - Portfolio value: $99549.25
+2025-04-25 23:32:44,588 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:32:44,588 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:32:44,588 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:32:44,588 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:32:49,475 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:32:49,475 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:32:49,475 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:32:49,475 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:32:49,475 - INFO - Services set up successfully
+2025-04-25 23:32:49,598 - INFO - ==================================================
+2025-04-25 23:32:49,598 - INFO - PAPER TRADING CONFIRMATION
+2025-04-25 23:32:49,598 - INFO - ==================================================
+2025-04-25 23:32:49,598 - INFO - You are about to start PAPER TRADING (no real money)
+2025-04-25 23:32:49,598 - INFO - Account ID: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-04-25 23:32:49,598 - INFO - Paper Portfolio Value: $99549.25
+2025-04-25 23:32:49,599 - INFO - Strategy: MovingAverageStrategy
+2025-04-25 23:32:49,599 - INFO - Symbols: AAPL
+2025-04-25 23:32:49,599 - INFO - Transaction Costs: 0.100% + $0.00 (min: $0.00)
+2025-04-25 23:32:49,599 - INFO - ==================================================
+2025-04-25 23:33:02,781 - INFO - Paper trading confirmed. Starting trading loop...
+2025-04-25 23:33:02,782 - INFO - Starting paper trading loop...
+2025-04-25 23:33:02,968 - INFO - Market closed. Next open: 2025-04-28T09:30:00-04:00
+2025-04-25 23:33:02,968 - INFO - Market closed, waiting 30 minutes before checking again...
+2025-04-25 23:33:21,837 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:24,176 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:24,402 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:26,205 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:26,567 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:26,745 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:26,962 - INFO - Received termination signal. Stopping after current iteration...
+2025-04-25 23:33:27,257 - INFO - Received termination signal. Stopping after current iteration...

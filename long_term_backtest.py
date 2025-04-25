@@ -251,16 +251,26 @@ class LongTermBacktester:
             # Initialiser la stratégie
             strategy = await self.strategy_manager.get_strategy(strategy_name, strategy_params)
             
-            # Formatage des dates au format attendu par l'API
-            start_str = self.start_date.strftime("%Y-%m-%d")
-            end_str = self.end_date.strftime("%Y-%m-%d")
+            # Traitement spécial pour LSTM qui nécessite un entraînement préalable
+            if strategy_name == "LSTMPredictorStrategy" and hasattr(strategy, 'train'):
+                logger.info(f"Entraînement du modèle LSTM pour {symbol}...")
+                try:
+                    # Prétraiter les données
+                    processed_data = await strategy.preprocess_data(data)
+                    # Entraîner le modèle
+                    await strategy.train(processed_data)
+                    logger.info(f"Modèle LSTM entraîné avec succès pour {symbol}")
+                except Exception as e:
+                    logger.error(f"Erreur lors de l'entraînement du modèle LSTM pour {symbol}: {e}")
+                    return {"error": f"Erreur d'entraînement: {str(e)}"}
             
             # Exécuter le backtest standard (sans frais)
+            # Utiliser directement les objets datetime, pas les strings
             result = await self.backtesting_service.run_backtest(
                 strategy=strategy,
                 symbol=symbol,
-                start_date=start_str,
-                end_date=end_str,
+                start_date=self.start_date,  # Objet datetime, pas string
+                end_date=self.end_date,      # Objet datetime, pas string
                 initial_capital=self.config["initial_capital"]
             )
             
