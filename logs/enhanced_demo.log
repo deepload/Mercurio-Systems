@@ -1,0 +1,50 @@
+2025-04-25 23:58:40,757 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-25 23:58:40,757 - INFO - 
+================================================================================
+2025-04-25 23:58:40,757 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-25 23:58:40,758 - INFO - ================================================================================
+2025-04-25 23:58:40,758 - INFO - EventBus initialized
+2025-04-25 23:58:40,758 - INFO - Event subscriptions established
+2025-04-25 23:58:40,784 - INFO - Recent events: 2
+2025-04-25 23:58:40,784 - INFO -   Event: signal_generated at 1745618320.7816029
+2025-04-25 23:58:40,784 - INFO -   Event: market_data_updated at 1745618320.7582748
+2025-04-25 23:58:40,786 - INFO - Event system demonstration complete
+2025-04-25 23:58:40,786 - INFO - 
+================================================================================
+2025-04-25 23:58:40,786 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-25 23:58:40,786 - INFO - ================================================================================
+2025-04-25 23:58:40,786 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:58:40,788 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:58:40,928 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:58:40,929 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:58:40,929 - INFO - Added transformer: DataCleaner
+2025-04-25 23:58:40,929 - INFO - Added transformer: FeatureEngineer
+2025-04-25 23:58:40,929 - INFO - Pipeline initialized with transformers
+2025-04-25 23:58:40,930 - INFO - Fetching data for AAPL from 2024-04-25 to 2025-04-25
+2025-04-25 23:58:40,930 - INFO - Fetching historical data for AAPL from Alpaca
+2025-04-25 23:58:40,930 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-25 23:58:40,930 - WARNING - Using sample data for AAPL as fallback
+2025-04-25 23:58:40,931 - INFO - Initialized provider 'sample'
+2025-04-25 23:58:40,938 - INFO - Generated sample data for AAPL with 262 data points
+2025-04-25 23:58:40,946 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-25 23:58:40,946 - INFO - First request: 262 rows, 5 columns
+2025-04-25 23:58:40,946 - INFO - Added features: ...
+2025-04-25 23:58:40,948 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-25 23:58:40,948 - INFO - Second request (cached): 262 rows
+2025-04-25 23:58:40,948 - INFO - Raw data (no transformations): 262 rows, 5 columns
+2025-04-25 23:58:40,949 - INFO - Data pipeline demonstration complete
+2025-04-25 23:58:40,949 - INFO - 
+================================================================================
+2025-04-25 23:58:40,949 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-25 23:58:40,949 - INFO - ================================================================================
+2025-04-25 23:58:40,949 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-25 23:58:40,950 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:58:40,950 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:58:40,950 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:58:40,950 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:58:40,950 - INFO - Running backtest with MovingAverageStrategy
+2025-04-25 23:58:45,693 - INFO - Registered provider 'sample' with priority 100
+2025-04-25 23:58:45,695 - INFO - Registered provider 'polygon' with priority 10
+2025-04-25 23:58:45,695 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-25 23:58:45,695 - INFO - Legacy Alpaca client initialized successfully
+2025-04-25 23:58:45,707 - ERROR - Error in backtest: 'numpy.int64' object is not iterable

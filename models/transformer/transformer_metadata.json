@@ -1,0 +1,1 @@
+{"feature_columns": ["open", "high", "low", "close", "volume", "sma_20", "sma_50", "rsi_14", "macd", "macdsignal", "macdhist", "tr", "atr_14", "dx", "adx_14", "bb_middle", "bb_upper", "bb_lower", "future_return", "target_regression"], "sequence_length": 30, "prediction_horizon": 5, "signal_threshold": 0.6, "d_model": 32, "nhead": 4, "num_layers": 2}
