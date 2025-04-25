@@ -1,0 +1,64 @@
+{
+    "initial_capital": 10000.0,
+    "test_duration_hours": 24.0,
+    "symbols": [
+        "BTC/USDT",
+        "ETH/USDT",
+        "SOL/USDT"
+    ],
+    "update_interval_seconds": 60,
+    "risk_profiles": {
+        "conservative": {
+            "max_position_size": 0.02,
+            "max_drawdown": 0.1,
+            "max_daily_loss": 0.03,
+            "position_scaling": "volatility",
+            "stop_loss_pct": 0.03,
+            "take_profit_pct": 0.09
+        },
+        "moderate": {
+            "max_position_size": 0.05,
+            "max_drawdown": 0.15,
+            "max_daily_loss": 0.05,
+            "position_scaling": "volatility",
+            "stop_loss_pct": 0.05,
+            "take_profit_pct": 0.15
+        },
+        "aggressive": {
+            "max_position_size": 0.1,
+            "max_drawdown": 0.25,
+            "max_daily_loss": 0.08,
+            "position_scaling": "fixed",
+            "stop_loss_pct": 0.08,
+            "take_profit_pct": 0.24
+        }
+    },
+    "strategy_params": {
+        "MovingAverageStrategy": {
+            "short_window": 20,
+            "long_window": 50
+        },
+        "RSIStrategy": {
+            "rsi_period": 14,
+            "oversold_threshold": 30,
+            "overbought_threshold": 70
+        },
+        "LSTMPredictorStrategy": {
+            "sequence_length": 20,
+            "prediction_horizon": 5,
+            "epochs": 50
+        },
+        "TransformerStrategy": {
+            "sequence_length": 30,
+            "d_model": 32,
+            "nhead": 4,
+            "num_layers": 2,
+            "epochs": 20
+        },
+        "LLMStrategy": {
+            "model_name": "llama2-7b",
+            "use_local_model": false,
+            "news_lookback_hours": 24
+        }
+    }
+}

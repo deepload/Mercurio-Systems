@@ -30,7 +30,7 @@ This guide provides the essential steps to quickly begin trading with MercurioAI
 
 ## Paper Trading
 
-### Step 1: Quick Start (Basic)
+### Method 1: Quick Start (Basic)
 
 Run this command to start paper trading with default settings:
 
@@ -44,7 +44,40 @@ This will:
 - Check for signals every 60 seconds
 - Use a 2% risk limit per position
 
-### Step 2: Customized Paper Trading
+### Method 2: Comprehensive Strategy Testing
+
+To test and compare multiple strategies simultaneously in paper trading mode:
+
+```bash
+python paper_trading_test.py
+```
+
+This will:
+- Automatically discover and test all available strategies
+- Run them with the same initial capital and time period
+- Generate performance comparisons and reports
+- Help you identify the best-performing strategies
+
+For customized testing:
+
+```bash
+python paper_trading_test.py \
+  --capital 50000 \
+  --duration 48 \
+  --symbols BTC/USDT ETH/USDT \
+  --risk moderate \
+  --strategies TransformerStrategy LLMStrategy
+```
+
+Common options:
+- `--capital`: Initial capital amount (e.g., 50000 = $50,000)
+- `--duration`: Test duration in hours (e.g., 48 = 2 days)
+- `--symbols`: Space-separated list of symbols to trade
+- `--risk`: Risk profile to use (conservative, moderate, aggressive)
+- `--strategies`: Space-separated list of specific strategies to test
+- `--output`: Path for the output report file
+
+### Method 3: Customized Paper Trading
 
 For more control, use command-line options:
 
@@ -64,7 +97,7 @@ Common options:
 - `--interval`: Check frequency in seconds (300 = 5 minutes)
 - `--fee_percentage`: Simulated transaction fee percentage
 
-### Step 3: Strategy Configuration
+### Method 4: Strategy Configuration
 
 For advanced strategy parameters, use the `--params` option with JSON:
 
@@ -75,7 +108,7 @@ python run_paper_trading.py \
   --params '{"short_window": 20, "long_window": 50, "use_ml": true}'
 ```
 
-### Step 4: Monitor Performance
+### Method 5: Monitor Performance
 
 1. Watch the terminal output for:
    - Trading signals and confidence levels
@@ -225,4 +258,4 @@ python run_live_trading.py --close_all_positions
 
 Remember: successful algorithmic trading requires patience, disciplined risk management, and continuous learning. Start small, learn from each trade, and scale up gradually.
 
-*Last updated: April 25, 2025*
+*Last updated: April 26, 2025*

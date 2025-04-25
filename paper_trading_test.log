@@ -1,0 +1,372 @@
+2025-04-26 00:25:49,862 - __main__ - WARNING - Configuration file config/paper_test_config.json not found, using defaults
+2025-04-26 00:25:49,865 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:25:50,183 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:25:50,185 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:25:50,384 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:25:50,385 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:25:50,728 - __main__ - ERROR - Error running paper trading test: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+Traceback (most recent call last):
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 708, in main
+    await test.initialize()
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 188, in initialize
+    self.trading_service = TradingService(paper_mode=True)
+TypeError: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+2025-04-26 00:26:08,982 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:26:08,982 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:26:09,268 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:26:09,269 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:26:09,401 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:26:09,401 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:26:09,721 - __main__ - ERROR - Error running paper trading test: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+Traceback (most recent call last):
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 708, in main
+    await test.initialize()
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 188, in initialize
+    self.trading_service = TradingService(paper_mode=True)
+TypeError: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+2025-04-26 00:26:30,975 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:26:30,975 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:26:31,243 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:26:31,244 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:26:31,374 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:26:31,374 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:26:31,693 - __main__ - ERROR - Error running paper trading test: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+Traceback (most recent call last):
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 708, in main
+    await test.initialize()
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 188, in initialize
+    self.trading_service = TradingService(paper_mode=True)
+TypeError: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+2025-04-26 00:26:58,422 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:26:58,422 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:26:58,699 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:26:58,700 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:26:58,840 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:26:58,841 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:26:59,170 - __main__ - ERROR - Error running paper trading test: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+Traceback (most recent call last):
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 708, in main
+    await test.initialize()
+  File "D:\Projects\_trading\MercurioAI\paper_trading_test.py", line 188, in initialize
+    self.trading_service = TradingService(paper_mode=True)
+TypeError: TradingService.__init__() got an unexpected keyword argument 'paper_mode'
+2025-04-26 00:28:16,730 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:28:16,730 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:28:17,019 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:28:17,020 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:28:17,200 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:28:17,201 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:28:17,588 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:28:17,588 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:28:17,590 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:28:17,590 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:28:17,590 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:28:17,611 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:28:26,991 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:28:26,991 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:28:26,991 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:28:26,991 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:28:26,991 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:28:26,992 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:28:26,992 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:28:26,992 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:28:26,992 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:28:26,992 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:28:26,992 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:28:26,994 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:28:26,994 - __main__ - INFO - Initializing strategy: TransformerStrategy
+2025-04-26 00:28:26,994 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 30 sequence length
+2025-04-26 00:28:26,995 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:28:26,995 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:28:26,995 - __main__ - INFO - Test duration: 24.0 hours
+2025-04-26 00:28:26,995 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:28:26,995 - __main__ - INFO - Test time: 2025-04-26 00:28:26.995169, 24.00 hours remaining
+2025-04-26 00:28:26,995 - __main__ - ERROR - Error processing symbol BTC/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:28:26,995 - __main__ - ERROR - Error processing symbol ETH/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:28:26,996 - __main__ - ERROR - Error processing symbol SOL/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:29:27,008 - __main__ - INFO - Test time: 2025-04-26 00:29:27.008034, 23.98 hours remaining
+2025-04-26 00:29:27,008 - __main__ - ERROR - Error processing symbol BTC/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:29:27,008 - __main__ - ERROR - Error processing symbol ETH/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:29:27,008 - __main__ - ERROR - Error processing symbol SOL/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:30:27,009 - __main__ - INFO - Test time: 2025-04-26 00:30:27.009617, 23.97 hours remaining
+2025-04-26 00:30:27,009 - __main__ - ERROR - Error processing symbol BTC/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:30:27,009 - __main__ - ERROR - Error processing symbol ETH/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:30:27,009 - __main__ - ERROR - Error processing symbol SOL/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:31:27,010 - __main__ - INFO - Test time: 2025-04-26 00:31:27.010675, 23.95 hours remaining
+2025-04-26 00:31:27,011 - __main__ - ERROR - Error processing symbol BTC/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:31:27,011 - __main__ - ERROR - Error processing symbol ETH/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:31:27,011 - __main__ - ERROR - Error processing symbol SOL/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:32:27,018 - __main__ - INFO - Test time: 2025-04-26 00:32:27.018161, 23.93 hours remaining
+2025-04-26 00:32:27,018 - __main__ - ERROR - Error processing symbol BTC/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:32:27,018 - __main__ - ERROR - Error processing symbol ETH/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:32:27,018 - __main__ - ERROR - Error processing symbol SOL/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:33:55,594 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:33:55,594 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:33:55,844 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:33:55,845 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:33:55,968 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:33:55,968 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:33:56,264 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:33:56,264 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:33:56,264 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:33:56,265 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:33:56,265 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:33:56,269 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:34:03,782 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:34:03,783 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:34:03,783 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:34:03,783 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:34:03,783 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:34:03,783 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:34:03,784 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:34:03,784 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:34:03,784 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:34:03,784 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:34:03,784 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:34:03,785 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:34:03,785 - __main__ - INFO - Initializing strategy: TransformerStrategy
+2025-04-26 00:34:03,785 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 30 sequence length
+2025-04-26 00:34:03,785 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:34:03,786 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:34:03,786 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:34:03,786 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:34:03,786 - __main__ - INFO - Test time: 2025-04-26 00:34:03.786445, 0.10 hours remaining
+2025-04-26 00:34:03,786 - __main__ - ERROR - Error processing symbol BTC/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:34:03,786 - __main__ - ERROR - Error processing symbol ETH/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:34:03,786 - __main__ - ERROR - Error processing symbol SOL/USDT: 'MarketDataService' object has no attribute 'get_latest_data'
+2025-04-26 00:36:55,969 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:36:55,969 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:36:56,256 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:36:56,258 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:36:56,410 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:36:56,410 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:36:56,772 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:36:56,772 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:36:56,773 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:36:56,773 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:36:56,774 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:36:56,778 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:37:04,758 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:37:04,758 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:37:04,758 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:37:04,758 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:37:04,759 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:37:04,759 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:37:04,759 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:37:04,759 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:37:04,759 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:37:04,759 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:37:04,760 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:37:04,760 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:37:04,760 - __main__ - INFO - Initializing strategy: TransformerStrategy
+2025-04-26 00:37:04,761 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 30 sequence length
+2025-04-26 00:37:04,761 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:37:04,761 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:37:04,761 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:37:04,761 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:37:04,761 - __main__ - INFO - Test time: 2025-04-26 00:37:04.761147, 0.10 hours remaining
+2025-04-26 00:37:04,761 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:37:04,761 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:37:04,761 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:37:04,762 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:37:04,764 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:37:04,764 - __main__ - ERROR - Error processing symbol BTC/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:37:04,764 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:37:04,764 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:37:04,764 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:37:04,765 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:37:04,766 - __main__ - ERROR - Error processing symbol ETH/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:37:04,766 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:37:04,766 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:37:04,766 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:37:04,767 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:37:04,767 - __main__ - ERROR - Error processing symbol SOL/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:38:04,769 - __main__ - INFO - Test time: 2025-04-26 00:38:04.769460, 0.08 hours remaining
+2025-04-26 00:38:04,769 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:38:04,770 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:38:04,770 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:38:04,771 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:38:04,771 - __main__ - ERROR - Error processing symbol BTC/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:38:04,772 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:38:04,772 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:38:04,772 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:38:04,773 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:38:04,773 - __main__ - ERROR - Error processing symbol ETH/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:38:04,775 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:38:04,775 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:38:04,775 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:38:04,776 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:38:04,776 - __main__ - ERROR - Error processing symbol SOL/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:39:04,786 - __main__ - INFO - Test time: 2025-04-26 00:39:04.786846, 0.07 hours remaining
+2025-04-26 00:39:04,787 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:39:04,787 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:39:04,787 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:39:04,788 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:39:04,788 - __main__ - ERROR - Error processing symbol BTC/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:39:04,788 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:39:04,790 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:39:04,790 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:39:04,791 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:39:04,791 - __main__ - ERROR - Error processing symbol ETH/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:39:04,791 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:39:04,791 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:39:04,791 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:39:04,793 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:39:04,793 - __main__ - ERROR - Error processing symbol SOL/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:40:04,802 - __main__ - INFO - Test time: 2025-04-26 00:40:04.802987, 0.05 hours remaining
+2025-04-26 00:40:04,802 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:40:04,803 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:40:04,803 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:40:04,805 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:40:04,805 - __main__ - ERROR - Error processing symbol BTC/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:40:04,805 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:40:04,805 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:40:04,805 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:40:04,806 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:40:04,806 - __main__ - ERROR - Error processing symbol ETH/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:40:04,806 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:40:04,806 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:40:04,806 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:40:04,808 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:40:04,808 - __main__ - ERROR - Error processing symbol SOL/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:41:17,611 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:41:17,612 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:41:17,870 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:41:17,871 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:41:17,996 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:41:17,996 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:41:18,295 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:41:18,295 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:41:18,295 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:41:18,295 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:41:18,295 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:41:18,298 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:41:26,321 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:41:26,321 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:41:26,321 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:41:26,321 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:41:26,321 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:41:26,321 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:41:26,321 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:41:26,322 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:41:26,322 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:41:26,322 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:41:26,322 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:41:26,322 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:41:26,322 - __main__ - INFO - Initializing strategy: TransformerStrategy
+2025-04-26 00:41:26,323 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 30 sequence length
+2025-04-26 00:41:26,323 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:41:26,323 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:41:26,323 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:41:26,323 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:41:26,323 - __main__ - INFO - Test time: 2025-04-26 00:41:26.323992, 0.10 hours remaining
+2025-04-26 00:41:26,323 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:41:26,325 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:41:26,325 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:41:26,325 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:41:26,327 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:41:26,328 - __main__ - ERROR - Error processing symbol BTC/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:41:26,328 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:41:26,328 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:41:26,328 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:41:26,330 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:41:26,330 - __main__ - ERROR - Error processing symbol ETH/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:41:26,330 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:41:26,330 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:41:26,330 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:41:26,332 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:41:26,333 - __main__ - ERROR - Error processing symbol SOL/USDT: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2025-04-26 00:42:38,811 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:42:38,811 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:42:39,067 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:42:39,068 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:42:39,190 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:42:39,190 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:42:39,495 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:42:39,496 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:42:39,496 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:42:39,496 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:42:39,496 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:42:39,500 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:42:47,266 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:42:47,266 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:42:47,266 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:42:47,266 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:42:47,266 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:42:47,266 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:42:47,268 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:42:47,268 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:42:47,268 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:42:47,268 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:42:47,268 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:42:47,268 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:42:47,268 - __main__ - INFO - Initializing strategy: TransformerStrategy
+2025-04-26 00:42:47,269 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 30 sequence length
+2025-04-26 00:42:47,269 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:42:47,269 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:42:47,269 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:42:47,269 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:42:47,269 - __main__ - INFO - Test time: 2025-04-26 00:42:47.269736, 0.10 hours remaining
+2025-04-26 00:42:47,269 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:42:47,270 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:42:47,270 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:42:47,270 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:42:47,272 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:42:47,272 - __main__ - WARNING - Insufficient data for BTC/USDT, skipping
+2025-04-26 00:42:47,272 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:42:47,272 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:42:47,273 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:42:47,274 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:42:47,274 - __main__ - WARNING - Insufficient data for ETH/USDT, skipping
+2025-04-26 00:42:47,274 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:42:47,274 - app.services.market_data - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 00:42:47,274 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:42:47,275 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:42:47,276 - __main__ - WARNING - Insufficient data for SOL/USDT, skipping
+2025-04-26 00:43:47,737 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:43:47,737 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:43:47,982 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:43:47,983 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:43:48,108 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:43:48,108 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:43:48,403 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:43:48,403 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:43:48,404 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:43:48,404 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:43:48,404 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:43:48,408 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:43:55,830 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:43:55,830 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:43:55,830 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:43:55,830 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:43:55,830 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:43:55,830 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:43:55,831 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:43:55,831 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:43:55,831 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:43:55,831 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:43:55,831 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:43:55,831 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:43:55,832 - __main__ - INFO - Initializing strategy: TransformerStrategy
+2025-04-26 00:43:55,832 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 30 sequence length
+2025-04-26 00:43:55,832 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:43:55,832 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:43:55,833 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:43:55,833 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:43:55,833 - __main__ - INFO - Test time: 2025-04-26 00:43:55.833945, 0.10 hours remaining
+2025-04-26 00:43:55,833 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:43:56,237 - app.services.market_data - ERROR - Error fetching data from Alpaca: Not Found
+2025-04-26 00:43:56,237 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:43:56,237 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:43:56,238 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:43:56,238 - __main__ - WARNING - Insufficient data for BTC/USDT, skipping
+2025-04-26 00:43:56,240 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:43:56,354 - app.services.market_data - ERROR - Error fetching data from Alpaca: Not Found
+2025-04-26 00:43:56,354 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:43:56,356 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:43:56,356 - __main__ - WARNING - Insufficient data for ETH/USDT, skipping
+2025-04-26 00:43:56,356 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:43:56,470 - app.services.market_data - ERROR - Error fetching data from Alpaca: Not Found
+2025-04-26 00:43:56,472 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:43:56,473 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:43:56,473 - __main__ - WARNING - Insufficient data for SOL/USDT, skipping
