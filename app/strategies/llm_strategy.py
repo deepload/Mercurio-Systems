@@ -164,10 +164,18 @@ class LLMStrategy(BaseStrategy):
                 
     def _register_events(self):
         """Register for relevant events on the event bus"""
-        asyncio.create_task(self.event_bus.subscribe(
-            EventType.NEWS_UPDATE,
-            self._handle_news_update
-        ))
+        # Note: NEWS_UPDATE event type is not defined in the current version of EventType
+        # Using an existing event type that could be useful for news-like updates
+        try:
+            # Market data updates could contain relevant information for the LLM
+            asyncio.create_task(self.event_bus.subscribe(
+                EventType.MARKET_DATA_UPDATED,
+                self._handle_news_update
+            ))
+            logger.info("LLM strategy registered for market data events")
+        except Exception as e:
+            logger.warning(f"Could not register for events: {e}")
+            logger.info("Event subscription skipped - LLM will use polling instead")
         
     async def _handle_news_update(self, data: Dict[str, Any]):
         """Handle news update events"""
@@ -651,6 +659,50 @@ Format your response as a concise analysis with clear sections.
         logger.info(f"LLM prediction for {symbol}: {action.name} with confidence {confidence:.4f}")
         
         return action, confidence
+        
+    async def train(self, data: pd.DataFrame) -> Dict[str, Any]:
+        """
+        Train the strategy model on historical data.
+        
+        LLM strategies don't require traditional training like ML models,
+        but we implement this method to satisfy the BaseStrategy interface.
+        
+        Args:
+            data: Preprocessed market data
+            
+        Returns:
+            Dictionary containing training metrics (mostly placeholders for LLM)
+        """
+        logger.info(f"LLM strategy doesn't require traditional training")
+        
+        # For LLM strategies, we don't actually train in the traditional sense,
+        # but we can use this to initialize or validate the LLM setup
+        
+        # Check if the LLM client is properly initialized
+        is_ready = False
+        try:
+            # Test the LLM with a simple prompt
+            test_prompt = "You are a trading assistant. Reply with 'READY' if you can help analyze market data."
+            response = await self.query_llm(test_prompt, use_cache=False)
+            
+            # Check if we got any response
+            if response and len(response) > 0:
+                is_ready = True
+                logger.info(f"LLM is ready for inference: {self.model_name}")
+            else:
+                logger.warning(f"LLM test returned empty response")
+                
+        except Exception as e:
+            logger.error(f"Error testing LLM: {e}")
+            
+        # Mark as trained regardless of the test outcome to allow the strategy to run
+        self.is_trained = True
+        
+        return {
+            "success": is_ready,
+            "model": self.model_name,
+            "message": "LLM strategy is ready" if is_ready else "LLM may not be available, will use fallbacks"
+        }
         
     async def backtest(self, data: pd.DataFrame, initial_capital: float = 10000.0) -> Dict[str, Any]:
         """

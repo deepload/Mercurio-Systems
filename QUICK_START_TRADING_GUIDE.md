@@ -123,6 +123,94 @@ python run_paper_trading.py \
 
 3. Review the performance report after each trading session
 
+## Advanced Strategy Testing
+
+### Testing LLM Strategies
+
+MercurioAI includes advanced LLM-based strategies that can analyze market sentiment and make trading decisions using natural language understanding. Here's how to test and utilize them:
+
+```bash
+# Test the LLM strategy with specific parameters
+python paper_trading_test.py --strategies LLMStrategy --duration 24 --symbols BTC/USDT,ETH/USDT
+```
+
+Key parameters for LLM strategies:
+
+```json
+{
+  "strategy_params": {
+    "LLMStrategy": {
+      "model_path": "models/llama-2-7b-chat.gguf",
+      "context_window": 72,
+      "temperature": 0.7,
+      "max_tokens": 512
+    }
+  }
+}
+```
+
+### Testing Transformer Strategies
+
+Transformer-based models can identify complex patterns in financial time series:
+
+```bash
+python paper_trading_test.py --strategies TransformerStrategy --duration 24
+```
+
+Customizing transformer parameters:
+
+```bash
+python run_paper_trading.py \
+  --strategy TransformerStrategy \
+  --symbols BTC/USDT \
+  --params '{"sequence_length": 30, "d_model": 64, "nhead": 4, "num_layers": 2}'
+```
+
+### Comparative Strategy Testing
+
+To compare multiple strategies head-to-head, including traditional and LLM-based approaches:
+
+```bash
+python paper_trading_test.py \
+  --strategies MovingAverageStrategy,RSIStrategy,LLMStrategy,TransformerStrategy \
+  --duration 48 \
+  --symbols BTC/USDT,ETH/USDT \
+  --risk moderate
+```
+
+This will generate comprehensive performance metrics for all strategies, including:
+- Total return
+- Annualized return
+- Maximum drawdown
+- Sharpe ratio
+- Win rate
+- Number of trades
+
+### LLM Strategy Configuration
+
+For optimal LLM strategy performance, you can customize these parameters in the configuration file:
+
+1. **Model Selection**: Choose between different LLM models in the `model_path` parameter
+2. **Context Window**: Adjust the `context_window` parameter to control how much historical data is analyzed
+3. **Temperature**: Control randomness with the `temperature` parameter (lower is more deterministic)
+4. **Prompt Templates**: Customize analysis prompts in the strategy file
+
+Example configuration in `config/paper_test_config.json`:
+
+```json
+{
+  "strategy_params": {
+    "LLMStrategy": {
+      "model_path": "models/mistral-7b-instruct-v0.2.Q4_K_M.gguf",
+      "context_window": 48,
+      "temperature": 0.5,
+      "strategy_type": "sentiment",
+      "data_sources": ["price", "volume", "news"]
+    }
+  }
+}
+```
+
 ## Live Trading
 
 > **WARNING**: Only proceed to live trading after:

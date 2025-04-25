@@ -370,3 +370,193 @@ TypeError: TradingService.__init__() got an unexpected keyword argument 'paper_m
 2025-04-26 00:43:56,472 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
 2025-04-26 00:43:56,473 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
 2025-04-26 00:43:56,473 - __main__ - WARNING - Insufficient data for SOL/USDT, skipping
+2025-04-26 00:46:30,183 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:46:30,183 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:46:30,508 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:46:30,509 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:46:30,648 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:46:30,648 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:46:30,968 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:46:30,968 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:46:30,969 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:46:30,969 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:46:30,969 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:46:30,972 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:46:38,414 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:46:38,414 - __main__ - ERROR - Error initializing strategy LLMStrategy: Can't instantiate abstract class LLMStrategy with abstract method train
+2025-04-26 00:46:38,414 - __main__ - INFO - Initialized 0 strategies
+2025-04-26 00:46:38,414 - __main__ - ERROR - No strategies initialized, cannot run test
+2025-04-26 00:46:38,414 - __main__ - ERROR - No results to report
+2025-04-26 00:46:38,414 - __main__ - INFO - Paper trading test completed successfully
+2025-04-26 00:47:54,941 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:47:54,941 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:47:55,196 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:47:55,198 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:47:55,326 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:47:55,327 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:47:55,658 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:47:55,658 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:47:55,658 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:47:55,658 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:47:55,659 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:47:55,663 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:48:03,802 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:48:03,802 - app.strategies.llm_strategy - WARNING - No endpoint URL specified for model llama2-7b
+2025-04-26 00:48:03,802 - __main__ - ERROR - Error initializing strategy LLMStrategy: type object 'EventType' has no attribute 'NEWS_UPDATE'
+2025-04-26 00:48:03,803 - __main__ - INFO - Initialized 0 strategies
+2025-04-26 00:48:03,803 - __main__ - ERROR - No strategies initialized, cannot run test
+2025-04-26 00:48:03,803 - __main__ - ERROR - No results to report
+2025-04-26 00:48:03,803 - __main__ - INFO - Paper trading test completed successfully
+2025-04-26 00:48:20,675 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:48:20,675 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:48:20,932 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:48:20,933 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:48:21,062 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:48:21,062 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:48:21,387 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:48:21,387 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:48:21,387 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:48:21,387 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:48:21,388 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:48:21,392 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:48:29,208 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:48:29,210 - app.strategies.llm_strategy - WARNING - No endpoint URL specified for model llama2-7b
+2025-04-26 00:48:29,210 - __main__ - ERROR - Error initializing strategy LLMStrategy: type object 'EventType' has no attribute 'NEWS_UPDATE'
+2025-04-26 00:48:29,210 - __main__ - INFO - Initialized 0 strategies
+2025-04-26 00:48:29,210 - __main__ - ERROR - No strategies initialized, cannot run test
+2025-04-26 00:48:29,210 - __main__ - ERROR - No results to report
+2025-04-26 00:48:29,211 - __main__ - INFO - Paper trading test completed successfully
+2025-04-26 00:52:15,727 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:52:15,727 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:52:16,003 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:52:16,004 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:52:16,132 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:52:16,132 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:52:16,451 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:52:16,452 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:52:16,452 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:52:16,452 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:52:16,452 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:52:16,456 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:52:24,408 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:52:24,408 - app.strategies.llm_strategy - WARNING - No endpoint URL specified for model llama2-7b
+2025-04-26 00:52:24,408 - app.strategies.llm_strategy - WARNING - Could not register for events: a coroutine was expected, got '5047ce04-634f-44d4-8faa-702c49771e0b'
+2025-04-26 00:52:24,408 - app.strategies.llm_strategy - INFO - Event subscription skipped - LLM will use polling instead
+2025-04-26 00:52:24,409 - app.strategies.llm_strategy - INFO - Initialized LLMStrategy with llama2-7b
+2025-04-26 00:52:24,409 - __main__ - INFO - Initialized 1 strategies
+2025-04-26 00:52:24,409 - __main__ - INFO - Starting paper trading test with 1 strategies
+2025-04-26 00:52:24,409 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:52:24,409 - __main__ - INFO - Symbols: BTC/USDT,ETH/USDT
+2025-04-26 00:52:24,409 - __main__ - INFO - Test time: 2025-04-26 00:52:24.409749, 0.10 hours remaining
+2025-04-26 00:52:24,409 - app.services.market_data - INFO - Fetching historical data for BTC/USDT,ETH/USDT from Alpaca
+2025-04-26 00:52:24,810 - app.services.market_data - ERROR - Error fetching data from Alpaca: Not Found
+2025-04-26 00:52:24,811 - app.services.market_data - WARNING - Using sample data for BTC/USDT,ETH/USDT as fallback
+2025-04-26 00:52:24,811 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:52:24,813 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT,ETH/USDT with 5 data points
+2025-04-26 00:52:24,813 - __main__ - WARNING - Insufficient data for BTC/USDT,ETH/USDT, skipping
+2025-04-26 00:53:11,694 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:53:11,694 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:53:11,949 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:53:11,950 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:53:12,086 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:53:12,087 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:53:12,391 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:53:12,391 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:53:12,391 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:53:12,391 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:53:12,391 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:53:12,395 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:53:20,177 - __main__ - ERROR - Error importing strategy from app\strategies\transformer_strategy.py: No module named 'torch'
+2025-04-26 00:53:20,177 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:53:20,177 - app.strategies.llm_strategy - WARNING - No endpoint URL specified for model llama2-7b
+2025-04-26 00:53:20,178 - app.strategies.llm_strategy - WARNING - Could not register for events: a coroutine was expected, got 'dd0425e3-eb4b-4a19-81cd-9d3582e42009'
+2025-04-26 00:53:20,178 - app.strategies.llm_strategy - INFO - Event subscription skipped - LLM will use polling instead
+2025-04-26 00:53:20,178 - app.strategies.llm_strategy - INFO - Initialized LLMStrategy with llama2-7b
+2025-04-26 00:53:20,178 - __main__ - INFO - Initialized 1 strategies
+2025-04-26 00:53:20,178 - __main__ - INFO - Starting paper trading test with 1 strategies
+2025-04-26 00:53:20,178 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:53:20,179 - __main__ - INFO - Symbols: BTC/USDT,ETH/USDT
+2025-04-26 00:53:20,179 - __main__ - INFO - Test time: 2025-04-26 00:53:20.179397, 0.10 hours remaining
+2025-04-26 00:53:20,179 - app.services.market_data - INFO - Fetching historical data for BTC/USDT,ETH/USDT from Alpaca
+2025-04-26 00:53:20,536 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USDT,ETH/USDT/bars?timeframe=1Day&adjustment=raw&start=2025-04-19T00%3A53%3A20.179397&end=2025-04-26T00%3A53%3A20.179397
+2025-04-26 00:53:20,536 - app.services.market_data - WARNING - Using sample data for BTC/USDT,ETH/USDT as fallback
+2025-04-26 00:53:20,536 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:53:20,538 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT,ETH/USDT with 5 data points
+2025-04-26 00:53:20,538 - __main__ - WARNING - Insufficient data for BTC/USDT,ETH/USDT, skipping
+2025-04-26 00:55:18,649 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:55:18,650 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:55:18,988 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:55:18,989 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:55:19,124 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:55:19,124 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:55:19,536 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:55:19,536 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:55:19,537 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:55:19,537 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:55:19,537 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:55:19,541 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:55:27,718 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:55:27,718 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:55:27,718 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:55:27,719 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:55:27,719 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:55:27,719 - __main__ - INFO - Initialized 1 strategies
+2025-04-26 00:55:27,719 - __main__ - INFO - Starting paper trading test with 1 strategies
+2025-04-26 00:55:27,719 - __main__ - INFO - Test duration: 0.1 hours
+2025-04-26 00:55:27,719 - __main__ - INFO - Symbols: BTC/USDT,ETH/USDT
+2025-04-26 00:55:27,720 - __main__ - INFO - Test time: 2025-04-26 00:55:27.720628, 0.10 hours remaining
+2025-04-26 00:55:27,720 - app.services.market_data - INFO - Fetching historical data for BTC/USDT,ETH/USDT from Alpaca
+2025-04-26 00:55:28,097 - app.services.market_data - ERROR - Error fetching data from Alpaca: Not Found
+2025-04-26 00:55:28,097 - app.services.market_data - WARNING - Using sample data for BTC/USDT,ETH/USDT as fallback
+2025-04-26 00:55:28,099 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:55:28,101 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT,ETH/USDT with 5 data points
+2025-04-26 00:55:28,101 - __main__ - WARNING - Insufficient data for BTC/USDT,ETH/USDT, skipping
+2025-04-26 00:56:51,012 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-26 00:56:51,012 - __main__ - INFO - Initializing paper trading test
+2025-04-26 00:56:51,267 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:56:51,269 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:56:51,403 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:56:51,404 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:56:51,699 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-04-26 00:56:51,699 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:56:51,700 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:56:51,700 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:56:51,700 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:56:51,704 - app.core.event_bus - INFO - EventBus initialized
+2025-04-26 00:56:55,995 - __main__ - ERROR - Error importing strategy from app\strategies\transformer_strategy.py: No module named 'torch'
+2025-04-26 00:56:55,995 - __main__ - INFO - Initializing strategy: LLMStrategy
+2025-04-26 00:56:55,995 - app.strategies.llm_strategy - WARNING - No endpoint URL specified for model llama2-7b
+2025-04-26 00:56:55,995 - app.strategies.llm_strategy - WARNING - Could not register for events: a coroutine was expected, got '4d5c9280-01f3-4c98-95f8-160a557c048b'
+2025-04-26 00:56:55,995 - app.strategies.llm_strategy - INFO - Event subscription skipped - LLM will use polling instead
+2025-04-26 00:56:55,995 - app.strategies.llm_strategy - INFO - Initialized LLMStrategy with llama2-7b
+2025-04-26 00:56:55,997 - __main__ - INFO - Initializing strategy: LSTMPredictorStrategy
+2025-04-26 00:56:55,997 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:56:55,997 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:56:55,997 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:56:55,997 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:56:55,997 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-26 00:56:55,998 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-26 00:56:55,998 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 00:56:55,998 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 00:56:55,998 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 00:56:55,998 - __main__ - INFO - Initialized 3 strategies
+2025-04-26 00:56:55,998 - __main__ - INFO - Starting paper trading test with 3 strategies
+2025-04-26 00:56:55,999 - __main__ - INFO - Test duration: 24.0 hours
+2025-04-26 00:56:55,999 - __main__ - INFO - Symbols: BTC/USDT, ETH/USDT, SOL/USDT
+2025-04-26 00:56:55,999 - __main__ - INFO - Test time: 2025-04-26 00:56:55.999153, 24.00 hours remaining
+2025-04-26 00:56:55,999 - app.services.market_data - INFO - Fetching historical data for BTC/USDT from Alpaca
+2025-04-26 00:56:56,368 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USDT/bars?timeframe=1Day&adjustment=raw&start=2025-04-19T00%3A56%3A55.999153&end=2025-04-26T00%3A56%3A55.999153
+2025-04-26 00:56:56,368 - app.services.market_data - WARNING - Using sample data for BTC/USDT as fallback
+2025-04-26 00:56:56,368 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-26 00:56:56,370 - app.services.providers.sample - INFO - Generated sample data for BTC/USDT with 5 data points
+2025-04-26 00:56:56,371 - __main__ - WARNING - Insufficient data for BTC/USDT, skipping
+2025-04-26 00:56:56,371 - app.services.market_data - INFO - Fetching historical data for ETH/USDT from Alpaca
+2025-04-26 00:56:56,485 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USDT/bars?timeframe=1Day&adjustment=raw&start=2025-04-19T00%3A56%3A56.371260&end=2025-04-26T00%3A56%3A56.371260
+2025-04-26 00:56:56,485 - app.services.market_data - WARNING - Using sample data for ETH/USDT as fallback
+2025-04-26 00:56:56,487 - app.services.providers.sample - INFO - Generated sample data for ETH/USDT with 5 data points
+2025-04-26 00:56:56,487 - __main__ - WARNING - Insufficient data for ETH/USDT, skipping
+2025-04-26 00:56:56,487 - app.services.market_data - INFO - Fetching historical data for SOL/USDT from Alpaca
+2025-04-26 00:56:56,603 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/SOL/USDT/bars?timeframe=1Day&adjustment=raw&start=2025-04-19T00%3A56%3A56.487217&end=2025-04-26T00%3A56%3A56.487217
+2025-04-26 00:56:56,603 - app.services.market_data - WARNING - Using sample data for SOL/USDT as fallback
+2025-04-26 00:56:56,604 - app.services.providers.sample - INFO - Generated sample data for SOL/USDT with 5 data points
+2025-04-26 00:56:56,604 - __main__ - WARNING - Insufficient data for SOL/USDT, skipping
