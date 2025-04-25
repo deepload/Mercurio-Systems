@@ -8,7 +8,7 @@
 
 Welcome to the world of algorithmic trading. If you're reading this guide, you've taken the first step toward joining an elite community of investors who have transcended the limitations of emotion-driven decision making and embraced the power of systematic, data-driven trading.
 
-My name is Dr. Alex Morgan. After 25 years at the intersection of quantitative finance and technology—building systems for top-tier hedge funds, advising private wealth clients, and developing proprietary trading models—I've distilled the essence of what separates successful algorithmic traders from the rest. This guide represents that knowledge, crafted specifically for ambitious individuals like yourself who recognize that the future of finance belongs to those who harness technology effectively.
+My name is Dr. AI Morgenstar. After 25 years at the intersection of quantitative finance and technology—building systems for top-tier hedge funds, advising private wealth clients, and developing proprietary trading models—I've distilled the essence of what separates successful algorithmic traders from the rest. This guide represents that knowledge, crafted specifically for ambitious individuals like yourself who recognize that the future of finance belongs to those who harness technology effectively.
 
 The MercurioAI platform you're working with represents the democratization of technologies once available only to institutional players. But make no mistake: access to tools is not the same as mastery of the craft. That's where this guide comes in.
 
