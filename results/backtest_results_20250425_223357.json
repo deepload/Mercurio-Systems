@@ -1,0 +1,26 @@
+{
+  "AAPL": {
+    "MovingAverageStrategy": {
+      "error": "'str' object has no attribute 'isoformat'"
+    },
+    "LSTMPredictorStrategy": {
+      "error": "Model is not trained yet"
+    }
+  },
+  "MSFT": {
+    "MovingAverageStrategy": {
+      "error": "'str' object has no attribute 'isoformat'"
+    },
+    "LSTMPredictorStrategy": {
+      "error": "Model is not trained yet"
+    }
+  },
+  "GOOGL": {
+    "MovingAverageStrategy": {
+      "error": "'str' object has no attribute 'isoformat'"
+    },
+    "LSTMPredictorStrategy": {
+      "error": "Model is not trained yet"
+    }
+  }
+}

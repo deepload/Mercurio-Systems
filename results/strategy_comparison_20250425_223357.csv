@@ -1,0 +1,7 @@
+Symbol,Strategy,Total Return,Annualized Return,Sharpe Ratio,Max Drawdown,Trades,Total Fees,Avg Fee/Trade
+AAPL,MovingAverageStrategy,0,0,0,0,0,0,0
+AAPL,LSTMPredictorStrategy,0,0,0,0,0,0,0
+MSFT,MovingAverageStrategy,0,0,0,0,0,0,0
+MSFT,LSTMPredictorStrategy,0,0,0,0,0,0,0
+GOOGL,MovingAverageStrategy,0,0,0,0,0,0,0
+GOOGL,LSTMPredictorStrategy,0,0,0,0,0,0,0

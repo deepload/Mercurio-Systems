@@ -39,7 +39,7 @@ async def run_demo():
     logger.info("=" * 50)
     
     # Initialize services
-    market_data = MarketDataService()
+    market_data = MarketDataService()   
     trading_service = TradingService(is_paper=PAPER_TRADING)
     backtesting_service = BacktestingService()
     strategy_manager = StrategyManager()
