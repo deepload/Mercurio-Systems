@@ -31,8 +31,64 @@ class TimeframeStrategySimulator:
         self.strategies = {}
         self.end_date = datetime.now()
         self.start_date = self.end_date - timedelta(days=self.days)
-        self.stocks = ['AAPL', 'MSFT', 'GOOGL']
-        self.cryptos = ['BTC-USD', 'ETH-USD']
+        self.stocks = [
+    "AAPL",   # Apple
+    "MSFT",   # Microsoft
+    "GOOGL",  # Alphabet (Google)
+    "AMZN",   # Amazon
+    "NVDA",   # NVIDIA
+    "META",   # Meta Platforms (Facebook)
+    "TSLA",   # Tesla
+    "BRK.B",  # Berkshire Hathaway
+    "UNH",    # UnitedHealth Group
+    "V",      # Visa
+    "JPM",    # JPMorgan Chase
+    "MA",     # Mastercard
+    "XOM",    # ExxonMobil
+    "LLY",    # Eli Lilly
+    "JNJ",    # Johnson & Johnson
+    "PG",     # Procter & Gamble
+    "AVGO",   # Broadcom
+    "HD",     # Home Depot
+    "MRK",    # Merck & Co
+    "ABBV",   # AbbVie
+    "PEP",    # PepsiCo
+    "COST",   # Costco
+    "KO",     # Coca-Cola
+    "NFLX",   # Netflix
+    "ADBE",   # Adobe
+    "PFE",    # Pfizer
+    "CRM",    # Salesforce
+    "WMT",    # Walmart
+    "BAC",    # Bank of America
+    "AMD",    # Advanced Micro Devices
+]
+        self.cryptos = [
+    "BTC-USD",
+    "ETH-USD",
+    "LTC-USD",
+    "BCH-USD",
+    "DOGE-USD",
+    "LINK-USD",
+    "UNI-USD",
+    "AAVE-USD",
+    "AVAX-USD",
+    "BAT-USD",
+    "CRV-USD",
+    "DOT-USD",
+    "GRT-USD",
+    "MKR-USD",
+    "PEPE-USD",
+    "SHIB-USD",
+    "SOL-USD",
+    "SUSHI-USD",
+    "TRUMP-USD",
+    "USDC-USD",
+    "USDT-USD",
+    "XRP-USD",
+    "XTZ-USD",
+    "YFI-USD",
+]
         self.all_symbols = self.stocks + self.cryptos
 
     def initialize_strategies(self):
@@ -227,8 +283,8 @@ class TimeframeStrategySimulator:
 async def main():
     print("\n===== MERCURIO AI STRATEGY TIMEFRAME COMPARISON =====\n")
     simulators = [
-        TimeframeStrategySimulator('Day', days=2),
-        TimeframeStrategySimulator('Week', days=10)
+        TimeframeStrategySimulator('Day', days=31),
+        TimeframeStrategySimulator('Week', days=180)
     ]
     all_results = []
     for sim in simulators:

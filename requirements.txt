@@ -16,6 +16,9 @@ python-dotenv==1.0.0
 
 # Trading APIs and backtesting
 alpaca-trade-api==3.0.2
+polygon-api-client
+yfinance
+pycoingecko
 backtrader==1.9.76.123
 pyEX==0.2.7
 
