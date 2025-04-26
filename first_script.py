@@ -13,10 +13,13 @@ async def main():
     market_data = MarketDataService()
     
     # Get sample data for AAPL
+    from datetime import datetime
+    # Use a guaranteed Alpaca-supported symbol: 'AAPL' (Apple Inc.)
     data = await market_data.get_historical_data(
         symbol="AAPL",
-        start_date="2023-01-01",
-        end_date="2023-12-31"
+        start_date=datetime(2023, 1, 1),
+        end_date=datetime(2023, 12, 31),
+        timeframe="1Day"  # Use Alpaca-compatible timeframe
     )
     
     # Create a simple moving average strategy

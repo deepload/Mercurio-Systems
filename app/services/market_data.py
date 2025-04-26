@@ -177,11 +177,19 @@ class MarketDataService:
                     alpaca_timeframe = "1Hour"
                 
                 # Get historical data
+                # Format dates per Alpaca's requirements
+                if alpaca_timeframe in ["1Day", "1d"]:
+                    start_str = start_date.strftime("%Y-%m-%d")
+                    end_str = end_date.strftime("%Y-%m-%d")
+                else:
+                    # Use RFC3339 for intraday bars
+                    start_str = start_date.isoformat() + "Z"
+                    end_str = end_date.isoformat() + "Z"
                 data = self.alpaca_client.get_bars(
                     symbol, 
                     alpaca_timeframe,
-                    start=start_date.isoformat(),
-                    end=end_date.isoformat()
+                    start=start_str,
+                    end=end_str
                 ).df
                 
                 if not data.empty:
@@ -190,7 +198,13 @@ class MarketDataService:
                     return data
                 
             except Exception as e:
+                import traceback
                 logger.error(f"Error fetching data from Alpaca: {e}")
+                # Print full HTTP response if available
+                if hasattr(e, 'response') and e.response is not None:
+                    logger.error(f"Alpaca response status: {e.response.status_code}")
+                    logger.error(f"Alpaca response content: {e.response.text}")
+                traceback.print_exc()
         
         # Fallback to sample data if API calls fail
         logger.warning(f"Using sample data for {symbol} as fallback")
