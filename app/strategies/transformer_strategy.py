@@ -49,7 +49,8 @@ class TimeSeriesDataset(Dataset):
         self.seq_length = seq_length
         
     def __len__(self):
-        return len(self.data) - self.seq_length
+        # Ensure __len__ never returns negative values
+        return max(0, len(self.data) - self.seq_length)
         
     def __getitem__(self, idx):
         # Get sequence
@@ -425,18 +426,25 @@ class TransformerStrategy(BaseStrategy):
         
         # Prepare data for training
         X, y = await self._prepare_training_data(data)
-        
+
+        # Check for empty data
+        if X.shape[0] <= self.sequence_length or y.shape[0] <= self.sequence_length:
+            logger.warning(f"[TransformerStrategy] Not enough data to train (data rows: {X.shape[0]}, sequence_length: {self.sequence_length})")
+            return {"status": "error", "message": f"Not enough data to train Transformer (data rows: {X.shape[0]}, sequence_length: {self.sequence_length})"}
+
         # Split into train and validation sets (80/20)
         train_size = int(len(X) * 0.8)
         X_train, X_val = X[:train_size], X[train_size:]
         y_train, y_val = y[:train_size], y[train_size:]
-        
-        # Create datasets and dataloaders
+
+        # Create dataset and dataloaders
         train_dataset = TimeSeriesDataset(X_train, y_train, self.sequence_length)
         val_dataset = TimeSeriesDataset(X_val, y_val, self.sequence_length)
-        
+        if len(train_dataset) <= 0 or len(val_dataset) <= 0:
+            logger.warning(f"[TransformerStrategy] Training or validation dataset is empty (train: {len(train_dataset)}, val: {len(val_dataset)}). Skipping training.")
+            return {"status": "error", "message": "Training or validation dataset is empty. Skipping training."}
         train_loader = DataLoader(train_dataset, batch_size=self.batch_size, shuffle=True)
-        val_loader = DataLoader(val_dataset, batch_size=self.batch_size)
+        val_loader = DataLoader(val_dataset, batch_size=self.batch_size, shuffle=False)
         
         # Initialize model
         input_dim = X.shape[1]
