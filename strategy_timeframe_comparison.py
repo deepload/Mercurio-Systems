@@ -39,10 +39,15 @@ class TimeframeStrategySimulator:
         # Dynamically adjust parameters for timeframe
         if self.days <= 2:
             ma_short, ma_long = 1, 2
-            lstm_seq = 1
+            # LSTM is not meaningful for extremely short timeframes; set minimum sensible sequence length
+            lstm_seq = 10
+            logger.warning(f"[LSTM] Timeframe '{self.timeframe_name}' is too short for LSTM to be meaningful (days={self.days}). Using minimum sequence_length=10.")
         else:
             ma_short, ma_long = 2, 3
-            lstm_seq = 2
+            # Use up to 30, but not less than 10, and not more than days-1
+            lstm_seq = max(10, min(self.days - 1, 30))
+            if self.days - 1 < 10:
+                logger.warning(f"[LSTM] Timeframe '{self.timeframe_name}' has only {self.days} days. LSTM sequence_length set to {lstm_seq} (minimum is 10). Results may not be reliable.")
         try:
             from app.strategies.moving_average import MovingAverageStrategy
             self.strategies["MovingAverage"] = MovingAverageStrategy(
@@ -119,7 +124,10 @@ class TimeframeStrategySimulator:
                     preprocessed = await strat.preprocess_data(data.copy())
                     # Special handling for LSTM: if __lstm_error__ column exists, propagate error and skip
                     if isinstance(preprocessed, pd.DataFrame) and '__lstm_error__' in preprocessed.columns:
-                        error_msg = preprocessed['__lstm_error__'].iloc[0]
+                        if preprocessed.shape[0] == 0:
+                            error_msg = "LSTM preprocessing failed: empty DataFrame returned (not enough data for sequence_length)."
+                        else:
+                            error_msg = preprocessed['__lstm_error__'].iloc[0]
                         logger.warning(f"[LSTM] {strat_name} for {symbol} ({self.timeframe_name}): {error_msg}")
                         self.results.append({
                             'symbol': symbol,
