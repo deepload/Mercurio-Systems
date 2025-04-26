@@ -250,6 +250,40 @@ class TransformerStrategy(BaseStrategy):
     
     async def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
+        Patch: Robust to small datasets, always returns at least one row if possible.
+        """
+        if data is None or len(data) == 0:
+            logger.error("No data to preprocess")
+            return None
+        original_data = data.copy()
+        original_length = len(data)
+        df = data.copy()
+        # Make sure timestamp is a datetime
+        if 'timestamp' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['timestamp']):
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+        # Use smallest possible window for technical indicators if data is short
+        min_win = 2 if len(df) < 10 else 3
+        if 'sma_20' not in df.columns:
+            logger.info("Adding technical indicators")
+            df['sma_2'] = df['close'].rolling(window=2, min_periods=1).mean()
+            df['sma_3'] = df['close'].rolling(window=min_win, min_periods=1).mean()
+            df['ema_2'] = df['close'].ewm(span=2, adjust=False).mean()
+            df['ema_3'] = df['close'].ewm(span=min_win, adjust=False).mean()
+        # Calculate prediction target (future price movement)
+        logger.info("Calculating prediction targets")
+        df['target'] = df['close'].shift(-1)
+        df = df.dropna()
+        # Store feature columns: only numeric, exclude timestamp/date/symbol/etc.
+        self.feature_columns = [
+            col for col in df.columns
+            if col not in ['timestamp', 'target', 'symbol', 'date', 'date_str']
+            and pd.api.types.is_numeric_dtype(df[col])
+        ]
+        if len(df) == 0 and original_length > 0:
+            logger.warning(f"Not enough data after feature engineering for {self.__class__.__name__}. Using last available row as fallback.")
+            df = original_data.tail(1)
+        return df
+        """
         Preprocess data for training and prediction
         
         Args:
@@ -455,10 +489,12 @@ class TransformerStrategy(BaseStrategy):
                     target = target.to(self.device)
                     
                     output = self.model(data)
-                    val_loss += criterion(output.squeeze(), target).item()
+                    output = torch.sigmoid(output).view(-1)
+                    target = target.view(-1)
+                    loss = criterion(output, target).item()
                     
                     # Calculate accuracy
-                    pred = torch.sigmoid(output.squeeze()) > 0.5
+                    pred = torch.sigmoid(output) > 0.5
                     correct += pred.eq(target.view_as(pred)).sum().item()
             
             val_loss /= len(val_loader)
@@ -628,15 +664,64 @@ class TransformerStrategy(BaseStrategy):
         Returns:
             Backtest results
         """
+        # Check for empty or insufficient data
+        if data is None or len(data) == 0:
+            logger.warning("[TransformerStrategy] No data provided for backtest.")
+            return {
+                'initial_capital': initial_capital,
+                'final_equity': float('nan'),
+                'total_return': float('nan'),
+                'equity_curve': pd.DataFrame(),
+                'trades': [],
+                'position': 0,
+                'strategy': 'TransformerStrategy',
+                'error': 'No data provided for backtest.'
+            }
+        if len(data) < max(3, self.sequence_length + 1):
+            logger.warning(f"[TransformerStrategy] Not enough data to backtest (required: {max(3, self.sequence_length+1)}, got: {len(data)}). Skipping.")
+            return {
+                'initial_capital': initial_capital,
+                'final_equity': float('nan'),
+                'total_return': float('nan'),
+                'equity_curve': pd.DataFrame(),
+                'trades': [],
+                'position': 0,
+                'strategy': 'TransformerStrategy',
+                'error': f'Not enough data to backtest (required: {max(3, self.sequence_length+1)}, got: {len(data)}).'
+            }
         # Preprocess data if necessary
         if 'target' not in data.columns:
             data = await self.preprocess_data(data)
-            
+        # Check after preprocessing: must have 'close', not be empty, not all NaN
+        error_msg = None
+        def error_result(msg):
+            logger.error(f"[TransformerStrategy][ERROR] {msg}")
+            return {
+                'initial_capital': initial_capital,
+                'final_equity': float('nan'),
+                'total_return': float('nan'),
+                'initial_close': float('nan'),
+                'final_close': float('nan'),
+                'equity_curve': pd.DataFrame(),
+                'trades': [],
+                'position': 0,
+                'strategy': 'TransformerStrategy',
+                'error': msg
+            }
+        if data is None or len(data) == 0:
+            return error_result('No usable data after preprocessing.')
+        if 'close' not in data.columns:
+            return error_result('No close column after preprocessing.')
+        if data['close'].isna().all():
+            return error_result('All close values are NaN after preprocessing.')
+        initial_close = data['close'].iloc[0]
+        final_close = data['close'].iloc[-1]
+        if (pd.isna(initial_close) or pd.isna(final_close) or initial_close is None or final_close is None or initial_close == 0):
+            return error_result(f'Invalid initial/final close (initial: {initial_close}, final: {final_close})')
         # Make sure model is trained
         if not self.is_trained:
             logger.info("Model not trained, training now...")
             await self.train(data)
-            
         # Initialize backtest variables
         capital = initial_capital
         position = 0
@@ -727,20 +812,32 @@ class TransformerStrategy(BaseStrategy):
             final_equity += position * final_price
             
         # Calculate performance metrics
-        total_return = (final_equity / initial_capital) - 1
+        import math
+        error_msg = None
+        if initial_capital == 0:
+            logger.warning("[TransformerStrategy] initial_capital is zero, cannot compute return.")
+            total_return = float('nan')
+            error_msg = 'Initial capital is zero, cannot compute return.'
+        elif final_equity is None or math.isnan(final_equity) or math.isinf(final_equity):
+            logger.warning(f"[TransformerStrategy] final_equity is invalid (nan or inf): {final_equity}")
+            total_return = float('nan')
+            error_msg = f'Final equity is invalid (nan or inf): {final_equity}'
+        else:
+            total_return = (final_equity / initial_capital) - 1
         equity_df = pd.DataFrame(equity_curve)
-        
-        # Prepare results
+        # Always propagate initial/final close
         results = {
             'initial_capital': initial_capital,
             'final_equity': final_equity,
             'total_return': total_return,
+            'initial_close': initial_close,
+            'final_close': final_close,
             'equity_curve': equity_df,
             'trades': trades,
             'position': position,
-            'strategy': 'TransformerStrategy'
+            'strategy': 'TransformerStrategy',
+            'error': error_msg
         }
-        
         return results
     
     def _save_model(self) -> None:
