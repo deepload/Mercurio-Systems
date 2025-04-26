@@ -1,26 +1,26 @@
 symbol,strategy,initial_capital,final_capital,total_return,annualized_return,sharpe_ratio,max_drawdown,trades,error
-AAPL,MovingAverage,$2000.00,$1944.27,-2.79%,-87.77%,-4.77,-4.28%,1,
-AAPL,MovingAverage_ML,$2000.00,$1985.71,-0.71%,-60.03%,-1962.85,-0.36%,1,
-AAPL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Training error: index 0 is out of bounds for axis 0 with size 0
-AAPL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,"[{'timestamp': Timestamp('1970-01-01 00:00:00.000000022'), 'action': 'BUY', 'price': 189.2314456459832, 'quantity': 10.040614515805931, 'capital': 100.0}]",
+AAPL,MovingAverage,$2000.00,$1994.55,-0.27%,-13.74%,-0.31,-3.54%,2,
+AAPL,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+AAPL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+AAPL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 AAPL,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-MSFT,MovingAverage,$2000.00,$1909.17,-4.54%,-143.06%,-5.73,-5.87%,2,
-MSFT,MovingAverage_ML,$2000.00,$1999.31,-0.03%,-2.90%,-0.06,0.00%,1,
-MSFT,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Training error: index 0 is out of bounds for axis 0 with size 0
-MSFT,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,"[{'timestamp': Timestamp('1970-01-01 00:00:00.000000022'), 'action': 'BUY', 'price': 401.262728740769, 'quantity': 4.73505228348151, 'capital': 100.00000000000023}]",
+MSFT,MovingAverage,$2000.00,$2011.91,0.60%,30.02%,1.95,-1.58%,2,
+MSFT,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+MSFT,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+MSFT,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 MSFT,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-GOOGL,MovingAverage,$2000.00,$2033.67,1.68%,53.02%,2.40,-4.14%,2,
-GOOGL,MovingAverage_ML,$2000.00,$2084.21,4.21%,353.67%,80.22,0.00%,2,
-GOOGL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Training error: index 0 is out of bounds for axis 0 with size 0
-GOOGL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,"[{'timestamp': Timestamp('1970-01-01 00:00:00.000000022'), 'action': 'BUY', 'price': 158.0564697537559, 'quantity': 12.021020100981032, 'capital': 100.0}]",
+GOOGL,MovingAverage,$2000.00,$2003.33,0.17%,8.40%,0.52,-0.93%,2,
+GOOGL,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+GOOGL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+GOOGL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 GOOGL,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-BTC-USD,MovingAverage,$2000.00,$1896.96,-5.15%,-81.15%,-2.50,-10.74%,3,
-BTC-USD,MovingAverage_ML,$2000.00,$2130.74,6.54%,149.76%,5.85,-1.93%,2,
-BTC-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Training error: index 0 is out of bounds for axis 0 with size 0
-BTC-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,"[{'timestamp': Timestamp('1970-01-01 00:00:00.000000030'), 'action': 'BUY', 'price': 40279.89648966136, 'quantity': 0.04716993253663581, 'capital': 100.0}]",
+BTC-USD,MovingAverage,$2000.00,$1994.44,-0.28%,-8.76%,0.01,-6.46%,5,
+BTC-USD,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+BTC-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+BTC-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 BTC-USD,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-ETH-USD,MovingAverage,$2000.00,$2300.68,15.03%,236.79%,6.24,-3.86%,1,
-ETH-USD,MovingAverage_ML,$2000.00,$2338.57,16.93%,387.82%,9.57,-3.86%,1,
-ETH-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Training error: index 0 is out of bounds for axis 0 with size 0
-ETH-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,"[{'timestamp': Timestamp('1970-01-01 00:00:00.000000030'), 'action': 'BUY', 'price': 1863.207775518695, 'quantity': 1.0197467104660738, 'capital': 100.0}]",
+ETH-USD,MovingAverage,$2000.00,$2119.47,5.97%,188.16%,4.92,-3.45%,3,
+ETH-USD,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+ETH-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+ETH-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 ETH-USD,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset

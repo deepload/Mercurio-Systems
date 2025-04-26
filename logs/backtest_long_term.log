@@ -1758,3 +1758,374 @@ Frais moyens par trade  $0.65
 2025-04-25 23:43:56,643 - INFO - ================================================================================
 2025-04-25 23:43:56,643 - INFO - BACKTESTING TERMINÉ
 2025-04-25 23:43:56,643 - INFO - ================================================================================
+2025-04-26 20:04:25,560 - INFO - ================================================================================
+2025-04-26 20:04:25,560 - INFO - MERCURIO AI - BACKTESTING LONG TERME
+2025-04-26 20:04:25,561 - INFO - ================================================================================
+2025-04-26 20:04:25,561 - INFO - Période: 2020-04-27 à 2025-04-26
+2025-04-26 20:04:25,561 - INFO - Symboles: AAPL, MSFT, GOOGL, AMZN, META
+2025-04-26 20:04:25,561 - INFO - Stratégies: MovingAverageStrategy, LSTMPredictorStrategy
+2025-04-26 20:04:25,561 - INFO - Capital initial: $100,000.00
+2025-04-26 20:04:25,561 - INFO - Frais de transaction: 0.100% + $0.00 (min: $0.00)
+2025-04-26 20:04:25,561 - INFO - ================================================================================
+2025-04-26 20:04:25,561 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:25,563 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:25,669 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:25,670 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:25,670 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:25,670 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:25,671 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:25,671 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:25,671 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:25,671 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:25,671 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:25,671 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:25,672 - INFO - === Démarrage du backtest: AAPL avec MovingAverageStrategy ===
+2025-04-26 20:04:25,672 - INFO - Exécution du backtest pour AAPL avec MovingAverageStrategy...
+2025-04-26 20:04:25,672 - INFO - Chargement des données pour AAPL de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:04:25,672 - INFO - Fetching historical data for AAPL from Alpaca
+2025-04-26 20:04:25,672 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:04:25,672 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 20:04:25,672 - INFO - Initialized provider 'sample'
+2025-04-26 20:04:25,703 - INFO - Generated sample data for AAPL with 1305 data points
+2025-04-26 20:04:25,703 - INFO - Obtenu 1305 points de données pour AAPL
+2025-04-26 20:04:31,332 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:31,333 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:31,333 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:31,333 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:31,333 - INFO - Running backtest for AAPL with MovingAverageStrategy
+2025-04-26 20:04:31,333 - INFO - Loading data for AAPL from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:04:31,334 - INFO - Fetching historical data for AAPL from Alpaca
+2025-04-26 20:04:31,726 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/AAPL/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:04:31,726 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 20:04:31,726 - INFO - Initialized provider 'sample'
+2025-04-26 20:04:31,758 - INFO - Generated sample data for AAPL with 1305 data points
+2025-04-26 20:04:32,203 - INFO - Backtest terminé pour AAPL avec MovingAverageStrategy
+2025-04-26 20:04:32,205 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $67,070.54
+Rendement total         -32.93%
+Rendement annualisé     -6.61%
+Ratio de Sharpe         -0.19
+Drawdown maximum        -60.31%
+Nombre de trades        29
+Frais totaux            $11.48
+Frais moyens par trade  $0.40
+2025-04-26 20:04:32,205 - INFO - ==================================================
+2025-04-26 20:04:32,205 - INFO - === Démarrage du backtest: AAPL avec LSTMPredictorStrategy ===
+2025-04-26 20:04:32,205 - INFO - Exécution du backtest pour AAPL avec LSTMPredictorStrategy...
+2025-04-26 20:04:32,205 - INFO - Chargement des données pour AAPL de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:04:32,206 - INFO - Fetching historical data for AAPL from Alpaca
+2025-04-26 20:04:32,206 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:04:32,206 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 20:04:32,237 - INFO - Generated sample data for AAPL with 1305 data points
+2025-04-26 20:04:32,237 - INFO - Obtenu 1305 points de données pour AAPL
+2025-04-26 20:04:32,237 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:32,238 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:32,238 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:32,238 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:32,238 - INFO - Entraînement du modèle LSTM pour AAPL...
+2025-04-26 20:04:54,944 - INFO - Modèle LSTM entraîné avec succès pour AAPL
+2025-04-26 20:04:54,945 - INFO - Running backtest for AAPL with LSTMPredictorStrategy
+2025-04-26 20:04:54,945 - INFO - Loading data for AAPL from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:04:54,945 - INFO - Fetching historical data for AAPL from Alpaca
+2025-04-26 20:04:55,318 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/AAPL/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:04:55,319 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 20:04:55,319 - INFO - Initialized provider 'sample'
+2025-04-26 20:04:55,349 - INFO - Generated sample data for AAPL with 1305 data points
+2025-04-26 20:04:56,667 - INFO - Backtest terminé pour AAPL avec LSTMPredictorStrategy
+2025-04-26 20:04:56,668 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $226,999.70
+Rendement total         127.00%
+Rendement annualisé     26.13%
+Ratio de Sharpe         0.91
+Drawdown maximum        -20.01%
+Nombre de trades        18
+Frais totaux            $8.87
+Frais moyens par trade  $0.49
+2025-04-26 20:04:56,668 - INFO - ==================================================
+2025-04-26 20:04:56,669 - INFO - === Démarrage du backtest: MSFT avec MovingAverageStrategy ===
+2025-04-26 20:04:56,669 - INFO - Exécution du backtest pour MSFT avec MovingAverageStrategy...
+2025-04-26 20:04:56,669 - INFO - Chargement des données pour MSFT de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:04:56,669 - INFO - Fetching historical data for MSFT from Alpaca
+2025-04-26 20:04:56,669 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:04:56,670 - WARNING - Using sample data for MSFT as fallback
+2025-04-26 20:04:56,700 - INFO - Generated sample data for MSFT with 1305 data points
+2025-04-26 20:04:56,701 - INFO - Obtenu 1305 points de données pour MSFT
+2025-04-26 20:04:56,701 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:56,702 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:56,702 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:56,702 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:56,702 - INFO - Running backtest for MSFT with MovingAverageStrategy
+2025-04-26 20:04:56,702 - INFO - Loading data for MSFT from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:04:56,702 - INFO - Fetching historical data for MSFT from Alpaca
+2025-04-26 20:04:57,064 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/MSFT/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:04:57,064 - WARNING - Using sample data for MSFT as fallback
+2025-04-26 20:04:57,064 - INFO - Initialized provider 'sample'
+2025-04-26 20:04:57,097 - INFO - Generated sample data for MSFT with 1305 data points
+2025-04-26 20:04:57,485 - INFO - Backtest terminé pour MSFT avec MovingAverageStrategy
+2025-04-26 20:04:57,486 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $76,795.25
+Rendement total         -23.20%
+Rendement annualisé     -4.66%
+Ratio de Sharpe         -0.07
+Drawdown maximum        -51.48%
+Nombre de trades        34
+Frais totaux            $27.68
+Frais moyens par trade  $0.81
+2025-04-26 20:04:57,486 - INFO - ==================================================
+2025-04-26 20:04:57,487 - INFO - === Démarrage du backtest: MSFT avec LSTMPredictorStrategy ===
+2025-04-26 20:04:57,487 - INFO - Exécution du backtest pour MSFT avec LSTMPredictorStrategy...
+2025-04-26 20:04:57,487 - INFO - Chargement des données pour MSFT de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:04:57,487 - INFO - Fetching historical data for MSFT from Alpaca
+2025-04-26 20:04:57,487 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:04:57,487 - WARNING - Using sample data for MSFT as fallback
+2025-04-26 20:04:57,517 - INFO - Generated sample data for MSFT with 1305 data points
+2025-04-26 20:04:57,517 - INFO - Obtenu 1305 points de données pour MSFT
+2025-04-26 20:04:57,518 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:04:57,518 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:04:57,518 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:04:57,518 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:04:57,518 - INFO - Entraînement du modèle LSTM pour MSFT...
+2025-04-26 20:05:16,988 - INFO - Modèle LSTM entraîné avec succès pour MSFT
+2025-04-26 20:05:16,989 - INFO - Running backtest for MSFT with LSTMPredictorStrategy
+2025-04-26 20:05:16,989 - INFO - Loading data for MSFT from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:05:16,989 - INFO - Fetching historical data for MSFT from Alpaca
+2025-04-26 20:05:17,385 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/MSFT/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:05:17,386 - WARNING - Using sample data for MSFT as fallback
+2025-04-26 20:05:17,386 - INFO - Initialized provider 'sample'
+2025-04-26 20:05:17,417 - INFO - Generated sample data for MSFT with 1305 data points
+2025-04-26 20:05:18,703 - INFO - Backtest terminé pour MSFT avec LSTMPredictorStrategy
+2025-04-26 20:05:18,704 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $95,471.62
+Rendement total         -4.53%
+Rendement annualisé     -0.93%
+Ratio de Sharpe         0.09
+Drawdown maximum        -46.89%
+Nombre de trades        36
+Frais totaux            $36.79
+Frais moyens par trade  $1.02
+2025-04-26 20:05:18,706 - INFO - ==================================================
+2025-04-26 20:05:18,706 - INFO - === Démarrage du backtest: GOOGL avec MovingAverageStrategy ===
+2025-04-26 20:05:18,706 - INFO - Exécution du backtest pour GOOGL avec MovingAverageStrategy...
+2025-04-26 20:05:18,706 - INFO - Chargement des données pour GOOGL de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:05:18,706 - INFO - Fetching historical data for GOOGL from Alpaca
+2025-04-26 20:05:18,706 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:05:18,707 - WARNING - Using sample data for GOOGL as fallback
+2025-04-26 20:05:18,739 - INFO - Generated sample data for GOOGL with 1305 data points
+2025-04-26 20:05:18,739 - INFO - Obtenu 1305 points de données pour GOOGL
+2025-04-26 20:05:18,739 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:05:18,739 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:05:18,739 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:05:18,740 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:05:18,740 - INFO - Running backtest for GOOGL with MovingAverageStrategy
+2025-04-26 20:05:18,740 - INFO - Loading data for GOOGL from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:05:18,740 - INFO - Fetching historical data for GOOGL from Alpaca
+2025-04-26 20:05:19,097 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/GOOGL/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:05:19,097 - WARNING - Using sample data for GOOGL as fallback
+2025-04-26 20:05:19,097 - INFO - Initialized provider 'sample'
+2025-04-26 20:05:19,129 - INFO - Generated sample data for GOOGL with 1305 data points
+2025-04-26 20:05:19,557 - INFO - Backtest terminé pour GOOGL avec MovingAverageStrategy
+2025-04-26 20:05:19,558 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $75,377.66
+Rendement total         -24.62%
+Rendement annualisé     -4.94%
+Ratio de Sharpe         -0.15
+Drawdown maximum        -52.84%
+Nombre de trades        29
+Frais totaux            $12.01
+Frais moyens par trade  $0.41
+2025-04-26 20:05:19,558 - INFO - ==================================================
+2025-04-26 20:05:19,558 - INFO - === Démarrage du backtest: GOOGL avec LSTMPredictorStrategy ===
+2025-04-26 20:05:19,558 - INFO - Exécution du backtest pour GOOGL avec LSTMPredictorStrategy...
+2025-04-26 20:05:19,558 - INFO - Chargement des données pour GOOGL de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:05:19,558 - INFO - Fetching historical data for GOOGL from Alpaca
+2025-04-26 20:05:19,559 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:05:19,559 - WARNING - Using sample data for GOOGL as fallback
+2025-04-26 20:05:19,592 - INFO - Generated sample data for GOOGL with 1305 data points
+2025-04-26 20:05:19,592 - INFO - Obtenu 1305 points de données pour GOOGL
+2025-04-26 20:05:19,592 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:05:19,592 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:05:19,592 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:05:19,592 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:05:19,592 - INFO - Entraînement du modèle LSTM pour GOOGL...
+2025-04-26 20:05:33,007 - INFO - Modèle LSTM entraîné avec succès pour GOOGL
+2025-04-26 20:05:33,007 - INFO - Running backtest for GOOGL with LSTMPredictorStrategy
+2025-04-26 20:05:33,007 - INFO - Loading data for GOOGL from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:05:33,007 - INFO - Fetching historical data for GOOGL from Alpaca
+2025-04-26 20:05:33,393 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/GOOGL/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:05:33,393 - WARNING - Using sample data for GOOGL as fallback
+2025-04-26 20:05:33,393 - INFO - Initialized provider 'sample'
+2025-04-26 20:05:33,425 - INFO - Generated sample data for GOOGL with 1305 data points
+2025-04-26 20:05:34,593 - INFO - Backtest terminé pour GOOGL avec LSTMPredictorStrategy
+2025-04-26 20:05:34,593 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $44,433.31
+Rendement total         -55.57%
+Rendement annualisé     -11.43%
+Ratio de Sharpe         -0.29
+Drawdown maximum        -72.84%
+Nombre de trades        0
+Frais totaux            $0.00
+Frais moyens par trade  $0.00
+2025-04-26 20:05:34,594 - INFO - ==================================================
+2025-04-26 20:05:34,594 - INFO - === Démarrage du backtest: AMZN avec MovingAverageStrategy ===
+2025-04-26 20:05:34,594 - INFO - Exécution du backtest pour AMZN avec MovingAverageStrategy...
+2025-04-26 20:05:34,594 - INFO - Chargement des données pour AMZN de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:05:34,594 - INFO - Fetching historical data for AMZN from Alpaca
+2025-04-26 20:05:34,594 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:05:34,595 - WARNING - Using sample data for AMZN as fallback
+2025-04-26 20:05:34,626 - INFO - Generated sample data for AMZN with 1305 data points
+2025-04-26 20:05:34,626 - INFO - Obtenu 1305 points de données pour AMZN
+2025-04-26 20:05:34,627 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:05:34,627 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:05:34,627 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:05:34,627 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:05:34,627 - INFO - Running backtest for AMZN with MovingAverageStrategy
+2025-04-26 20:05:34,627 - INFO - Loading data for AMZN from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:05:34,629 - INFO - Fetching historical data for AMZN from Alpaca
+2025-04-26 20:05:34,988 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/AMZN/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:05:34,989 - WARNING - Using sample data for AMZN as fallback
+2025-04-26 20:05:34,989 - INFO - Initialized provider 'sample'
+2025-04-26 20:05:35,022 - INFO - Generated sample data for AMZN with 1305 data points
+2025-04-26 20:05:35,414 - INFO - Backtest terminé pour AMZN avec MovingAverageStrategy
+2025-04-26 20:05:35,416 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $85,295.36
+Rendement total         -14.70%
+Rendement annualisé     -2.95%
+Ratio de Sharpe         -0.01
+Drawdown maximum        -47.89%
+Nombre de trades        33
+Frais totaux            $13.21
+Frais moyens par trade  $0.40
+2025-04-26 20:05:35,416 - INFO - ==================================================
+2025-04-26 20:05:35,416 - INFO - === Démarrage du backtest: AMZN avec LSTMPredictorStrategy ===
+2025-04-26 20:05:35,416 - INFO - Exécution du backtest pour AMZN avec LSTMPredictorStrategy...
+2025-04-26 20:05:35,417 - INFO - Chargement des données pour AMZN de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:05:35,417 - INFO - Fetching historical data for AMZN from Alpaca
+2025-04-26 20:05:35,417 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:05:35,417 - WARNING - Using sample data for AMZN as fallback
+2025-04-26 20:05:35,449 - INFO - Generated sample data for AMZN with 1305 data points
+2025-04-26 20:05:35,449 - INFO - Obtenu 1305 points de données pour AMZN
+2025-04-26 20:05:35,450 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:05:35,450 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:05:35,450 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:05:35,450 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:05:35,450 - INFO - Entraînement du modèle LSTM pour AMZN...
+2025-04-26 20:06:07,281 - INFO - Modèle LSTM entraîné avec succès pour AMZN
+2025-04-26 20:06:07,282 - INFO - Running backtest for AMZN with LSTMPredictorStrategy
+2025-04-26 20:06:07,282 - INFO - Loading data for AMZN from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:06:07,282 - INFO - Fetching historical data for AMZN from Alpaca
+2025-04-26 20:06:07,643 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/AMZN/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:06:07,644 - WARNING - Using sample data for AMZN as fallback
+2025-04-26 20:06:07,644 - INFO - Initialized provider 'sample'
+2025-04-26 20:06:07,677 - INFO - Generated sample data for AMZN with 1305 data points
+2025-04-26 20:06:08,890 - INFO - Backtest terminé pour AMZN avec LSTMPredictorStrategy
+2025-04-26 20:06:08,890 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $201,004.39
+Rendement total         101.00%
+Rendement annualisé     20.78%
+Ratio de Sharpe         0.66
+Drawdown maximum        -39.41%
+Nombre de trades        24
+Frais totaux            $7.54
+Frais moyens par trade  $0.31
+2025-04-26 20:06:08,890 - INFO - ==================================================
+2025-04-26 20:06:08,891 - INFO - === Démarrage du backtest: META avec MovingAverageStrategy ===
+2025-04-26 20:06:08,891 - INFO - Exécution du backtest pour META avec MovingAverageStrategy...
+2025-04-26 20:06:08,891 - INFO - Chargement des données pour META de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:06:08,891 - INFO - Fetching historical data for META from Alpaca
+2025-04-26 20:06:08,891 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:06:08,891 - WARNING - Using sample data for META as fallback
+2025-04-26 20:06:08,922 - INFO - Generated sample data for META with 1305 data points
+2025-04-26 20:06:08,922 - INFO - Obtenu 1305 points de données pour META
+2025-04-26 20:06:08,922 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:06:08,922 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:06:08,922 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:06:08,923 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:06:08,923 - INFO - Running backtest for META with MovingAverageStrategy
+2025-04-26 20:06:08,923 - INFO - Loading data for META from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:06:08,923 - INFO - Fetching historical data for META from Alpaca
+2025-04-26 20:06:09,283 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/META/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:06:09,283 - WARNING - Using sample data for META as fallback
+2025-04-26 20:06:09,284 - INFO - Initialized provider 'sample'
+2025-04-26 20:06:09,316 - INFO - Generated sample data for META with 1305 data points
+2025-04-26 20:06:09,712 - INFO - Backtest terminé pour META avec MovingAverageStrategy
+2025-04-26 20:06:09,713 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $98,657.69
+Rendement total         -1.34%
+Rendement annualisé     -0.27%
+Ratio de Sharpe         0.12
+Drawdown maximum        -37.86%
+Nombre de trades        31
+Frais totaux            $30.51
+Frais moyens par trade  $0.98
+2025-04-26 20:06:09,713 - INFO - ==================================================
+2025-04-26 20:06:09,714 - INFO - === Démarrage du backtest: META avec LSTMPredictorStrategy ===
+2025-04-26 20:06:09,714 - INFO - Exécution du backtest pour META avec LSTMPredictorStrategy...
+2025-04-26 20:06:09,714 - INFO - Chargement des données pour META de 2020-04-27 00:00:00 à 2025-04-26 00:00:00...
+2025-04-26 20:06:09,714 - INFO - Fetching historical data for META from Alpaca
+2025-04-26 20:06:09,714 - ERROR - Error fetching data from Alpaca: 'str' object has no attribute 'isoformat'
+2025-04-26 20:06:09,714 - WARNING - Using sample data for META as fallback
+2025-04-26 20:06:09,746 - INFO - Generated sample data for META with 1305 data points
+2025-04-26 20:06:09,746 - INFO - Obtenu 1305 points de données pour META
+2025-04-26 20:06:09,746 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 20:06:09,747 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 20:06:09,747 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 20:06:09,747 - INFO - Legacy Alpaca client initialized successfully
+2025-04-26 20:06:09,747 - INFO - Entraînement du modèle LSTM pour META...
+2025-04-26 20:06:21,744 - INFO - Modèle LSTM entraîné avec succès pour META
+2025-04-26 20:06:21,745 - INFO - Running backtest for META with LSTMPredictorStrategy
+2025-04-26 20:06:21,745 - INFO - Loading data for META from 2020-04-27 00:00:00 to 2025-04-26 00:00:00
+2025-04-26 20:06:21,745 - INFO - Fetching historical data for META from Alpaca
+2025-04-26 20:06:22,122 - ERROR - Error fetching data from Alpaca: 400 Client Error: Bad Request for url: https://data.alpaca.markets/v2/stocks/META/bars?timeframe=1Day&adjustment=raw&start=2020-04-27T00%3A00%3A00&end=2025-04-26T00%3A00%3A00
+2025-04-26 20:06:22,122 - WARNING - Using sample data for META as fallback
+2025-04-26 20:06:22,122 - INFO - Initialized provider 'sample'
+2025-04-26 20:06:22,153 - INFO - Generated sample data for META with 1305 data points
+2025-04-26 20:06:23,405 - INFO - Backtest terminé pour META avec LSTMPredictorStrategy
+2025-04-26 20:06:23,405 - INFO - Métrique                Valeur
+----------------------  -----------
+Capital initial         $100,000.00
+Capital final           $57,404.35
+Rendement total         -42.60%
+Rendement annualisé     -8.76%
+Ratio de Sharpe         -0.15
+Drawdown maximum        -84.33%
+Nombre de trades        12
+Frais totaux            $11.06
+Frais moyens par trade  $0.92
+2025-04-26 20:06:23,406 - INFO - ==================================================
+2025-04-26 20:06:23,408 - INFO - 
++---+--------+-----------------------+---------------------+---------------------+-----------------------+---------------------+--------+--------------------+---------------------+
+|   | Symbol |       Strategy        |    Total Return     |  Annualized Return  |     Sharpe Ratio      |    Max Drawdown     | Trades |     Total Fees     |    Avg Fee/Trade    |
++---+--------+-----------------------+---------------------+---------------------+-----------------------+---------------------+--------+--------------------+---------------------+
+| 0 |  AAPL  | MovingAverageStrategy | -32.92946452716493  | -6.612131522586105  |  -0.187267708447936   | -60.31243288178209  |   29   | 11.480492121190816 | 0.3958790386617523  |
+| 1 |  AAPL  | LSTMPredictorStrategy | 126.99970322325531  | 26.125653234498238  |  0.9131945815352461   | -20.006478749510805 |   18   | 8.867206312774824  | 0.4926225729319347  |
+| 2 |  MSFT  | MovingAverageStrategy | -23.20474862462234  | -4.659439564465999  | -0.06822073733691868  | -51.47642874240075  |   34   | 27.676769025592435 | 0.8140226183997775  |
+| 3 |  MSFT  | LSTMPredictorStrategy | -4.528375655442707  | -0.9315515634053568 |  0.0877232130571019   | -46.89071428037491  |   36   | 36.78825642323788  | 1.0218960117566078  |
+| 4 | GOOGL  | MovingAverageStrategy | -24.62233919753554  | -4.944087233290004  | -0.14886901063258956  | -52.844848679597064 |   29   | 12.005313397163594 | 0.4139763240401239  |
+| 5 | GOOGL  | LSTMPredictorStrategy | -55.56668843125626  | -11.430861620144146 | -0.28754637883755124  |  -72.8377626692697  |   0    |        0.0         |         0.0         |
+| 6 |  AMZN  | MovingAverageStrategy | -14.704635935738008 |  -2.95264402853066  | -0.013488020981496589 | -47.89134975802391  |   33   | 13.213666065792609 | 0.40041412320583664 |
+| 7 |  AMZN  | LSTMPredictorStrategy | 101.00438576913464  |  20.7780450725077   |  0.6554936612537597   | -39.414851890541165 |   24   | 7.537554592596097  |  0.314064774691504  |
+| 8 |  META  | MovingAverageStrategy | -1.3423070736233056 | -0.2695309821140024 |  0.1213161261929823   |  -37.8597232650105  |   31   | 30.511775905345857 |  0.984250835656318  |
+| 9 |  META  | LSTMPredictorStrategy | -42.59564619598738  | -8.762532931745975  | -0.15237227931343492  | -84.32829767844542  |   12   | 11.058938490024751 | 0.9215782075020625  |
++---+--------+-----------------------+---------------------+---------------------+-----------------------+---------------------+--------+--------------------+---------------------+
+2025-04-26 20:06:26,677 - INFO - Résultats sauvegardés dans ./results
+2025-04-26 20:06:26,680 - INFO - ================================================================================
+2025-04-26 20:06:26,681 - INFO - BACKTESTING TERMINÉ
+2025-04-26 20:06:26,681 - INFO - ================================================================================

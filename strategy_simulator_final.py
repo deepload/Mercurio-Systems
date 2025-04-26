@@ -37,9 +37,10 @@ class StrategySimulator:
         self.results = []
         self.strategies = {}
         
-        # Define specific date range for January 2025
-        self.start_date = datetime(2025, 1, 1)
-        self.end_date = datetime(2025, 1, 31)
+        # Define specific date range for the last 10 days (to ensure enough data for strategies)
+        self.end_date = datetime.now()
+        self.start_date = self.end_date - timedelta(days=10)
+        print(f"Simulation period: {self.start_date.strftime('%Y-%m-%d %H:%M:%S')} to {self.end_date.strftime('%Y-%m-%d %H:%M:%S')}")
         
         # Define stocks and cryptos to test
         self.stocks = ['AAPL', 'MSFT', 'GOOGL']
@@ -55,8 +56,8 @@ class StrategySimulator:
             # MovingAverage with smaller windows for January data
             from app.strategies.moving_average import MovingAverageStrategy
             self.strategies["MovingAverage"] = MovingAverageStrategy(
-                short_window=5, 
-                long_window=15
+                short_window=2, 
+                long_window=3
             )
             print("✓ Added MovingAverage strategy")
         except Exception as e:
@@ -67,8 +68,8 @@ class StrategySimulator:
             # MovingAverage with ML using smaller windows
             from app.strategies.moving_average import MovingAverageStrategy
             self.strategies["MovingAverage_ML"] = MovingAverageStrategy(
-                short_window=5, 
-                long_window=15, 
+                short_window=2, 
+                long_window=3, 
                 use_ml=True
             )
             print("✓ Added MovingAverage_ML strategy")
@@ -79,7 +80,7 @@ class StrategySimulator:
             # LSTM with smaller sequence length for January data
             from app.strategies.lstm_predictor import LSTMPredictorStrategy
             self.strategies["LSTM"] = LSTMPredictorStrategy(
-                sequence_length=10,  # Reduced sequence length for January data
+                sequence_length=2,  # Further reduced for short synthetic data
                 prediction_horizon=1,
                 epochs=20,
                 batch_size=4
@@ -426,7 +427,10 @@ class StrategySimulator:
 async def main():
     """Main entry point."""
     print("\n===== MERCURIO AI STRATEGY SIMULATION =====\n")
-    print(f"Simulating trading strategies for January 2025")
+    # Create simulator
+    simulator = StrategySimulator(initial_capital=2000)
+
+    print(f"Simulating trading strategies for the last 10 days: {simulator.start_date.strftime('%Y-%m-%d %H:%M:%S')} to {simulator.end_date.strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 50)
     
     # Create simulator
