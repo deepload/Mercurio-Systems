@@ -297,5 +297,27 @@ async def main():
     print(tabulate(df, headers='keys', tablefmt='psql'))
     print("\nResults saved to reports/strategy_timeframe_comparison.csv\n")
 
+    # FINAL SUMMARY NOTE: Top 3 strategies and total money won
+    try:
+        # Filter out results with missing or error values
+        df_valid = df[df['error'].isnull() & df['total_return_%'].notnull() & df['initial_close'].notnull()]
+        # Sort by total_return_% descending
+        top3 = df_valid.sort_values('total_return_%', ascending=False).head(3)
+        print("\n===== TOP 3 STRATEGY RESULTS (by total_return_%) =====\n")
+        if not top3.empty:
+            print(tabulate(top3[['strategy', 'symbol', 'timeframe', 'total_return_%']], headers='keys', tablefmt='psql'))
+        else:
+            print("No valid results to display.")
+        # Calculate total money won (sum of profit for all strategies)
+        # Assume initial_capital per strategy per symbol (from simulator)
+        initial_capital = 2000
+        df_valid = df_valid.copy()
+        df_valid['profit'] = df_valid['total_return_%'] * initial_capital / 100
+        total_money_won = df_valid['profit'].sum()
+        print(f"\n===== TOTAL MONEY WON (across all strategies): ${total_money_won:,.2f} =====\n")
+    except Exception as e:
+        print(f"\n[SUMMARY ERROR] Could not compute top strategies or total money won: {e}\n")
+
+
 if __name__ == "__main__":
     asyncio.run(main())
