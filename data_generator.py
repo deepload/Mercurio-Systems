@@ -49,6 +49,20 @@ def generate_market_data(symbol, start_date, end_date, initial_price=None, volat
             date_range.append(current_date)
         current_date += timedelta(days=1)
     
+    # Ensure at least 3 rows of data for simulation
+    min_rows = 3
+    if len(date_range) < min_rows:
+        # Extend backwards in time if needed
+        print(f"[WARNING] Not enough data points for {symbol} between {start_date} and {end_date}. Auto-extending date range to ensure at least {min_rows} data points.")
+        needed = min_rows - len(date_range)
+        ext_date = (date_range[0] if date_range else end_date)
+        ext_dates = []
+        while len(ext_dates) < needed:
+            ext_date = ext_date - timedelta(days=1)
+            if is_crypto or ext_date.weekday() < 5:
+                ext_dates.insert(0, ext_date)
+        date_range = ext_dates + date_range
+    
     # Generate price data using geometric Brownian motion
     n_days = len(date_range)
     returns = np.random.normal(0, volatility, n_days)

@@ -126,9 +126,17 @@ class MovingAverageStrategy(BaseStrategy):
         # Add target variable (next day's signal) for training
         data['target'] = data['signal'].shift(-1)
         
-        # Drop NaN values resulting from rolling windows
+        # Drop NaN values resulting from rolling windows, but if this removes all rows, keep the last row and warn
+        before = len(data)
         data = data.dropna()
-        
+        after = len(data)
+        if after == 0 and before > 0:
+            print(f"[WARNING] Not enough data for full rolling windows (short={self.short_window}, long={self.long_window}). Keeping last available row for simulation.")
+            # Use tail(1) which is safe even if the DataFrame is empty
+            data = data.tail(1)
+            if len(data) == 0:
+                print(f"[WARNING] Still no data available for simulation after fallback. Returning empty DataFrame.")
+                return pd.DataFrame()
         return data
     
     async def train(self, data: pd.DataFrame) -> Dict[str, Any]:
