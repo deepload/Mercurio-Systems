@@ -118,16 +118,21 @@ def save_market_data(symbol, data, directory='data'):
     return filename
 
 def generate_all_market_data(symbols, start_date, end_date, directory='data'):
-    """Generate and save market data for all symbols."""
-    files = {}
-    
+    MIN_ROWS = 10
     for symbol in symbols:
         print(f"Generating data for {symbol}...")
         data = generate_market_data(symbol, start_date, end_date)
-        filename = save_market_data(symbol, data, directory)
-        files[symbol] = filename
-    
-    return files
+        tries = 0
+        while (data is None or len(data) < MIN_ROWS) and tries < 5:
+            start_date = start_date - timedelta(days=5)
+            data = generate_market_data(symbol, start_date, end_date)
+            tries += 1
+        if data is not None and len(data) >= MIN_ROWS:
+            filename = os.path.join(directory, f"{symbol.replace('-', '_')}_data.csv")
+            data.to_csv(filename)
+            print(f"Saved data for {symbol} to {filename}")
+        else:
+            print(f"Failed to generate sufficient data for {symbol} (rows: {len(data) if data is not None else 0})")
 
 def load_market_data(symbol, directory='data'):
     """Load market data from CSV file."""

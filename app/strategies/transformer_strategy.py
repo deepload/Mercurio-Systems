@@ -250,6 +250,40 @@ class TransformerStrategy(BaseStrategy):
     
     async def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
+        Patch: Robust to small datasets, always returns at least one row if possible.
+        """
+        if data is None or len(data) == 0:
+            logger.error("No data to preprocess")
+            return None
+        original_data = data.copy()
+        original_length = len(data)
+        df = data.copy()
+        # Make sure timestamp is a datetime
+        if 'timestamp' in df.columns and not pd.api.types.is_datetime64_any_dtype(df['timestamp']):
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+        # Use smallest possible window for technical indicators if data is short
+        min_win = 2 if len(df) < 10 else 3
+        if 'sma_20' not in df.columns:
+            logger.info("Adding technical indicators")
+            df['sma_2'] = df['close'].rolling(window=2, min_periods=1).mean()
+            df['sma_3'] = df['close'].rolling(window=min_win, min_periods=1).mean()
+            df['ema_2'] = df['close'].ewm(span=2, adjust=False).mean()
+            df['ema_3'] = df['close'].ewm(span=min_win, adjust=False).mean()
+        # Calculate prediction target (future price movement)
+        logger.info("Calculating prediction targets")
+        df['target'] = df['close'].shift(-1)
+        df = df.dropna()
+        # Store feature columns: only numeric, exclude timestamp/date/symbol/etc.
+        self.feature_columns = [
+            col for col in df.columns
+            if col not in ['timestamp', 'target', 'symbol', 'date', 'date_str']
+            and pd.api.types.is_numeric_dtype(df[col])
+        ]
+        if len(df) == 0 and original_length > 0:
+            logger.warning(f"Not enough data after feature engineering for {self.__class__.__name__}. Using last available row as fallback.")
+            df = original_data.tail(1)
+        return df
+        """
         Preprocess data for training and prediction
         
         Args:

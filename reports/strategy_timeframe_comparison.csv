@@ -1,0 +1,51 @@
+symbol,strategy,timeframe,initial_close,final_close,total_return_%,error
+AAPL,MovingAverage,Day,190.0,190.83908237675516,0.4416223035553463,
+AAPL,MovingAverage_ML,Day,190.0,190.83908237675516,0.4416223035553463,
+AAPL,LSTM,Day,190.83908237675516,190.83908237675516,0.0,[WARNING] LSTM could not compute features for AAPL (Day). Using last available row.
+AAPL,LLM,Day,190.0,190.83908237675516,0.4416223035553463,
+AAPL,Transformer,Day,,,,Exception: Target size (torch.Size([1])) must be the same as input size (torch.Size([]))
+MSFT,MovingAverage,Day,410.0,413.7393788902637,0.9120436317716363,
+MSFT,MovingAverage_ML,Day,410.0,413.7393788902637,0.9120436317716363,
+MSFT,LSTM,Day,413.7393788902637,413.7393788902637,0.0,[WARNING] LSTM could not compute features for MSFT (Day). Using last available row.
+MSFT,LLM,Day,410.0,413.7393788902637,0.9120436317716363,
+MSFT,Transformer,Day,,,,Exception: Target size (torch.Size([1])) must be the same as input size (torch.Size([]))
+GOOGL,MovingAverage,Day,160.0,167.22771470561395,4.517321691008718,
+GOOGL,MovingAverage_ML,Day,160.0,167.22771470561395,4.517321691008718,
+GOOGL,LSTM,Day,167.22771470561395,167.22771470561395,0.0,[WARNING] LSTM could not compute features for GOOGL (Day). Using last available row.
+GOOGL,LLM,Day,160.0,167.22771470561395,4.517321691008718,
+GOOGL,Transformer,Day,,,,Exception: Target size (torch.Size([1])) must be the same as input size (torch.Size([]))
+BTC-USD,MovingAverage,Day,42000.0,40855.97703395024,-2.723864204880374,
+BTC-USD,MovingAverage_ML,Day,42000.0,40855.97703395024,-2.723864204880374,
+BTC-USD,LSTM,Day,40855.97703395024,40855.97703395024,0.0,[WARNING] LSTM could not compute features for BTC-USD (Day). Using last available row.
+BTC-USD,LLM,Day,42000.0,40855.97703395024,-2.723864204880374,
+BTC-USD,Transformer,Day,42000.0,40304.002968723165,-4.038088169706748,
+ETH-USD,MovingAverage,Day,2200.0,2142.3390603622797,-2.620951801714558,
+ETH-USD,MovingAverage_ML,Day,2200.0,2142.3390603622797,-2.620951801714558,
+ETH-USD,LSTM,Day,2142.3390603622797,2142.3390603622797,0.0,[WARNING] LSTM could not compute features for ETH-USD (Day). Using last available row.
+ETH-USD,LLM,Day,2200.0,2142.3390603622797,-2.620951801714558,
+ETH-USD,Transformer,Day,2200.0,2086.5415187626404,-5.157203692607254,
+AAPL,MovingAverage,Week,190.0,171.82135054754224,-9.567710238135664,
+AAPL,MovingAverage_ML,Week,190.0,171.82135054754224,-9.567710238135664,
+AAPL,LSTM,Week,171.82135054754224,171.82135054754224,0.0,[WARNING] LSTM could not compute features for AAPL (Week). Using last available row.
+AAPL,LLM,Week,190.0,171.82135054754224,-9.567710238135664,
+AAPL,Transformer,Week,,,,Exception: division by zero
+MSFT,MovingAverage,Week,410.0,472.7564504354857,15.30645132572822,
+MSFT,MovingAverage_ML,Week,410.0,472.7564504354857,15.30645132572822,
+MSFT,LSTM,Week,472.7564504354857,472.7564504354857,0.0,[WARNING] LSTM could not compute features for MSFT (Week). Using last available row.
+MSFT,LLM,Week,410.0,472.7564504354857,15.30645132572822,
+MSFT,Transformer,Week,,,,Exception: division by zero
+GOOGL,MovingAverage,Week,160.0,180.3551308250605,12.72195676566282,
+GOOGL,MovingAverage_ML,Week,160.0,180.3551308250605,12.72195676566282,
+GOOGL,LSTM,Week,180.3551308250605,180.3551308250605,0.0,[WARNING] LSTM could not compute features for GOOGL (Week). Using last available row.
+GOOGL,LLM,Week,160.0,180.3551308250605,12.72195676566282,
+GOOGL,Transformer,Week,,,,Exception: division by zero
+BTC-USD,MovingAverage,Week,42000.0,46499.50733307455,10.71311269779655,
+BTC-USD,MovingAverage_ML,Week,42000.0,46499.50733307455,10.71311269779655,
+BTC-USD,LSTM,Week,46499.50733307455,46499.50733307455,0.0,[WARNING] LSTM could not compute features for BTC-USD (Week). Using last available row.
+BTC-USD,LLM,Week,42000.0,46499.50733307455,10.71311269779655,
+BTC-USD,Transformer,Week,,,,Exception: Target size (torch.Size([1])) must be the same as input size (torch.Size([]))
+ETH-USD,MovingAverage,Week,2200.0,2186.1410189791204,-0.6299536827672538,
+ETH-USD,MovingAverage_ML,Week,2200.0,2186.1410189791204,-0.6299536827672538,
+ETH-USD,LSTM,Week,2186.1410189791204,2186.1410189791204,0.0,[WARNING] LSTM could not compute features for ETH-USD (Week). Using last available row.
+ETH-USD,LLM,Week,2200.0,2186.1410189791204,-0.6299536827672538,
+ETH-USD,Transformer,Week,,,,Exception: Target size (torch.Size([1])) must be the same as input size (torch.Size([]))

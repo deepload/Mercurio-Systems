@@ -72,6 +72,70 @@ class MovingAverageStrategy(BaseStrategy):
     
     async def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """
+        Patch: Robust to small datasets for both classic and ML modes.
+        """
+        required_columns = ['open', 'high', 'low', 'close', 'volume']
+        if not all(col in data.columns for col in required_columns):
+            data.columns = [col.lower() for col in data.columns]
+        original_data = data.copy()
+        original_length = len(data)
+        # Calculate moving averages
+        short_win = min(self.short_window, max(2, len(data)//2))
+        long_win = min(self.long_window, max(short_win+1, len(data)-1))
+        data['short_ma'] = data['close'].rolling(window=short_win, min_periods=1).mean()
+        data['long_ma'] = data['close'].rolling(window=long_win, min_periods=1).mean()
+        if self.use_ml:
+            # ML features: always create them, use smallest possible window for short data
+            # RSI
+            delta = data['close'].diff()
+            gain = delta.where(delta > 0, 0)
+            loss = -delta.where(delta < 0, 0)
+            rsi_win = min(3, len(data))
+            avg_gain = gain.rolling(window=rsi_win, min_periods=1).mean()
+            avg_loss = loss.rolling(window=rsi_win, min_periods=1).mean()
+            rs = avg_gain / (avg_loss + 1e-6)
+            data['rsi'] = 100 - (100 / (1 + rs))
+            # MACD
+            ema_short = data['close'].ewm(span=2, adjust=False).mean()
+            ema_long = data['close'].ewm(span=3 if len(data)>=3 else 2, adjust=False).mean()
+            data['macd'] = ema_short - ema_long
+            data['macd_signal'] = data['macd'].ewm(span=2, adjust=False).mean()
+            # Bollinger Band width (BB width)
+            bb_win = min(3, len(data))
+            ma = data['close'].rolling(window=bb_win, min_periods=1).mean()
+            std = data['close'].rolling(window=bb_win, min_periods=1).std().fillna(0)
+            data['bb_width'] = 2 * std / ma.replace(0, 1)
+            # Lags
+            data['close_lag_1'] = data['close'].shift(1)
+            data['close_lag_2'] = data['close'].shift(2)
+            # Returns
+            data['return_lag_1'] = data['close'].pct_change(periods=1)
+            # Use smallest possible windows for additional features
+            data['ma_2'] = data['close'].rolling(window=2, min_periods=1).mean()
+            data['ma_3'] = data['close'].rolling(window=3, min_periods=1).mean()
+            data['ma_4'] = data['close'].rolling(window=4 if len(data)>=4 else 2, min_periods=1).mean()
+            data['return_1'] = data['close'].pct_change(periods=1).fillna(0)
+            data['return_2'] = data['close'].pct_change(periods=2).fillna(0)
+            data['return_3'] = data['close'].pct_change(periods=3 if len(data)>=3 else 1).fillna(0)
+            # Target variable for ML
+            data['target'] = (data['close'].shift(-1) > data['close']).astype(int)
+            # Ensure all required columns exist, fill missing with 0
+            required_ml_cols = ['rsi', 'macd', 'macd_signal', 'bb_width', 'close_lag_1', 'close_lag_2', 'return_lag_1']
+            for col in required_ml_cols:
+                if col not in data.columns:
+                    data[col] = 0
+            data[required_ml_cols] = data[required_ml_cols].fillna(0)
+        before = len(data)
+        data = data.dropna()
+        after = len(data)
+        if after == 0 and before > 0:
+            print(f"[WARNING] Not enough data for full rolling windows (short={short_win}, long={long_win}). Keeping last available row for simulation.")
+            data = original_data.tail(1)
+            if len(data) == 0:
+                print(f"[WARNING] Still no data available for simulation after fallback. Returning empty DataFrame.")
+                return pd.DataFrame()
+        return data
+        """
         Preprocess the data by adding technical indicators.
         
         Args:
