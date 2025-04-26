@@ -1,0 +1,427 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Mercurio AI Strategy Comparison</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    background-color: #f5f5f5;
+                }
+                h1, h2 {
+                    color: #2c3e50;
+                }
+                .container {
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                    margin-bottom: 20px;
+                }
+                .dataframe {
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin: 20px 0;
+                }
+                .dataframe th, .dataframe td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                .dataframe th {
+                    background-color: #2c3e50;
+                    color: white;
+                }
+                .dataframe tr:nth-child(even) {
+                    background-color: #f2f2f2;
+                }
+                .dataframe tr:hover {
+                    background-color: #e9f7ef;
+                }
+                .summary {
+                    background-color: #eaf2f8;
+                    padding: 15px;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Mercurio AI Trading Strategy Comparison</h1>
+            
+            <div class="container">
+                <h2>Performance Metrics</h2>
+                <table border="1" class="dataframe dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Symbol</th>
+      <th>Strategy</th>
+      <th>Initial Capital</th>
+      <th>Final Capital</th>
+      <th>Total Return</th>
+      <th>Annualized Return</th>
+      <th>Sharpe Ratio</th>
+      <th>Max Drawdown</th>
+      <th>Trades</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AAPL</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>AAPL</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>AAPL</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>2.43%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 170.12633990422512, 'quantity': 11.168170672863651, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>MSFT</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>MSFT</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>MSFT</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>-1.48%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 384.73000618570234, 'quantity': 4.93852823915924, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>AMZN</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>AMZN</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>AMZN</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>-3.22%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 185.06161377027055, 'quantity': 10.266850922193935, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>GOOGL</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>GOOGL</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>GOOGL</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>0.76%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 201.88831475646376, 'quantity': 9.411143989645733, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>TSLA</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>TSLA</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>TSLA</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>5.69%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 171.75247086086893, 'quantity': 11.06243182690005, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>BTC-USD</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>BTC-USD</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>BTC-USD</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>10.14%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 158.29299063276056, 'quantity': 12.003058331294001, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>ETH-USD</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>ETH-USD</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>ETH-USD</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>2.42%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 56.15649065828538, 'quantity': 33.834023061761116, 'capital': 99.99999999999977}]</td>
+    </tr>
+    <tr>
+      <td>SOL-USD</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>SOL-USD</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>SOL-USD</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>0.17%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 75.23628748428295, 'quantity': 25.253771332043925, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>ADA-USD</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>ADA-USD</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>ADA-USD</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>-1.31%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 122.5294772768978, 'quantity': 15.506472746197161, 'capital': 100.0}]</td>
+    </tr>
+    <tr>
+      <td>DOT-USD</td>
+      <td>MovingAverage</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>DOT-USD</td>
+      <td>MovingAverage_ML</td>
+      <td>$2000.00</td>
+      <td>$2000.00</td>
+      <td>0.00%</td>
+      <td>0.00%</td>
+      <td>nan</td>
+      <td>0.00%</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <td>DOT-USD</td>
+      <td>LLM</td>
+      <td>$2000.00</td>
+      <td>$0.00</td>
+      <td>-6.16%</td>
+      <td>0.00%</td>
+      <td>0.00</td>
+      <td>0.00%</td>
+      <td>[{'timestamp': 20, 'action': 'BUY', 'price': 67.8714123303334, 'quantity': 27.994113202663435, 'capital': 100.0}]</td>
+    </tr>
+  </tbody>
+</table>
+            </div>
+            
+            <div class="container summary">
+                <h2>Summary</h2>
+                <p>This report shows the performance of various trading strategies on both stocks and cryptocurrencies.</p>
+                <p>Initial investment for each strategy: <strong>$2000</strong></p>
+                <p>Test period: Last month</p>
+            </div>
+            
+            <div class="container">
+                <h2>Interpretation Guide</h2>
+                <ul>
+                    <li><strong>Total Return</strong>: Overall percentage return for the period.</li>
+                    <li><strong>Annualized Return</strong>: Return scaled to a yearly rate.</li>
+                    <li><strong>Sharpe Ratio</strong>: Risk-adjusted return (higher is better).</li>
+                    <li><strong>Max Drawdown</strong>: Largest percentage drop from peak to trough.</li>
+                    <li><strong>Trades</strong>: Number of trades executed during the period.</li>
+                </ul>
+            </div>
+            
+            <footer style="text-align: center; margin-top: 50px; color: #7f8c8d;">
+                Generated by Mercurio AI Strategy Simulator on 2025-04-27 00:08:58
+            </footer>
+        </body>
+        </html>
+        

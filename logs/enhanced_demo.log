@@ -48,3 +48,741 @@
 2025-04-25 23:58:45,695 - INFO - Registered provider 'yahoo' with priority 20
 2025-04-25 23:58:45,695 - INFO - Legacy Alpaca client initialized successfully
 2025-04-25 23:58:45,707 - ERROR - Error in backtest: 'numpy.int64' object is not iterable
+2025-04-26 23:54:24,080 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-26 23:54:25,426 - INFO - 
+================================================================================
+2025-04-26 23:54:25,426 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-26 23:54:25,427 - INFO - ================================================================================
+2025-04-26 23:54:25,427 - INFO - EventBus initialized
+2025-04-26 23:54:25,427 - INFO - Event subscriptions established
+2025-04-26 23:54:25,427 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-26 23:54:25,427 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-26 23:54:25,428 - INFO - Recent events: 2
+2025-04-26 23:54:25,428 - INFO -   Event: market_data_updated at 1745704465.4270196
+2025-04-26 23:54:25,428 - INFO -   Event: signal_generated at 1745704465.4270196
+2025-04-26 23:54:25,428 - INFO - Event system demonstration complete
+2025-04-26 23:54:25,428 - INFO - 
+================================================================================
+2025-04-26 23:54:25,428 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-26 23:54:25,428 - INFO - ================================================================================
+2025-04-26 23:54:25,428 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:54:25,429 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:54:25,588 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:54:25,589 - INFO - Added transformer: DataCleaner
+2025-04-26 23:54:25,589 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:54:25,589 - INFO - Pipeline initialized with transformers
+2025-04-26 23:54:25,589 - INFO - Fetching data for AAPL from 2024-04-26 to 2025-04-26
+2025-04-26 23:54:25,589 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:54:25,589 - INFO - Initialized provider 'sample'
+2025-04-26 23:54:25,598 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:54:25,599 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:54:25,601 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:54:25,601 - INFO - First request: 261 rows, 5 columns
+2025-04-26 23:54:25,601 - INFO - Added features: ...
+2025-04-26 23:54:25,603 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:54:25,603 - INFO - Second request (cached): 261 rows
+2025-04-26 23:54:25,603 - INFO - Raw data (no transformations): 261 rows, 5 columns
+2025-04-26 23:54:25,603 - INFO - Data pipeline demonstration complete
+2025-04-26 23:54:25,604 - INFO - 
+================================================================================
+2025-04-26 23:54:25,604 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-26 23:54:25,604 - INFO - ================================================================================
+2025-04-26 23:54:25,627 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-26 23:54:25,627 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:54:25,627 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:54:25,627 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:54:25,627 - INFO - Running backtest with MovingAverageStrategy
+2025-04-26 23:54:31,861 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:54:31,861 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:54:31,861 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:54:31,861 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-26 23:54:31,861 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-26 23:54:31,861 - INFO -   Initial Capital: $100,000.00
+2025-04-26 23:54:31,861 - INFO -   Final Capital: $110,000.00
+2025-04-26 23:54:31,861 - INFO -   Total Return: 10.00%
+2025-04-26 23:54:31,862 - INFO -   Annual Return: 10.00%
+2025-04-26 23:54:31,862 - INFO -   Sharpe Ratio: 1.00
+2025-04-26 23:54:31,862 - INFO -   Max Drawdown: 5.00%
+2025-04-26 23:54:31,862 - INFO -   Win Rate: 0.00%
+2025-04-26 23:54:31,862 - INFO -   Profit Factor: 0.00
+2025-04-26 23:54:31,862 - INFO -   Trade Count: 10
+2025-04-26 23:54:31,863 - INFO -   Transaction Costs: $0.00
+2025-04-26 23:54:31,863 - INFO - Backtesting demonstration complete
+2025-04-26 23:54:31,863 - INFO - 
+================================================================================
+2025-04-26 23:54:31,863 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-26 23:54:31,863 - INFO - ================================================================================
+2025-04-26 23:54:31,864 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:54:31,864 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:54:31,864 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:54:31,864 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:54:31,864 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:54:31,864 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:54:31,865 - INFO - Added transformer: DataCleaner
+2025-04-26 23:54:31,865 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:54:31,865 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-26 23:54:31,865 - INFO - Fetching data for AAPL...
+2025-04-26 23:54:31,865 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:54:31,865 - INFO - Initialized provider 'sample'
+2025-04-26 23:54:31,873 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:54:31,873 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:54:31,875 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:54:31,876 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:54:31,877 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:54:31,877 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:54:31,877 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:54:31,877 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-26 23:54:31,880 - ERROR - Error in backtest: 'signal'
+2025-04-26 23:54:31,880 - ERROR - [ERROR] Error in EnhancedBacktester: 'signal'
+2025-04-26 23:54:31,880 - ERROR - [ERROR] Error in EnhancedBacktester: 'signal'
+2025-04-26 23:56:29,365 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-26 23:56:29,365 - INFO - 
+================================================================================
+2025-04-26 23:56:29,365 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-26 23:56:29,365 - INFO - ================================================================================
+2025-04-26 23:56:29,365 - INFO - EventBus initialized
+2025-04-26 23:56:29,365 - INFO - Event subscriptions established
+2025-04-26 23:56:29,366 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-26 23:56:29,366 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-26 23:56:29,366 - INFO - Recent events: 2
+2025-04-26 23:56:29,366 - INFO -   Event: signal_generated at 1745704589.3668604
+2025-04-26 23:56:29,366 - INFO -   Event: market_data_updated at 1745704589.3655648
+2025-04-26 23:56:29,366 - INFO - Event system demonstration complete
+2025-04-26 23:56:29,366 - INFO - 
+================================================================================
+2025-04-26 23:56:29,367 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-26 23:56:29,367 - INFO - ================================================================================
+2025-04-26 23:56:29,367 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:29,368 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:29,526 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:29,526 - INFO - Added transformer: DataCleaner
+2025-04-26 23:56:29,526 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:56:29,526 - INFO - Pipeline initialized with transformers
+2025-04-26 23:56:29,526 - INFO - Fetching data for AAPL from 2024-04-26 to 2025-04-26
+2025-04-26 23:56:29,526 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:56:29,526 - INFO - Initialized provider 'sample'
+2025-04-26 23:56:29,535 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:56:29,536 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:56:29,538 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:56:29,538 - INFO - First request: 261 rows, 5 columns
+2025-04-26 23:56:29,538 - INFO - Added features: ...
+2025-04-26 23:56:29,539 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:56:29,539 - INFO - Second request (cached): 261 rows
+2025-04-26 23:56:29,539 - INFO - Raw data (no transformations): 261 rows, 5 columns
+2025-04-26 23:56:29,540 - INFO - Data pipeline demonstration complete
+2025-04-26 23:56:29,540 - INFO - 
+================================================================================
+2025-04-26 23:56:29,540 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-26 23:56:29,540 - INFO - ================================================================================
+2025-04-26 23:56:29,540 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-26 23:56:29,541 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:29,541 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:29,541 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:29,541 - INFO - Running backtest with MovingAverageStrategy
+2025-04-26 23:56:35,762 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:35,762 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:35,763 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:35,763 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-26 23:56:35,763 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-26 23:56:35,763 - INFO -   Initial Capital: $100,000.00
+2025-04-26 23:56:35,763 - INFO -   Final Capital: $110,000.00
+2025-04-26 23:56:35,763 - INFO -   Total Return: 10.00%
+2025-04-26 23:56:35,764 - INFO -   Annual Return: 10.00%
+2025-04-26 23:56:35,764 - INFO -   Sharpe Ratio: 1.00
+2025-04-26 23:56:35,764 - INFO -   Max Drawdown: 5.00%
+2025-04-26 23:56:35,764 - INFO -   Win Rate: 0.00%
+2025-04-26 23:56:35,764 - INFO -   Profit Factor: 0.00
+2025-04-26 23:56:35,764 - INFO -   Trade Count: 10
+2025-04-26 23:56:35,765 - INFO -   Transaction Costs: $0.00
+2025-04-26 23:56:35,765 - INFO - Backtesting demonstration complete
+2025-04-26 23:56:35,765 - INFO - 
+================================================================================
+2025-04-26 23:56:35,765 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-26 23:56:35,765 - INFO - ================================================================================
+2025-04-26 23:56:35,765 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:35,765 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:35,765 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:35,765 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:35,765 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:35,765 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:35,767 - INFO - Added transformer: DataCleaner
+2025-04-26 23:56:35,767 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:56:35,767 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-26 23:56:35,767 - INFO - Fetching data for AAPL...
+2025-04-26 23:56:35,767 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:56:35,767 - INFO - Initialized provider 'sample'
+2025-04-26 23:56:35,775 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:56:35,776 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:56:35,777 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:56:35,779 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:56:35,780 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:35,780 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:35,780 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:35,780 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-26 23:56:35,782 - ERROR - Error in backtest: 'signal'
+2025-04-26 23:56:35,783 - ERROR - [ERROR] Error in EnhancedBacktester: 'signal'
+2025-04-26 23:56:35,783 - ERROR - [ERROR] Error in EnhancedBacktester: 'signal'
+2025-04-26 23:56:48,617 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-26 23:56:48,617 - INFO - 
+================================================================================
+2025-04-26 23:56:48,617 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-26 23:56:48,618 - INFO - ================================================================================
+2025-04-26 23:56:48,618 - INFO - EventBus initialized
+2025-04-26 23:56:48,618 - INFO - Event subscriptions established
+2025-04-26 23:56:48,618 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-26 23:56:48,618 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-26 23:56:48,619 - INFO - Recent events: 2
+2025-04-26 23:56:48,619 - INFO -   Event: market_data_updated at 1745704608.6182518
+2025-04-26 23:56:48,619 - INFO -   Event: signal_generated at 1745704608.6182518
+2025-04-26 23:56:48,619 - INFO - Event system demonstration complete
+2025-04-26 23:56:48,619 - INFO - 
+================================================================================
+2025-04-26 23:56:48,619 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-26 23:56:48,620 - INFO - ================================================================================
+2025-04-26 23:56:48,620 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:48,620 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:48,776 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:48,776 - INFO - Added transformer: DataCleaner
+2025-04-26 23:56:48,776 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:56:48,776 - INFO - Pipeline initialized with transformers
+2025-04-26 23:56:48,777 - INFO - Fetching data for AAPL from 2024-04-26 to 2025-04-26
+2025-04-26 23:56:48,777 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:56:48,777 - INFO - Initialized provider 'sample'
+2025-04-26 23:56:48,786 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:56:48,786 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:56:48,788 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:56:48,788 - INFO - First request: 261 rows, 5 columns
+2025-04-26 23:56:48,788 - INFO - Added features: ...
+2025-04-26 23:56:48,789 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:56:48,789 - INFO - Second request (cached): 261 rows
+2025-04-26 23:56:48,790 - INFO - Raw data (no transformations): 261 rows, 5 columns
+2025-04-26 23:56:48,790 - INFO - Data pipeline demonstration complete
+2025-04-26 23:56:48,790 - INFO - 
+================================================================================
+2025-04-26 23:56:48,790 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-26 23:56:48,790 - INFO - ================================================================================
+2025-04-26 23:56:48,790 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-26 23:56:48,792 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:48,792 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:48,792 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:48,792 - INFO - Running backtest with MovingAverageStrategy
+2025-04-26 23:56:55,102 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:55,102 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:55,102 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:55,102 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-26 23:56:55,102 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-26 23:56:55,102 - INFO -   Initial Capital: $100,000.00
+2025-04-26 23:56:55,102 - INFO -   Final Capital: $110,000.00
+2025-04-26 23:56:55,104 - INFO -   Total Return: 10.00%
+2025-04-26 23:56:55,104 - INFO -   Annual Return: 10.00%
+2025-04-26 23:56:55,104 - INFO -   Sharpe Ratio: 1.00
+2025-04-26 23:56:55,104 - INFO -   Max Drawdown: 5.00%
+2025-04-26 23:56:55,104 - INFO -   Win Rate: 0.00%
+2025-04-26 23:56:55,104 - INFO -   Profit Factor: 0.00
+2025-04-26 23:56:55,105 - INFO -   Trade Count: 10
+2025-04-26 23:56:55,105 - INFO -   Transaction Costs: $0.00
+2025-04-26 23:56:55,105 - INFO - Backtesting demonstration complete
+2025-04-26 23:56:55,105 - INFO - 
+================================================================================
+2025-04-26 23:56:55,105 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-26 23:56:55,105 - INFO - ================================================================================
+2025-04-26 23:56:55,105 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:55,105 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:55,106 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:55,106 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:55,106 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:55,106 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:55,106 - INFO - Added transformer: DataCleaner
+2025-04-26 23:56:55,106 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:56:55,106 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-26 23:56:55,106 - INFO - Fetching data for AAPL...
+2025-04-26 23:56:55,106 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:56:55,108 - INFO - Initialized provider 'sample'
+2025-04-26 23:56:55,118 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:56:55,119 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:56:55,119 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:56:55,121 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:56:55,122 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:56:55,123 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:56:55,123 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:56:55,123 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-26 23:56:55,125 - ERROR - Error in backtest: 'signal'
+2025-04-26 23:56:55,125 - ERROR - [ERROR] Error in EnhancedBacktester: 'signal'
+2025-04-26 23:56:55,125 - ERROR - [ERROR] Error in EnhancedBacktester: 'signal'
+2025-04-26 23:57:50,688 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-26 23:57:50,688 - INFO - 
+================================================================================
+2025-04-26 23:57:50,688 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-26 23:57:50,688 - INFO - ================================================================================
+2025-04-26 23:57:50,688 - INFO - EventBus initialized
+2025-04-26 23:57:50,688 - INFO - Event subscriptions established
+2025-04-26 23:57:50,689 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-26 23:57:50,689 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-26 23:57:50,689 - INFO - Recent events: 2
+2025-04-26 23:57:50,689 - INFO -   Event: market_data_updated at 1745704670.6891873
+2025-04-26 23:57:50,689 - INFO -   Event: signal_generated at 1745704670.6891873
+2025-04-26 23:57:50,689 - INFO - Event system demonstration complete
+2025-04-26 23:57:50,689 - INFO - 
+================================================================================
+2025-04-26 23:57:50,690 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-26 23:57:50,690 - INFO - ================================================================================
+2025-04-26 23:57:50,690 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:57:50,691 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:57:50,850 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:57:50,850 - INFO - Added transformer: DataCleaner
+2025-04-26 23:57:50,850 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:57:50,850 - INFO - Pipeline initialized with transformers
+2025-04-26 23:57:50,850 - INFO - Fetching data for AAPL from 2024-04-26 to 2025-04-26
+2025-04-26 23:57:50,850 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:57:50,850 - INFO - Initialized provider 'sample'
+2025-04-26 23:57:50,859 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:57:50,861 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:57:50,863 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:57:50,864 - INFO - First request: 261 rows, 5 columns
+2025-04-26 23:57:50,864 - INFO - Added features: ...
+2025-04-26 23:57:50,865 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:57:50,865 - INFO - Second request (cached): 261 rows
+2025-04-26 23:57:50,865 - INFO - Raw data (no transformations): 261 rows, 5 columns
+2025-04-26 23:57:50,865 - INFO - Data pipeline demonstration complete
+2025-04-26 23:57:50,865 - INFO - 
+================================================================================
+2025-04-26 23:57:50,865 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-26 23:57:50,866 - INFO - ================================================================================
+2025-04-26 23:57:50,866 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-26 23:57:50,866 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:57:50,866 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:57:50,866 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:57:50,868 - INFO - Running backtest with MovingAverageStrategy
+2025-04-26 23:57:57,297 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:57:57,298 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:57:57,298 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:57:57,298 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-26 23:57:57,298 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-26 23:57:57,298 - INFO -   Initial Capital: $100,000.00
+2025-04-26 23:57:57,298 - INFO -   Final Capital: $110,000.00
+2025-04-26 23:57:57,298 - INFO -   Total Return: 10.00%
+2025-04-26 23:57:57,300 - INFO -   Annual Return: 10.00%
+2025-04-26 23:57:57,300 - INFO -   Sharpe Ratio: 1.00
+2025-04-26 23:57:57,300 - INFO -   Max Drawdown: 5.00%
+2025-04-26 23:57:57,300 - INFO -   Win Rate: 0.00%
+2025-04-26 23:57:57,300 - INFO -   Profit Factor: 0.00
+2025-04-26 23:57:57,300 - INFO -   Trade Count: 10
+2025-04-26 23:57:57,300 - INFO -   Transaction Costs: $0.00
+2025-04-26 23:57:57,300 - INFO - Backtesting demonstration complete
+2025-04-26 23:57:57,300 - INFO - 
+================================================================================
+2025-04-26 23:57:57,300 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-26 23:57:57,301 - INFO - ================================================================================
+2025-04-26 23:57:57,301 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:57:57,301 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:57:57,301 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:57:57,301 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:57:57,301 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:57:57,301 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:57:57,301 - INFO - Added transformer: DataCleaner
+2025-04-26 23:57:57,303 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:57:57,303 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-26 23:57:57,303 - INFO - Fetching data for AAPL...
+2025-04-26 23:57:57,303 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:57:57,303 - INFO - Initialized provider 'sample'
+2025-04-26 23:57:57,312 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:57:57,314 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:57:57,314 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:57:57,316 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:57:57,316 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:57:57,317 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:57:57,317 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:57:57,317 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-26 23:57:57,324 - ERROR - Error in backtest: 'numpy.int64' object is not iterable
+2025-04-26 23:57:57,324 - ERROR - [ERROR] Error in EnhancedBacktester: 'numpy.int64' object is not iterable
+2025-04-26 23:57:57,324 - ERROR - [ERROR] Error in EnhancedBacktester: 'numpy.int64' object is not iterable
+2025-04-26 23:58:37,122 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-26 23:58:37,123 - INFO - 
+================================================================================
+2025-04-26 23:58:37,123 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-26 23:58:37,123 - INFO - ================================================================================
+2025-04-26 23:58:37,123 - INFO - EventBus initialized
+2025-04-26 23:58:37,123 - INFO - Event subscriptions established
+2025-04-26 23:58:37,123 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-26 23:58:37,123 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-26 23:58:37,123 - INFO - Recent events: 2
+2025-04-26 23:58:37,125 - INFO -   Event: market_data_updated at 1745704717.1235418
+2025-04-26 23:58:37,125 - INFO -   Event: signal_generated at 1745704717.1235418
+2025-04-26 23:58:37,125 - INFO - Event system demonstration complete
+2025-04-26 23:58:37,125 - INFO - 
+================================================================================
+2025-04-26 23:58:37,125 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-26 23:58:37,125 - INFO - ================================================================================
+2025-04-26 23:58:37,125 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:37,126 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:37,283 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:37,284 - INFO - Added transformer: DataCleaner
+2025-04-26 23:58:37,284 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:58:37,284 - INFO - Pipeline initialized with transformers
+2025-04-26 23:58:37,284 - INFO - Fetching data for AAPL from 2024-04-26 to 2025-04-26
+2025-04-26 23:58:37,284 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:58:37,284 - INFO - Initialized provider 'sample'
+2025-04-26 23:58:37,293 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:58:37,294 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:58:37,296 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:37,296 - INFO - First request: 261 rows, 5 columns
+2025-04-26 23:58:37,297 - INFO - Added features: ...
+2025-04-26 23:58:37,298 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:37,298 - INFO - Second request (cached): 261 rows
+2025-04-26 23:58:37,298 - INFO - Raw data (no transformations): 261 rows, 5 columns
+2025-04-26 23:58:37,299 - INFO - Data pipeline demonstration complete
+2025-04-26 23:58:37,299 - INFO - 
+================================================================================
+2025-04-26 23:58:37,299 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-26 23:58:37,299 - INFO - ================================================================================
+2025-04-26 23:58:37,299 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-26 23:58:37,300 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:37,300 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:37,300 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:37,300 - INFO - Running backtest with MovingAverageStrategy
+2025-04-26 23:58:43,449 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:43,450 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:43,450 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:43,450 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-26 23:58:43,450 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-26 23:58:43,450 - INFO -   Initial Capital: $100,000.00
+2025-04-26 23:58:43,451 - INFO -   Final Capital: $110,000.00
+2025-04-26 23:58:43,451 - INFO -   Total Return: 10.00%
+2025-04-26 23:58:43,451 - INFO -   Annual Return: 10.00%
+2025-04-26 23:58:43,451 - INFO -   Sharpe Ratio: 1.00
+2025-04-26 23:58:43,451 - INFO -   Max Drawdown: 5.00%
+2025-04-26 23:58:43,451 - INFO -   Win Rate: 0.00%
+2025-04-26 23:58:43,451 - INFO -   Profit Factor: 0.00
+2025-04-26 23:58:43,452 - INFO -   Trade Count: 10
+2025-04-26 23:58:43,452 - INFO -   Transaction Costs: $0.00
+2025-04-26 23:58:43,452 - INFO - Backtesting demonstration complete
+2025-04-26 23:58:43,452 - INFO - 
+================================================================================
+2025-04-26 23:58:43,452 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-26 23:58:43,452 - INFO - ================================================================================
+2025-04-26 23:58:43,453 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:43,453 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:43,453 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:43,453 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:43,453 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:43,454 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:43,454 - INFO - Added transformer: DataCleaner
+2025-04-26 23:58:43,454 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:58:43,454 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-26 23:58:43,454 - INFO - Fetching data for AAPL...
+2025-04-26 23:58:43,454 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:58:43,454 - INFO - Initialized provider 'sample'
+2025-04-26 23:58:43,463 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:58:43,464 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:58:43,464 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:58:43,466 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:43,466 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:43,467 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:43,467 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:43,467 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-26 23:58:43,475 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on AAPL
+2025-04-26 23:58:43,475 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:58:43,475 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on AAPL
+2025-04-26 23:58:43,475 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:58:43,475 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_AAPL_20250426_235843.json
+2025-04-26 23:58:43,476 - INFO - Fetching data for MSFT...
+2025-04-26 23:58:43,476 - WARNING - Using sample data for MSFT as fallback
+2025-04-26 23:58:43,483 - INFO - Generated sample data for MSFT with 261 data points
+2025-04-26 23:58:43,513 - INFO - [UPDATE] Market data updated: MSFT - 261 data points
+2025-04-26 23:58:43,513 - INFO - [UPDATE] Market data updated: MSFT - 261 data points
+2025-04-26 23:58:43,515 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:43,515 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:43,515 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:43,515 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:43,515 - INFO - Backtesting MovingAverageStrategy on MSFT...
+2025-04-26 23:58:43,522 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on MSFT
+2025-04-26 23:58:43,522 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:58:43,522 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on MSFT
+2025-04-26 23:58:43,522 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:58:43,523 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_MSFT_20250426_235843.json
+2025-04-26 23:58:43,524 - INFO - Fetching data for GOOGL...
+2025-04-26 23:58:43,524 - WARNING - Using sample data for GOOGL as fallback
+2025-04-26 23:58:43,532 - INFO - Generated sample data for GOOGL with 261 data points
+2025-04-26 23:58:43,534 - INFO - [UPDATE] Market data updated: GOOGL - 261 data points
+2025-04-26 23:58:43,534 - INFO - [UPDATE] Market data updated: GOOGL - 261 data points
+2025-04-26 23:58:43,536 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:43,536 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:43,536 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:43,537 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:43,537 - INFO - Backtesting MovingAverageStrategy on GOOGL...
+2025-04-26 23:58:43,543 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on GOOGL
+2025-04-26 23:58:43,544 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:58:43,544 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on GOOGL
+2025-04-26 23:58:43,545 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:58:43,546 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_GOOGL_20250426_235843.json
+2025-04-26 23:58:43,546 - INFO - Strategy comparison across symbols:
+2025-04-26 23:58:43,547 - INFO - 
++---+--------+-----------------------+--------+--------+----------+--------+
+|   | Symbol |       Strategy        | Return | Sharpe | Drawdown | Trades |
++---+--------+-----------------------+--------+--------+----------+--------+
+| 0 |  AAPL  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
+| 1 |  MSFT  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
+| 2 | GOOGL  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
++---+--------+-----------------------+--------+--------+----------+--------+
+2025-04-26 23:58:43,549 - INFO - Integrated workflow demonstration complete
+2025-04-26 23:58:43,549 - INFO - Enhanced Architecture Demo completed successfully!
+2025-04-26 23:58:55,219 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-26 23:58:55,219 - INFO - 
+================================================================================
+2025-04-26 23:58:55,219 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-26 23:58:55,220 - INFO - ================================================================================
+2025-04-26 23:58:55,221 - INFO - EventBus initialized
+2025-04-26 23:58:55,221 - INFO - Event subscriptions established
+2025-04-26 23:58:55,221 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-26 23:58:55,221 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-26 23:58:55,222 - INFO - Recent events: 2
+2025-04-26 23:58:55,222 - INFO -   Event: market_data_updated at 1745704735.2212908
+2025-04-26 23:58:55,222 - INFO -   Event: signal_generated at 1745704735.2212908
+2025-04-26 23:58:55,222 - INFO - Event system demonstration complete
+2025-04-26 23:58:55,222 - INFO - 
+================================================================================
+2025-04-26 23:58:55,223 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-26 23:58:55,223 - INFO - ================================================================================
+2025-04-26 23:58:55,223 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:55,223 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:55,425 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:55,425 - INFO - Added transformer: DataCleaner
+2025-04-26 23:58:55,425 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:58:55,425 - INFO - Pipeline initialized with transformers
+2025-04-26 23:58:55,426 - INFO - Fetching data for AAPL from 2024-04-26 to 2025-04-26
+2025-04-26 23:58:55,426 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:58:55,426 - INFO - Initialized provider 'sample'
+2025-04-26 23:58:55,437 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:58:55,439 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:58:55,442 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:55,442 - INFO - First request: 261 rows, 5 columns
+2025-04-26 23:58:55,442 - INFO - Added features: ...
+2025-04-26 23:58:55,444 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:58:55,445 - INFO - Second request (cached): 261 rows
+2025-04-26 23:58:55,445 - INFO - Raw data (no transformations): 261 rows, 5 columns
+2025-04-26 23:58:55,445 - INFO - Data pipeline demonstration complete
+2025-04-26 23:58:55,446 - INFO - 
+================================================================================
+2025-04-26 23:58:55,446 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-26 23:58:55,446 - INFO - ================================================================================
+2025-04-26 23:58:55,446 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-26 23:58:55,447 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:58:55,447 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:58:55,447 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:58:55,447 - INFO - Running backtest with MovingAverageStrategy
+2025-04-26 23:59:01,575 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:59:01,575 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:59:01,575 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:59:01,577 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-26 23:59:01,577 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-26 23:59:01,577 - INFO -   Initial Capital: $100,000.00
+2025-04-26 23:59:01,577 - INFO -   Final Capital: $110,000.00
+2025-04-26 23:59:01,577 - INFO -   Total Return: 10.00%
+2025-04-26 23:59:01,577 - INFO -   Annual Return: 10.00%
+2025-04-26 23:59:01,577 - INFO -   Sharpe Ratio: 1.00
+2025-04-26 23:59:01,577 - INFO -   Max Drawdown: 5.00%
+2025-04-26 23:59:01,578 - INFO -   Win Rate: 0.00%
+2025-04-26 23:59:01,578 - INFO -   Profit Factor: 0.00
+2025-04-26 23:59:01,578 - INFO -   Trade Count: 10
+2025-04-26 23:59:01,578 - INFO -   Transaction Costs: $0.00
+2025-04-26 23:59:01,578 - INFO - Backtesting demonstration complete
+2025-04-26 23:59:01,578 - INFO - 
+================================================================================
+2025-04-26 23:59:01,578 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-26 23:59:01,578 - INFO - ================================================================================
+2025-04-26 23:59:01,580 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:59:01,580 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:59:01,580 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:59:01,580 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:59:01,580 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:59:01,581 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:59:01,581 - INFO - Added transformer: DataCleaner
+2025-04-26 23:59:01,581 - INFO - Added transformer: FeatureEngineer
+2025-04-26 23:59:01,581 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-26 23:59:01,581 - INFO - Fetching data for AAPL...
+2025-04-26 23:59:01,582 - WARNING - Using sample data for AAPL as fallback
+2025-04-26 23:59:01,582 - INFO - Initialized provider 'sample'
+2025-04-26 23:59:01,589 - INFO - Generated sample data for AAPL with 261 data points
+2025-04-26 23:59:01,590 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:59:01,592 - INFO - [UPDATE] Market data updated: AAPL - 261 data points
+2025-04-26 23:59:01,593 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:59:01,594 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:59:01,594 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:59:01,594 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:59:01,594 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-26 23:59:01,603 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on AAPL
+2025-04-26 23:59:01,603 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:59:01,603 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on AAPL
+2025-04-26 23:59:01,603 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:59:01,605 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_AAPL_20250426_235901.json
+2025-04-26 23:59:01,606 - INFO - Fetching data for MSFT...
+2025-04-26 23:59:01,606 - WARNING - Using sample data for MSFT as fallback
+2025-04-26 23:59:01,613 - INFO - Generated sample data for MSFT with 261 data points
+2025-04-26 23:59:01,615 - INFO - [UPDATE] Market data updated: MSFT - 261 data points
+2025-04-26 23:59:01,615 - INFO - [UPDATE] Market data updated: MSFT - 261 data points
+2025-04-26 23:59:01,616 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:59:01,617 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:59:01,617 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:59:01,617 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:59:01,617 - INFO - Backtesting MovingAverageStrategy on MSFT...
+2025-04-26 23:59:01,623 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on MSFT
+2025-04-26 23:59:01,623 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:59:01,623 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on MSFT
+2025-04-26 23:59:01,623 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:59:01,625 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_MSFT_20250426_235901.json
+2025-04-26 23:59:01,625 - INFO - Fetching data for GOOGL...
+2025-04-26 23:59:01,625 - WARNING - Using sample data for GOOGL as fallback
+2025-04-26 23:59:01,635 - INFO - Generated sample data for GOOGL with 261 data points
+2025-04-26 23:59:01,650 - INFO - [UPDATE] Market data updated: GOOGL - 261 data points
+2025-04-26 23:59:01,650 - INFO - [UPDATE] Market data updated: GOOGL - 261 data points
+2025-04-26 23:59:01,651 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-26 23:59:01,651 - INFO - Registered provider 'sample' with priority 100
+2025-04-26 23:59:01,653 - INFO - Registered provider 'polygon' with priority 10
+2025-04-26 23:59:01,653 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-26 23:59:01,653 - INFO - Backtesting MovingAverageStrategy on GOOGL...
+2025-04-26 23:59:01,658 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on GOOGL
+2025-04-26 23:59:01,658 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:59:01,658 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on GOOGL
+2025-04-26 23:59:01,658 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-26 23:59:01,659 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_GOOGL_20250426_235901.json
+2025-04-26 23:59:01,660 - INFO - Strategy comparison across symbols:
+2025-04-26 23:59:01,662 - INFO - 
++---+--------+-----------------------+--------+--------+----------+--------+
+|   | Symbol |       Strategy        | Return | Sharpe | Drawdown | Trades |
++---+--------+-----------------------+--------+--------+----------+--------+
+| 0 |  AAPL  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
+| 1 |  MSFT  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
+| 2 | GOOGL  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
++---+--------+-----------------------+--------+--------+----------+--------+
+2025-04-26 23:59:01,662 - INFO - Integrated workflow demonstration complete
+2025-04-26 23:59:01,662 - INFO - Enhanced Architecture Demo completed successfully!
+2025-04-27 00:00:00,254 - INFO - Starting MercurioAI Enhanced Architecture Demo
+2025-04-27 00:00:00,254 - INFO - 
+================================================================================
+2025-04-27 00:00:00,254 - INFO -   DEMONSTRATING EVENT-DRIVEN ARCHITECTURE
+2025-04-27 00:00:00,254 - INFO - ================================================================================
+2025-04-27 00:00:00,254 - INFO - EventBus initialized
+2025-04-27 00:00:00,255 - INFO - Event subscriptions established
+2025-04-27 00:00:00,255 - INFO - [UPDATE] Market data updated: AAPL - 252 data points
+2025-04-27 00:00:00,255 - INFO - [SIGNAL] Signal generated: AAPL - BUY (confidence: 0.85)
+2025-04-27 00:00:00,255 - INFO - Recent events: 2
+2025-04-27 00:00:00,255 - INFO -   Event: market_data_updated at 1745704800.2557552
+2025-04-27 00:00:00,256 - INFO -   Event: signal_generated at 1745704800.2557552
+2025-04-27 00:00:00,256 - INFO - Event system demonstration complete
+2025-04-27 00:00:00,256 - INFO - 
+================================================================================
+2025-04-27 00:00:00,256 - INFO -   DEMONSTRATING ENHANCED DATA PIPELINE
+2025-04-27 00:00:00,256 - INFO - ================================================================================
+2025-04-27 00:00:00,256 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:00,258 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:00,410 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:00,410 - INFO - Added transformer: DataCleaner
+2025-04-27 00:00:00,410 - INFO - Added transformer: FeatureEngineer
+2025-04-27 00:00:00,410 - INFO - Pipeline initialized with transformers
+2025-04-27 00:00:00,410 - INFO - Fetching data for AAPL from 2024-04-27 to 2025-04-27
+2025-04-27 00:00:00,410 - WARNING - Using sample data for AAPL as fallback
+2025-04-27 00:00:00,411 - INFO - Initialized provider 'sample'
+2025-04-27 00:00:00,419 - INFO - Generated sample data for AAPL with 260 data points
+2025-04-27 00:00:00,436 - INFO - [UPDATE] Market data updated: AAPL - 260 data points
+2025-04-27 00:00:00,438 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-27 00:00:00,438 - INFO - First request: 260 rows, 5 columns
+2025-04-27 00:00:00,438 - INFO - Added features: ...
+2025-04-27 00:00:00,439 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-27 00:00:00,439 - INFO - Second request (cached): 260 rows
+2025-04-27 00:00:00,439 - INFO - Raw data (no transformations): 260 rows, 5 columns
+2025-04-27 00:00:00,439 - INFO - Data pipeline demonstration complete
+2025-04-27 00:00:00,439 - INFO - 
+================================================================================
+2025-04-27 00:00:00,439 - INFO -   DEMONSTRATING ENHANCED BACKTESTING ENGINE
+2025-04-27 00:00:00,439 - INFO - ================================================================================
+2025-04-27 00:00:00,441 - INFO - Transaction cost model set: 0.1% fee + $1 fixed (min $1) with 0.01% slippage
+2025-04-27 00:00:00,441 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:00,441 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:00,441 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:00,441 - INFO - Running backtest with MovingAverageStrategy
+2025-04-27 00:00:06,617 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:06,617 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:06,618 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:06,618 - ERROR - Error in backtest demo: name 'BacktestingService' is not defined
+2025-04-27 00:00:06,618 - INFO - Backtest results for MovingAverageStrategy on AAPL:
+2025-04-27 00:00:06,618 - INFO -   Initial Capital: $100,000.00
+2025-04-27 00:00:06,618 - INFO -   Final Capital: $110,000.00
+2025-04-27 00:00:06,618 - INFO -   Total Return: 10.00%
+2025-04-27 00:00:06,619 - INFO -   Annual Return: 10.00%
+2025-04-27 00:00:06,619 - INFO -   Sharpe Ratio: 1.00
+2025-04-27 00:00:06,619 - INFO -   Max Drawdown: 5.00%
+2025-04-27 00:00:06,619 - INFO -   Win Rate: 0.00%
+2025-04-27 00:00:06,619 - INFO -   Profit Factor: 0.00
+2025-04-27 00:00:06,619 - INFO -   Trade Count: 10
+2025-04-27 00:00:06,619 - INFO -   Transaction Costs: $0.00
+2025-04-27 00:00:06,620 - INFO - Backtesting demonstration complete
+2025-04-27 00:00:06,620 - INFO - 
+================================================================================
+2025-04-27 00:00:06,620 - INFO -   DEMONSTRATING INTEGRATED WORKFLOW
+2025-04-27 00:00:06,620 - INFO - ================================================================================
+2025-04-27 00:00:06,620 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:06,621 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:06,621 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:06,621 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:06,621 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:06,621 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:06,621 - INFO - Added transformer: DataCleaner
+2025-04-27 00:00:06,621 - INFO - Added transformer: FeatureEngineer
+2025-04-27 00:00:06,622 - INFO - Running integrated workflow for 3 symbols and 1 strategies
+2025-04-27 00:00:06,622 - INFO - Fetching data for AAPL...
+2025-04-27 00:00:06,622 - WARNING - Using sample data for AAPL as fallback
+2025-04-27 00:00:06,622 - INFO - Initialized provider 'sample'
+2025-04-27 00:00:06,632 - INFO - Generated sample data for AAPL with 260 data points
+2025-04-27 00:00:06,633 - INFO - [UPDATE] Market data updated: AAPL - 260 data points
+2025-04-27 00:00:06,633 - INFO - [UPDATE] Market data updated: AAPL - 260 data points
+2025-04-27 00:00:06,634 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-27 00:00:06,636 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:06,636 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:06,636 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:06,636 - INFO - Backtesting MovingAverageStrategy on AAPL...
+2025-04-27 00:00:06,643 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on AAPL
+2025-04-27 00:00:06,643 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-27 00:00:06,644 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on AAPL
+2025-04-27 00:00:06,644 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-27 00:00:06,663 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_AAPL_20250427_000006.json
+2025-04-27 00:00:06,663 - INFO - Fetching data for MSFT...
+2025-04-27 00:00:06,663 - WARNING - Using sample data for MSFT as fallback
+2025-04-27 00:00:06,670 - INFO - Generated sample data for MSFT with 260 data points
+2025-04-27 00:00:06,672 - INFO - [UPDATE] Market data updated: MSFT - 260 data points
+2025-04-27 00:00:06,672 - INFO - [UPDATE] Market data updated: MSFT - 260 data points
+2025-04-27 00:00:06,674 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-27 00:00:06,674 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:06,675 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:06,675 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:06,675 - INFO - Backtesting MovingAverageStrategy on MSFT...
+2025-04-27 00:00:06,682 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on MSFT
+2025-04-27 00:00:06,684 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-27 00:00:06,684 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on MSFT
+2025-04-27 00:00:06,684 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-27 00:00:06,685 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_MSFT_20250427_000006.json
+2025-04-27 00:00:06,685 - INFO - Fetching data for GOOGL...
+2025-04-27 00:00:06,686 - WARNING - Using sample data for GOOGL as fallback
+2025-04-27 00:00:06,695 - INFO - Generated sample data for GOOGL with 260 data points
+2025-04-27 00:00:06,697 - INFO - [UPDATE] Market data updated: GOOGL - 260 data points
+2025-04-27 00:00:06,698 - INFO - [UPDATE] Market data updated: GOOGL - 260 data points
+2025-04-27 00:00:06,700 - ERROR - Error in transformer FeatureEngineer: No module named 'talib'
+2025-04-27 00:00:06,700 - INFO - Registered provider 'sample' with priority 100
+2025-04-27 00:00:06,700 - INFO - Registered provider 'polygon' with priority 10
+2025-04-27 00:00:06,700 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-27 00:00:06,700 - INFO - Backtesting MovingAverageStrategy on GOOGL...
+2025-04-27 00:00:06,708 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on GOOGL
+2025-04-27 00:00:06,708 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-27 00:00:06,708 - INFO - [SUCCESS] Backtest completed: MovingAverageStrategy on GOOGL
+2025-04-27 00:00:06,709 - INFO -    Return: 0.00%, Sharpe: 0.00, Drawdown: 0.00%
+2025-04-27 00:00:06,710 - INFO - Saved backtest result to results\backtests\MovingAverageStrategy_GOOGL_20250427_000006.json
+2025-04-27 00:00:06,710 - INFO - Strategy comparison across symbols:
+2025-04-27 00:00:06,712 - INFO - 
++---+--------+-----------------------+--------+--------+----------+--------+
+|   | Symbol |       Strategy        | Return | Sharpe | Drawdown | Trades |
++---+--------+-----------------------+--------+--------+----------+--------+
+| 0 |  AAPL  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
+| 1 |  MSFT  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
+| 2 | GOOGL  | MovingAverageStrategy | 0.00%  |  0.00  |  0.00%   |   0    |
++---+--------+-----------------------+--------+--------+----------+--------+
+2025-04-27 00:00:06,712 - INFO - Integrated workflow demonstration complete
+2025-04-27 00:00:06,713 - INFO - Enhanced Architecture Demo completed successfully!

@@ -1,26 +1,31 @@
-symbol,strategy,initial_capital,final_capital,total_return,annualized_return,sharpe_ratio,max_drawdown,trades,error
-AAPL,MovingAverage,$2000.00,$2013.39,0.67%,33.75%,1.86,-1.83%,2,
-AAPL,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-AAPL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-AAPL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
-AAPL,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-MSFT,MovingAverage,$2000.00,$1958.57,-2.07%,-104.41%,-8.04,-2.58%,3,
-MSFT,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-MSFT,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-MSFT,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
-MSFT,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-GOOGL,MovingAverage,$2000.00,$2154.65,7.73%,389.71%,13.01,-1.44%,1,
-GOOGL,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-GOOGL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-GOOGL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
-GOOGL,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-BTC-USD,MovingAverage,$2000.00,$2027.57,1.38%,43.42%,2.29,-2.63%,3,
-BTC-USD,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-BTC-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-BTC-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
-BTC-USD,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-ETH-USD,MovingAverage,$2000.00,$1854.53,-7.27%,-229.12%,-7.27,-8.72%,3,
-ETH-USD,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-ETH-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-ETH-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
-ETH-USD,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
+Symbol,Strategy,Initial Capital,Final Capital,Total Return,Annualized Return,Sharpe Ratio,Max Drawdown,Trades
+AAPL,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+AAPL,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+AAPL,LLM,$2000.00,$0.00,2.43%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 170.12633990422512, 'quantity': 11.168170672863651, 'capital': 100.0}]"
+MSFT,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+MSFT,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+MSFT,LLM,$2000.00,$0.00,-1.48%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 384.73000618570234, 'quantity': 4.93852823915924, 'capital': 100.0}]"
+AMZN,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+AMZN,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+AMZN,LLM,$2000.00,$0.00,-3.22%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 185.06161377027055, 'quantity': 10.266850922193935, 'capital': 100.0}]"
+GOOGL,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+GOOGL,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+GOOGL,LLM,$2000.00,$0.00,0.76%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 201.88831475646376, 'quantity': 9.411143989645733, 'capital': 100.0}]"
+TSLA,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+TSLA,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+TSLA,LLM,$2000.00,$0.00,5.69%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 171.75247086086893, 'quantity': 11.06243182690005, 'capital': 100.0}]"
+BTC-USD,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+BTC-USD,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+BTC-USD,LLM,$2000.00,$0.00,10.14%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 158.29299063276056, 'quantity': 12.003058331294001, 'capital': 100.0}]"
+ETH-USD,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+ETH-USD,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+ETH-USD,LLM,$2000.00,$0.00,2.42%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 56.15649065828538, 'quantity': 33.834023061761116, 'capital': 99.99999999999977}]"
+SOL-USD,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+SOL-USD,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+SOL-USD,LLM,$2000.00,$0.00,0.17%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 75.23628748428295, 'quantity': 25.253771332043925, 'capital': 100.0}]"
+ADA-USD,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+ADA-USD,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+ADA-USD,LLM,$2000.00,$0.00,-1.31%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 122.5294772768978, 'quantity': 15.506472746197161, 'capital': 100.0}]"
+DOT-USD,MovingAverage,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+DOT-USD,MovingAverage_ML,$2000.00,$2000.00,0.00%,0.00%,nan,0.00%,[]
+DOT-USD,LLM,$2000.00,$0.00,-6.16%,0.00%,0.00,0.00%,"[{'timestamp': 20, 'action': 'BUY', 'price': 67.8714123303334, 'quantity': 27.994113202663435, 'capital': 100.0}]"
