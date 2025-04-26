@@ -74,6 +74,11 @@ class TimeframeStrategySimulator:
             self.strategies["Transformer"] = TransformerStrategy(sequence_length=lstm_seq)
         except Exception as e:
             logger.error(f"Failed to initialize Transformer: {e}")
+        try:
+            from app.strategies.msi_strategy import MultiSourceIntelligenceStrategy
+            self.strategies["MSI"] = MultiSourceIntelligenceStrategy()
+        except Exception as e:
+            logger.error(f"Failed to initialize MSI: {e}")
 
     def generate_market_data(self):
         logger.info(f"Generating market data for {len(self.all_symbols)} symbols for {self.timeframe_name}...")
@@ -112,21 +117,39 @@ class TimeframeStrategySimulator:
                 try:
                     # Preprocess
                     preprocessed = await strat.preprocess_data(data.copy())
-                    if preprocessed is None or preprocessed.empty:
+                    # Special handling for LSTM: if __lstm_error__ column exists, propagate error and skip
+                    if isinstance(preprocessed, pd.DataFrame) and '__lstm_error__' in preprocessed.columns:
+                        error_msg = preprocessed['__lstm_error__'].iloc[0]
+                        logger.warning(f"[LSTM] {strat_name} for {symbol} ({self.timeframe_name}): {error_msg}")
+                        self.results.append({
+                            'symbol': symbol,
+                            'strategy': strat_name,
+                            'timeframe': self.timeframe_name,
+                            'initial_close': None,
+                            'final_close': None,
+                            'total_return_%': None,
+                            'error': error_msg
+                        })
+                        continue
+                    if preprocessed is None or preprocessed.empty or len(preprocessed) == 0:
                         # Try fallback: if original data has at least 1 row, use it as a dummy row
                         if len(data) > 0:
                             warn = f"[WARNING] {strat_name} could not compute features for {symbol} ({self.timeframe_name}). Using last available row."
                             logger.warning(warn)
                             dummy = data.tail(1)
-                            initial = dummy['close'].iloc[0]
-                            final = dummy['close'].iloc[0]
+                            if len(dummy) > 0:
+                                initial = dummy['close'].iloc[0]
+                                final = dummy['close'].iloc[0]
+                            else:
+                                initial = None
+                                final = None
                             self.results.append({
                                 'symbol': symbol,
                                 'strategy': strat_name,
                                 'timeframe': self.timeframe_name,
                                 'initial_close': initial,
                                 'final_close': final,
-                                'total_return_%': 0.0,
+                                'total_return_%': 0.0 if initial is not None else None,
                                 'error': warn
                             })
                         else:
@@ -144,18 +167,42 @@ class TimeframeStrategySimulator:
                     if hasattr(strat, 'train'):
                         await strat.train(preprocessed)
                     # Simulate (very basic: just compute total return)
-                    initial = preprocessed['close'].iloc[0]
-                    final = preprocessed['close'].iloc[-1]
-                    total_return = (final - initial) / initial * 100 if initial != 0 else 0.0
-                    self.results.append({
-                        'symbol': symbol,
-                        'strategy': strat_name,
-                        'timeframe': self.timeframe_name,
-                        'initial_close': initial,
-                        'final_close': final,
-                        'total_return_%': total_return,
-                        'error': None
-                    })
+                    if len(preprocessed) > 0 and 'close' in preprocessed.columns:
+                        try:
+                            initial = preprocessed['close'].iloc[0]
+                            final = preprocessed['close'].iloc[-1]
+                            total_return = (final - initial) / initial * 100 if initial != 0 else 0.0
+                            self.results.append({
+                                'symbol': symbol,
+                                'strategy': strat_name,
+                                'timeframe': self.timeframe_name,
+                                'initial_close': initial,
+                                'final_close': final,
+                                'total_return_%': total_return,
+                                'error': None
+                            })
+                        except Exception as e:
+                            logger.warning(f"[{strat_name}] Could not access initial/final price for {symbol} ({self.timeframe_name}): {e}")
+                            self.results.append({
+                                'symbol': symbol,
+                                'strategy': strat_name,
+                                'timeframe': self.timeframe_name,
+                                'initial_close': None,
+                                'final_close': None,
+                                'total_return_%': None,
+                                'error': f'Exception: {e}'
+                            })
+                    else:
+                        logger.warning(f"[{strat_name}] No valid data for initial/final price for {symbol} ({self.timeframe_name}) (len={len(preprocessed)}, columns={preprocessed.columns.tolist()})")
+                        self.results.append({
+                            'symbol': symbol,
+                            'strategy': strat_name,
+                            'timeframe': self.timeframe_name,
+                            'initial_close': None,
+                            'final_close': None,
+                            'total_return_%': None,
+                            'error': 'No valid data for initial/final price'
+                        })
                 except Exception as e:
                     self.results.append({
                         'symbol': symbol,

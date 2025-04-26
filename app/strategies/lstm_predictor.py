@@ -101,37 +101,44 @@ class LSTMPredictorStrategy(BaseStrategy):
         data['return'] = data['close'].pct_change()
         data['log_return'] = np.log(data['close'] / data['close'].shift(1))
         
+        # Dynamically determine window sizes for small datasets
+        min_win = max(1, min(5, len(data)))
+        win_20 = max(1, min(20, len(data)))
         # Calculate technical indicators
         # Moving averages
-        data['ma_5'] = data['close'].rolling(window=5).mean()
-        data['ma_20'] = data['close'].rolling(window=20).mean()
+        data['ma_5'] = data['close'].rolling(window=min_win).mean()
+        data['ma_20'] = data['close'].rolling(window=win_20).mean()
         
         # Relative Strength Index (RSI)
         delta = data['close'].diff()
         gain = delta.where(delta > 0, 0)
         loss = -delta.where(delta < 0, 0)
-        avg_gain = gain.rolling(window=14).mean()
-        avg_loss = loss.rolling(window=14).mean()
+        win_14 = max(1, min(14, len(data)))
+        avg_gain = gain.rolling(window=win_14).mean()
+        avg_loss = loss.rolling(window=win_14).mean()
         rs = avg_gain / avg_loss
         data['rsi'] = 100 - (100 / (1 + rs))
         
         # MACD
-        data['ema_12'] = data['close'].ewm(span=12).mean()
-        data['ema_26'] = data['close'].ewm(span=26).mean()
+        win_12 = max(1, min(12, len(data)))
+        win_26 = max(1, min(26, len(data)))
+        data['ema_12'] = data['close'].ewm(span=win_12).mean()
+        data['ema_26'] = data['close'].ewm(span=win_26).mean()
         data['macd'] = data['ema_12'] - data['ema_26']
-        data['macd_signal'] = data['macd'].ewm(span=9).mean()
+        win_9 = max(1, min(9, len(data)))
+        data['macd_signal'] = data['macd'].ewm(span=win_9).mean()
         
         # Bollinger Bands
-        data['std_20'] = data['close'].rolling(window=20).std()
+        data['std_20'] = data['close'].rolling(window=win_20).std()
         data['upper_band'] = data['ma_20'] + (data['std_20'] * 2)
         data['lower_band'] = data['ma_20'] - (data['std_20'] * 2)
         data['bb_width'] = (data['upper_band'] - data['lower_band']) / data['ma_20']
         
         # Momentum
-        data['momentum'] = data['close'].diff(periods=5)
+        data['momentum'] = data['close'].diff(periods=min_win)
         
         # Volatility
-        data['volatility'] = data['close'].rolling(window=20).std() / data['ma_20']
+        data['volatility'] = data['close'].rolling(window=win_20).std() / data['ma_20']
         
         # Target variable: future return (shifted price for prediction)
         data['target'] = data['close'].shift(-self.prediction_horizon)
@@ -144,6 +151,13 @@ class LSTMPredictorStrategy(BaseStrategy):
         
         # Drop NaN values
         data = data.dropna()
+        
+        # Check if enough rows remain for at least one sequence
+        if len(data) < self.sequence_length + 1:
+            logger.warning(f"[LSTM] Not enough rows after preprocessing for sequence_length={self.sequence_length}. Data rows: {len(data)}. Returning error.")
+            # Return a special DataFrame with an error marker for the script to pick up
+            data['__lstm_error__'] = f"Not enough data after preprocessing (rows={len(data)}, needed={self.sequence_length+1})"
+            return data
         
         return data
     
