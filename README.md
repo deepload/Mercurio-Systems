@@ -1,17 +1,19 @@
 <div align="center">
-  <h1>🚀 Mercurio AI Trading Platform</h1>
+  <h1>🚀 Mercurio Systems Trading Platform</h1>
   <p><strong>The intelligent, resilient algorithmic trading platform that adapts to any market condition</strong></p>
   <p>
     <a href="#installation"><img src="https://img.shields.io/badge/Installation-Guide-blue"/></a>
     <a href="#quick-start"><img src="https://img.shields.io/badge/Quick-Start-brightgreen"/></a>
     <a href="docs/for-dummies/01-introduction.md"><img src="https://img.shields.io/badge/Documentation-Complete-orange"/></a>
+    <a href="https://mercurio.systems"><img src="https://img.shields.io/badge/Website-https%3A%2F%2Fmercurio.systems-blue"/></a>
+    <a href="https://github.com/deepload/Mercurio"><img src="https://img.shields.io/badge/GitHub-https%3A%2F%2Fgithub.com%2Fdeepload%2FMercurio-blue"/></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow"/></a>
   </p>
 </div>
 
 ## 💼 Overview
 
-Mercurio AI is a comprehensive algorithmic trading platform built with reliability and versatility at its core. Whether you're a beginner exploring trading strategies or an expert deploying sophisticated machine learning models, Mercurio AI provides all the tools you need in one integrated ecosystem.
+Mercurio is a comprehensive algorithmic trading platform built with reliability and versatility at its core. Whether you're a beginner exploring trading strategies or an expert deploying sophisticated machine learning models, Mercurio provides all the tools you need in one integrated ecosystem.
 
 ### 🌟 Key Features
 
@@ -29,7 +31,7 @@ Mercurio AI is a comprehensive algorithmic trading platform built with reliabili
 <summary><strong>Click to expand project structure</strong></summary>
 
 ```
-MercurioAI/
+Mercurio/
 ├── app/                       # Core application directory
 │   ├── main.py                # FastAPI application entry point
 │   ├── api/                   # API endpoints
@@ -104,7 +106,7 @@ MercurioAI/
   </tr>
   <tr>
     <td><strong>Note</strong></td>
-    <td>Thanks to Mercurio AI's fallback system, no API keys are required to get started with testing and development!</td>
+    <td>Thanks to Mercurio's fallback system, no API keys are required to get started with testing and development!</td>
   </tr>
 </table>
 
@@ -115,8 +117,8 @@ MercurioAI/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mercurio-ai.git
-cd mercurio-ai
+git clone https://github.com/deepload/Mercurio
+cd mercurio-systems
 
 # Create and activate virtual environment
 python -m venv venv
@@ -137,8 +139,8 @@ copy .env.example .env
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mercurio-ai.git
-cd mercurio-ai
+git clone https://github.com/deepload/Mercurio
+cd mercurio-systems
 
 # Create environment file
 copy .env.example .env
@@ -222,14 +224,14 @@ python comprehensive_simulation.py --timeframe daily
 For complete API documentation, run the server and visit `/docs` or check the [API Reference](./docs/api/README.md).
 </details>
 
-## 🔧 Extending Mercurio AI
+## 🔧 Extending Mercurio Systems
 
 ### Creating Custom Strategies
 
 <details>
 <summary><strong>Click to see how to add custom strategies</strong></summary>
 
-Mercurio AI follows a plugin architecture for strategies, making it easy to implement your own trading logic:
+Mercurio Systems follows a plugin architecture for strategies, making it easy to implement your own trading logic:
 
 1. Create a new Python file in the `app/strategies` directory
 2. Extend the `BaseStrategy` class

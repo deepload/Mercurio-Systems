@@ -1,4 +1,4 @@
-# Mercurio AI Quick Start
+# Mercurio Systems Quick Start
 
 This guide will help you quickly run the strategy timeframe comparison script and understand its output.
 
@@ -33,4 +33,4 @@ python strategy_timeframe_comparison.py
 
 ---
 
-For more information, see the main `README.md` or contact the Mercurio AI team.
+For more information, see the main `README.md` or contact the Mercurio Systems team.
