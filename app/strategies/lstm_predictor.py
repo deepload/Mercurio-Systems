@@ -171,24 +171,26 @@ class LSTMPredictorStrategy(BaseStrategy):
         Returns:
             Tuple of (X, y) for training
         """
+        # Robustness: Check for sufficient data and required columns
+        if len(data) < self.sequence_length + 1 or 'signal' not in data.columns:
+            logger.warning(f"[LSTM] Not enough data or missing 'signal' column for sequence creation (rows={len(data)}, sequence_length={self.sequence_length})")
+            return np.empty((0, self.sequence_length, 10)), np.empty((0,))
         # Features to use
         features = [
             'close', 'return', 'ma_5', 'ma_20', 'rsi', 
             'macd', 'macd_signal', 'bb_width', 'momentum', 'volatility'
         ]
-        
         # Scale the features
         feature_data = data[features].values
         scaled_data = self.scaler.fit_transform(feature_data)
-        
         # Create sequences
         X, y = [], []
         for i in range(len(scaled_data) - self.sequence_length):
             X.append(scaled_data[i:(i + self.sequence_length)])
             # Target is the signal value (classification)
             y.append(data['signal'].iloc[i + self.sequence_length])
-        
         return np.array(X), np.array(y)
+
     
     def _build_model(self, input_shape: Tuple) -> Sequential:
         """
