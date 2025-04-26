@@ -1,0 +1,26 @@
+error,symbol,strategy,initial_capital,final_capital,total_return,trades
+single positional indexer is out-of-bounds,AAPL,MovingAverage,2000,0,0.0,0
+single positional indexer is out-of-bounds,AAPL,MovingAverage_ML,2000,0,0.0,0
+Model is not trained yet,AAPL,LSTM,2000,0,0.0,0
+,AAPL,LLM,2000,0,-0.000998897212548644,"[{'timestamp': 20, 'action': 'BUY', 'price': 192.34526457781206, 'quantity': 9.878070064113105, 'capital': 99.99999999999977}]"
+__len__() should return >= 0,AAPL,Transformer,2000,0,0.0,0
+single positional indexer is out-of-bounds,MSFT,MovingAverage,2000,0,0.0,0
+single positional indexer is out-of-bounds,MSFT,MovingAverage_ML,2000,0,0.0,0
+Model is not trained yet,MSFT,LSTM,2000,0,0.0,0
+,MSFT,LLM,2000,0,0.022749867110138933,"[{'timestamp': 20, 'action': 'BUY', 'price': 423.86584582722537, 'quantity': 4.482550360461151, 'capital': 100.0}]"
+__len__() should return >= 0,MSFT,Transformer,2000,0,0.0,0
+single positional indexer is out-of-bounds,GOOGL,MovingAverage,2000,0,0.0,0
+single positional indexer is out-of-bounds,GOOGL,MovingAverage_ML,2000,0,0.0,0
+Model is not trained yet,GOOGL,LSTM,2000,0,0.0,0
+,GOOGL,LLM,2000,0,0.014504183897556366,"[{'timestamp': 20, 'action': 'BUY', 'price': 152.95269027333848, 'quantity': 12.422141752489287, 'capital': 100.0}]"
+__len__() should return >= 0,GOOGL,Transformer,2000,0,0.0,0
+single positional indexer is out-of-bounds,BTC-USD,MovingAverage,2000,0,0.0,0
+single positional indexer is out-of-bounds,BTC-USD,MovingAverage_ML,2000,0,0.0,0
+Model is not trained yet,BTC-USD,LSTM,2000,0,0.0,0
+,BTC-USD,LLM,2000,0,-0.0855704113770942,"[{'timestamp': 20, 'action': 'BUY', 'price': 154.15921569371645, 'quantity': 12.32491999553838, 'capital': 100.0}]"
+__len__() should return >= 0,BTC-USD,Transformer,2000,0,0.0,0
+single positional indexer is out-of-bounds,ETH-USD,MovingAverage,2000,0,0.0,0
+single positional indexer is out-of-bounds,ETH-USD,MovingAverage_ML,2000,0,0.0,0
+Model is not trained yet,ETH-USD,LSTM,2000,0,0.0,0
+,ETH-USD,LLM,2000,0,0.04024434481678574,"[{'timestamp': 20, 'action': 'BUY', 'price': 48.46769618569107, 'quantity': 39.201368117862586, 'capital': 100.0}]"
+__len__() should return >= 0,ETH-USD,Transformer,2000,0,0.0,0
