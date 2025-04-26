@@ -5,6 +5,8 @@ This script runs all available trading strategies for both day trading (2 days) 
 then compares results side-by-side for each symbol and strategy.
 """
 import os
+import sys
+import argparse
 import asyncio
 import pandas as pd
 from datetime import datetime, timedelta
@@ -24,6 +26,11 @@ os.makedirs('data', exist_ok=True)
 
 class TimeframeStrategySimulator:
     def __init__(self, timeframe_name, days, initial_capital=2000):
+        """
+        timeframe_name: str - 'Day', 'Week', etc.
+        days: int - number of days in the timeframe
+        initial_capital: float - investment amount per strategy per symbol (default 2000)
+        """
         self.timeframe_name = timeframe_name
         self.days = days
         self.initial_capital = initial_capital
@@ -281,10 +288,15 @@ class TimeframeStrategySimulator:
         return self.results
 
 async def main():
-    print("\n===== MERCURIO AI STRATEGY TIMEFRAME COMPARISON =====\n")
+    parser = argparse.ArgumentParser(description="Mercurio AI - Strategy Timeframe Comparison")
+    parser.add_argument("--investment", type=float, default=float(os.getenv("INVESTMENT_PER_STRATEGY", 100)),
+                        help="Investment amount per strategy per symbol (default: 2000)")
+    args = parser.parse_args()
+    investment = args.investment
+    print(f"\n===== MERCURIO AI STRATEGY TIMEFRAME COMPARISON =====\n\nInvestment per strategy per symbol: ${investment}\n")
     simulators = [
-        TimeframeStrategySimulator('Day', days=31),
-        TimeframeStrategySimulator('Week', days=180)
+        TimeframeStrategySimulator('Day', days=31, initial_capital=investment),
+        TimeframeStrategySimulator('Week', days=180, initial_capital=investment)
     ]
     all_results = []
     for sim in simulators:
@@ -309,10 +321,9 @@ async def main():
         else:
             print("No valid results to display.")
         # Calculate total money won (sum of profit for all strategies)
-        # Assume initial_capital per strategy per symbol (from simulator)
-        initial_capital = 2000
+        # Use investment per strategy per symbol (from simulator)
         df_valid = df_valid.copy()
-        df_valid['profit'] = df_valid['total_return_%'] * initial_capital / 100
+        df_valid['profit'] = df_valid['total_return_%'] * df_valid['initial_close'].apply(lambda x: investment) / 100
         total_money_won = df_valid['profit'].sum()
         print(f"\n===== TOTAL MONEY WON (across all strategies): ${total_money_won:,.2f} =====\n")
     except Exception as e:
