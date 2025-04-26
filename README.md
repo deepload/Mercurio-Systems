@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://i.imgur.com/HQSgaDS.png" alt="Mercurio AI" width="300"/>
   <h1>🚀 Mercurio AI Trading Platform</h1>
   <p><strong>The intelligent, resilient algorithmic trading platform that adapts to any market condition</strong></p>
   <p>
