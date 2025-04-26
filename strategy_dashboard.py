@@ -308,8 +308,8 @@ if not results_df.empty:
     for i, row in enumerate(top_combinations.itertuples()):
         st.markdown(f"""
         **{i+1}. {row.Strategy} on {row.Symbol}**
-        - Expected Monthly Return: {row.Total_Return * 100:.2f}%
-        - Projected Annual Return: {row.Total_Return * 12 * 100:.2f}%
+        - Expected Monthly Return: {getattr(row, "Total Return") * 100:.2f}%
+        - Projected Annual Return: {getattr(row, "Total Return") * 12 * 100:.2f}%
         - Recommended Allocation: ${2000 * (4-i) / 6:.2f}
         """)
     
