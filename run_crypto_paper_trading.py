@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import asyncio
 import logging
 import signal
@@ -9,7 +12,33 @@ from app.services.strategy_manager import StrategyManager
 
 # === CONFIGURABLE PARAMETERS ===
 DURATION_MINUTES = 60  # Default trading duration in minutes
-CRYPTO_SYMBOLS = ["BTC-USD", "ETH-USD"]  # Add more symbols as needed
+CRYPTO_SYMBOLS = [
+    "BTC-USD",
+    "ETH-USD",
+    "LTC-USD",
+    "BCH-USD",
+    "DOGE-USD",
+    "LINK-USD",
+    "UNI-USD",
+    "AAVE-USD",
+    "AVAX-USD",
+    "BAT-USD",
+    "CRV-USD",
+    "DOT-USD",
+    "GRT-USD",
+    "MKR-USD",
+    "PEPE-USD",
+    "SHIB-USD",
+    "SOL-USD",
+    "SUSHI-USD",
+    "TRUMP-USD",
+    "USDC-USD",
+    "USDT-USD",
+    "XRP-USD",
+    "XTZ-USD",
+    "YFI-USD",
+]
+ # Add more symbols as needed
 STRATEGIES = [
     "MovingAverageStrategy",
     "MovingAverageMLStrategy",
@@ -35,11 +64,24 @@ def signal_handler(sig, frame):
     running = False
 
 async def run_strategy_for_duration(strategy_name, symbols, initial_capital, results_dict, duration_minutes):
+    # Enhanced: Try Polygon, then Yahoo, then sample for price queries
     market_data_service = MarketDataService()
     strategy_manager = StrategyManager()
     strategy = await strategy_manager.get_strategy(strategy_name)
     if strategy and hasattr(strategy, 'setup') and asyncio.iscoroutinefunction(strategy.setup):
         await strategy.setup()
+
+    # Helper to get latest price with fallback
+    async def get_latest_price_with_fallback(symbol):
+        providers = ["polygon", "yahoo", "sample"]
+        for provider in providers:
+            try:
+                price = await market_data_service.get_latest_price(symbol, provider_name=provider)
+                if price is not None:
+                    return price
+            except Exception as e:
+                print(f"Provider '{provider}' failed for {symbol}: {e}")
+        raise ValueError(f"Could not get latest price for {symbol} from any provider")
 
     # Virtual portfolio: cash and holdings per symbol
     portfolio = {"cash": initial_capital, "holdings": {symbol: 0 for symbol in symbols}}
@@ -52,7 +94,8 @@ async def run_strategy_for_duration(strategy_name, symbols, initial_capital, res
             prediction = await strategy_manager.get_prediction(symbol, strategy_name)
             action = prediction.get('action', None)
             confidence = prediction.get('confidence', None)
-            price = await market_data_service.get_latest_price(symbol)
+            # Always use Polygon as provider
+            price = await market_data_service.get_latest_price(symbol, provider_name='polygon')
             price_history[symbol].append(price)
             if not price:
                 continue
