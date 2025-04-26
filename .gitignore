@@ -7,3 +7,4 @@ venv
 models/lstm_predictor_60_50.h5
 models/lstm_predictor_60_50_scaler.pkl
 models/model.gguf
+results/*.json
