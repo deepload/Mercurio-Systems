@@ -1,0 +1,77 @@
+{
+  "live_trading": false,
+  "initial_capital": 100000,
+  "symbols": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "AVAX/USDT"],
+  "strategies": [
+    "MovingAverageStrategy",
+    "LSTMPredictorStrategy",
+    "TransformerStrategy",
+    "LLMStrategy",
+    "MultiSourceIntelligenceStrategy"
+  ],
+  "strategy_params": {
+    "MovingAverageStrategy": {
+      "short_window": 20,
+      "long_window": 50,
+      "use_ml": true
+    },
+    "LSTMPredictorStrategy": {
+      "sequence_length": 20,
+      "hidden_size": 50,
+      "num_layers": 2
+    },
+    "TransformerStrategy": {
+      "sequence_length": 30,
+      "d_model": 64,
+      "nhead": 4,
+      "num_layers": 2,
+      "dropout": 0.1
+    },
+    "LLMStrategy": {
+      "model_path": "models/model.gguf",
+      "context_window": 48,
+      "temperature": 0.5,
+      "strategy_type": "sentiment",
+      "data_sources": ["price", "volume", "news"]
+    },
+    "MultiSourceIntelligenceStrategy": {
+      "max_data_age_seconds": 30,
+      "sentiment_lookback_minutes": 30,
+      "confidence_threshold": 0.75,
+      "sentiment_weight": 0.4,
+      "technical_weight": 0.4,
+      "volume_weight": 0.2,
+      "debounce_interval_seconds": 15,
+      "conflicting_sources_threshold": 0.3
+    }
+  },
+  "risk_limit": 0.02,
+  "risk_profile": "moderate",
+  "check_interval_seconds": 60,
+  "analysis_interval_seconds": 300,
+  "execution_interval_seconds": 120,
+  "optimization_interval_hours": 12,
+  "min_execution_confidence": 0.75,
+  "transaction_costs": {
+    "percentage": 0.001,
+    "fixed": 0,
+    "min_cost": 0
+  },
+  "advanced_settings": {
+    "dynamic_position_sizing": true,
+    "stop_loss_percentage": 0.05,
+    "take_profit_percentage": 0.15,
+    "max_open_positions": 8,
+    "max_single_asset_exposure": 0.25,
+    "rebalance_interval_hours": 24,
+    "allow_shorts": true,
+    "strategy_rotation_enabled": true,
+    "market_regime_detection": true
+  },
+  "reporting": {
+    "detailed_logs": true,
+    "performance_metrics": ["total_return", "sharpe_ratio", "drawdown", "win_rate"],
+    "notification_channels": ["log", "json"],
+    "report_interval_hours": 1
+  }
+}

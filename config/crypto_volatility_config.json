@@ -1,0 +1,53 @@
+{
+  "live_trading": false,
+  "initial_capital": 100000,
+  "symbols": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "AVAX/USDT"],
+  "strategies": [
+    "MultiSourceIntelligenceStrategy",
+    "TransformerStrategy"
+  ],
+  "strategy_params": {
+    "MultiSourceIntelligenceStrategy": {
+      "max_data_age_seconds": 15,
+      "sentiment_lookback_minutes": 15,
+      "confidence_threshold": 0.8,
+      "sentiment_weight": 0.5,
+      "technical_weight": 0.3,
+      "volume_weight": 0.2,
+      "debounce_interval_seconds": 5,
+      "conflicting_sources_threshold": 0.4
+    },
+    "TransformerStrategy": {
+      "sequence_length": 60,
+      "d_model": 128,
+      "nhead": 8,
+      "num_layers": 3,
+      "dropout": 0.2
+    }
+  },
+  "risk_limit": 0.015,
+  "check_interval_seconds": 30,
+  "min_execution_confidence": 0.85,
+  "transaction_costs": {
+    "percentage": 0.001,
+    "fixed": 0,
+    "min_cost": 0
+  },
+  "advanced_settings": {
+    "dynamic_position_sizing": true,
+    "stop_loss_percentage": 0.03,
+    "take_profit_percentage": 0.08,
+    "max_open_positions": 4,
+    "max_single_asset_exposure": 0.2,
+    "allow_shorts": false,
+    "strategy_rotation_enabled": true,
+    "ignore_market_hours": true,
+    "volatility_scaling": true
+  },
+  "market_analysis": {
+    "anomaly_detection_sensitivity": "high",
+    "minimum_data_freshness_seconds": 10,
+    "require_multi_timeframe_confirmation": true,
+    "volatility_threshold": 0.04
+  }
+}

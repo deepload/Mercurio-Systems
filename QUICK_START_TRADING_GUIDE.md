@@ -30,7 +30,7 @@ This guide provides the essential steps to quickly begin trading with MercurioAI
 
 ## Paper Trading
 
-### Step 1: Quick Start (Basic)
+### Method 1: Quick Start (Basic)
 
 Run this command to start paper trading with default settings:
 
@@ -44,7 +44,40 @@ This will:
 - Check for signals every 60 seconds
 - Use a 2% risk limit per position
 
-### Step 2: Customized Paper Trading
+### Method 2: Comprehensive Strategy Testing
+
+To test and compare multiple strategies simultaneously in paper trading mode:
+
+```bash
+python paper_trading_test.py
+```
+
+This will:
+- Automatically discover and test all available strategies
+- Run them with the same initial capital and time period
+- Generate performance comparisons and reports
+- Help you identify the best-performing strategies
+
+For customized testing:
+
+```bash
+python paper_trading_test.py \
+  --capital 50000 \
+  --duration 48 \
+  --symbols BTC/USDT ETH/USDT \
+  --risk moderate \
+  --strategies TransformerStrategy LLMStrategy
+```
+
+Common options:
+- `--capital`: Initial capital amount (e.g., 50000 = $50,000)
+- `--duration`: Test duration in hours (e.g., 48 = 2 days)
+- `--symbols`: Space-separated list of symbols to trade
+- `--risk`: Risk profile to use (conservative, moderate, aggressive)
+- `--strategies`: Space-separated list of specific strategies to test (e.g., MovingAverageStrategy, LLMStrategy, MultiSourceIntelligenceStrategy)
+- `--output`: Path for the output report file
+
+### Method 3: Customized Paper Trading
 
 For more control, use command-line options:
 
@@ -58,13 +91,13 @@ python run_paper_trading.py \
 ```
 
 Common options:
-- `--strategy`: Strategy to use (MovingAverageStrategy, LSTMPredictorStrategy)
+- `--strategy`: Strategy to use (MovingAverageStrategy, LSTMPredictorStrategy, LLMStrategy, TransformerStrategy, MultiSourceIntelligenceStrategy)
 - `--symbols`: Comma-separated list of symbols to trade
 - `--risk_limit`: Maximum portfolio percentage per position (0.01 = 1%)
 - `--interval`: Check frequency in seconds (300 = 5 minutes)
 - `--fee_percentage`: Simulated transaction fee percentage
 
-### Step 3: Strategy Configuration
+### Method 4: Strategy Configuration
 
 For advanced strategy parameters, use the `--params` option with JSON:
 
@@ -75,7 +108,7 @@ python run_paper_trading.py \
   --params '{"short_window": 20, "long_window": 50, "use_ml": true}'
 ```
 
-### Step 4: Monitor Performance
+### Method 5: Monitor Performance
 
 1. Watch the terminal output for:
    - Trading signals and confidence levels
@@ -89,6 +122,127 @@ python run_paper_trading.py \
    ```
 
 3. Review the performance report after each trading session
+
+## Advanced Strategy Testing
+
+### Testing LLM Strategies
+
+MercurioAI includes advanced LLM-based strategies that can analyze market sentiment and make trading decisions using natural language understanding. Here's how to test and utilize them:
+
+```bash
+# Test the LLM strategy with specific parameters
+python paper_trading_test.py --strategies LLMStrategy --duration 24 --symbols BTC/USDT,ETH/USDT
+```
+
+Key parameters for LLM strategies:
+
+```json
+{
+  "strategy_params": {
+    "LLMStrategy": {
+      "model_path": "models/llama-2-7b-chat.gguf",
+      "context_window": 72,
+      "temperature": 0.7,
+      "max_tokens": 512
+    }
+  }
+}
+```
+
+### Testing Transformer Strategies
+
+Transformer-based models can identify complex patterns in financial time series:
+
+```bash
+python paper_trading_test.py --strategies TransformerStrategy --duration 24
+```
+
+Customizing transformer parameters:
+
+```bash
+python run_paper_trading.py \
+  --strategy TransformerStrategy \
+  --symbols BTC/USDT \
+  --params '{"sequence_length": 30, "d_model": 64, "nhead": 4, "num_layers": 2}'
+```
+
+### Comparative Strategy Testing
+
+To compare multiple strategies head-to-head, including traditional and LLM-based approaches:
+
+```bash
+python paper_trading_test.py \
+  --strategies MovingAverageStrategy,RSIStrategy,LLMStrategy,TransformerStrategy,MultiSourceIntelligenceStrategy \
+  --duration 48 \
+  --symbols BTC/USDT,ETH/USDT \
+  --risk moderate
+```
+
+This will generate comprehensive performance metrics for all strategies, including:
+- Total return
+- Annualized return
+- Maximum drawdown
+- Sharpe ratio
+- Win rate
+- Number of trades
+
+### Multi-Source Intelligence (MSI) Strategy
+
+The Multi-Source Intelligence strategy is a professional-grade trading strategy that only makes decisions when it has fresh and validated market data from multiple sources:
+
+```bash
+python paper_trading_test.py --strategies MultiSourceIntelligenceStrategy --duration 24 --symbols BTC/USDT,ETH/USDT
+```
+
+Key features:
+- Rigorous data freshness verification before each trade decision
+- Multi-source sentiment analysis (Twitter, Reddit, news)
+- Potential market manipulation detection
+- Smart caching system to optimize API calls
+- Continuous position reassessment
+
+Example configuration:
+
+```json
+{
+  "strategy_params": {
+    "MultiSourceIntelligenceStrategy": {
+      "max_data_age_seconds": 30,
+      "sentiment_lookback_minutes": 30,
+      "confidence_threshold": 0.75,
+      "sentiment_weight": 0.4,
+      "technical_weight": 0.4,
+      "volume_weight": 0.2,
+      "debounce_interval_seconds": 15
+    }
+  }
+}
+```
+
+### LLM Strategy Configuration
+
+For optimal LLM strategy performance, you can customize these parameters in the configuration file:
+
+1. **Model Selection**: Choose between different LLM models in the `model_path` parameter
+2. **Context Window**: Adjust the `context_window` parameter to control how much historical data is analyzed
+3. **Temperature**: Control randomness with the `temperature` parameter (lower is more deterministic)
+4. **Prompt Templates**: Customize analysis prompts in the strategy file
+
+Example configuration in `config/paper_test_config.json`:
+
+```json
+{
+  "strategy_params": {
+    "LLMStrategy": {
+      "model_path": "models/mistral-7b-instruct-v0.2.Q4_K_M.gguf",
+      "context_window": 48,
+      "temperature": 0.5,
+      "strategy_type": "sentiment",
+      "data_sources": ["price", "volume", "news"]
+    }
+  }
+}
+```
 
 ## Live Trading
 
@@ -225,4 +379,68 @@ python run_live_trading.py --close_all_positions
 
 Remember: successful algorithmic trading requires patience, disciplined risk management, and continuous learning. Start small, learn from each trade, and scale up gradually.
 
-*Last updated: April 25, 2025*
+*Last updated: April 26, 2025 - Added Multi-Source Intelligence (MSI) Strategy*
+
+## Guide de démarrage rapide pour la stratégie MSI (Français)
+
+La stratégie Multi-Source Intelligence (MSI) est une stratégie de trading professionnelle qui ne prend des décisions que lorsqu'elle dispose de données de marché fraîches et validées provenant de sources multiples.
+
+### Caractéristiques principales
+
+- Vérification rigoureuse de la fraîcheur des données avant chaque décision
+- Analyse de sentiment multi-sources (Twitter, Reddit, actualités)
+- Détection de manipulations potentielles du marché
+- Système de mise en cache intelligent pour optimiser les appels API
+- Réévaluation continue des positions ouvertes
+
+### Test rapide avec la stratégie MSI
+
+```bash
+python run_paper_trading.py --strategy MultiSourceIntelligenceStrategy --symbols BTC/USDT
+```
+
+### Test comparatif avec plusieurs stratégies
+
+```bash
+python paper_trading_test.py --strategies MovingAverageStrategy,MultiSourceIntelligenceStrategy --duration 24 --symbols BTC/USDT,ETH/USDT
+```
+
+### Configuration personnalisée
+
+Créez un fichier de configuration `config/msi_config.json` :
+
+```json
+{
+  "strategy": "MultiSourceIntelligenceStrategy",
+  "strategy_params": {
+    "max_data_age_seconds": 30,
+    "sentiment_lookback_minutes": 30,
+    "confidence_threshold": 0.75,
+    "sentiment_weight": 0.4,
+    "technical_weight": 0.4,
+    "volume_weight": 0.2,
+    "debounce_interval_seconds": 15
+  },
+  "symbols": ["BTC/USDT", "ETH/USDT"],
+  "risk_limit": 0.01,
+  "check_interval": 300
+}
+```
+
+Puis lancez avec :
+
+```bash
+python run_paper_trading.py --config config/msi_config.json
+```
+
+### Paramètres principaux
+
+- `max_data_age_seconds` : Âge maximum des données en secondes (défaut: 30)
+- `sentiment_lookback_minutes` : Période d'analyse rétrospective pour le sentiment (défaut: 30)
+- `confidence_threshold` : Seuil de confiance minimal pour trader (défaut: 0.75)
+- `sentiment_weight` : Poids du sentiment dans la décision (défaut: 0.4)
+- `technical_weight` : Poids des indicateurs techniques (défaut: 0.4)
+- `volume_weight` : Poids des métriques de volume (défaut: 0.2)
+- `debounce_interval_seconds` : Intervalle entre décisions (défaut: 15)
+
+Cette stratégie convient particulièrement aux marchés volatils comme les cryptomonnaies, où la qualité et la fraîcheur des données sont essentielles.
