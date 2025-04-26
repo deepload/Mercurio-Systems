@@ -1,0 +1,21 @@
+{
+  "id": "ea9af818-3832-4d20-952f-ff84c90c1b30",
+  "strategy_name": "MovingAverageStrategy",
+  "symbol": "AAPL",
+  "start_date": "unknown",
+  "end_date": "unknown",
+  "initial_capital": 100000.0,
+  "final_capital": 100000.0,
+  "total_return": 0.0,
+  "annual_return": 0.0,
+  "sharpe_ratio": 0.0,
+  "max_drawdown": 0.0,
+  "win_rate": 0.0,
+  "profit_factor": 0.0,
+  "trade_count": 0,
+  "transaction_costs": 0.0,
+  "execution_time": 0.009124,
+  "created_at": "2025-04-26T23:59:01.595825",
+  "metadata": {},
+  "trades": []
+}

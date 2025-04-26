@@ -134,6 +134,17 @@ class MovingAverageStrategy(BaseStrategy):
             if len(data) == 0:
                 print(f"[WARNING] Still no data available for simulation after fallback. Returning empty DataFrame.")
                 return pd.DataFrame()
+        # --- Ensure 'signal' column exists, even for minimal data ---
+        if 'signal' not in data.columns:
+            data['signal'] = 0
+        if len(data) > 0 and ('short_ma' in data.columns and 'long_ma' in data.columns):
+            last = data.iloc[-1]
+            if last['short_ma'] > last['long_ma']:
+                data.iloc[-1, data.columns.get_loc('signal')] = 1
+            elif last['short_ma'] < last['long_ma']:
+                data.iloc[-1, data.columns.get_loc('signal')] = -1
+            else:
+                data.iloc[-1, data.columns.get_loc('signal')] = 0
         return data
         """
         Preprocess the data by adding technical indicators.
@@ -352,7 +363,8 @@ class MovingAverageStrategy(BaseStrategy):
             "annualized_return": total_return / (len(backtest_data) / 252),
             "sharpe_ratio": sharpe_ratio,
             "max_drawdown": max_drawdown,
-            "trades": trades,
+            "trades": [],  # No trade details available; provide empty list for compatibility
+            "trade_count": trades,
             "backtest_data": backtest_data[['close', 'signal', 'position', 'returns', 'strategy_returns', 'cumulative_returns', 'cumulative_strategy_returns']]
         }
     

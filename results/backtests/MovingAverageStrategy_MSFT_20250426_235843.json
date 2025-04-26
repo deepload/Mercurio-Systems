@@ -1,0 +1,21 @@
+{
+  "id": "7e86bd98-3172-4601-bf8a-139c6ad4546c",
+  "strategy_name": "MovingAverageStrategy",
+  "symbol": "MSFT",
+  "start_date": "unknown",
+  "end_date": "unknown",
+  "initial_capital": 100000.0,
+  "final_capital": 100000.0,
+  "total_return": 0.0,
+  "annual_return": 0.0,
+  "sharpe_ratio": 0.0,
+  "max_drawdown": 0.0,
+  "win_rate": 0.0,
+  "profit_factor": 0.0,
+  "trade_count": 0,
+  "transaction_costs": 0.0,
+  "execution_time": 0.005494,
+  "created_at": "2025-04-26T23:58:43.515784",
+  "metadata": {},
+  "trades": []
+}
