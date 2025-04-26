@@ -141,7 +141,7 @@ class StrategySimulator:
                 data['date_str'] = data['date'].dt.strftime('%Y-%m-%d')
             
             # Fill any NaN values
-            data = data.fillna(method='ffill').fillna(method='bfill')
+            data = data.ffill().bfill()
             
             print(f"Prepared data for {symbol}: {len(data)} rows, columns: {data.columns.tolist()}")
             return data

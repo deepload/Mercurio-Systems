@@ -1,25 +1,25 @@
 symbol,strategy,initial_capital,final_capital,total_return,annualized_return,sharpe_ratio,max_drawdown,trades,error
-AAPL,MovingAverage,$2000.00,$1994.55,-0.27%,-13.74%,-0.31,-3.54%,2,
+AAPL,MovingAverage,$2000.00,$2013.39,0.67%,33.75%,1.86,-1.83%,2,
 AAPL,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 AAPL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 AAPL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 AAPL,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-MSFT,MovingAverage,$2000.00,$2011.91,0.60%,30.02%,1.95,-1.58%,2,
+MSFT,MovingAverage,$2000.00,$1958.57,-2.07%,-104.41%,-8.04,-2.58%,3,
 MSFT,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 MSFT,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 MSFT,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 MSFT,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-GOOGL,MovingAverage,$2000.00,$2003.33,0.17%,8.40%,0.52,-0.93%,2,
+GOOGL,MovingAverage,$2000.00,$2154.65,7.73%,389.71%,13.01,-1.44%,1,
 GOOGL,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 GOOGL,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 GOOGL,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 GOOGL,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-BTC-USD,MovingAverage,$2000.00,$1994.44,-0.28%,-8.76%,0.01,-6.46%,5,
+BTC-USD,MovingAverage,$2000.00,$2027.57,1.38%,43.42%,2.29,-2.63%,3,
 BTC-USD,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 BTC-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 BTC-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
 BTC-USD,Transformer,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
-ETH-USD,MovingAverage,$2000.00,$2119.47,5.97%,188.16%,4.92,-3.45%,3,
+ETH-USD,MovingAverage,$2000.00,$1854.53,-7.27%,-229.12%,-7.27,-8.72%,3,
 ETH-USD,MovingAverage_ML,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 ETH-USD,LSTM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,0,Preprocessing resulted in empty dataset
 ETH-USD,LLM,$2000.00,$0.00,0.00%,0.00%,0.00,0.00%,[],
