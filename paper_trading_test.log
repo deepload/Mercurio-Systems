@@ -1241,3 +1241,245 @@ TypeError: TradingService.__init__() got an unexpected keyword argument 'paper_m
 2025-04-26 15:19:47,728 - torch._subclasses.fake_tensor - INFO -   cache_misses: 0
 2025-04-26 15:22:09,832 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
 2025-04-26 15:22:09,832 - __main__ - INFO - Initializing paper trading test
+2025-04-29 18:48:19,017 - __main__ - INFO - Loaded configuration from config/paper_test_config.json
+2025-04-29 18:48:19,018 - __main__ - INFO - Initializing paper trading test
+2025-04-29 18:48:19,257 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:48:19,257 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:48:19,377 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:48:19,670 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:48:19,670 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:48:19,670 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:48:19,698 - app.core.event_bus - INFO - EventBus initialized
+2025-04-29 18:48:26,573 - __main__ - INFO - Initializing strategy: MovingAverageStrategy
+2025-04-29 18:48:26,573 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:48:26,573 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:48:26,573 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:48:26,573 - __main__ - INFO - Initialized 1 strategies
+2025-04-29 18:48:26,573 - __main__ - INFO - Starting paper trading test with 1 strategies
+2025-04-29 18:48:26,573 - __main__ - INFO - Test duration: 2.0 hours
+2025-04-29 18:48:26,573 - __main__ - INFO - Symbols: AAPL, MSFT
+2025-04-29 18:48:26,574 - __main__ - INFO - Test time: 2025-04-29 18:48:26.574714, 2.00 hours remaining
+2025-04-29 18:48:26,574 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:48:26,574 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-04-29 18:48:26,576 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:48:26,576 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:48:26,576 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:48:26,577 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:48:26,577 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:49:26,568 - __main__ - INFO - Test time: 2025-04-29 18:49:26.568752, 1.98 hours remaining
+2025-04-29 18:49:26,568 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:49:26,569 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:49:26,570 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:49:26,570 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:49:26,571 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:49:26,571 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:50:26,586 - __main__ - INFO - Test time: 2025-04-29 18:50:26.586692, 1.97 hours remaining
+2025-04-29 18:50:26,586 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:50:26,588 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:50:26,588 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:50:26,588 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:50:26,589 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:50:26,590 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:51:26,601 - __main__ - INFO - Test time: 2025-04-29 18:51:26.601146, 1.95 hours remaining
+2025-04-29 18:51:26,601 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:51:26,604 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:51:26,604 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:51:26,604 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:51:26,607 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:51:26,607 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:52:26,620 - __main__ - INFO - Test time: 2025-04-29 18:52:26.620295, 1.93 hours remaining
+2025-04-29 18:52:26,620 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:52:26,622 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:52:26,622 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:52:26,623 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:52:26,624 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:52:26,624 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:53:26,626 - __main__ - INFO - Test time: 2025-04-29 18:53:26.626934, 1.92 hours remaining
+2025-04-29 18:53:26,626 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:53:26,629 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:53:26,629 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:53:26,630 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:53:26,632 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:53:26,632 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:54:26,645 - __main__ - INFO - Test time: 2025-04-29 18:54:26.645275, 1.90 hours remaining
+2025-04-29 18:54:26,645 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:54:26,647 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:54:26,647 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:54:26,647 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:54:26,648 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:54:26,649 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:55:26,664 - __main__ - INFO - Test time: 2025-04-29 18:55:26.664035, 1.88 hours remaining
+2025-04-29 18:55:26,664 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:55:26,665 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:55:26,665 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:55:26,667 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:55:26,668 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:55:26,668 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:56:26,673 - __main__ - INFO - Test time: 2025-04-29 18:56:26.673312, 1.87 hours remaining
+2025-04-29 18:56:26,673 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:56:26,675 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:56:26,675 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:56:26,675 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:56:26,677 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:56:26,678 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:57:26,686 - __main__ - INFO - Test time: 2025-04-29 18:57:26.686124, 1.85 hours remaining
+2025-04-29 18:57:26,686 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:57:26,687 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:57:26,687 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:57:26,687 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:57:26,690 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:57:26,690 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:58:26,705 - __main__ - INFO - Test time: 2025-04-29 18:58:26.705008, 1.83 hours remaining
+2025-04-29 18:58:26,705 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:58:26,706 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:58:26,706 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:58:26,706 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:58:26,708 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:58:26,708 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 18:59:26,714 - __main__ - INFO - Test time: 2025-04-29 18:59:26.714467, 1.82 hours remaining
+2025-04-29 18:59:26,714 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 18:59:26,716 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 18:59:26,717 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 18:59:26,717 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 18:59:26,718 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 18:59:26,718 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:00:26,725 - __main__ - INFO - Test time: 2025-04-29 19:00:26.725831, 1.80 hours remaining
+2025-04-29 19:00:26,725 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:00:26,727 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:00:26,727 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:00:26,728 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:00:26,729 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:00:26,729 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:01:26,741 - __main__ - INFO - Test time: 2025-04-29 19:01:26.741765, 1.78 hours remaining
+2025-04-29 19:01:26,741 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:01:26,743 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:01:26,743 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:01:26,743 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:01:26,745 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:01:26,745 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:02:26,755 - __main__ - INFO - Test time: 2025-04-29 19:02:26.755064, 1.77 hours remaining
+2025-04-29 19:02:26,755 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:02:26,756 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:02:26,756 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:02:26,756 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:02:26,758 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:02:26,758 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:03:26,758 - __main__ - INFO - Test time: 2025-04-29 19:03:26.758873, 1.75 hours remaining
+2025-04-29 19:03:26,759 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:03:26,761 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:03:26,761 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:03:26,761 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:03:26,763 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:03:26,763 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:04:26,774 - __main__ - INFO - Test time: 2025-04-29 19:04:26.774163, 1.73 hours remaining
+2025-04-29 19:04:26,774 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:04:26,775 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:04:26,775 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:04:26,775 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:04:26,777 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:04:26,778 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:05:26,782 - __main__ - INFO - Test time: 2025-04-29 19:05:26.782954, 1.72 hours remaining
+2025-04-29 19:05:26,782 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:05:26,784 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:05:26,785 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:05:26,785 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:05:26,786 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:05:26,787 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:06:26,797 - __main__ - INFO - Test time: 2025-04-29 19:06:26.797640, 1.70 hours remaining
+2025-04-29 19:06:26,798 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:06:26,799 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:06:26,799 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:06:26,799 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:06:26,801 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:06:26,801 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:07:26,812 - __main__ - INFO - Test time: 2025-04-29 19:07:26.812862, 1.68 hours remaining
+2025-04-29 19:07:26,812 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:07:26,813 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:07:26,814 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:07:26,814 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:07:26,816 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:07:26,816 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:08:26,830 - __main__ - INFO - Test time: 2025-04-29 19:08:26.830376, 1.67 hours remaining
+2025-04-29 19:08:26,830 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:08:26,831 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:08:26,831 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:08:26,832 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:08:26,833 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:08:26,835 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:09:26,840 - __main__ - INFO - Test time: 2025-04-29 19:09:26.840071, 1.65 hours remaining
+2025-04-29 19:09:26,840 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:09:26,841 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:09:26,841 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:09:26,841 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:09:26,843 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:09:26,843 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:10:26,844 - __main__ - INFO - Test time: 2025-04-29 19:10:26.844562, 1.63 hours remaining
+2025-04-29 19:10:26,845 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:10:26,846 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:10:26,846 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:10:26,846 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:10:26,847 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:10:26,848 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:11:26,861 - __main__ - INFO - Test time: 2025-04-29 19:11:26.861674, 1.62 hours remaining
+2025-04-29 19:11:26,862 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:11:26,863 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:11:26,863 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:11:26,863 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:11:26,864 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:11:26,864 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:12:26,873 - __main__ - INFO - Test time: 2025-04-29 19:12:26.873898, 1.60 hours remaining
+2025-04-29 19:12:26,985 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:12:26,987 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:12:26,987 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:12:26,987 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:12:26,990 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:12:26,990 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:13:26,998 - __main__ - INFO - Test time: 2025-04-29 19:13:26.998966, 1.58 hours remaining
+2025-04-29 19:13:26,998 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:13:27,001 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:13:27,001 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:13:27,002 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:13:27,003 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:13:27,003 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:14:27,004 - __main__ - INFO - Test time: 2025-04-29 19:14:27.004571, 1.57 hours remaining
+2025-04-29 19:14:27,005 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:14:27,006 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:14:27,006 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:14:27,006 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:14:27,008 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:14:27,008 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:15:27,014 - __main__ - INFO - Test time: 2025-04-29 19:15:27.014225, 1.55 hours remaining
+2025-04-29 19:15:27,014 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:15:27,015 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:15:27,015 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:15:27,015 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:15:27,016 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:15:27,016 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:16:27,026 - __main__ - INFO - Test time: 2025-04-29 19:16:27.026459, 1.53 hours remaining
+2025-04-29 19:16:27,026 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:16:27,028 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:16:27,028 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:16:27,028 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:16:27,029 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:16:27,029 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:17:27,040 - __main__ - INFO - Test time: 2025-04-29 19:17:27.040375, 1.52 hours remaining
+2025-04-29 19:17:27,040 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:17:27,041 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:17:27,041 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:17:27,042 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:17:27,044 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:17:27,044 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:18:27,048 - __main__ - INFO - Test time: 2025-04-29 19:18:27.048821, 1.50 hours remaining
+2025-04-29 19:18:27,048 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:18:27,050 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:18:27,050 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:18:27,050 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:18:27,051 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:18:27,051 - __main__ - WARNING - Insufficient data for MSFT, skipping
+2025-04-29 19:19:27,062 - __main__ - INFO - Test time: 2025-04-29 19:19:27.062901, 1.48 hours remaining
+2025-04-29 19:19:27,063 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-04-29 19:19:27,065 - app.services.providers.sample - INFO - Generated sample data for AAPL with 6 data points
+2025-04-29 19:19:27,065 - __main__ - WARNING - Insufficient data for AAPL, skipping
+2025-04-29 19:19:27,065 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-04-29 19:19:27,067 - app.services.providers.sample - INFO - Generated sample data for MSFT with 6 data points
+2025-04-29 19:19:27,067 - __main__ - WARNING - Insufficient data for MSFT, skipping
