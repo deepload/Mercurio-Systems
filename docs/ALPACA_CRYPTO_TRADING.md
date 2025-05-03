@@ -86,6 +86,14 @@ python scripts/run_overnight_crypto_trader.py
 - `--take-profit` : Take profit en pourcentage (défaut: 0.06 = 6%)
 - `--fast-ma` : Période de la moyenne mobile rapide (défaut: 5 minutes)
 - `--slow-ma` : Période de la moyenne mobile lente (défaut: 15 minutes)
+- `--use-custom-symbols` : Utiliser la liste personnalisée de cryptos au lieu du filtre automatique
+
+**Utilisation avec liste personnalisée de crypto-monnaies** :
+```bash
+python scripts/run_overnight_crypto_trader.py --use-custom-symbols
+```
+
+Cette option permet d'utiliser la liste prédéfinie de crypto-monnaies dans le script, qui inclut aussi bien les paires USD que USDT. Sans cette option, le script n'utilise que les paires USD.
 
 ### scripts/simple_crypto_trader.py
 
@@ -106,6 +114,20 @@ python scripts/run_crypto_daytrader.py
 ```
 
 ## Fonctionnalités
+
+### Personnalisation des symboles
+
+Le script prend en charge deux modes de sélection de symboles :
+
+1. **Filtre automatique** (par défaut) : Sélectionne uniquement les paires USD pour éviter les erreurs de solde insuffisant
+2. **Liste personnalisée** (avec `--use-custom-symbols`) : Utilise une liste prédéfinie de symboles configurée dans le script `run_overnight_crypto_trader.py`
+
+La liste personnalisée comprend :
+- Paires USD populaires (ETH/USD, BTC/USD, etc.)
+- Paires USDT populaires (ETH/USDT, BTC/USDT, etc.)
+- Jetons DeFi et meme coins (PEPE/USD, SHIB/USD, etc.)
+
+Vous pouvez éditer cette liste directement dans le code du script `run_overnight_crypto_trader.py` pour ajouter ou retirer des cryptos selon vos préférences.
 
 ### Session de trading
 
@@ -193,9 +215,9 @@ insufficient balance for USDT (requested: 1990.05801181776, available: 0)
 
 Cela signifie que vous essayez de trader une paire comme AVAX/USDT, mais que vous n'avez pas de USDT dans votre compte. Solutions :
 
-1. **Utilisez le système par défaut** qui ne traite que les paires avec USD
+1. **Utilisez le système par défaut** qui ne traite que les paires avec USD (n'utilisez pas l'option `--use-custom-symbols`)
 2. **Ajoutez manuellement des USDT** à votre compte Alpaca Paper via leur interface
-3. **Modifiez la configuration** pour seulement inclure les paires basées sur USD
+3. **Modifiez la liste personnalisée** dans le script pour ne conserver que les paires USD
 
 ### Compatibilité avec les niveaux d'abonnement
 
@@ -214,6 +236,12 @@ Par défaut, les comptes Alpaca Paper Trading ont généralement des USD disponi
 - **Filtrer automatiquement** les paires de trading en ne gardant que celles avec USD (par exemple ETH/USD, BTC/USD)
 - **Éviter les paires** nécessitant USDT ou USDC sauf si vous avez explicitement ces devises dans votre compte
 - **Afficher le solde disponible** en USD au démarrage du script
+
+#### Personnalisation des symboles
+
+Il est possible d'utiliser une liste personnalisée de symboles en modifiant le code du script `run_overnight_crypto_trader.py`. Une liste prédéfinie y est déjà incluse avec les principales crypto-monnaies en paires USD et USDT.
+
+Pour utiliser cette liste personnalisée, utilisez l'option `--use-custom-symbols` en ligne de commande. Notez que si vous spécifiez des paires USDT/USDC et que vous n'avez pas ces devises dans votre compte, vous obtiendrez des erreurs "insufficient balance".
 
 ### Dépannage des rapports
 
