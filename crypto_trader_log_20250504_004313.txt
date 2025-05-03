@@ -1,0 +1,279 @@
+2025-05-04 00:43:13,216 - alpaca_crypto_trader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-04 00:43:13,216 - alpaca_crypto_trader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-04 00:43:13,218 - alpaca_crypto_trader - INFO - AlpacaCryptoTrader initialisé
+2025-05-04 00:43:13,218 - alpaca_crypto_trader - INFO - Démarrage de la session de trading crypto à 2025-05-04 00:43:13.218295
+2025-05-04 00:43:13,218 - alpaca_crypto_trader - INFO - La session se terminera à 2025-05-04 09:43:13.218295
+2025-05-04 00:43:13,631 - alpaca_crypto_trader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-04 00:43:13,644 - alpaca_crypto_trader - INFO - Valeur initiale du portefeuille: $99397.75
+2025-05-04 00:43:13,644 - alpaca_crypto_trader - INFO - Mode trading: ACTIVE
+2025-05-04 00:43:13,762 - alpaca_crypto_trader - INFO - Utilisation d'une liste personnalisée de 34 symboles crypto
+2025-05-04 00:43:13,762 - alpaca_crypto_trader - INFO - Exemples: AAVE/USD, AAVE/USDT, AVAX/USD, BAT/USD, BCH/USD
+2025-05-04 00:43:13,885 - alpaca_crypto_trader - INFO - Solde USD disponible: $60064.54
+2025-05-04 00:43:13,885 - alpaca_crypto_trader - INFO - Traitement de AAVE/USD
+2025-05-04 00:43:14,495 - alpaca_crypto_trader - INFO - AAVE/USD prix actuel (dernière barre): $179.8500
+2025-05-04 00:43:14,495 - alpaca_crypto_trader - INFO - Traitement de AAVE/USDT
+2025-05-04 00:43:14,734 - alpaca_crypto_trader - INFO - AAVE/USDT prix actuel (dernière barre): $179.8500
+2025-05-04 00:43:14,734 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: AAVE/USDT à $179.8500, qté: 11.053406
+2025-05-04 00:43:14,862 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour AAVE/USDT: 9e4021e5-8a00-40ea-8041-9b41db765d3f
+2025-05-04 00:43:14,863 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:43:15,103 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.6906
+2025-05-04 00:43:15,104 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:43:15,341 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1463
+2025-05-04 00:43:15,341 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-04 00:43:15,578 - alpaca_crypto_trader - INFO - BCH/USD prix actuel (dernière barre): $364.2550
+2025-05-04 00:43:15,579 - alpaca_crypto_trader - INFO - Traitement de BCH/USDT
+2025-05-04 00:43:15,816 - alpaca_crypto_trader - INFO - BCH/USDT prix actuel (dernière barre): $364.2500
+2025-05-04 00:43:15,817 - alpaca_crypto_trader - INFO - Traitement de BTC/USD
+2025-05-04 00:43:16,052 - alpaca_crypto_trader - INFO - BTC/USD prix actuel (dernière barre): $96259.0250
+2025-05-04 00:43:16,052 - alpaca_crypto_trader - INFO - Traitement de BTC/USDT
+2025-05-04 00:43:16,288 - alpaca_crypto_trader - INFO - BTC/USDT prix actuel (dernière barre): $96206.9645
+2025-05-04 00:43:16,290 - alpaca_crypto_trader - INFO - Traitement de CRV/USD
+2025-05-04 00:43:16,531 - alpaca_crypto_trader - INFO - CRV/USD prix actuel (dernière barre): $0.7145
+2025-05-04 00:43:16,532 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:43:16,773 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1768
+2025-05-04 00:43:16,773 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDT
+2025-05-04 00:43:17,007 - alpaca_crypto_trader - INFO - DOGE/USDT prix actuel (dernière barre): $0.1766
+2025-05-04 00:43:17,009 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:43:17,245 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0515
+2025-05-04 00:43:17,247 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:43:17,486 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1843.8900
+2025-05-04 00:43:17,486 - alpaca_crypto_trader - INFO - Traitement de ETH/USDT
+2025-05-04 00:43:17,726 - alpaca_crypto_trader - INFO - ETH/USDT prix actuel (dernière barre): $1842.2600
+2025-05-04 00:43:17,726 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:43:17,965 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0942
+2025-05-04 00:43:17,965 - alpaca_crypto_trader - INFO - Traitement de LINK/USD
+2025-05-04 00:43:18,205 - alpaca_crypto_trader - INFO - LINK/USD prix actuel (dernière barre): $14.3170
+2025-05-04 00:43:18,205 - alpaca_crypto_trader - INFO - Traitement de LINK/USDT
+2025-05-04 00:43:18,445 - alpaca_crypto_trader - INFO - LINK/USDT prix actuel (dernière barre): $14.3150
+2025-05-04 00:43:18,445 - alpaca_crypto_trader - INFO - Traitement de LTC/USD
+2025-05-04 00:43:18,682 - alpaca_crypto_trader - INFO - LTC/USD prix actuel (dernière barre): $87.0025
+2025-05-04 00:43:18,682 - alpaca_crypto_trader - INFO - Traitement de LTC/USDT
+2025-05-04 00:43:18,922 - alpaca_crypto_trader - INFO - LTC/USDT prix actuel (dernière barre): $86.9754
+2025-05-04 00:43:18,922 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:43:19,160 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1540.1180
+2025-05-04 00:43:19,160 - alpaca_crypto_trader - INFO - Traitement de PEPE/USD
+2025-05-04 00:43:19,398 - alpaca_crypto_trader - INFO - PEPE/USD prix actuel (dernière barre): $0.0000
+2025-05-04 00:43:19,399 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: PEPE/USD à $0.0000, qté: 240091183.574879
+2025-05-04 00:43:19,524 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour PEPE/USD: f47a2d4f-1336-4657-884b-a9067ddfa00d
+2025-05-04 00:43:19,524 - alpaca_crypto_trader - INFO - Traitement de SHIB/USD
+2025-05-04 00:43:19,769 - alpaca_crypto_trader - INFO - SHIB/USD prix actuel (dernière barre): $0.0000
+2025-05-04 00:43:19,770 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: SHIB/USD à $0.0000, qté: 152042447.418738
+2025-05-04 00:43:19,894 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour SHIB/USD: 6d6ab8a8-bead-466f-a4ea-63bb62df715a
+2025-05-04 00:43:19,895 - alpaca_crypto_trader - INFO - Traitement de SOL/USD
+2025-05-04 00:43:20,137 - alpaca_crypto_trader - INFO - SOL/USD prix actuel (dernière barre): $147.6765
+2025-05-04 00:43:20,138 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USD
+2025-05-04 00:43:20,379 - alpaca_crypto_trader - INFO - SUSHI/USD prix actuel (dernière barre): $0.6345
+2025-05-04 00:43:20,381 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-04 00:43:20,620 - alpaca_crypto_trader - INFO - SUSHI/USDT prix actuel (dernière barre): $0.6344
+2025-05-04 00:43:20,620 - alpaca_crypto_trader - INFO - Traitement de TRUMP/USD
+2025-05-04 00:43:20,860 - alpaca_crypto_trader - INFO - TRUMP/USD prix actuel (dernière barre): $11.4110
+2025-05-04 00:43:20,860 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:43:21,099 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1475
+2025-05-04 00:43:21,099 - alpaca_crypto_trader - INFO - Traitement de UNI/USDT
+2025-05-04 00:43:21,342 - alpaca_crypto_trader - INFO - UNI/USDT prix actuel (dernière barre): $5.1475
+2025-05-04 00:43:21,342 - alpaca_crypto_trader - INFO - Traitement de USDC/USD
+2025-05-04 00:43:21,582 - alpaca_crypto_trader - INFO - USDC/USD prix actuel (dernière barre): $0.9995
+2025-05-04 00:43:21,584 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:43:21,825 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0002
+2025-05-04 00:43:21,826 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:43:22,064 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1961
+2025-05-04 00:43:22,066 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: XRP/USD à $2.1961, qté: 905.200009
+2025-05-04 00:43:22,192 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour XRP/USD: 6ca70244-6db3-42a0-a5f1-261878a42b3f
+2025-05-04 00:43:22,192 - alpaca_crypto_trader - INFO - Traitement de XTZ/USD
+2025-05-04 00:43:22,434 - alpaca_crypto_trader - INFO - XTZ/USD prix actuel (dernière barre): $0.5576
+2025-05-04 00:43:22,435 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-04 00:43:22,669 - alpaca_crypto_trader - INFO - YFI/USD prix actuel (dernière barre): $5456.1590
+2025-05-04 00:43:22,671 - alpaca_crypto_trader - INFO - Traitement de YFI/USDT
+2025-05-04 00:43:22,909 - alpaca_crypto_trader - INFO - YFI/USDT prix actuel (dernière barre): $5454.6330
+2025-05-04 00:43:23,025 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99339.00
+2025-05-04 00:43:23,141 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:43:23,142 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 539 minutes
+2025-05-04 00:44:23,158 - alpaca_crypto_trader - INFO - Traitement de AAVE/USD
+2025-05-04 00:44:23,419 - alpaca_crypto_trader - INFO - AAVE/USD prix actuel (dernière barre): $180.1510
+2025-05-04 00:44:23,419 - alpaca_crypto_trader - INFO - Traitement de AAVE/USDT
+2025-05-04 00:44:23,660 - alpaca_crypto_trader - INFO - AAVE/USDT prix actuel (dernière barre): $180.1900
+2025-05-04 00:44:23,661 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: AAVE/USDT à $180.1900, qté: 11.026028
+2025-05-04 00:44:23,786 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour AAVE/USDT: e5d92725-2721-4150-8ed6-a9b6dea4954b
+2025-05-04 00:44:23,786 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:44:24,027 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.7103
+2025-05-04 00:44:24,028 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:44:24,266 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1464
+2025-05-04 00:44:24,267 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-04 00:44:24,507 - alpaca_crypto_trader - INFO - BCH/USD prix actuel (dernière barre): $364.4890
+2025-05-04 00:44:24,507 - alpaca_crypto_trader - INFO - Traitement de BCH/USDT
+2025-05-04 00:44:24,745 - alpaca_crypto_trader - INFO - BCH/USDT prix actuel (dernière barre): $364.4225
+2025-05-04 00:44:24,745 - alpaca_crypto_trader - INFO - Traitement de BTC/USD
+2025-05-04 00:44:24,982 - alpaca_crypto_trader - INFO - BTC/USD prix actuel (dernière barre): $96259.0250
+2025-05-04 00:44:24,982 - alpaca_crypto_trader - INFO - Traitement de BTC/USDT
+2025-05-04 00:44:25,219 - alpaca_crypto_trader - INFO - BTC/USDT prix actuel (dernière barre): $96206.9645
+2025-05-04 00:44:25,220 - alpaca_crypto_trader - INFO - Traitement de CRV/USD
+2025-05-04 00:44:25,461 - alpaca_crypto_trader - INFO - CRV/USD prix actuel (dernière barre): $0.7151
+2025-05-04 00:44:25,461 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:44:25,702 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1770
+2025-05-04 00:44:25,702 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: DOGE/USD à $0.1770, qté: 11224.555516
+2025-05-04 00:44:25,822 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour DOGE/USD: 8fe2f34d-220c-43b7-bf0b-a278c3410ee1
+2025-05-04 00:44:25,823 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDT
+2025-05-04 00:44:26,062 - alpaca_crypto_trader - INFO - DOGE/USDT prix actuel (dernière barre): $0.1770
+2025-05-04 00:44:26,062 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: DOGE/USDT à $0.1770, qté: 11225.284830
+2025-05-04 00:44:26,180 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour DOGE/USDT: a48c44da-49d4-4477-aead-39757c48e122
+2025-05-04 00:44:26,180 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:44:26,423 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0533
+2025-05-04 00:44:26,423 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:44:26,662 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1845.5770
+2025-05-04 00:44:26,663 - alpaca_crypto_trader - INFO - Traitement de ETH/USDT
+2025-05-04 00:44:26,902 - alpaca_crypto_trader - INFO - ETH/USDT prix actuel (dernière barre): $1844.6225
+2025-05-04 00:44:26,903 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: ETH/USDT à $1844.6225, qté: 1.077066
+2025-05-04 00:44:27,027 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour ETH/USDT: 85065dc2-cabb-4ea1-8e3e-5c2c2cf49cd3
+2025-05-04 00:44:27,027 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:44:27,271 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0943
+2025-05-04 00:44:27,272 - alpaca_crypto_trader - INFO - Traitement de LINK/USD
+2025-05-04 00:44:27,511 - alpaca_crypto_trader - INFO - LINK/USD prix actuel (dernière barre): $14.3396
+2025-05-04 00:44:27,511 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: LINK/USD à $14.3396, qté: 138.551982
+2025-05-04 00:44:27,637 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour LINK/USD: 77c12f93-64c4-484f-b8e1-8abca91cbabf
+2025-05-04 00:44:27,637 - alpaca_crypto_trader - INFO - Traitement de LINK/USDT
+2025-05-04 00:44:27,882 - alpaca_crypto_trader - INFO - LINK/USDT prix actuel (dernière barre): $14.3310
+2025-05-04 00:44:27,883 - alpaca_crypto_trader - INFO - Traitement de LTC/USD
+2025-05-04 00:44:28,120 - alpaca_crypto_trader - INFO - LTC/USD prix actuel (dernière barre): $87.0970
+2025-05-04 00:44:28,121 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: LTC/USD à $87.0970, qté: 22.811119
+2025-05-04 00:44:28,243 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour LTC/USD: 8f78d31e-bfb8-453d-8bdb-e45aeecea58d
+2025-05-04 00:44:28,245 - alpaca_crypto_trader - INFO - Traitement de LTC/USDT
+2025-05-04 00:44:28,487 - alpaca_crypto_trader - INFO - LTC/USDT prix actuel (dernière barre): $87.0900
+2025-05-04 00:44:28,488 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: LTC/USDT à $87.0900, qté: 22.812952
+2025-05-04 00:44:28,607 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour LTC/USDT: e8fafb14-9158-4184-a38f-b8e9bad2fbe2
+2025-05-04 00:44:28,607 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:44:28,848 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1540.1180
+2025-05-04 00:44:28,848 - alpaca_crypto_trader - INFO - Traitement de PEPE/USD
+2025-05-04 00:44:29,088 - alpaca_crypto_trader - INFO - PEPE/USD prix actuel (dernière barre): $0.0000
+2025-05-04 00:44:29,088 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: PEPE/USD à $0.0000, qté: 239659831.121834
+2025-05-04 00:44:29,214 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour PEPE/USD: 456a48ee-31f9-4501-a1ee-1b6c723bceb3
+2025-05-04 00:44:29,214 - alpaca_crypto_trader - INFO - Traitement de SHIB/USD
+2025-05-04 00:44:29,456 - alpaca_crypto_trader - INFO - SHIB/USD prix actuel (dernière barre): $0.0000
+2025-05-04 00:44:29,457 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: SHIB/USD à $0.0000, qté: 151720504.009164
+2025-05-04 00:44:29,574 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour SHIB/USD: 5ad8a6db-bb2f-496b-84f6-7c562c1a200f
+2025-05-04 00:44:29,575 - alpaca_crypto_trader - INFO - Traitement de SOL/USD
+2025-05-04 00:44:29,818 - alpaca_crypto_trader - INFO - SOL/USD prix actuel (dernière barre): $147.7300
+2025-05-04 00:44:29,818 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USD
+2025-05-04 00:44:30,059 - alpaca_crypto_trader - INFO - SUSHI/USD prix actuel (dernière barre): $0.6352
+2025-05-04 00:44:30,059 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: SUSHI/USD à $0.6352, qté: 3127.900753
+2025-05-04 00:44:30,183 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour SUSHI/USD: b9e31935-3fa5-449c-bd1b-baa22304dce8
+2025-05-04 00:44:30,184 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-04 00:44:30,428 - alpaca_crypto_trader - INFO - SUSHI/USDT prix actuel (dernière barre): $0.6350
+2025-05-04 00:44:30,429 - alpaca_crypto_trader - INFO - Traitement de TRUMP/USD
+2025-05-04 00:44:30,666 - alpaca_crypto_trader - INFO - TRUMP/USD prix actuel (dernière barre): $11.4225
+2025-05-04 00:44:30,666 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:44:30,915 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1577
+2025-05-04 00:44:30,916 - alpaca_crypto_trader - INFO - Traitement de UNI/USDT
+2025-05-04 00:44:31,155 - alpaca_crypto_trader - INFO - UNI/USDT prix actuel (dernière barre): $5.1570
+2025-05-04 00:44:31,155 - alpaca_crypto_trader - INFO - Traitement de USDC/USD
+2025-05-04 00:44:31,404 - alpaca_crypto_trader - INFO - USDC/USD prix actuel (dernière barre): $0.9994
+2025-05-04 00:44:31,405 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:44:31,661 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0004
+2025-05-04 00:44:31,661 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:44:31,900 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1973
+2025-05-04 00:44:31,900 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: XRP/USD à $2.1973, qté: 904.191508
+2025-05-04 00:44:32,028 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour XRP/USD: 32cfff29-ca35-4a60-89e7-9fc5656c4c9b
+2025-05-04 00:44:32,028 - alpaca_crypto_trader - INFO - Traitement de XTZ/USD
+2025-05-04 00:44:32,267 - alpaca_crypto_trader - INFO - XTZ/USD prix actuel (dernière barre): $0.5576
+2025-05-04 00:44:32,268 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-04 00:44:32,508 - alpaca_crypto_trader - INFO - YFI/USD prix actuel (dernière barre): $5459.8530
+2025-05-04 00:44:32,508 - alpaca_crypto_trader - INFO - Traitement de YFI/USDT
+2025-05-04 00:44:32,749 - alpaca_crypto_trader - INFO - YFI/USDT prix actuel (dernière barre): $5458.6825
+2025-05-04 00:44:32,870 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99222.49
+2025-05-04 00:44:32,988 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:44:32,989 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 538 minutes
+2025-05-04 00:45:33,005 - alpaca_crypto_trader - INFO - Traitement de AAVE/USD
+2025-05-04 00:45:33,283 - alpaca_crypto_trader - INFO - AAVE/USD prix actuel (dernière barre): $180.0245
+2025-05-04 00:45:33,283 - alpaca_crypto_trader - INFO - Traitement de AAVE/USDT
+2025-05-04 00:45:33,521 - alpaca_crypto_trader - INFO - AAVE/USDT prix actuel (dernière barre): $179.9645
+2025-05-04 00:45:33,522 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: AAVE/USDT à $179.9645, qté: 11.026896
+2025-05-04 00:45:33,648 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour AAVE/USDT: a1bdee55-897c-4516-872c-3c7b7a669276
+2025-05-04 00:45:33,648 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:45:33,890 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.7103
+2025-05-04 00:45:33,891 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:45:34,131 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1465
+2025-05-04 00:45:34,131 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-04 00:45:34,370 - alpaca_crypto_trader - INFO - BCH/USD prix actuel (dernière barre): $364.4890
+2025-05-04 00:45:34,370 - alpaca_crypto_trader - INFO - Traitement de BCH/USDT
+2025-05-04 00:45:34,608 - alpaca_crypto_trader - INFO - BCH/USDT prix actuel (dernière barre): $364.4225
+2025-05-04 00:45:34,608 - alpaca_crypto_trader - INFO - Traitement de BTC/USD
+2025-05-04 00:45:34,846 - alpaca_crypto_trader - INFO - BTC/USD prix actuel (dernière barre): $96259.0250
+2025-05-04 00:45:34,847 - alpaca_crypto_trader - INFO - Traitement de BTC/USDT
+2025-05-04 00:45:35,086 - alpaca_crypto_trader - INFO - BTC/USDT prix actuel (dernière barre): $96206.9645
+2025-05-04 00:45:35,086 - alpaca_crypto_trader - INFO - Traitement de CRV/USD
+2025-05-04 00:45:35,325 - alpaca_crypto_trader - INFO - CRV/USD prix actuel (dernière barre): $0.7159
+2025-05-04 00:45:35,326 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:45:35,564 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1770
+2025-05-04 00:45:35,564 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: DOGE/USD à $0.1770, qté: 11211.390767
+2025-05-04 00:45:35,691 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour DOGE/USD: 3575b429-88d2-4aa6-9bf5-62f1c6d28a49
+2025-05-04 00:45:35,692 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDT
+2025-05-04 00:45:35,938 - alpaca_crypto_trader - INFO - DOGE/USDT prix actuel (dernière barre): $0.1769
+2025-05-04 00:45:35,938 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: DOGE/USDT à $0.1769, qté: 11217.918598
+2025-05-04 00:45:36,058 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour DOGE/USDT: 5f14fbfa-c15e-4e3e-a22f-20f476fa598e
+2025-05-04 00:45:36,058 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:45:36,299 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0550
+2025-05-04 00:45:36,300 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:45:36,539 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1845.5770
+2025-05-04 00:45:36,540 - alpaca_crypto_trader - INFO - Traitement de ETH/USDT
+2025-05-04 00:45:36,779 - alpaca_crypto_trader - INFO - ETH/USDT prix actuel (dernière barre): $1844.6225
+2025-05-04 00:45:36,779 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: ETH/USDT à $1844.6225, qté: 1.075803
+2025-05-04 00:45:36,905 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour ETH/USDT: 254383c3-bda3-479e-8f9e-c8cb3eb22bcb
+2025-05-04 00:45:36,905 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:45:37,148 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0943
+2025-05-04 00:45:37,148 - alpaca_crypto_trader - INFO - Traitement de LINK/USD
+2025-05-04 00:45:37,384 - alpaca_crypto_trader - INFO - LINK/USD prix actuel (dernière barre): $14.3396
+2025-05-04 00:45:37,384 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: LINK/USD à $14.3396, qté: 138.389481
+2025-05-04 00:45:37,502 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour LINK/USD: 8169738d-7e4c-4818-bb2c-ce0b6ce5e41e
+2025-05-04 00:45:37,502 - alpaca_crypto_trader - INFO - Traitement de LINK/USDT
+2025-05-04 00:45:37,744 - alpaca_crypto_trader - INFO - LINK/USDT prix actuel (dernière barre): $14.3310
+2025-05-04 00:45:37,745 - alpaca_crypto_trader - INFO - Traitement de LTC/USD
+2025-05-04 00:45:37,984 - alpaca_crypto_trader - INFO - LTC/USD prix actuel (dernière barre): $87.0970
+2025-05-04 00:45:37,984 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: LTC/USD à $87.0970, qté: 22.784365
+2025-05-04 00:45:38,110 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour LTC/USD: 38594f32-134a-4a56-9432-eac5567e9f38
+2025-05-04 00:45:38,110 - alpaca_crypto_trader - INFO - Traitement de LTC/USDT
+2025-05-04 00:45:38,354 - alpaca_crypto_trader - INFO - LTC/USDT prix actuel (dernière barre): $87.0900
+2025-05-04 00:45:38,354 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: LTC/USDT à $87.0900, qté: 22.786196
+2025-05-04 00:45:38,478 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour LTC/USDT: c17cad15-1e5d-462a-a3b8-40255c380fc9
+2025-05-04 00:45:38,478 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:45:38,720 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1540.7855
+2025-05-04 00:45:38,721 - alpaca_crypto_trader - INFO - Traitement de PEPE/USD
+2025-05-04 00:45:38,962 - alpaca_crypto_trader - INFO - PEPE/USD prix actuel (dernière barre): $0.0000
+2025-05-04 00:45:38,963 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: PEPE/USD à $0.0000, qté: 239378745.476478
+2025-05-04 00:45:39,090 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour PEPE/USD: a529fc00-5b2c-40b8-83e0-e80b55dd5d68
+2025-05-04 00:45:39,090 - alpaca_crypto_trader - INFO - Traitement de SHIB/USD
+2025-05-04 00:45:39,334 - alpaca_crypto_trader - INFO - SHIB/USD prix actuel (dernière barre): $0.0000
+2025-05-04 00:45:39,335 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: SHIB/USD à $0.0000, qté: 151600443.086325
+2025-05-04 00:45:39,452 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour SHIB/USD: 38c06c3c-9f1c-4acc-b669-a3d75e54b6e7
+2025-05-04 00:45:39,453 - alpaca_crypto_trader - INFO - Traitement de SOL/USD
+2025-05-04 00:45:39,695 - alpaca_crypto_trader - INFO - SOL/USD prix actuel (dernière barre): $147.7300
+2025-05-04 00:45:39,695 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USD
+2025-05-04 00:45:39,938 - alpaca_crypto_trader - INFO - SUSHI/USD prix actuel (dernière barre): $0.6357
+2025-05-04 00:45:39,940 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: SUSHI/USD à $0.6357, qté: 3121.578368
+2025-05-04 00:45:40,060 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour SUSHI/USD: 38b39c82-a9b1-4674-b7ad-d70bd4cc471d
+2025-05-04 00:45:40,060 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-04 00:45:40,302 - alpaca_crypto_trader - INFO - SUSHI/USDT prix actuel (dernière barre): $0.6354
+2025-05-04 00:45:40,302 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: SUSHI/USDT à $0.6354, qté: 3123.059527
+2025-05-04 00:45:40,422 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour SUSHI/USDT: 94e6564f-6ec6-42bc-aefb-2328bbbcb4ea
+2025-05-04 00:45:40,422 - alpaca_crypto_trader - INFO - Traitement de TRUMP/USD
+2025-05-04 00:45:40,664 - alpaca_crypto_trader - INFO - TRUMP/USD prix actuel (dernière barre): $11.4024
+2025-05-04 00:45:40,666 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:45:40,904 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1577
+2025-05-04 00:45:40,904 - alpaca_crypto_trader - INFO - Traitement de UNI/USDT
+2025-05-04 00:45:41,142 - alpaca_crypto_trader - INFO - UNI/USDT prix actuel (dernière barre): $5.1570
+2025-05-04 00:45:41,143 - alpaca_crypto_trader - INFO - Traitement de USDC/USD
+2025-05-04 00:45:41,384 - alpaca_crypto_trader - INFO - USDC/USD prix actuel (dernière barre): $0.9997
+2025-05-04 00:45:41,384 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:45:41,626 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0002
+2025-05-04 00:45:41,632 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:45:41,874 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1973
+2025-05-04 00:45:41,874 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: XRP/USD à $2.1973, qté: 903.131024
+2025-05-04 00:45:42,000 - alpaca_crypto_trader - INFO - Ordre d'achat placé pour XRP/USD: 5961e449-f0f1-4b33-be54-54cde2059427
+2025-05-04 00:45:42,000 - alpaca_crypto_trader - INFO - Traitement de XTZ/USD
+2025-05-04 00:45:42,238 - alpaca_crypto_trader - INFO - XTZ/USD prix actuel (dernière barre): $0.5576
+2025-05-04 00:45:42,240 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-04 00:45:42,480 - alpaca_crypto_trader - INFO - YFI/USD prix actuel (dernière barre): $5459.8530
+2025-05-04 00:45:42,480 - alpaca_crypto_trader - INFO - Traitement de YFI/USDT
+2025-05-04 00:45:42,717 - alpaca_crypto_trader - INFO - YFI/USDT prix actuel (dernière barre): $5458.6825
+2025-05-04 00:45:42,834 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99116.85
+2025-05-04 00:45:42,952 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:45:42,952 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 537 minutes
+2025-05-04 00:46:09,302 - alpaca_crypto_trader - INFO - Boucle de trading terminée

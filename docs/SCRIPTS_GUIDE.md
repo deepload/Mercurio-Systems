@@ -97,6 +97,60 @@ python scripts/test_stocks_and_crypto.py
 
 Ces scripts permettent d'exécuter différentes stratégies de trading.
 
+### `run_strategy_crypto_trader.py`
+
+**Fonction** : Exécute le trading de cryptomonnaies avec une sélection de stratégies différentes et configurations personnalisables.
+
+**Paramètres** :
+- `--strategy <nom>` : Stratégie à utiliser (options: `moving_average`, `momentum`, `mean_reversion`, `breakout`, `statistical_arbitrage`, `transformer`)
+- `--duration <durée>` : Durée de la session de trading (options: `1h`, `4h`, `8h`, `night`)
+- `--position-size <taille>` : Taille de position en pourcentage du portefeuille (défaut: 0.02 = 2%)
+- `--stop-loss <pourcentage>` : Stop loss en pourcentage (défaut: 0.03 = 3%)
+- `--take-profit <pourcentage>` : Take profit en pourcentage (défaut: 0.06 = 6%)
+- `--use-custom-symbols` : Utiliser la liste personnalisée de symboles au lieu du filtre automatique
+- `--fast-ma <période>` : Période de la moyenne mobile rapide pour la stratégie moving_average
+- `--slow-ma <période>` : Période de la moyenne mobile lente pour la stratégie moving_average
+- `--momentum-lookback <période>` : Période de lookback pour la stratégie momentum
+- `--mean-reversion-lookback <période>` : Période de lookback pour la stratégie mean reversion
+- `--breakout-lookback <période>` : Période de lookback pour la stratégie breakout
+- `--volatility-lookback <période>` : Période de lookback pour le calcul de la volatilité
+
+**Paramètres spécifiques à la stratégie Transformer** :
+- `--sequence-length <longueur>` : Longueur de la séquence d'entrée pour le modèle Transformer (défaut: 60)
+- `--prediction-horizon <horizon>` : Horizon de prédiction pour le modèle Transformer (défaut: 1)
+- `--d-model <dimension>` : Dimension du modèle Transformer (défaut: 64)
+- `--nhead <têtes>` : Nombre de têtes d'attention pour le modèle Transformer (défaut: 4)
+- `--num-layers <couches>` : Nombre de couches pour le modèle Transformer (défaut: 2)
+- `--dropout <taux>` : Taux de dropout pour le modèle Transformer (défaut: 0.1)
+- `--signal-threshold <seuil>` : Seuil de signal pour la stratégie Transformer (défaut: 0.6)
+- `--use-gpu` : Utiliser le GPU pour l'entraînement et l'inférence (si disponible)
+- `--retrain` : Réentraîner le modèle Transformer même si un modèle entraîné existe déjà
+
+**Utilisation** :
+```bash
+# Trading avec la stratégie de momentum
+python scripts/run_strategy_crypto_trader.py --strategy momentum --use-custom-symbols
+
+# Trading avec mean reversion sur une session de 4 heures
+python scripts/run_strategy_crypto_trader.py --strategy mean_reversion --duration 4h --stop-loss 0.02 --take-profit 0.05
+
+# Trading avec moving average (stratégie par défaut)
+python scripts/run_strategy_crypto_trader.py --fast-ma 10 --slow-ma 30
+
+# Trading avec la stratégie Transformer pendant 8 heures
+python scripts/run_strategy_crypto_trader.py --strategy transformer --duration 8h --use-custom-symbols
+
+# Trading avec Transformer personnalisé pour les cryptomonnaies à forte volatilité
+python scripts/run_strategy_crypto_trader.py --strategy transformer --sequence-length 120 --d-model 128 --nhead 8 --position-size 0.01 --stop-loss 0.02 --take-profit 0.05 --use-gpu
+```
+
+**Description** : Ce script permet de lancer un trader de cryptomonnaies avec différentes stratégies de trading (moving average, momentum, mean reversion, breakout, statistical arbitrage). Il offre des options détaillées pour configurer chaque stratégie ainsi que les durées de session. Le script prend en charge le paper trading via Alpaca et peut utiliser une liste personnalisée de paires de cryptomonnaies.
+
+**Cas d'utilisation** :
+1. **Trading nocturne** : Pour faire tourner un trader de crypto pendant la nuit avec une stratégie optimisée
+2. **Test de stratégies** : Pour comparer différentes stratégies de trading sur les cryptomonnaies
+3. **Trading adaptatif** : Pour utiliser différentes stratégies selon les conditions de marché
+
 ### `auto_trader.py`
 
 **Fonction** : Agent de trading automatisé avancé.

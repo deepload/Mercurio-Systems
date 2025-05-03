@@ -16,7 +16,8 @@ Le système de day trading de Mercurio AI comprend :
 1. **Collecte de symboles** (`get_all_symbols.py`) - Récupère tous les symboles d'actions et crypto-monnaies disponibles
 2. **Day trading sur actions** (`run_stock_daytrader_all.py`) - Exécute des stratégies de trading sur les actions
 3. **Day trading sur crypto** (`run_overnight_crypto_trader.py`) - Exécute des stratégies de trading sur les crypto-monnaies
-4. **Intégration avec les stratégies Mercurio AI** - Utilise toutes les stratégies disponibles (MovingAverage, LSTM, etc.)
+4. **Trading crypto avec stratégies avancées** (`run_strategy_crypto_trader.py`) - Permet de choisir différentes stratégies pour le trading de crypto
+5. **Intégration avec les stratégies Mercurio AI** - Utilise toutes les stratégies disponibles (MovingAverage, LSTM, Momentum, etc.)
 
 ## Prérequis
 
@@ -52,7 +53,41 @@ Ce script :
 - Sauvegarde les listes dans des fichiers CSV dans le dossier `data/`
 - Génère des métadonnées sur les symboles récupérés
 
-### Étape 2 : Day Trading sur Actions
+### Étape 2 : Day Trading sur Crypto avec Stratégies Avancées
+
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy momentum --use-custom-symbols
+```
+
+Ce nouveau script permet de trader des cryptomonnaies avec différentes stratégies avancées et configurations personnalisables.
+
+Options principales :
+- `--strategy` : Stratégie à utiliser (`moving_average`, `momentum`, `mean_reversion`, `breakout`, `statistical_arbitrage`, `transformer`)
+- `--duration` : Durée de la session (`1h`, `4h`, `8h`, `night` pour 9h)
+- `--position-size` : Taille de position en % du portefeuille (ex: `0.02` pour 2%)
+- `--stop-loss` : Stop loss en pourcentage (ex: `0.03` pour 3%)
+- `--take-profit` : Take profit en pourcentage (ex: `0.06` pour 6%)
+- `--use-custom-symbols` : Utiliser la liste personnalisée de symboles
+
+Options spécifiques par stratégie :
+- `--fast-ma` / `--slow-ma` : Périodes pour la stratégie moyenne mobile
+- `--momentum-lookback` : Période pour la stratégie momentum
+- `--mean-reversion-lookback` : Période pour la stratégie mean reversion
+- `--breakout-lookback` : Période pour la stratégie breakout
+- `--volatility-lookback` : Période pour le calcul de volatilité
+
+Options spécifiques pour la stratégie Transformer (deep learning) :
+- `--sequence-length` : Longueur de la séquence d'entrée (défaut: 60)
+- `--prediction-horizon` : Horizon de prédiction (défaut: 1)
+- `--d-model` : Dimension du modèle (défaut: 64)
+- `--nhead` : Nombre de têtes d'attention (défaut: 4)
+- `--num-layers` : Nombre de couches (défaut: 2)
+- `--dropout` : Taux de dropout (défaut: 0.1)
+- `--signal-threshold` : Seuil de signal (défaut: 0.6)
+- `--use-gpu` : Utiliser le GPU si disponible
+- `--retrain` : Forcer le réentraînement du modèle
+
+### Étape 3 : Day Trading sur Actions
 
 ```bash
 python scripts/run_stock_daytrader_all.py --strategy all --filter active_assets --max-symbols 20 --duration continuous --use-custom-symbols
@@ -148,4 +183,29 @@ python scripts/run_stock_daytrader_all.py --strategy all --filter top_volume --m
 ### Mise à jour régulière des symboles (pour un fonctionnement prolongé)
 ```bash
 python scripts/run_stock_daytrader_all.py --strategy all --duration continuous --refresh-symbols --market-check-interval 60
+```
+
+### Trading de cryptomonnaies avec la stratégie mean reversion
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy mean_reversion --use-custom-symbols --position-size 0.01 --stop-loss 0.02 --take-profit 0.05
+```
+
+### Trading nocturne de cryptomonnaies avec la stratégie momentum
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy momentum --duration night --momentum-lookback 15
+```
+
+### Trading de cryptomonnaies sur session courte avec stratégie breakout
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy breakout --duration 1h --breakout-lookback 10 --stop-loss 0.015 --take-profit 0.04
+```
+
+### Trading de cryptomonnaies avec modèle Transformer pendant 8 heures
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy transformer --duration 8h --use-custom-symbols --position-size 0.01
+```
+
+### Trading optimisé avec Transformer personnalisé pour marchés volatils
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy transformer --duration night --sequence-length 120 --d-model 128 --nhead 8 --num-layers 3 --signal-threshold 0.7 --position-size 0.005 --stop-loss 0.01 --take-profit 0.03 --use-gpu
 ```
