@@ -205,6 +205,8 @@ class StockDayTrader:
                  stock_filter: StockFilter = StockFilter.ACTIVE_ASSETS,
                  max_symbols: int = 20,
                  position_size_pct: float = 0.02,
+                 stop_loss_pct: float = 0.02,
+                 take_profit_pct: float = 0.04,
                  session_duration: SessionDuration = SessionDuration.MARKET_HOURS,
                  use_threads: bool = False,
                  use_custom_symbols: bool = False,
@@ -1295,7 +1297,11 @@ def main():
     parser.add_argument('--max-symbols', type=int, default=10,
                         help='Nombre maximum de symboles à trader')
     parser.add_argument('--position-size', type=float, default=0.02,
-                        help='Taille de position en % du portefeuille (ex: 0.02 pour 2%)')
+                        help='Taille de position en pourcentage du portefeuille (default: 0.02)')
+    parser.add_argument('--stop-loss', type=float, default=0.02,
+                        help='Pourcentage de stop loss (default: 0.02)')
+    parser.add_argument('--take-profit', type=float, default=0.04,
+                        help='Pourcentage de take profit (default: 0.04)')
     parser.add_argument('--duration', choices=['market_hours', 'extended_hours', 'full_day', 'continuous'],
                     default='market_hours', help='Type de session de trading')
     parser.add_argument('--market-check-interval', type=int, default=30,
@@ -1365,9 +1371,14 @@ def main():
         stock_filter=StockFilter(args.filter),
         max_symbols=args.max_symbols,
         position_size_pct=args.position_size,
+        stop_loss_pct=args.stop_loss,
+        take_profit_pct=args.take_profit,
         session_duration=SessionDuration(args.duration),
         use_threads=args.use_threads,
-        use_custom_symbols=args.use_custom_symbols
+        use_custom_symbols=args.use_custom_symbols,
+        auto_retrain=args.auto_retrain,
+        retrain_interval=args.retrain_interval,
+        retrain_symbols=args.retrain_symbols
     )
     
     # Démarrer le trader
