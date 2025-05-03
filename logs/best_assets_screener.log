@@ -1,0 +1,138 @@
+2025-05-03 19:33:14,751 - __main__ - INFO - MercurioAI - Best Assets Screener
+2025-05-03 19:33:14,751 - __main__ - INFO - Paramètres: top_stocks=50, top_crypto=100, lookback=30
+2025-05-03 19:33:14,751 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 19:33:14,752 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 19:33:14,857 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 19:33:14,858 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 19:33:14,869 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 19:33:14,870 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 19:33:14,870 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 19:33:14,870 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 19:33:14,870 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 19:33:14,870 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 19:33:14,871 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 19:33:14,871 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 19:33:14,871 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 19:33:14,871 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 19:33:14,871 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 19:33:14,871 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 19:33:14,871 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 19:33:14,871 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 19:33:14,871 - app.core.event_bus - INFO - EventBus initialized
+2025-05-03 19:33:14,871 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 19:33:14,872 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 19:33:14,872 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 19:33:14,872 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 19:33:14,872 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 19:33:14,872 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 19:33:14,872 - app.strategies.msi_strategy - INFO - Multi-Source Intelligence Strategy initialized for BTC-USD
+2025-05-03 19:33:14,873 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 60 sequence length
+2025-05-03 19:33:14,873 - __main__ - INFO - Démarrage du screening des actifs...
+2025-05-03 19:33:14,873 - __main__ - INFO - Actions à évaluer: 3
+2025-05-03 19:33:14,874 - __main__ - INFO - Cryptomonnaies à évaluer: 2
+2025-05-03 19:33:14,874 - __main__ - INFO - Démarrage de l'évaluation des actions...
+2025-05-03 19:33:14,874 - __main__ - INFO - Évaluation de AAPL...
+2025-05-03 19:33:14,874 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-03 19:33:14,875 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-03 19:33:15,255 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AAPL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 19:33:15,255 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 19:33:15,255 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 19:33:15,257 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-05-03 19:33:15,257 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-03 19:33:15,261 - app.services.providers.sample - INFO - Generated sample data for AAPL with 22 data points
+2025-05-03 19:33:15,261 - __main__ - WARNING - Le modèle pour la stratégie MovingAverage n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,269 - __main__ - WARNING - Le modèle pour la stratégie LSTM n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,277 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 2. Returning error.
+2025-05-03 19:33:15,277 - __main__ - WARNING - Le modèle pour la stratégie MSI n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,280 - __main__ - WARNING - Le modèle pour la stratégie Transformer n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,282 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-03 19:33:15,283 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-03 19:33:15,286 - __main__ - INFO - Évaluation de MSFT...
+2025-05-03 19:33:15,286 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-03 19:33:15,287 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-03 19:33:15,404 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/MSFT/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 19:33:15,405 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 19:33:15,405 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 19:33:15,406 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-05-03 19:33:15,408 - app.services.providers.sample - INFO - Generated sample data for MSFT with 22 data points
+2025-05-03 19:33:15,408 - __main__ - WARNING - Le modèle pour la stratégie MovingAverage n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,416 - __main__ - WARNING - Le modèle pour la stratégie LSTM n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,422 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 2. Returning error.
+2025-05-03 19:33:15,423 - __main__ - WARNING - Le modèle pour la stratégie MSI n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,427 - __main__ - WARNING - Le modèle pour la stratégie Transformer n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,428 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-03 19:33:15,429 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-03 19:33:15,433 - __main__ - INFO - Évaluation de TSLA...
+2025-05-03 19:33:15,433 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-03 19:33:15,433 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-03 19:33:15,551 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/TSLA/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 19:33:15,551 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 19:33:15,551 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 19:33:15,553 - app.services.market_data - WARNING - Using sample data for TSLA as fallback
+2025-05-03 19:33:15,555 - app.services.providers.sample - INFO - Generated sample data for TSLA with 22 data points
+2025-05-03 19:33:15,555 - __main__ - WARNING - Le modèle pour la stratégie MovingAverage n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,562 - __main__ - WARNING - Le modèle pour la stratégie LSTM n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,569 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 2. Returning error.
+2025-05-03 19:33:15,569 - __main__ - WARNING - Le modèle pour la stratégie MSI n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,572 - __main__ - WARNING - Le modèle pour la stratégie Transformer n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,572 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-03 19:33:15,574 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-03 19:33:15,581 - __main__ - INFO - Démarrage de l'évaluation des cryptomonnaies...
+2025-05-03 19:33:15,582 - __main__ - INFO - Évaluation de BTC-USD...
+2025-05-03 19:33:15,582 - app.services.market_data - INFO - Fetching historical data for BTC-USD from Alpaca
+2025-05-03 19:33:15,582 - root - INFO - Converting crypto symbol format for Alpaca: BTC-USD -> BTC/USD
+2025-05-03 19:33:15,583 - app.services.market_data - INFO - Cryptocurrency detected: BTC-USD. Using dedicated Alpaca crypto API.
+2025-05-03 19:33:15,583 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for BTC/USD
+2025-05-03 19:33:15,954 - app.services.market_data - INFO - Successfully retrieved 30 bars for BTC/USD from Alpaca v1beta3 API
+2025-05-03 19:33:15,956 - __main__ - WARNING - Le modèle pour la stratégie MovingAverage n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,964 - __main__ - WARNING - Le modèle pour la stratégie LSTM n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,970 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 10. Returning error.
+2025-05-03 19:33:15,971 - __main__ - WARNING - Le modèle pour la stratégie MSI n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,974 - __main__ - WARNING - Le modèle pour la stratégie Transformer n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:15,975 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-03 19:33:15,976 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-03 19:33:15,981 - __main__ - INFO - Évaluation de ETH-USD...
+2025-05-03 19:33:15,981 - app.services.market_data - INFO - Fetching historical data for ETH-USD from Alpaca
+2025-05-03 19:33:15,981 - root - INFO - Converting crypto symbol format for Alpaca: ETH-USD -> ETH/USD
+2025-05-03 19:33:15,981 - app.services.market_data - INFO - Cryptocurrency detected: ETH-USD. Using dedicated Alpaca crypto API.
+2025-05-03 19:33:15,981 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ETH/USD
+2025-05-03 19:33:16,346 - app.services.market_data - INFO - Successfully retrieved 30 bars for ETH/USD from Alpaca v1beta3 API
+2025-05-03 19:33:16,351 - __main__ - WARNING - Le modèle pour la stratégie MovingAverage n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:16,363 - __main__ - WARNING - Le modèle pour la stratégie LSTM n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:16,375 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 10. Returning error.
+2025-05-03 19:33:16,377 - __main__ - WARNING - Le modèle pour la stratégie MSI n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:16,383 - __main__ - WARNING - Le modèle pour la stratégie Transformer n'est pas encore entraîné. Utilisation du signal par défaut.
+2025-05-03 19:33:16,385 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-03 19:33:16,387 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-03 19:33:16,392 - __main__ - INFO - Screening terminé. 3 actions et 2 cryptomonnaies évaluées.
+2025-05-03 19:33:16,393 - __main__ - INFO - Génération du rapport...
+2025-05-03 19:33:16,859 - __main__ - INFO - 
+================================================================================
+2025-05-03 19:33:16,859 - __main__ - INFO - RAPPORT DE SCREENING - 2025-05-03
+2025-05-03 19:33:16,859 - __main__ - INFO - ================================================================================
+2025-05-03 19:33:16,859 - __main__ - INFO - 
+TOP 10 DES ACTIONS:
+2025-05-03 19:33:16,862 - __main__ - INFO - +---+--------+--------------------+-------------------+-------------------+--------------+----------------------+-------------+
+|   | Symbol |       Score        |       Price       |        RSI        | Recent Trend | MovingAverage Signal | LSTM Signal |
++---+--------+--------------------+-------------------+-------------------+--------------+----------------------+-------------+
+| 0 |  AAPL  | 25.56210737625745  | 179.551774678729  | 40.25917477288515 |      0       |         HOLD         |    HOLD     |
+| 1 |  MSFT  |        25.0        | 370.0284064549458 | 39.99099019313262 |      0       |         HOLD         |    HOLD     |
+| 2 |  TSLA  | 24.134988591636287 | 209.4099316946725 | 75.19006845018228 |      0       |         HOLD         |    HOLD     |
++---+--------+--------------------+-------------------+-------------------+--------------+----------------------+-------------+
+2025-05-03 19:33:16,862 - __main__ - INFO - 
+TOP 10 DES CRYPTOMONNAIES:
+2025-05-03 19:33:16,863 - __main__ - INFO - +---+---------+-------------------+----------+-------------------+--------------------+----------------------+-------------+
+|   | Symbol  |       Score       |  Price   |        RSI        |    Recent Trend    | MovingAverage Signal | LSTM Signal |
++---+---------+-------------------+----------+-------------------+--------------------+----------------------+-------------+
+| 0 | ETH-USD | 34.37133021721346 | 1838.815 | 73.77201869671924 | 10.436577984169837 |         HOLD         |    HOLD     |
+| 1 | BTC-USD | 32.13248130154333 | 96538.4  | 87.20511219074002 | 12.949850471027169 |         HOLD         |    HOLD     |
++---+---------+-------------------+----------+-------------------+--------------------+----------------------+-------------+
+2025-05-03 19:33:16,863 - __main__ - INFO - 
+================================================================================
+2025-05-03 19:33:16,863 - __main__ - INFO - Rapport sauvegardé dans reports/best_assets/2025-05-03/
+2025-05-03 19:33:16,863 - __main__ - INFO - Fichiers générés: report.html, top_stocks.csv, top_crypto.csv, top_stocks_chart.png, top_crypto_chart.png
+2025-05-03 19:33:16,863 - __main__ - INFO - Screening terminé avec succès!
+2025-05-03 19:33:16,863 - __main__ - INFO - Rapport disponible dans: reports/best_assets/2025-05-03/report.html
