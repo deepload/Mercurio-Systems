@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-05-03T20:30:28.846251",
+  "portfolio_value": 99576.29,
+  "cash": 99880.3,
+  "transaction_costs": 0.0,
+  "net_value": 99576.29,
+  "positions": {},
+  "risk_stats": {
+    "capital": 99576.29,
+    "open_positions": 0,
+    "position_value": 0.0,
+    "open_risk": 0.0,
+    "open_risk_pct": 0.0,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": 0.0,
+    "total_pnl": 0.0,
+    "total_pnl_pct": 0.0,
+    "current_drawdown_pct": 0.4237100000000064,
+    "max_drawdown_pct": 0.4237100000000064,
+    "trades_executed": 0,
+    "win_rate": 0,
+    "expectancy": 0,
+    "current_risk_level": "moderate"
+  },
+  "performance_history": []
+}
