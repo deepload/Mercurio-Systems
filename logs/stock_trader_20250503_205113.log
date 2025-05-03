@@ -1,0 +1,448 @@
+2025-05-03 20:51:13,091 - StockTrader - INFO - Configuration loaded successfully: 7 symbols, 5 strategies
+2025-05-03 20:51:13,091 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 20:51:13,093 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 20:51:13,202 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 20:51:13,202 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 20:51:13,203 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 20:51:13,203 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 20:51:13,204 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-05-03 20:51:13,204 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 20:51:13,204 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 20:51:13,204 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 20:51:13,204 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 20:51:13,204 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 20:51:13,205 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 20:51:13,205 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 20:51:13,205 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 20:51:13,205 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 20:51:13,205 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 20:51:13,205 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 20:51:13,205 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 20:51:13,206 - app.core.event_bus - INFO - EventBus initialized
+2025-05-03 20:51:13,206 - app.strategies.adaptive.risk_manager - INFO - Risk Manager initialized with capital: $100000.00, base risk per trade: 1.00%
+2025-05-03 20:51:13,206 - StockTrader - INFO - StockTrader initialized with configuration: C:\Projects\MercurioAI\config/daytrader_config.json
+2025-05-03 20:51:13,207 - StockTrader - INFO - Initializing services and strategies...
+2025-05-03 20:51:19,018 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 20:51:19,018 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 20:51:19,019 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 20:51:19,019 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 20:51:19,019 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 20:51:19,019 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 20:51:19,019 - StockTrader - INFO - Strategy MovingAverageStrategy loaded successfully
+2025-05-03 20:51:19,019 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 20:51:19,019 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 20:51:19,019 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 20:51:19,021 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 20:51:19,021 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 20:51:19,021 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 20:51:19,021 - StockTrader - INFO - Strategy LSTMPredictorStrategy loaded successfully
+2025-05-03 20:51:19,021 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 60 sequence length
+2025-05-03 20:51:19,022 - StockTrader - INFO - Strategy TransformerStrategy loaded successfully
+2025-05-03 20:51:19,022 - StockTrader - INFO - Strategy MSIStrategy loaded successfully
+2025-05-03 20:51:19,022 - app.strategies.llm_strategy - WARNING - No endpoint URL specified for model llama2-7b
+2025-05-03 20:51:19,022 - app.strategies.llm_strategy - WARNING - Could not register for events: a coroutine was expected, got '0cabfcfa-fb4f-4b04-ad40-0a97ce314c1c'
+2025-05-03 20:51:19,023 - app.strategies.llm_strategy - INFO - Event subscription skipped - LLM will use polling instead
+2025-05-03 20:51:19,023 - app.strategies.llm_strategy - INFO - Initialized LLMStrategy with llama2-7b
+2025-05-03 20:51:19,023 - StockTrader - INFO - Strategy LLMStrategy loaded successfully
+2025-05-03 20:51:19,023 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-03 20:51:19,023 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-03 20:51:19,023 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-03 20:51:19,023 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-03 20:51:19,024 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-03 20:51:19,024 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-03 20:51:19,419 - app.strategies.adaptive.risk_manager - INFO - Capital updated to $99576.29, current drawdown: 0.42%
+2025-05-03 20:51:19,419 - StockTrader - INFO - Connected to account: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-03 20:51:19,419 - StockTrader - INFO - Account status: ACTIVE
+2025-05-03 20:51:19,420 - StockTrader - INFO - Portfolio value: $99576.29
+2025-05-03 20:51:19,420 - StockTrader - WARNING - Could not subscribe to market data events: 'StockDayTrader' object has no attribute '_handle_market_data_update'
+2025-05-03 20:51:19,420 - StockTrader - WARNING - Continuing without event subscription - will use polling instead
+2025-05-03 20:51:19,420 - StockTrader - INFO - Stock trading system initialized with 5 active strategies
+2025-05-03 20:51:19,421 - StockTrader - INFO - ===================================================
+2025-05-03 20:51:19,421 - StockTrader - INFO - STOCK TRADING SESSION STARTING
+2025-05-03 20:51:19,421 - StockTrader - INFO - ===================================================
+2025-05-03 20:51:19,421 - StockTrader - INFO - Mode: PAPER TRADING
+2025-05-03 20:51:19,421 - StockTrader - INFO - Session start: 2025-05-03 20:51:13
+2025-05-03 20:51:19,421 - StockTrader - INFO - Session end: 2025-05-03 21:51:13
+2025-05-03 20:51:19,421 - StockTrader - INFO - Duration: 1:00:00
+2025-05-03 20:51:19,422 - StockTrader - INFO - Portfolio value: $99576.29
+2025-05-03 20:51:19,422 - StockTrader - INFO - Strategies: MovingAverageStrategy, LSTMPredictorStrategy, TransformerStrategy, MSIStrategy, LLMStrategy
+2025-05-03 20:51:19,422 - StockTrader - INFO - Symbols: AAPL, MSFT, AMZN, GOOGL, TSLA, BTC/USD, ETH/USD
+2025-05-03 20:51:19,422 - StockTrader - INFO - Check interval: 60 seconds
+2025-05-03 20:51:19,422 - StockTrader - INFO - ===================================================
+2025-05-03 20:51:19,422 - StockTrader - INFO - Stock trading session confirmed. Starting main trading loop...
+2025-05-03 20:51:19,544 - StockTrader - ERROR - Error updating portfolio state: 'TradingService' object has no attribute 'get_all_positions'
+2025-05-03 20:51:19,628 - app.services.providers.polygon - INFO - Polygon.io client initialized successfully
+2025-05-03 20:51:19,628 - app.services.providers.factory - INFO - Initialized provider 'polygon'
+2025-05-03 20:51:19,628 - app.services.providers.factory - INFO - Using 'polygon' as default provider
+2025-05-03 20:51:19,628 - app.services.market_data - INFO - Fetching latest price for AAPL using Polygon.io
+2025-05-03 20:51:19,959 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"ef07ae8bb7d039c4dc0674623d5453de","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:20,071 - app.services.providers.polygon - INFO - Got 1 data points for AAPL from Polygon.io
+2025-05-03 20:51:20,072 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-03 20:51:20,072 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-03 20:51:20,438 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AAPL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:20,439 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:20,439 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:20,441 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-05-03 20:51:20,441 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-03 20:51:20,443 - app.services.providers.sample - INFO - Generated sample data for AAPL with 31 data points
+2025-05-03 20:51:20,443 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of AAPL
+2025-05-03 20:51:20,443 - StockTrader - ERROR - Error processing symbol AAPL: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:20,445 - app.services.market_data - INFO - Fetching latest price for MSFT using Polygon.io
+2025-05-03 20:51:20,553 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"2b320d53cbfc8a64e329511f53b3a0c1","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:20,667 - app.services.providers.polygon - INFO - Got 1 data points for MSFT from Polygon.io
+2025-05-03 20:51:20,667 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-03 20:51:20,668 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-03 20:51:20,787 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/MSFT/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:20,788 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:20,788 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:20,790 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-05-03 20:51:20,791 - app.services.providers.sample - INFO - Generated sample data for MSFT with 31 data points
+2025-05-03 20:51:20,791 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of MSFT
+2025-05-03 20:51:20,793 - StockTrader - ERROR - Error processing symbol MSFT: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:20,793 - app.services.market_data - INFO - Fetching latest price for AMZN using Polygon.io
+2025-05-03 20:51:20,902 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"68e5b67993938bde20ed237df485ed6d","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:21,022 - app.services.providers.polygon - INFO - Got 1 data points for AMZN from Polygon.io
+2025-05-03 20:51:21,022 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-03 20:51:21,022 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-03 20:51:21,140 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AMZN/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:21,140 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:21,140 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:21,141 - app.services.market_data - WARNING - Using sample data for AMZN as fallback
+2025-05-03 20:51:21,143 - app.services.providers.sample - INFO - Generated sample data for AMZN with 31 data points
+2025-05-03 20:51:21,143 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of AMZN
+2025-05-03 20:51:21,144 - StockTrader - ERROR - Error processing symbol AMZN: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:21,144 - app.services.market_data - INFO - Fetching latest price for GOOGL using Polygon.io
+2025-05-03 20:51:21,250 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"e6841fb821f84e3485cd2cca6276380a","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:21,360 - app.services.providers.polygon - INFO - Got 1 data points for GOOGL from Polygon.io
+2025-05-03 20:51:21,360 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-03 20:51:21,361 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-03 20:51:21,479 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/GOOGL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:21,480 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:21,480 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:21,483 - app.services.market_data - WARNING - Using sample data for GOOGL as fallback
+2025-05-03 20:51:21,484 - app.services.providers.sample - INFO - Generated sample data for GOOGL with 31 data points
+2025-05-03 20:51:21,484 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of GOOGL
+2025-05-03 20:51:21,484 - StockTrader - ERROR - Error processing symbol GOOGL: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:21,484 - app.services.market_data - INFO - Fetching latest price for TSLA using Polygon.io
+2025-05-03 20:51:21,591 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"ea4d6c8f96b70963284459765eadf352","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:21,701 - app.services.providers.polygon - INFO - Got 1 data points for TSLA from Polygon.io
+2025-05-03 20:51:21,701 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-03 20:51:21,701 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-03 20:51:21,827 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/TSLA/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:21,827 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:21,827 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:21,829 - app.services.market_data - WARNING - Using sample data for TSLA as fallback
+2025-05-03 20:51:21,830 - app.services.providers.sample - INFO - Generated sample data for TSLA with 31 data points
+2025-05-03 20:51:21,830 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of TSLA
+2025-05-03 20:51:21,830 - StockTrader - ERROR - Error processing symbol TSLA: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:21,830 - app.services.market_data - INFO - Fetching latest price for BTC/USD using Polygon.io
+2025-05-03 20:51:21,934 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: 404 page not found
+2025-05-03 20:51:22,037 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: 404 page not found
+2025-05-03 20:51:22,037 - app.services.providers.polygon - ERROR - Fallback also failed: 404 page not found
+2025-05-03 20:51:22,037 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for BTC/USD from Polygon.io
+2025-05-03 20:51:22,038 - app.services.market_data - INFO - Falling back to legacy Alpaca client for BTC/USD stock price
+2025-05-03 20:51:22,154 - app.services.market_data - ERROR - Error fetching latest price from legacy Alpaca client: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/trades/latest
+2025-05-03 20:51:22,155 - app.services.market_data - INFO - Fetching historical data for BTC/USD from Alpaca
+2025-05-03 20:51:22,155 - app.services.market_data - INFO - Using standard stock API for BTC/USD
+2025-05-03 20:51:22,271 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-28&end=2025-05-03
+2025-05-03 20:51:22,271 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:51:22,271 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:51:22,272 - app.services.market_data - WARNING - Using sample data for BTC/USD as fallback
+2025-05-03 20:51:22,274 - app.services.providers.sample - INFO - Generated sample data for BTC/USD with 5 data points
+2025-05-03 20:51:22,274 - app.services.market_data - INFO - Fetching historical data for BTC/USD from Alpaca
+2025-05-03 20:51:22,274 - app.services.market_data - INFO - Using standard stock API for BTC/USD
+2025-05-03 20:51:22,390 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:22,390 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:51:22,390 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:51:22,391 - app.services.market_data - WARNING - Using sample data for BTC/USD as fallback
+2025-05-03 20:51:22,393 - app.services.providers.sample - INFO - Generated sample data for BTC/USD with 31 data points
+2025-05-03 20:51:22,393 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of BTC/USD
+2025-05-03 20:51:22,395 - StockTrader - ERROR - Error processing symbol BTC/USD: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:22,395 - app.services.market_data - INFO - Fetching latest price for ETH/USD using Polygon.io
+2025-05-03 20:51:22,497 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: 404 page not found
+2025-05-03 20:51:22,600 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: 404 page not found
+2025-05-03 20:51:22,600 - app.services.providers.polygon - ERROR - Fallback also failed: 404 page not found
+2025-05-03 20:51:22,600 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for ETH/USD from Polygon.io
+2025-05-03 20:51:22,600 - app.services.market_data - INFO - Falling back to legacy Alpaca client for ETH/USD stock price
+2025-05-03 20:51:22,715 - app.services.market_data - ERROR - Error fetching latest price from legacy Alpaca client: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/trades/latest
+2025-05-03 20:51:22,716 - app.services.market_data - INFO - Fetching historical data for ETH/USD from Alpaca
+2025-05-03 20:51:22,716 - app.services.market_data - INFO - Using standard stock API for ETH/USD
+2025-05-03 20:51:22,830 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-28&end=2025-05-03
+2025-05-03 20:51:22,830 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:51:22,830 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:51:22,833 - app.services.market_data - WARNING - Using sample data for ETH/USD as fallback
+2025-05-03 20:51:22,834 - app.services.providers.sample - INFO - Generated sample data for ETH/USD with 5 data points
+2025-05-03 20:51:22,835 - app.services.market_data - INFO - Fetching historical data for ETH/USD from Alpaca
+2025-05-03 20:51:22,835 - app.services.market_data - INFO - Using standard stock API for ETH/USD
+2025-05-03 20:51:22,947 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:22,948 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:51:22,948 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:51:22,950 - app.services.market_data - WARNING - Using sample data for ETH/USD as fallback
+2025-05-03 20:51:22,951 - app.services.providers.sample - INFO - Generated sample data for ETH/USD with 31 data points
+2025-05-03 20:51:22,951 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of ETH/USD
+2025-05-03 20:51:22,952 - StockTrader - ERROR - Error processing symbol ETH/USD: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:53,100 - StockTrader - ERROR - Error updating portfolio state: 'TradingService' object has no attribute 'get_all_positions'
+2025-05-03 20:51:53,101 - app.services.market_data - INFO - Fetching latest price for AAPL using Polygon.io
+2025-05-03 20:51:53,207 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"41fb2a0c6d6dc52d5b802d757d4842d4","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:54,280 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/AAPL/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:54,280 - app.services.providers.polygon - ERROR - Fallback also failed: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/AAPL/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:54,280 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for AAPL from Polygon.io
+2025-05-03 20:51:54,282 - app.services.market_data - INFO - Falling back to legacy Alpaca client for AAPL stock price
+2025-05-03 20:51:54,401 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-03 20:51:54,401 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-03 20:51:54,516 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AAPL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:54,516 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:54,517 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:54,519 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-05-03 20:51:54,521 - app.services.providers.sample - INFO - Generated sample data for AAPL with 31 data points
+2025-05-03 20:51:54,521 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of AAPL
+2025-05-03 20:51:54,521 - StockTrader - ERROR - Error processing symbol AAPL: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:54,521 - app.services.market_data - INFO - Fetching latest price for MSFT using Polygon.io
+2025-05-03 20:51:54,628 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"4473cacfb95fec3a838bb478e5697bb5","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:55,675 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/MSFT/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:55,677 - app.services.providers.polygon - ERROR - Fallback also failed: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/MSFT/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:55,677 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for MSFT from Polygon.io
+2025-05-03 20:51:55,677 - app.services.market_data - INFO - Falling back to legacy Alpaca client for MSFT stock price
+2025-05-03 20:51:55,795 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-03 20:51:55,796 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-03 20:51:55,911 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/MSFT/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:55,911 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:55,912 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:55,914 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-05-03 20:51:55,915 - app.services.providers.sample - INFO - Generated sample data for MSFT with 31 data points
+2025-05-03 20:51:55,916 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of MSFT
+2025-05-03 20:51:55,916 - StockTrader - ERROR - Error processing symbol MSFT: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:55,916 - app.services.market_data - INFO - Fetching latest price for AMZN using Polygon.io
+2025-05-03 20:51:56,021 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"afc70a7d794c35293fb757b7f1c53585","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:57,056 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/AMZN/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:57,057 - app.services.providers.polygon - ERROR - Fallback also failed: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/AMZN/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:57,057 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for AMZN from Polygon.io
+2025-05-03 20:51:57,057 - app.services.market_data - INFO - Falling back to legacy Alpaca client for AMZN stock price
+2025-05-03 20:51:57,172 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-03 20:51:57,173 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-03 20:51:57,288 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AMZN/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:57,288 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:57,289 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:57,290 - app.services.market_data - WARNING - Using sample data for AMZN as fallback
+2025-05-03 20:51:57,291 - app.services.providers.sample - INFO - Generated sample data for AMZN with 31 data points
+2025-05-03 20:51:57,291 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of AMZN
+2025-05-03 20:51:57,291 - StockTrader - ERROR - Error processing symbol AMZN: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:57,291 - app.services.market_data - INFO - Fetching latest price for GOOGL using Polygon.io
+2025-05-03 20:51:57,400 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"0ca732d5c4a6127ed4ca31d271d17757","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:58,540 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/GOOGL/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:58,541 - app.services.providers.polygon - ERROR - Fallback also failed: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/GOOGL/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:58,541 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for GOOGL from Polygon.io
+2025-05-03 20:51:58,541 - app.services.market_data - INFO - Falling back to legacy Alpaca client for GOOGL stock price
+2025-05-03 20:51:58,657 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-03 20:51:58,657 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-03 20:51:58,773 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/GOOGL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:51:58,773 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:51:58,773 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:51:58,775 - app.services.market_data - WARNING - Using sample data for GOOGL as fallback
+2025-05-03 20:51:58,777 - app.services.providers.sample - INFO - Generated sample data for GOOGL with 31 data points
+2025-05-03 20:51:58,777 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of GOOGL
+2025-05-03 20:51:58,778 - StockTrader - ERROR - Error processing symbol GOOGL: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:51:58,778 - app.services.market_data - INFO - Fetching latest price for TSLA using Polygon.io
+2025-05-03 20:51:58,885 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"494a9ee40532ebb65fba1f2d36cd294c","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:51:59,960 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/TSLA/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:59,960 - app.services.providers.polygon - ERROR - Fallback also failed: HTTPSConnectionPool(host='api.polygon.io', port=443): Max retries exceeded with url: /v2/aggs/ticker/TSLA/range/1/day/2025-05-02/2025-05-03 (Caused by ResponseError('too many 429 error responses'))
+2025-05-03 20:51:59,960 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for TSLA from Polygon.io
+2025-05-03 20:51:59,961 - app.services.market_data - INFO - Falling back to legacy Alpaca client for TSLA stock price
+2025-05-03 20:52:00,077 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-03 20:52:00,078 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-03 20:52:00,194 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/TSLA/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:00,195 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:52:00,195 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:52:00,196 - app.services.market_data - WARNING - Using sample data for TSLA as fallback
+2025-05-03 20:52:00,198 - app.services.providers.sample - INFO - Generated sample data for TSLA with 31 data points
+2025-05-03 20:52:00,198 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of TSLA
+2025-05-03 20:52:00,198 - StockTrader - ERROR - Error processing symbol TSLA: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:00,198 - app.services.market_data - INFO - Fetching latest price for BTC/USD using Polygon.io
+2025-05-03 20:52:00,300 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: 404 page not found
+2025-05-03 20:52:00,401 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: 404 page not found
+2025-05-03 20:52:00,402 - app.services.providers.polygon - ERROR - Fallback also failed: 404 page not found
+2025-05-03 20:52:00,403 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for BTC/USD from Polygon.io
+2025-05-03 20:52:00,403 - app.services.market_data - INFO - Falling back to legacy Alpaca client for BTC/USD stock price
+2025-05-03 20:52:00,516 - app.services.market_data - ERROR - Error fetching latest price from legacy Alpaca client: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/trades/latest
+2025-05-03 20:52:00,517 - app.services.market_data - INFO - Fetching historical data for BTC/USD from Alpaca
+2025-05-03 20:52:00,517 - app.services.market_data - INFO - Using standard stock API for BTC/USD
+2025-05-03 20:52:00,629 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-28&end=2025-05-03
+2025-05-03 20:52:00,629 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:00,629 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:00,630 - app.services.market_data - WARNING - Using sample data for BTC/USD as fallback
+2025-05-03 20:52:00,633 - app.services.providers.sample - INFO - Generated sample data for BTC/USD with 5 data points
+2025-05-03 20:52:00,633 - app.services.market_data - INFO - Fetching historical data for BTC/USD from Alpaca
+2025-05-03 20:52:00,633 - app.services.market_data - INFO - Using standard stock API for BTC/USD
+2025-05-03 20:52:00,748 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:00,748 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:00,749 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:00,750 - app.services.market_data - WARNING - Using sample data for BTC/USD as fallback
+2025-05-03 20:52:00,751 - app.services.providers.sample - INFO - Generated sample data for BTC/USD with 31 data points
+2025-05-03 20:52:00,751 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of BTC/USD
+2025-05-03 20:52:00,752 - StockTrader - ERROR - Error processing symbol BTC/USD: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:00,752 - app.services.market_data - INFO - Fetching latest price for ETH/USD using Polygon.io
+2025-05-03 20:52:00,855 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: 404 page not found
+2025-05-03 20:52:00,956 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: 404 page not found
+2025-05-03 20:52:00,956 - app.services.providers.polygon - ERROR - Fallback also failed: 404 page not found
+2025-05-03 20:52:00,957 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for ETH/USD from Polygon.io
+2025-05-03 20:52:00,957 - app.services.market_data - INFO - Falling back to legacy Alpaca client for ETH/USD stock price
+2025-05-03 20:52:01,071 - app.services.market_data - ERROR - Error fetching latest price from legacy Alpaca client: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/trades/latest
+2025-05-03 20:52:01,072 - app.services.market_data - INFO - Fetching historical data for ETH/USD from Alpaca
+2025-05-03 20:52:01,072 - app.services.market_data - INFO - Using standard stock API for ETH/USD
+2025-05-03 20:52:01,186 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-28&end=2025-05-03
+2025-05-03 20:52:01,187 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:01,187 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:01,188 - app.services.market_data - WARNING - Using sample data for ETH/USD as fallback
+2025-05-03 20:52:01,191 - app.services.providers.sample - INFO - Generated sample data for ETH/USD with 5 data points
+2025-05-03 20:52:01,191 - app.services.market_data - INFO - Fetching historical data for ETH/USD from Alpaca
+2025-05-03 20:52:01,191 - app.services.market_data - INFO - Using standard stock API for ETH/USD
+2025-05-03 20:52:01,304 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:01,305 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:01,305 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:01,307 - app.services.market_data - WARNING - Using sample data for ETH/USD as fallback
+2025-05-03 20:52:01,309 - app.services.providers.sample - INFO - Generated sample data for ETH/USD with 31 data points
+2025-05-03 20:52:01,309 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of ETH/USD
+2025-05-03 20:52:01,309 - StockTrader - ERROR - Error processing symbol ETH/USD: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:31,439 - StockTrader - ERROR - Error updating portfolio state: 'TradingService' object has no attribute 'get_all_positions'
+2025-05-03 20:52:31,440 - app.services.market_data - INFO - Fetching latest price for AAPL using Polygon.io
+2025-05-03 20:52:31,550 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"ff34c9b32129c721860e71ce81a7faa2","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:52:31,661 - app.services.providers.polygon - INFO - Got 1 data points for AAPL from Polygon.io
+2025-05-03 20:52:31,662 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-03 20:52:31,662 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-03 20:52:31,779 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AAPL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:31,780 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:52:31,780 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:52:31,783 - app.services.market_data - WARNING - Using sample data for AAPL as fallback
+2025-05-03 20:52:31,784 - app.services.providers.sample - INFO - Generated sample data for AAPL with 31 data points
+2025-05-03 20:52:31,784 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of AAPL
+2025-05-03 20:52:31,784 - StockTrader - ERROR - Error processing symbol AAPL: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:31,785 - app.services.market_data - INFO - Fetching latest price for MSFT using Polygon.io
+2025-05-03 20:52:31,897 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"f8350ce9d4452f8cfb27418878f9233c","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:52:32,009 - app.services.providers.polygon - INFO - Got 1 data points for MSFT from Polygon.io
+2025-05-03 20:52:32,009 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-03 20:52:32,010 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-03 20:52:32,124 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/MSFT/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:32,125 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:52:32,125 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:52:32,127 - app.services.market_data - WARNING - Using sample data for MSFT as fallback
+2025-05-03 20:52:32,129 - app.services.providers.sample - INFO - Generated sample data for MSFT with 31 data points
+2025-05-03 20:52:32,129 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of MSFT
+2025-05-03 20:52:32,129 - StockTrader - ERROR - Error processing symbol MSFT: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:32,129 - app.services.market_data - INFO - Fetching latest price for AMZN using Polygon.io
+2025-05-03 20:52:32,241 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"13b4a41725e89104d7e113c639a8fe3d","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:52:32,352 - app.services.providers.polygon - INFO - Got 1 data points for AMZN from Polygon.io
+2025-05-03 20:52:32,353 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-03 20:52:32,353 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-03 20:52:32,469 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/AMZN/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:32,469 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:52:32,469 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:52:32,471 - app.services.market_data - WARNING - Using sample data for AMZN as fallback
+2025-05-03 20:52:32,473 - app.services.providers.sample - INFO - Generated sample data for AMZN with 31 data points
+2025-05-03 20:52:32,473 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of AMZN
+2025-05-03 20:52:32,473 - StockTrader - ERROR - Error processing symbol AMZN: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:32,473 - app.services.market_data - INFO - Fetching latest price for GOOGL using Polygon.io
+2025-05-03 20:52:32,579 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"3e607f86cb7bb132e59a8fe10cabca27","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:52:32,690 - app.services.providers.polygon - INFO - Got 1 data points for GOOGL from Polygon.io
+2025-05-03 20:52:32,690 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-03 20:52:32,690 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-03 20:52:32,806 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/GOOGL/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:32,807 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:52:32,807 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:52:32,809 - app.services.market_data - WARNING - Using sample data for GOOGL as fallback
+2025-05-03 20:52:32,810 - app.services.providers.sample - INFO - Generated sample data for GOOGL with 31 data points
+2025-05-03 20:52:32,810 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of GOOGL
+2025-05-03 20:52:32,811 - StockTrader - ERROR - Error processing symbol GOOGL: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:32,811 - app.services.market_data - INFO - Fetching latest price for TSLA using Polygon.io
+2025-05-03 20:52:32,917 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: {"status":"NOT_AUTHORIZED","request_id":"a3356c885fb349496a9c0ff65bbf7731","message":"You are not entitled to this data. Please upgrade your plan at https://polygon.io/pricing"}
+2025-05-03 20:52:33,030 - app.services.providers.polygon - INFO - Got 1 data points for TSLA from Polygon.io
+2025-05-03 20:52:33,030 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-03 20:52:33,030 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-03 20:52:33,144 - app.services.market_data - ERROR - Error fetching data from Alpaca: 403 Client Error: Forbidden for url: https://data.alpaca.markets/v2/stocks/TSLA/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:33,144 - app.services.market_data - ERROR - Alpaca response status: 403
+2025-05-03 20:52:33,146 - app.services.market_data - ERROR - Alpaca response content: {"message":"subscription does not permit querying recent SIP data"}
+
+2025-05-03 20:52:33,147 - app.services.market_data - WARNING - Using sample data for TSLA as fallback
+2025-05-03 20:52:33,149 - app.services.providers.sample - INFO - Generated sample data for TSLA with 31 data points
+2025-05-03 20:52:33,150 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of TSLA
+2025-05-03 20:52:33,150 - StockTrader - ERROR - Error processing symbol TSLA: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:33,150 - app.services.market_data - INFO - Fetching latest price for BTC/USD using Polygon.io
+2025-05-03 20:52:33,251 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: 404 page not found
+2025-05-03 20:52:33,353 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: 404 page not found
+2025-05-03 20:52:33,353 - app.services.providers.polygon - ERROR - Fallback also failed: 404 page not found
+2025-05-03 20:52:33,353 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for BTC/USD from Polygon.io
+2025-05-03 20:52:33,353 - app.services.market_data - INFO - Falling back to legacy Alpaca client for BTC/USD stock price
+2025-05-03 20:52:33,468 - app.services.market_data - ERROR - Error fetching latest price from legacy Alpaca client: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/trades/latest
+2025-05-03 20:52:33,468 - app.services.market_data - INFO - Fetching historical data for BTC/USD from Alpaca
+2025-05-03 20:52:33,469 - app.services.market_data - INFO - Using standard stock API for BTC/USD
+2025-05-03 20:52:33,582 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-28&end=2025-05-03
+2025-05-03 20:52:33,582 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:33,583 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:33,584 - app.services.market_data - WARNING - Using sample data for BTC/USD as fallback
+2025-05-03 20:52:33,586 - app.services.providers.sample - INFO - Generated sample data for BTC/USD with 5 data points
+2025-05-03 20:52:33,586 - app.services.market_data - INFO - Fetching historical data for BTC/USD from Alpaca
+2025-05-03 20:52:33,586 - app.services.market_data - INFO - Using standard stock API for BTC/USD
+2025-05-03 20:52:33,699 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/BTC/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:33,699 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:33,700 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:33,701 - app.services.market_data - WARNING - Using sample data for BTC/USD as fallback
+2025-05-03 20:52:33,703 - app.services.providers.sample - INFO - Generated sample data for BTC/USD with 31 data points
+2025-05-03 20:52:33,703 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of BTC/USD
+2025-05-03 20:52:33,703 - StockTrader - ERROR - Error processing symbol BTC/USD: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:33,703 - app.services.market_data - INFO - Fetching latest price for ETH/USD using Polygon.io
+2025-05-03 20:52:33,806 - app.services.providers.polygon - ERROR - Error fetching latest price from Polygon.io: 404 page not found
+2025-05-03 20:52:33,907 - app.services.providers.polygon - ERROR - Error fetching data from Polygon.io: 404 page not found
+2025-05-03 20:52:33,907 - app.services.providers.polygon - ERROR - Fallback also failed: 404 page not found
+2025-05-03 20:52:33,907 - app.services.market_data - ERROR - Error fetching latest price from Polygon.io: Could not get latest price for ETH/USD from Polygon.io
+2025-05-03 20:52:33,908 - app.services.market_data - INFO - Falling back to legacy Alpaca client for ETH/USD stock price
+2025-05-03 20:52:34,021 - app.services.market_data - ERROR - Error fetching latest price from legacy Alpaca client: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/trades/latest
+2025-05-03 20:52:34,022 - app.services.market_data - INFO - Fetching historical data for ETH/USD from Alpaca
+2025-05-03 20:52:34,022 - app.services.market_data - INFO - Using standard stock API for ETH/USD
+2025-05-03 20:52:34,134 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-28&end=2025-05-03
+2025-05-03 20:52:34,135 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:34,135 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:34,136 - app.services.market_data - WARNING - Using sample data for ETH/USD as fallback
+2025-05-03 20:52:34,138 - app.services.providers.sample - INFO - Generated sample data for ETH/USD with 5 data points
+2025-05-03 20:52:34,138 - app.services.market_data - INFO - Fetching historical data for ETH/USD from Alpaca
+2025-05-03 20:52:34,139 - app.services.market_data - INFO - Using standard stock API for ETH/USD
+2025-05-03 20:52:34,251 - app.services.market_data - ERROR - Error fetching data from Alpaca: 404 Client Error: Not Found for url: https://data.alpaca.markets/v2/stocks/ETH/USD/bars?timeframe=1Day&adjustment=raw&start=2025-04-03&end=2025-05-03
+2025-05-03 20:52:34,252 - app.services.market_data - ERROR - Alpaca response status: 404
+2025-05-03 20:52:34,252 - app.services.market_data - ERROR - Alpaca response content: {"message":"Not Found"}
+
+2025-05-03 20:52:34,254 - app.services.market_data - WARNING - Using sample data for ETH/USD as fallback
+2025-05-03 20:52:34,255 - app.services.providers.sample - INFO - Generated sample data for ETH/USD with 31 data points
+2025-05-03 20:52:34,255 - app.strategies.adaptive.market_analyzer - WARNING - Insufficient data for full analysis of ETH/USD
+2025-05-03 20:52:34,255 - StockTrader - ERROR - Error processing symbol ETH/USD: 'TradingService' object has no attribute 'get_position'
+2025-05-03 20:52:55,576 - StockTrader - INFO - Received signal 2, shutting down...
+2025-05-03 20:53:04,264 - StockTrader - INFO - ===================================================
+2025-05-03 20:53:04,264 - StockTrader - INFO - STOCK TRADING SESSION PERFORMANCE REPORT
+2025-05-03 20:53:04,264 - StockTrader - INFO - ===================================================
+2025-05-03 20:53:04,265 - StockTrader - INFO - Session Duration: 0h 1m 51s
+2025-05-03 20:53:04,265 - StockTrader - INFO - Start Time: 2025-05-03 20:51:13
+2025-05-03 20:53:04,265 - StockTrader - INFO - End Time: 2025-05-03 20:53:04
+2025-05-03 20:53:04,265 - StockTrader - ERROR - Error generating performance report: 'StockDayTrader' object has no attribute 'trade_history'
+2025-05-03 20:53:04,267 - StockTrader - INFO - Stock trading system shutting down...
