@@ -205,7 +205,12 @@ python scripts/run_strategy_crypto_trader.py --strategy breakout --duration 1h -
 python scripts/run_strategy_crypto_trader.py --strategy transformer --duration 8h --use-custom-symbols --position-size 0.01
 ```
 
-### Trading optimisé avec Transformer personnalisé pour marchés volatils
+### Trading optimisé avec Transformer personnalisé pour marchés volatils (risque modéré)
 ```bash
 python scripts/run_strategy_crypto_trader.py --strategy transformer --duration night --sequence-length 120 --d-model 128 --nhead 8 --num-layers 3 --signal-threshold 0.7 --position-size 0.005 --stop-loss 0.01 --take-profit 0.03 --use-gpu
+```
+
+### Trading optimisé avec Transformer personnalisé pour marchés volatils (risque accru)
+```bash
+python scripts/run_strategy_crypto_trader.py --strategy transformer --duration night --sequence-length 120 --d-model 128 --nhead 8 --num-layers 3 --signal-threshold 0.6 --position-size 0.015 --stop-loss 0.02 --take-profit 0.05 --use-gpu
 ```
