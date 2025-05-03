@@ -220,6 +220,37 @@ python scripts/market_analyzer.py --symbols AAPL,TSLA,AMZN --output html
 3. **Analyse de régime** : Pour déterminer quel type de stratégie serait le plus efficace dans les conditions actuelles
 4. **Analyse de sentiment** : Pour combiner l'analyse technique avec le sentiment du marché
 
+### `best_assets_screener.py`
+
+**Fonction** : Évalue et classe les meilleures actions et cryptomonnaies pour le trading à moyen terme.
+
+**Paramètres** :
+- `--top_stocks <nombre>` : Nombre d'actions à inclure dans le rapport final (défaut : 50)
+- `--top_crypto <nombre>` : Nombre de cryptomonnaies à inclure dans le rapport final (défaut : 100)
+- `--lookback <jours>` : Nombre de jours d'historique à analyser (défaut : 30)
+- `--stocks <liste>` : Liste d'actions personnalisée séparée par des virgules (si vide, utilise la liste par défaut)
+- `--crypto <liste>` : Liste de cryptomonnaies personnalisée séparée par des virgules (si vide, utilise la liste par défaut)
+
+**Utilisation** :
+```bash
+# Utilisation de base avec les paramètres par défaut
+python scripts/best_assets_screener.py
+
+# Personnalisation du nombre d'actifs à analyser
+python scripts/best_assets_screener.py --top_stocks 20 --top_crypto 50 --lookback 60
+
+# Utilisation d'une liste personnalisée d'actifs
+python scripts/best_assets_screener.py --stocks AAPL,MSFT,GOOGL,AMZN,TSLA --crypto BTC-USD,ETH-USD,SOL-USD
+```
+
+**Description** : Ce script analyse une large liste d'actions et de cryptomonnaies pour identifier les meilleurs actifs pour le trading à moyen terme, en utilisant plusieurs stratégies de MercurioAI. Il génère un rapport détaillé classant les actifs selon un score composite basé sur des indicateurs techniques et des prédictions de différentes stratégies (moyennes mobiles, LSTM, MSI, transformers).
+
+**Cas d'utilisation** :
+1. **Sélection d'actifs pour investissement** : Pour identifier les meilleures opportunités d'investissement à moyen terme
+2. **Analyse multi-stratégies** : Pour obtenir une vue consensuelle en combinant différentes approches d'analyse
+3. **Surveillance périodique du marché** : Pour maintenir une liste d'actifs à surveiller mise à jour régulièrement
+4. **Construction de portefeuille** : Pour diversifier les investissements en sélectionnant les meilleurs actifs de différentes classes
+
 ### `run_all_strategies.py`
 
 **Fonction** : Exécute toutes les stratégies disponibles sur un ensemble de symboles.
@@ -293,6 +324,96 @@ python scripts/optimized_portfolio.py --symbols AAPL,MSFT,GOOGL,BTC-USD
 ```
 
 **Description** : Utilise des techniques d'optimisation de portefeuille pour maximiser le ratio de Sharpe ou minimiser le risque.
+
+## Scripts d'entraînement des modèles
+
+Ces scripts permettent d'entraîner les différents modèles d'intelligence artificielle utilisés par MercurioAI.
+
+### `train_lstm_model.py`
+
+**Fonction** : Entraîne un modèle LSTM pour un actif spécifique.
+
+**Paramètres** :
+- `--symbol <symbole>` : Symbole de l'actif à utiliser pour l'entraînement (ex: BTC-USD, AAPL)
+- `--lookback <jours>` : Nombre de jours d'historique à utiliser pour l'entraînement (défaut: 180)
+- `--sequence_length <nombre>` : Longueur des séquences pour l'entraînement (défaut: 60)
+- `--prediction_horizon <nombre>` : Nombre de périodes à prédire (défaut: 5)
+- `--epochs <nombre>` : Nombre d'époques d'entraînement (défaut: 50)
+
+**Utilisation** :
+```bash
+python scripts/train_lstm_model.py --symbol BTC-USD --lookback 180 --epochs 100
+```
+
+**Description** : Entraîne un modèle LSTM pour la prédiction de prix d'un actif spécifique. Le modèle entraîné est sauvegardé dans le répertoire `models/lstm/` et peut être utilisé par les stratégies de trading et le screener d'actifs.
+
+**Cas d'utilisation** :
+1. **Préparation des stratégies** : Pour améliorer la précision des prédictions de la stratégie LSTM
+2. **Préparation du screener** : Pour permettre au screener d'actifs d'utiliser des modèles entraînés
+3. **Expérimentation** : Pour tester différentes configurations de modèles sur des actifs spécifiques
+
+### `train_transformer_model.py`
+
+**Fonction** : Entraîne un modèle Transformer sur plusieurs actifs simultanément.
+
+**Paramètres** :
+- `--symbols <liste>` : Liste des symboles d'actifs séparés par des virgules (ex: BTC-USD,ETH-USD,AAPL)
+- `--lookback <jours>` : Nombre de jours d'historique à utiliser pour l'entraînement (défaut: 180)
+- `--epochs <nombre>` : Nombre d'époques d'entraînement (défaut: 50)
+- `--use_gpu` : Utiliser le GPU si disponible (sans valeur)
+
+**Utilisation** :
+```bash
+python scripts/train_transformer_model.py --symbols BTC-USD,ETH-USD,AAPL --epochs 100
+```
+
+**Description** : Entraîne un modèle Transformer pour la prédiction de prix sur plusieurs actifs simultanément. Le modèle entraîné est sauvegardé dans le répertoire `models/transformer/` et peut être utilisé par les stratégies de trading et le screener d'actifs.
+
+**Cas d'utilisation** :
+1. **Analyse multi-actifs** : Pour capturer les relations entre différents actifs
+2. **Généralisation améliorée** : Pour créer un modèle capable de généraliser sur de nouveaux actifs
+3. **Préparation du screener** : Pour permettre au screener d'actifs d'utiliser des modèles entraînés
+
+### `train_all_models.py`
+
+**Fonction** : Entraîne tous les modèles d'IA utilisés par MercurioAI en une seule commande.
+
+**Paramètres** :
+- `--symbols <liste>` : Liste des symboles d'actifs séparés par des virgules (si vide, utilise des actifs populaires)
+- `--days <nombre>` : Nombre de jours d'historique à utiliser pour l'entraînement (défaut: 180)
+- `--epochs <nombre>` : Nombre d'époques d'entraînement pour tous les modèles (défaut: 50)
+- `--top_assets <nombre>` : Nombre d'actifs populaires à inclure automatiquement (défaut: 10)
+- `--include_stocks` : Inclure les actions populaires (sans valeur)
+- `--include_crypto` : Inclure les cryptomonnaies populaires (sans valeur)
+- `--use_gpu` : Utiliser le GPU si disponible (sans valeur)
+
+**Utilisation** :
+```bash
+python scripts/train_all_models.py --days 90 --top_assets 20
+```
+
+**Description** : Entraîne automatiquement tous les modèles d'IA utilisés par MercurioAI (LSTM et Transformer) sur les actifs spécifiés ou sur une liste d'actifs populaires. Les modèles entraînés sont sauvegardés dans les répertoires `models/lstm/` et `models/transformer/` et peuvent être utilisés par les stratégies de trading et le screener d'actifs.
+
+**Cas d'utilisation** :
+1. **Initialisation du système** : Pour préparer tous les modèles en une seule commande
+2. **Mise à jour périodique** : Pour rafraîchir tous les modèles avec les données récentes
+3. **Nouvelle installation** : Pour configurer rapidement un nouveau système MercurioAI
+
+### `list_trained_models.py`
+
+**Fonction** : Affiche une liste de tous les modèles entraînés disponibles dans le système.
+
+**Utilisation** :
+```bash
+python scripts/list_trained_models.py
+```
+
+**Description** : Affiche une liste détaillée de tous les modèles LSTM et Transformer entraînés disponibles dans le système, avec des informations sur leur état, leur date de création, leur taille et leurs paramètres.
+
+**Cas d'utilisation** :
+1. **Inventaire des modèles** : Pour voir quels modèles sont déjà entraînés
+2. **Vérification avant utilisation** : Pour vérifier que les modèles nécessaires sont disponibles avant d'exécuter le screener d'actifs
+3. **Gestion des modèles** : Pour identifier les modèles obsolètes ou manquants
 
 ## Scripts de visualisation
 
