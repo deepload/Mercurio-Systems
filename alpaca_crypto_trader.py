@@ -30,9 +30,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuration du logger
+# Configurer la journalisation pour enregistrer dans un fichier
+log_file = f"crypto_trader_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler(log_file),
+        logging.StreamHandler()
+    ]
 )
 logger = logging.getLogger("alpaca_crypto_trader")
 
@@ -45,6 +51,7 @@ class SessionDuration(int, Enum):
     ONE_HOUR = 3600
     FOUR_HOURS = 14400
     EIGHT_HOURS = 28800
+    NIGHT_RUN = 32400  # 9 heures (pour couvrir toute la nuit)
     CUSTOM = 0
 
 class AlpacaCryptoTrader:
@@ -54,8 +61,9 @@ class AlpacaCryptoTrader:
     Caractéristiques:
     - Utilise l'API Alpaca pour trader des cryptos en mode paper
     - Stratégie simple de croisement de moyennes mobiles
-    - Plusieurs durées de session (1h, 4h, 8h)
+    - Plusieurs durées de session (1h, 4h, 8h, nuit)
     - Paramètres de trading configurables
+    - Journalisation complète et rapport de performance
     """
     
     def __init__(self, session_duration: SessionDuration = SessionDuration.ONE_HOUR):
@@ -101,6 +109,7 @@ class AlpacaCryptoTrader:
         self.initial_portfolio_value = 0.0
         self.session_start_time = None
         self.session_end_time = None
+        self.trade_history = []  # Pour enregistrer l'historique des transactions
         
         logger.info("AlpacaCryptoTrader initialisé")
         
@@ -210,9 +219,9 @@ class AlpacaCryptoTrader:
             start_str = start.strftime('%Y-%m-%d')
             end_str = end.strftime('%Y-%m-%d')
             
-            # Obtenir les barres de prix
+            # Obtenir les barres de prix (corriger l'erreur expected list, str found)
             bars = self.api.get_crypto_bars(
-                symbol,
+                [symbol],  # Passer une liste au lieu d'une chaîne
                 timeframe='5Min',
                 start=start_str,
                 end=end_str
@@ -237,11 +246,15 @@ class AlpacaCryptoTrader:
             except:
                 pass  # Pas de position existante
             
-            # Obtenir le prix actuel
+            # Obtenir le prix actuel (compatible avec abonnement niveau 1)
             try:
-                latest_trade = self.api.get_latest_crypto_quote(symbol)
-                current_price = float(latest_trade.ap)  # ask price
-                logger.info(f"{symbol} prix actuel: ${current_price:.4f}")
+                # Pour le niveau 1, on peut utiliser la dernière barre des dernières 5 minutes comme prix actuel
+                if not bars.empty:
+                    current_price = float(bars.iloc[-1]['close'])
+                    logger.info(f"{symbol} prix actuel (dernière barre): ${current_price:.4f}")
+                else:
+                    logger.error(f"Pas de données disponibles pour obtenir le prix actuel de {symbol}")
+                    return
             except Exception as e:
                 logger.error(f"Impossible d'obtenir le prix actuel pour {symbol}: {e}")
                 return
@@ -308,6 +321,13 @@ class AlpacaCryptoTrader:
             
             if order:
                 logger.info(f"Ordre d'achat placé pour {symbol}: {order.id}")
+                self.trade_history.append({
+                    'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'symbol': symbol,
+                    'action': 'achat',
+                    'quantity': qty,
+                    'price': price
+                })
             else:
                 logger.error(f"Échec du placement de l'ordre d'achat pour {symbol}")
                 
@@ -336,6 +356,13 @@ class AlpacaCryptoTrader:
             
             if order:
                 logger.info(f"Ordre de vente placé pour {symbol}: {order.id}")
+                self.trade_history.append({
+                    'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'symbol': symbol,
+                    'action': 'vente',
+                    'quantity': qty,
+                    'price': price
+                })
             else:
                 logger.error(f"Échec du placement de l'ordre de vente pour {symbol}")
                 
@@ -376,6 +403,8 @@ class AlpacaCryptoTrader:
     
     def generate_performance_report(self):
         """Générer un rapport de performance à la fin de la session de trading"""
+        # Créer un fichier de rapport séparé
+        report_file = f"crypto_trading_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
         try:
             end_time = datetime.now()
             duration = end_time - self.session_start_time if self.session_start_time else timedelta(0)
@@ -430,6 +459,47 @@ class AlpacaCryptoTrader:
                 
         except Exception as e:
             logger.error(f"Erreur de génération du rapport de performance: {e}")
+
+        # Écrire le rapport également dans un fichier séparé
+        with open(report_file, 'w') as f:
+            f.write("===================================================\n")
+            f.write("RAPPORT DE PERFORMANCE DE LA SESSION DE TRADING CRYPTO\n")
+            f.write("===================================================\n\n")
+            f.write(f"Durée de la session: {hours}h {minutes}m {seconds}s\n")
+            f.write(f"Heure de début: {self.session_start_time}\n")
+            f.write(f"Heure de fin: {end_time}\n\n")
+            
+            try:
+                if self.initial_portfolio_value > 0:
+                    f.write(f"Valeur initiale du portefeuille: ${self.initial_portfolio_value:.2f}\n")
+                    f.write(f"Valeur finale du portefeuille: ${final_value:.2f}\n")
+                    f.write(f"Profit/Perte: ${profit_loss:.2f} ({profit_loss_pct:.2f}%)\n\n")
+            except:
+                f.write("Impossible de récupérer les informations finales du compte\n\n")
+                
+            f.write("Positions ouvertes à la fin de la session:\n")
+            try:
+                if crypto_positions:
+                    for pos in crypto_positions:
+                        f.write(f"  {pos.symbol}: {float(pos.qty):.6f} @ ${float(pos.avg_entry_price):.4f} - ")
+                        f.write(f"Valeur: ${float(pos.market_value):.2f} - ")
+                        f.write(f"P/L: ${float(pos.unrealized_pl):.2f} ({float(pos.unrealized_plpc) * 100:.2f}%)\n")
+                else:
+                    f.write("Aucune position ouverte\n")
+            except:
+                f.write("Impossible de récupérer les informations de position\n")
+            
+            f.write("\n===================================================\n")
+            f.write("RÉSUMÉ DES TRANSACTIONS IMPORTANTES\n")
+            f.write("===================================================\n")
+            if hasattr(self, 'trade_history') and self.trade_history:
+                for trade in self.trade_history:
+                    f.write(f"{trade['time']} - {trade['symbol']} - {trade['action']} - ")
+                    f.write(f"{trade['quantity']:.6f} @ ${trade['price']:.4f} - P/L: ${trade.get('pnl', 0):.2f}\n")
+            else:
+                f.write("Aucune transaction effectuée\n")
+                
+        logger.info(f"Rapport détaillé sauvegardé dans {report_file}")
 
 def main():
     """Point d'entrée principal"""

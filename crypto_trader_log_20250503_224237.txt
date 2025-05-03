@@ -1,0 +1,79 @@
+2025-05-03 22:42:37,935 - alpaca_crypto_trader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-03 22:42:37,937 - alpaca_crypto_trader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-03 22:42:37,937 - alpaca_crypto_trader - INFO - AlpacaCryptoTrader initialisé
+2025-05-03 22:42:37,937 - alpaca_crypto_trader - INFO - Démarrage de la session de trading crypto à 2025-05-03 22:42:37.937070
+2025-05-03 22:42:37,937 - alpaca_crypto_trader - INFO - La session se terminera à 2025-05-04 07:42:37.937070
+2025-05-03 22:42:38,332 - alpaca_crypto_trader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-03 22:42:38,332 - alpaca_crypto_trader - INFO - Valeur initiale du portefeuille: $99576.29
+2025-05-03 22:42:38,333 - alpaca_crypto_trader - INFO - Mode trading: ACTIVE
+2025-05-03 22:42:38,451 - alpaca_crypto_trader - INFO - Trouvé 62 symboles crypto disponibles
+2025-05-03 22:42:38,451 - alpaca_crypto_trader - INFO - Exemples: YFI/USD, AVAX/USDT, SUSHI/USDT, BCH/BTC, LTC/USDC
+2025-05-03 22:42:38,451 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-03 22:42:39,073 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour YFI/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:39,073 - alpaca_crypto_trader - INFO - Traitement de AVAX/USDT
+2025-05-03 22:42:39,316 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour AVAX/USDT: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:39,317 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-03 22:42:39,563 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour SUSHI/USDT: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:39,564 - alpaca_crypto_trader - INFO - Traitement de BCH/BTC
+2025-05-03 22:42:39,804 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour BCH/BTC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:39,805 - alpaca_crypto_trader - INFO - Traitement de LTC/USDC
+2025-05-03 22:42:40,045 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour LTC/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:40,045 - alpaca_crypto_trader - INFO - Traitement de LINK/USDC
+2025-05-03 22:42:40,283 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour LINK/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:40,284 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDC
+2025-05-03 22:42:40,528 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour DOGE/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:40,528 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-03 22:42:40,767 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour BCH/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:40,767 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDC
+2025-05-03 22:42:41,007 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour SUSHI/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:41,008 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-03 22:42:41,257 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour DOT/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:42:41,374 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99576.29
+2025-05-03 22:42:41,489 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-03 22:42:41,489 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 539 minutes
+2025-05-03 22:43:41,500 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-03 22:43:41,747 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour YFI/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:41,747 - alpaca_crypto_trader - INFO - Traitement de AVAX/USDT
+2025-05-03 22:43:41,990 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour AVAX/USDT: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:41,991 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-03 22:43:42,242 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour SUSHI/USDT: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:42,242 - alpaca_crypto_trader - INFO - Traitement de BCH/BTC
+2025-05-03 22:43:42,483 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour BCH/BTC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:42,484 - alpaca_crypto_trader - INFO - Traitement de LTC/USDC
+2025-05-03 22:43:42,723 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour LTC/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:42,723 - alpaca_crypto_trader - INFO - Traitement de LINK/USDC
+2025-05-03 22:43:42,968 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour LINK/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:42,969 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDC
+2025-05-03 22:43:43,213 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour DOGE/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:43,214 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-03 22:43:43,455 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour BCH/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:43,455 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDC
+2025-05-03 22:43:43,707 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour SUSHI/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:43,707 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-03 22:43:43,947 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour DOT/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:43:44,067 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99576.29
+2025-05-03 22:43:44,181 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-03 22:43:44,181 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 538 minutes
+2025-05-03 22:44:44,190 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-03 22:44:44,436 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour YFI/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:44,436 - alpaca_crypto_trader - INFO - Traitement de AVAX/USDT
+2025-05-03 22:44:44,674 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour AVAX/USDT: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:44,674 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-03 22:44:44,916 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour SUSHI/USDT: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:44,916 - alpaca_crypto_trader - INFO - Traitement de BCH/BTC
+2025-05-03 22:44:45,165 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour BCH/BTC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:45,166 - alpaca_crypto_trader - INFO - Traitement de LTC/USDC
+2025-05-03 22:44:45,403 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour LTC/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:45,403 - alpaca_crypto_trader - INFO - Traitement de LINK/USDC
+2025-05-03 22:44:45,647 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour LINK/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:45,647 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDC
+2025-05-03 22:44:45,887 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour DOGE/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:45,887 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-03 22:44:46,130 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour BCH/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:46,132 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDC
+2025-05-03 22:44:46,383 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour SUSHI/USDC: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:46,383 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-03 22:44:46,626 - alpaca_crypto_trader - ERROR - Impossible d'obtenir le prix actuel pour DOT/USD: 'REST' object has no attribute 'get_latest_crypto_quote'
+2025-05-03 22:44:46,741 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99576.29
+2025-05-03 22:44:46,854 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-03 22:44:46,855 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 537 minutes

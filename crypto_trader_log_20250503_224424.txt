@@ -1,0 +1,35 @@
+2025-05-03 22:44:24,468 - alpaca_crypto_trader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-03 22:44:24,469 - alpaca_crypto_trader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-03 22:44:24,469 - alpaca_crypto_trader - INFO - AlpacaCryptoTrader initialisé
+2025-05-03 22:44:24,469 - alpaca_crypto_trader - INFO - Démarrage de la session de trading crypto à 2025-05-03 22:44:24.469010
+2025-05-03 22:44:24,469 - alpaca_crypto_trader - INFO - La session se terminera à 2025-05-04 07:44:24.469010
+2025-05-03 22:44:24,851 - alpaca_crypto_trader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-03 22:44:24,852 - alpaca_crypto_trader - INFO - Valeur initiale du portefeuille: $99576.29
+2025-05-03 22:44:24,853 - alpaca_crypto_trader - INFO - Mode trading: ACTIVE
+2025-05-03 22:44:24,971 - alpaca_crypto_trader - INFO - Trouvé 62 symboles crypto disponibles
+2025-05-03 22:44:24,971 - alpaca_crypto_trader - INFO - Exemples: YFI/USD, AVAX/USDT, SUSHI/USDT, BCH/BTC, LTC/USDC
+2025-05-03 22:44:24,972 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-03 22:44:25,551 - alpaca_crypto_trader - INFO - YFI/USD prix actuel (dernière barre): $5617.2635
+2025-05-03 22:44:25,551 - alpaca_crypto_trader - INFO - Traitement de AVAX/USDT
+2025-05-03 22:44:25,797 - alpaca_crypto_trader - INFO - AVAX/USDT prix actuel (dernière barre): $21.2613
+2025-05-03 22:44:25,797 - alpaca_crypto_trader - INFO - SIGNAL D'ACHAT: AVAX/USDT à $21.2613, qté: 93.669272
+2025-05-03 22:44:25,921 - alpaca_crypto_trader - ERROR - Erreur d'exécution d'achat pour AVAX/USDT: insufficient balance for USDT (requested: 1990.1535544752, available: 0)
+2025-05-03 22:44:25,922 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-03 22:44:26,165 - alpaca_crypto_trader - INFO - SUSHI/USDT prix actuel (dernière barre): $0.6790
+2025-05-03 22:44:26,167 - alpaca_crypto_trader - INFO - Traitement de BCH/BTC
+2025-05-03 22:44:26,407 - alpaca_crypto_trader - INFO - BCH/BTC prix actuel (dernière barre): $0.0040
+2025-05-03 22:44:26,408 - alpaca_crypto_trader - INFO - Traitement de LTC/USDC
+2025-05-03 22:44:26,649 - alpaca_crypto_trader - INFO - LTC/USDC prix actuel (dernière barre): $87.8849
+2025-05-03 22:44:26,650 - alpaca_crypto_trader - INFO - Traitement de LINK/USDC
+2025-05-03 22:44:26,891 - alpaca_crypto_trader - INFO - LINK/USDC prix actuel (dernière barre): $14.6589
+2025-05-03 22:44:26,892 - alpaca_crypto_trader - INFO - Traitement de DOGE/USDC
+2025-05-03 22:44:27,133 - alpaca_crypto_trader - INFO - DOGE/USDC prix actuel (dernière barre): $0.1817
+2025-05-03 22:44:27,133 - alpaca_crypto_trader - INFO - Traitement de BCH/USD
+2025-05-03 22:44:27,383 - alpaca_crypto_trader - INFO - BCH/USD prix actuel (dernière barre): $383.4970
+2025-05-03 22:44:27,384 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDC
+2025-05-03 22:44:27,627 - alpaca_crypto_trader - INFO - SUSHI/USDC prix actuel (dernière barre): $0.6792
+2025-05-03 22:44:27,627 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-03 22:44:27,869 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.1563
+2025-05-03 22:44:27,986 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99576.29
+2025-05-03 22:44:28,099 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-03 22:44:28,099 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 539 minutes
