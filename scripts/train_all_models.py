@@ -276,6 +276,32 @@ async def train_all_models(symbols: List[str], lookback_days: int = 180,
     
     return results
 
+async def load_symbols_from_csv(file_path):
+    """Charge une liste de symboles à partir d'un fichier CSV
+    
+    Args:
+        file_path: Chemin vers le fichier CSV
+        
+    Returns:
+        Liste des symboles
+    """
+    try:
+        if not os.path.exists(file_path):
+            logger.error(f"Le fichier {file_path} n'existe pas")
+            return []
+            
+        df = pd.read_csv(file_path)
+        if 'symbol' not in df.columns:
+            logger.error(f"Le fichier {file_path} ne contient pas de colonne 'symbol'")
+            return []
+            
+        symbols = df['symbol'].tolist()
+        logger.info(f"Chargement de {len(symbols)} symboles depuis {file_path}")
+        return symbols
+    except Exception as e:
+        logger.error(f"Erreur lors du chargement des symboles depuis {file_path}: {e}")
+        return []
+
 async def main():
     """Fonction principale"""
     parser = argparse.ArgumentParser(description="MercurioAI - Train All Models")
@@ -294,24 +320,70 @@ async def main():
                        help="Inclure les cryptomonnaies populaires")
     parser.add_argument("--use_gpu", action='store_true',
                        help="Utiliser le GPU si disponible")
+    parser.add_argument("--custom_stocks_file", type=str, default="",
+                       help="Chemin vers un fichier CSV contenant une liste personnalisée d'actions")
+    parser.add_argument("--custom_crypto_file", type=str, default="",
+                       help="Chemin vers un fichier CSV contenant une liste personnalisée de cryptomonnaies")
+    parser.add_argument("--max_symbols", type=int, default=0,
+                       help="Limite le nombre total de symboles à entraîner (0 = pas de limite)")
+    parser.add_argument("--batch_mode", action='store_true',
+                       help="Mode batch: traite les symboles par lots pour les grandes listes")
+    parser.add_argument("--batch_size", type=int, default=20,
+                       help="Taille des lots en mode batch (défaut: 20 symboles par lot)")
     
     args = parser.parse_args()
     
     # Déterminer la liste des symboles à utiliser
     symbols = []
     
+    # Chargement à partir de fichiers personnalisés
+    if args.custom_stocks_file:
+        custom_stocks = await load_symbols_from_csv(args.custom_stocks_file)
+        symbols.extend(custom_stocks)
+        logger.info(f"Ajout de {len(custom_stocks)} actions depuis le fichier personnalisé")
+        
+    if args.custom_crypto_file:
+        custom_crypto = await load_symbols_from_csv(args.custom_crypto_file)
+        symbols.extend(custom_crypto)
+        logger.info(f"Ajout de {len(custom_crypto)} cryptomonnaies depuis le fichier personnalisé")
+    
+    # Si des symboles sont spécifiés directement
     if args.symbols:
-        # Utiliser les symboles spécifiés par l'utilisateur
-        symbols = args.symbols.split(',')
-    else:
+        direct_symbols = args.symbols.split(',')
+        symbols.extend(direct_symbols)
+        logger.info(f"Ajout de {len(direct_symbols)} symboles spécifiés directement")
+    
+    # Si aucun symbole n'a été spécifié via les options ci-dessus
+    if not symbols:
         # Utiliser les actifs populaires
         if args.include_stocks or not (args.include_stocks or args.include_crypto):
-            symbols.extend(DEFAULT_STOCKS[:args.top_assets])
+            stock_symbols = DEFAULT_STOCKS[:args.top_assets] if args.top_assets > 0 else DEFAULT_STOCKS
+            symbols.extend(stock_symbols)
+            logger.info(f"Ajout de {len(stock_symbols)} actions populaires par défaut")
             
         if args.include_crypto or not (args.include_stocks or args.include_crypto):
-            symbols.extend(DEFAULT_CRYPTO[:args.top_assets])
+            crypto_symbols = DEFAULT_CRYPTO[:args.top_assets] if args.top_assets > 0 else DEFAULT_CRYPTO
+            symbols.extend(crypto_symbols)
+            logger.info(f"Ajout de {len(crypto_symbols)} cryptomonnaies populaires par défaut")
     
-    logger.info(f"Entraînement des modèles pour {len(symbols)} symboles: {', '.join(symbols)}")
+    # Éliminer les doublons
+    symbols = list(set(symbols))
+    
+    # Limite le nombre de symboles si spécifié
+    if args.max_symbols > 0 and len(symbols) > args.max_symbols:
+        logger.warning(f"Limitation à {args.max_symbols} symboles (sur {len(symbols)} au total)")
+        symbols = symbols[:args.max_symbols]
+    
+    if not symbols:
+        logger.error("Aucun symbole à traiter. Veuillez spécifier des symboles ou utiliser --include_stocks ou --include_crypto.")
+        return 1
+    
+    logger.info(f"Entraînement des modèles pour {len(symbols)} symboles")
+    if len(symbols) <= 20:
+        logger.info(f"Liste des symboles: {', '.join(symbols)}")
+    else:
+        logger.info(f"Premiers symboles: {', '.join(symbols[:10])}... et {len(symbols)-10} autres")
+        
     logger.info(f"Période d'entraînement: {args.days} jours jusqu'à aujourd'hui")
     
     # Paramètres communs pour tous les modèles
@@ -336,18 +408,66 @@ async def main():
         'use_gpu': args.use_gpu
     }
     
-    # Entraînement de tous les modèles
-    results = await train_all_models(
-        symbols=symbols,
-        lookback_days=args.days,
-        lstm_params=lstm_params,
-        transformer_params=transformer_params
-    )
+    # Si le mode batch est activé et qu'il y a beaucoup de symboles
+    if args.batch_mode and len(symbols) > args.batch_size:
+        logger.info(f"Mode batch activé: traitement par lots de {args.batch_size} symboles")
+        
+        all_results = {'lstm_models': {}, 'transformer_model': None}
+        
+        # Traitement des modèles LSTM par lots
+        for i in range(0, len(symbols), args.batch_size):
+            batch_symbols = symbols[i:i+args.batch_size]
+            logger.info(f"Traitement du lot {i//args.batch_size + 1}/{(len(symbols)-1)//args.batch_size + 1}: {len(batch_symbols)} symboles")
+            
+            # Entraînement des modèles LSTM
+            batch_results = await train_all_models(
+                symbols=batch_symbols,
+                lookback_days=args.days,
+                lstm_params=lstm_params,
+                transformer_params=None  # Ne pas entraîner Transformer par lot
+            )
+            
+            # Fusion des résultats
+            all_results['lstm_models'].update(batch_results['lstm_models'])
+        
+        # Entraînement du modèle Transformer sur tous les symboles à la fin
+        logger.info(f"Entraînement du modèle Transformer sur tous les symboles")
+        transformer_result = await train_transformer_model(
+            symbols=symbols,
+            start_date=datetime.now() - timedelta(days=args.days),
+            end_date=datetime.now(),
+            **transformer_params
+        )
+        all_results['transformer_model'] = transformer_result
+        
+        results = all_results
+    else:
+        # Entraînement normal de tous les modèles
+        results = await train_all_models(
+            symbols=symbols,
+            lookback_days=args.days,
+            lstm_params=lstm_params,
+            transformer_params=transformer_params
+        )
     
     # Affichage des résultats
     logger.info("Entraînement terminé!")
-    logger.info(f"Modèles LSTM entraînés: {len([m for m in results['lstm_models'].values() if m is not None])}/{len(symbols)}")
+    successful_lstm = len([m for m in results['lstm_models'].values() if m is not None])
+    logger.info(f"Modèles LSTM entraînés: {successful_lstm}/{len(symbols)} ({successful_lstm/len(symbols)*100:.1f}%)")
     logger.info(f"Modèle Transformer entraîné: {'Oui' if results['transformer_model'] else 'Non'}")
+    
+    # Sauvegarde d'un rapport de l'entraînement
+    report_path = f"reports/training_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    os.makedirs(os.path.dirname(report_path), exist_ok=True)
+    
+    with open(report_path, 'w', newline='') as f:
+        writer = pd.DataFrame({
+            'symbol': list(results['lstm_models'].keys()),
+            'lstm_trained': [bool(m) for m in results['lstm_models'].values()],
+            'transformed_included': [True] * len(results['lstm_models'])
+        }).to_csv(f, index=False)
+    
+    logger.info(f"Rapport d'entraînement sauvegardé dans {report_path}")
     
     # Vérification du succès
     if any(results['lstm_models'].values()) or results['transformer_model']:

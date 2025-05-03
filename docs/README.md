@@ -8,35 +8,76 @@
 
 ## 🚀 Welcome to Mercurio AI
 
-Mercurio AI is a powerful algorithmic trading platform designed to make advanced trading strategies accessible to everyone. Whether you're a beginner curious about automated trading or a seasoned professional looking to deploy cutting-edge ML-powered strategies, our platform has everything you need to succeed.
+Bienvenue dans la documentation du projet Mercurio AI, votre assistant d'intelligence artificielle pour l'analyse et le trading de marchés financiers.
 
-**What makes Mercurio AI special:**
-- ⚡ **Fallback Mechanisms**: Trade without API keys using our built-in fallback systems
-- 🧠 **ML-Powered Strategies**: From simple moving averages to sophisticated neural networks
-- 📊 **Comprehensive Backtesting**: Test your strategies with confidence
-- 📱 **Interactive Dashboards**: Monitor performance with beautiful visualizations
-- 🔄 **Paper Trading**: Practice without risking real money
+## À propos de Mercurio AI
 
-## 🗺️ Your Trading Journey
+Mercurio AI est une plateforme complète d'analyse de marchés et de trading automatisé qui combine des stratégies traditionnelles avec des algorithmes d'intelligence artificielle avancés. Le système est conçu pour aider les traders et les investisseurs à prendre des décisions plus éclairées et à automatiser leur processus d'investissement.
 
-Every trading master started as a beginner. Mercurio AI provides documentation for every step of your journey:
+## Fonctionnalités principales
 
-```
-Beginner  →  Intermediate  →  Advanced  →  Master
-   ↓             ↓              ↓            ↓
-Quick Start   For Dummies    Advanced     Deploy &
-  Guide         Guide         Guides      Optimize
-```
+- **Analyse multi-marchés** : Actions, crypto-monnaies, forex, matières premières
+- **Stratégies hybrides** : Combinaison de l'analyse technique, fondamentale et de l'IA
+- **Backtesting avancé** : Testez vos stratégies sur des données historiques
+- **Trading automatisé** : Connectez-vous à votre broker et tradez automatiquement
+- **Alertes personnalisables** : Recevez des notifications sur vos opportunités
+- **Tableau de bord intuitif** : Visualisez vos performances et indicateurs clés
+- **Modèles d'IA** : Entraînement et utilisation de modèles LSTM et Transformer
+- **Screener d'actifs** : Identification des meilleures opportunités d'investissement
 
-### 🏆 Success Stories
+## Nouveautés
 
-Before diving into the documentation, here's what's possible with Mercurio AI:
+### Screener d'actifs intelligent
 
-> **Portfolio Diversification**: *"I automated trading across 5 assets and 3 timeframes, achieving a 28% annual return with a 0.8 Sharpe ratio. Mercurio's fallback system was crucial when my data provider had outages."* - Alex K.
+Le nouveau [Screener d'Actifs](./ASSET_SCREENER_GUIDE.md) vous permet d'identifier les meilleures opportunités d'investissement en combinant plusieurs stratégies, incluant des modèles d'intelligence artificielle avancés (LSTM et Transformer).
 
-> **ML Strategy Development**: *"The Transformer strategy gave me insights I'd never have found with traditional technical analysis. My crypto portfolio outperformed the market by 15% during volatile conditions."* - Sarah M.
+### Entraînement de modèles d'IA
 
-> **Risk Management**: *"During the March 2024 market correction, my Mercurio portfolio automatically adjusted position sizes and preserved capital, losing only 4% while the market dropped 12%."* - Michael T.
+Entraînez facilement vos propres modèles d'intelligence artificielle pour la prédiction des prix :
+- Modèles LSTM pour chaque actif individuel
+- Modèles Transformer pour l'analyse multi-actifs
+- Scripts d'entraînement optimisés et extensibles
+
+## Comment utiliser cette documentation
+
+Cette documentation est organisée en plusieurs sections pour vous aider à naviguer facilement :
+
+- [Guide des scripts](./SCRIPTS_GUIDE.md) : Documentation détaillée des scripts disponibles
+- [Guide du Screener d'Actifs](./ASSET_SCREENER_GUIDE.md) : Guide complet du screener d'actifs intelligent
+- [Pour les débutants](./for-dummies/) : Guides simples pour commencer
+- [Guides avancés](./guides/) : Tutoriels détaillés pour les utilisateurs expérimentés
+- [Référence technique](./reference/) : Documentation technique complète de l'API
+- [Exemples](./examples/) : Exemples de code et de configurations
+
+## Flux de travail recommandé
+
+Voici un flux de travail complet recommandé pour tirer le meilleur parti de Mercurio AI :
+
+1. **Installation** : Suivez le guide d'installation dans le [README principal](../README.md)
+2. **Configuration** : Configurez vos clés API et préférences dans le fichier .env
+3. **Entraînement des modèles** : Exécutez `python scripts/train_all_models.py` pour entraîner les modèles d'IA
+4. **Screening d'actifs** : Utilisez `python scripts/best_assets_screener.py` pour identifier les meilleures opportunités
+5. **Analyse détaillée** : Étudiez les actifs les plus prometteurs avec les backtesters
+6. **Exécution de stratégies** : Lancez les stratégies sur les actifs sélectionnés
+7. **Suivi de performance** : Analysez régulièrement vos résultats
+
+## Ressources additionnelles
+
+- [Site officiel](https://mercurio-ai.com)
+- [Forum communautaire](https://community.mercurio-ai.com)
+- [Base de connaissances](https://kb.mercurio-ai.com)
+
+## Support
+
+Si vous avez des questions ou des problèmes, vous pouvez :
+
+- Consulter la [FAQ](https://mercurio-ai.com/faq)
+- Ouvrir une [issue sur GitHub](https://github.com/mercurio-ai/mercurio/issues)
+- Contacter le support à support@mercurio-ai.com
+
+## Contribution
+
+Nous accueillons favorablement les contributions de la communauté ! Consultez nos [directives de contribution](../CONTRIBUTING.md) pour savoir comment participer au développement de Mercurio AI.
 
 ## 📚 Documentation Library
 
