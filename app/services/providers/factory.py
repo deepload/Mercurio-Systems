@@ -7,6 +7,9 @@ import os
 import logging
 from typing import Dict, List, Type, Optional
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 # Import base provider and implementations
 from app.services.providers.base import MarketDataProvider
 from app.services.providers.sample import SampleDataProvider

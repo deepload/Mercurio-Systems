@@ -7,6 +7,9 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 from app.db.database import init_db
 from app.api.routes import api_router
 

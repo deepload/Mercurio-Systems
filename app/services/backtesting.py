@@ -16,6 +16,9 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 from app.strategies.base import BaseStrategy
 from app.db.models import BacktestResult
 from app.services.market_data import MarketDataService

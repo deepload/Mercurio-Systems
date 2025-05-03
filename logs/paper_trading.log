@@ -377,3 +377,45 @@
 2025-04-26 02:03:50,133 - INFO - Net Portfolio Value (after costs): $99521.40
 2025-04-26 02:03:50,133 - INFO - ================================
 
+2025-04-29 18:46:18,582 - INFO - Initialized PaperTrader with strategy MovingAverageStrategy
+2025-04-29 18:46:20,059 - INFO - Trading symbols: AAPL, MSFT, GOOGL
+2025-04-29 18:46:20,059 - INFO - Risk limit per position: 2.0%
+2025-04-29 18:46:20,059 - INFO - Transaction costs: 0.100% + $0.00 (min: $0.00)
+2025-04-29 18:46:20,834 - INFO - Setting up services...
+2025-04-29 18:46:20,834 - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:46:20,836 - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:46:20,958 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:46:20,958 - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:46:20,958 - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:46:20,958 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:46:20,958 - ERROR - Fatal error in paper trader: Trading service error: Alpaca client not initialized
+2025-04-29 18:46:20,958 - INFO - Paper trading stopped
+2025-04-29 18:46:20,960 - INFO - 
+===== PERFORMANCE REPORT =====
+2025-04-29 18:46:20,960 - INFO - Portfolio Value: $0.00
+2025-04-29 18:46:20,960 - INFO - Cash: $0.00
+2025-04-29 18:46:20,960 - INFO - Total Transaction Costs: $0.00
+2025-04-29 18:46:20,960 - INFO - Net Portfolio Value (after costs): $0.00
+2025-04-29 18:46:20,960 - INFO - ================================
+
+2025-04-29 18:47:48,709 - INFO - Initialized PaperTrader with strategy MovingAverageStrategy
+2025-04-29 18:47:48,710 - INFO - Trading symbols: AAPL, MSFT, GOOGL
+2025-04-29 18:47:48,710 - INFO - Risk limit per position: 2.0%
+2025-04-29 18:47:48,710 - INFO - Transaction costs: 0.100% + $0.00 (min: $0.00)
+2025-04-29 18:47:49,263 - INFO - Setting up services...
+2025-04-29 18:47:49,263 - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:47:49,263 - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:47:49,379 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:47:49,379 - INFO - Registered provider 'sample' with priority 100
+2025-04-29 18:47:49,381 - INFO - Registered provider 'polygon' with priority 10
+2025-04-29 18:47:49,381 - INFO - Registered provider 'yahoo' with priority 20
+2025-04-29 18:47:49,381 - ERROR - Fatal error in paper trader: Trading service error: Alpaca client not initialized
+2025-04-29 18:47:49,381 - INFO - Paper trading stopped
+2025-04-29 18:47:49,381 - INFO - 
+===== PERFORMANCE REPORT =====
+2025-04-29 18:47:49,381 - INFO - Portfolio Value: $0.00
+2025-04-29 18:47:49,381 - INFO - Cash: $0.00
+2025-04-29 18:47:49,381 - INFO - Total Transaction Costs: $0.00
+2025-04-29 18:47:49,381 - INFO - Net Portfolio Value (after costs): $0.00
+2025-04-29 18:47:49,381 - INFO - ================================
+
