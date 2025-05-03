@@ -49,22 +49,40 @@ class MarketDataService:
         self.active_provider_name = provider_name
         self._active_provider = None
         
-        # Initialize legacy Alpaca client for backward compatibility
-        self.alpaca_key = os.getenv("ALPACA_KEY")
-        self.alpaca_secret = os.getenv("ALPACA_SECRET")
+        # Initialize Alpaca client with support for both paper and live trading
+        # Déterminer le mode Alpaca (paper ou live)
+        alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+        
+        # Configuration selon le mode
+        if alpaca_mode == "live":
+            self.alpaca_key = os.getenv("ALPACA_LIVE_KEY")
+            self.alpaca_secret = os.getenv("ALPACA_LIVE_SECRET")
+            base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+            logger.info("Alpaca configured for LIVE trading mode")
+        else:  # paper mode par défaut
+            self.alpaca_key = os.getenv("ALPACA_PAPER_KEY")
+            self.alpaca_secret = os.getenv("ALPACA_PAPER_SECRET")
+            base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+            logger.info("Alpaca configured for PAPER trading mode")
+            
+        # Initialiser le client si les clés sont disponibles
         self.alpaca_client = None
         if self.alpaca_key and self.alpaca_secret:
             try:
-                # Fix the base_url if it contains /v2 at the end
-                base_url = os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
+                # Supprimer /v2 de l'URL si présent
                 if base_url.endswith("/v2"):
                     base_url = base_url.rstrip("/v2")
                     logger.info(f"Removed '/v2' from Alpaca base URL: {base_url}")
                 
+                # URL des données de marché (identique pour paper et live)
+                data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+                logger.info(f"Using Alpaca base_url: {base_url} and data_url: {data_url}")
+                
                 self.alpaca_client = tradeapi.REST(
                     key_id=self.alpaca_key,
                     secret_key=self.alpaca_secret,
-                    base_url=base_url
+                    base_url=base_url,
+                    data_url=data_url
                 )
                 logger.info("Legacy Alpaca client initialized successfully")
                 
@@ -194,12 +212,35 @@ class MarketDataService:
                     alpaca_symbol = symbol.replace("-USD", "USD")
                     logging.info(f"Converting crypto symbol for Alpaca: {symbol} -> {alpaca_symbol}")
                 
-                data = self.alpaca_client.get_bars(
-                    alpaca_symbol, 
-                    alpaca_timeframe,
-                    start=start_str,
-                    end=end_str
-                ).df
+                # Utiliser l'endpoint approprié selon qu'il s'agit d'une crypto ou d'une action
+                try:
+                    if "-USD" in symbol:
+                        # Pour les cryptos, utiliser l'API crypto spécifique avec les paramètres requis
+                        logger.info(f"Using Alpaca crypto API endpoint for {symbol}")
+                        data = self.alpaca_client.get_crypto_bars(
+                            alpaca_symbol,
+                            alpaca_timeframe,
+                            start=start_str,
+                            end=end_str,
+                            exchanges=["CBSE"]  # Coinbase est souvent l'échange par défaut
+                        ).df
+                    else:
+                        # Pour les actions, utiliser l'API stock standard
+                        data = self.alpaca_client.get_bars(
+                            alpaca_symbol, 
+                            alpaca_timeframe,
+                            start=start_str,
+                            end=end_str
+                        ).df
+                except AttributeError:
+                    # Fallback à la méthode standard si get_crypto_bars n'existe pas dans cette version
+                    logger.warning("Falling back to standard get_bars method (crypto endpoint not available in this SDK version)")
+                    data = self.alpaca_client.get_bars(
+                        alpaca_symbol, 
+                        alpaca_timeframe,
+                        start=start_str,
+                        end=end_str
+                    ).df
                 
                 if not data.empty:
                     # Rename columns to lowercase
