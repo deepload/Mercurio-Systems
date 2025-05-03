@@ -6,6 +6,9 @@ Configures the Celery application for asynchronous task processing.
 import os
 from celery import Celery
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 # Get Redis URL from environment
 redis_url = os.getenv("REDIS_URL", "redis://redis:6379/0")
 

@@ -5,6 +5,8 @@ This script runs all available trading strategies for both day trading (2 days) 
 then compares results side-by-side for each symbol and strategy.
 """
 import os
+import sys
+import argparse
 import asyncio
 import pandas as pd
 from datetime import datetime, timedelta
@@ -24,6 +26,11 @@ os.makedirs('data', exist_ok=True)
 
 class TimeframeStrategySimulator:
     def __init__(self, timeframe_name, days, initial_capital=2000):
+        """
+        timeframe_name: str - 'Day', 'Week', etc.
+        days: int - number of days in the timeframe
+        initial_capital: float - investment amount per strategy per symbol (default 2000)
+        """
         self.timeframe_name = timeframe_name
         self.days = days
         self.initial_capital = initial_capital
@@ -31,18 +38,79 @@ class TimeframeStrategySimulator:
         self.strategies = {}
         self.end_date = datetime.now()
         self.start_date = self.end_date - timedelta(days=self.days)
-        self.stocks = ['AAPL', 'MSFT', 'GOOGL']
-        self.cryptos = ['BTC-USD', 'ETH-USD']
+        self.stocks = [
+    "AAPL",   # Apple
+    "MSFT",   # Microsoft
+    "GOOGL",  # Alphabet (Google)
+    "AMZN",   # Amazon
+    "NVDA",   # NVIDIA
+    "META",   # Meta Platforms (Facebook)
+    "TSLA",   # Tesla
+    "BRK.B",  # Berkshire Hathaway
+    "UNH",    # UnitedHealth Group
+    "V",      # Visa
+    "JPM",    # JPMorgan Chase
+    "MA",     # Mastercard
+    "XOM",    # ExxonMobil
+    "LLY",    # Eli Lilly
+    "JNJ",    # Johnson & Johnson
+    "PG",     # Procter & Gamble
+    "AVGO",   # Broadcom
+    "HD",     # Home Depot
+    "MRK",    # Merck & Co
+    "ABBV",   # AbbVie
+    "PEP",    # PepsiCo
+    "COST",   # Costco
+    "KO",     # Coca-Cola
+    "NFLX",   # Netflix
+    "ADBE",   # Adobe
+    "PFE",    # Pfizer
+    "CRM",    # Salesforce
+    "WMT",    # Walmart
+    "BAC",    # Bank of America
+    "AMD",    # Advanced Micro Devices
+]
+        self.cryptos = [
+    "BTC-USD",
+    "ETH-USD",
+    "LTC-USD",
+    "BCH-USD",
+    "DOGE-USD",
+    "LINK-USD",
+    "UNI-USD",
+    "AAVE-USD",
+    "AVAX-USD",
+    "BAT-USD",
+    "CRV-USD",
+    "DOT-USD",
+    "GRT-USD",
+    "MKR-USD",
+    "PEPE-USD",
+    "SHIB-USD",
+    "SOL-USD",
+    "SUSHI-USD",
+    "TRUMP-USD",
+    "USDC-USD",
+    "USDT-USD",
+    "XRP-USD",
+    "XTZ-USD",
+    "YFI-USD",
+]
         self.all_symbols = self.stocks + self.cryptos
 
     def initialize_strategies(self):
         # Dynamically adjust parameters for timeframe
         if self.days <= 2:
             ma_short, ma_long = 1, 2
-            lstm_seq = 1
+            # LSTM is not meaningful for extremely short timeframes; set minimum sensible sequence length
+            lstm_seq = 10
+            logger.warning(f"[LSTM] Timeframe '{self.timeframe_name}' is too short for LSTM to be meaningful (days={self.days}). Using minimum sequence_length=10.")
         else:
             ma_short, ma_long = 2, 3
-            lstm_seq = 2
+            # Use up to 30, but not less than 10, and not more than days-1
+            lstm_seq = max(10, min(self.days - 1, 30))
+            if self.days - 1 < 10:
+                logger.warning(f"[LSTM] Timeframe '{self.timeframe_name}' has only {self.days} days. LSTM sequence_length set to {lstm_seq} (minimum is 10). Results may not be reliable.")
         try:
             from app.strategies.moving_average import MovingAverageStrategy
             self.strategies["MovingAverage"] = MovingAverageStrategy(
@@ -119,7 +187,10 @@ class TimeframeStrategySimulator:
                     preprocessed = await strat.preprocess_data(data.copy())
                     # Special handling for LSTM: if __lstm_error__ column exists, propagate error and skip
                     if isinstance(preprocessed, pd.DataFrame) and '__lstm_error__' in preprocessed.columns:
-                        error_msg = preprocessed['__lstm_error__'].iloc[0]
+                        if preprocessed.shape[0] == 0:
+                            error_msg = "LSTM preprocessing failed: empty DataFrame returned (not enough data for sequence_length)."
+                        else:
+                            error_msg = preprocessed['__lstm_error__'].iloc[0]
                         logger.warning(f"[LSTM] {strat_name} for {symbol} ({self.timeframe_name}): {error_msg}")
                         self.results.append({
                             'symbol': symbol,
@@ -217,10 +288,15 @@ class TimeframeStrategySimulator:
         return self.results
 
 async def main():
-    print("\n===== MERCURIO AI STRATEGY TIMEFRAME COMPARISON =====\n")
+    parser = argparse.ArgumentParser(description="Mercurio AI - Strategy Timeframe Comparison")
+    parser.add_argument("--investment", type=float, default=float(os.getenv("INVESTMENT_PER_STRATEGY", 100)),
+                        help="Investment amount per strategy per symbol (default: 2000)")
+    args = parser.parse_args()
+    investment = args.investment
+    print(f"\n===== MERCURIO AI STRATEGY TIMEFRAME COMPARISON =====\n\nInvestment per strategy per symbol: ${investment}\n")
     simulators = [
-        TimeframeStrategySimulator('Day', days=2),
-        TimeframeStrategySimulator('Week', days=10)
+        TimeframeStrategySimulator('Day', days=31, initial_capital=investment),
+        TimeframeStrategySimulator('Week', days=180, initial_capital=investment)
     ]
     all_results = []
     for sim in simulators:
@@ -232,6 +308,27 @@ async def main():
     print("\n===== TIMEFRAME COMPARISON RESULTS =====\n")
     print(tabulate(df, headers='keys', tablefmt='psql'))
     print("\nResults saved to reports/strategy_timeframe_comparison.csv\n")
+
+    # FINAL SUMMARY NOTE: Top 3 strategies and total money won
+    try:
+        # Filter out results with missing or error values
+        df_valid = df[df['error'].isnull() & df['total_return_%'].notnull() & df['initial_close'].notnull()]
+        # Sort by total_return_% descending
+        top3 = df_valid.sort_values('total_return_%', ascending=False).head(3)
+        print("\n===== TOP 3 STRATEGY RESULTS (by total_return_%) =====\n")
+        if not top3.empty:
+            print(tabulate(top3[['strategy', 'symbol', 'timeframe', 'total_return_%']], headers='keys', tablefmt='psql'))
+        else:
+            print("No valid results to display.")
+        # Calculate total money won (sum of profit for all strategies)
+        # Use investment per strategy per symbol (from simulator)
+        df_valid = df_valid.copy()
+        df_valid['profit'] = df_valid['total_return_%'] * df_valid['initial_close'].apply(lambda x: investment) / 100
+        total_money_won = df_valid['profit'].sum()
+        print(f"\n===== TOTAL MONEY WON (across all strategies): ${total_money_won:,.2f} =====\n")
+    except Exception as e:
+        print(f"\n[SUMMARY ERROR] Could not compute top strategies or total money won: {e}\n")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

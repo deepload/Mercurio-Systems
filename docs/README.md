@@ -137,6 +137,8 @@ Join our community of traders and developers:
 
 ## 📝 Examples to Inspire You
 
+Complete working examples for all the code snippets below (and more advanced use cases) can be found in our [examples directory](/docs/examples/).
+
 ### Basic Moving Average Strategy
 ```python
 async def run_simple_strategy():
@@ -145,7 +147,9 @@ async def run_simple_strategy():
     strategy = MovingAverageStrategy(short_window=10, long_window=30)
     
     # Get data and generate signals
-    data = await market_data.get_historical_data("AAPL", "2024-01-01", "2024-03-01")
+    start_date = datetime.now() - timedelta(days=180)
+    end_date = datetime.now()
+    data = await market_data.get_historical_data("AAPL", start_date, end_date)
     processed_data = await strategy.preprocess_data(data)
     signal, confidence = await strategy.predict(processed_data)
     
@@ -163,9 +167,26 @@ async def create_diversified_portfolio():
     portfolio.add_strategy(TransformerStrategy(), "GOOGL", allocation=0.4)
     
     # Backtest the portfolio
-    results = await portfolio.backtest("2024-01-01", "2024-03-01")
+    start_date = "2024-01-01"
+    end_date = "2024-03-01"  # Or use datetime.now() for most recent data
+    results = await portfolio.backtest(start_date, end_date)
     print(f"Portfolio Return: {results['total_return']:.2f}%")
 ```
+
+### Testing Multiple Strategies
+```bash
+# Run comprehensive testing of all strategies
+python paper_trading_test.py
+
+# Test specific strategies with custom parameters
+python paper_trading_test.py \
+  --strategies MovingAverageStrategy,LLMStrategy \
+  --duration 24 \
+  --symbols BTC/USDT ETH/USDT \
+  --risk moderate
+```
+
+These examples work with both real API keys and Mercurio AI's fallback mechanisms. If you don't have API keys, the system will automatically use sample data for testing.
 
 ---
 

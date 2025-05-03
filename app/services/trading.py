@@ -13,6 +13,9 @@ import asyncio
 # For Alpaca API
 import alpaca_trade_api as tradeapi
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 from app.db.models import TradeAction
 from app.services.market_data import MarketDataService
 

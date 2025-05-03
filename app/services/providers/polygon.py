@@ -11,6 +11,9 @@ import asyncio
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 # Import base provider
 from app.services.providers.base import MarketDataProvider
 

@@ -15,6 +15,9 @@ from typing import Dict, Any, List, Optional
 import sys
 import importlib
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 # Import base provider
 from app.services.providers.base import MarketDataProvider
 

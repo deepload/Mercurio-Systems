@@ -19,6 +19,9 @@ import alpaca_trade_api as tradeapi
 from app.services.providers.factory import MarketDataProviderFactory
 from app.services.providers.base import MarketDataProvider
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 logger = logging.getLogger(__name__)
 
 class MarketDataService:

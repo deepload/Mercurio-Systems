@@ -15,6 +15,9 @@ import asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc
 
+# Import environment loader to ensure .env variables are loaded
+from app.utils import env_loader
+
 from app.db.models import AIModel, Trade, BacktestResult, TradeAction
 from app.strategies.base import BaseStrategy
 from app.services.market_data import MarketDataService
