@@ -1,0 +1,487 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Alpaca Crypto Day Trading Script
+--------------------------------
+Script autonome pour le daytrading de cryptomonnaies via Alpaca API,
+optimisé pour l'abonnement de niveau 3 (AlgoTrader Plus).
+
+Utilisation:
+    python alpaca_crypto_trader.py --duration 1h --log-level INFO
+"""
+
+import os
+import time
+import signal
+import logging
+import argparse
+import asyncio
+from enum import Enum
+from typing import Dict, List, Any, Optional
+from datetime import datetime, timedelta
+
+# API Alpaca
+import alpaca_trade_api as tradeapi
+import pandas as pd
+from dotenv import load_dotenv
+
+# Chargement des variables d'environnement
+load_dotenv()
+
+# Configuration du logger
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger("alpaca_crypto_trader")
+
+# Variables globales pour la gestion des signaux
+running = True
+session_end_time = None
+
+# Enums pour la durée de session
+class SessionDuration(int, Enum):
+    ONE_HOUR = 3600
+    FOUR_HOURS = 14400
+    EIGHT_HOURS = 28800
+    CUSTOM = 0
+
+class AlpacaCryptoTrader:
+    """
+    Système de daytrading crypto utilisant directement l'API Alpaca
+    
+    Caractéristiques:
+    - Utilise l'API Alpaca pour trader des cryptos en mode paper
+    - Stratégie simple de croisement de moyennes mobiles
+    - Plusieurs durées de session (1h, 4h, 8h)
+    - Paramètres de trading configurables
+    """
+    
+    def __init__(self, session_duration: SessionDuration = SessionDuration.ONE_HOUR):
+        """Initialiser le système de trading crypto"""
+        self.session_duration = session_duration
+        
+        # Déterminer le mode Alpaca (paper ou live)
+        alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+        
+        # Configuration selon le mode
+        if alpaca_mode == "live":
+            self.api_key = os.getenv("ALPACA_LIVE_KEY")
+            self.api_secret = os.getenv("ALPACA_LIVE_SECRET")
+            self.base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+            logger.info("Configuré pour le trading LIVE (réel)")
+        else:  # mode paper par défaut
+            self.api_key = os.getenv("ALPACA_PAPER_KEY")
+            self.api_secret = os.getenv("ALPACA_PAPER_SECRET")
+            self.base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+            logger.info("Configuré pour le trading PAPER (simulation)")
+            
+        # URL des données de marché
+        self.data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+        
+        # Niveau d'abonnement Alpaca
+        self.subscription_level = int(os.getenv("ALPACA_SUBSCRIPTION_LEVEL", "1"))
+        logger.info(f"Utilisation du niveau d'abonnement Alpaca: {self.subscription_level}")
+        
+        # Client API Alpaca
+        self.api = None
+        
+        # Paramètres de trading
+        self.symbols = []  # Sera rempli avec les symboles crypto disponibles
+        self.fast_ma_period = 5   # 5 minutes pour la moyenne mobile rapide
+        self.slow_ma_period = 15  # 15 minutes pour la moyenne mobile lente
+        self.position_size_pct = 0.02  # 2% du portefeuille par position
+        self.stop_loss_pct = 0.03  # 3% de stop loss
+        self.take_profit_pct = 0.06  # 6% de prise de profit
+        
+        # Suivi de l'état
+        self.positions = {}
+        self.portfolio_value = 0.0
+        self.initial_portfolio_value = 0.0
+        self.session_start_time = None
+        self.session_end_time = None
+        
+        logger.info("AlpacaCryptoTrader initialisé")
+        
+    def initialize(self):
+        """Initialiser les services et charger la configuration"""
+        try:
+            # Initialiser le client API Alpaca
+            self.api = tradeapi.REST(
+                key_id=self.api_key,
+                secret_key=self.api_secret,
+                base_url=self.base_url,
+                api_version='v2'
+            )
+            
+            # Vérifier que le client est correctement initialisé
+            account = self.api.get_account()
+            if account:
+                self.portfolio_value = float(account.portfolio_value)
+                self.initial_portfolio_value = self.portfolio_value
+                logger.info(f"Compte Alpaca connecté: {account.id}")
+                logger.info(f"Valeur initiale du portefeuille: ${self.portfolio_value:.2f}")
+                logger.info(f"Mode trading: {account.status}")
+                
+                # Vérifier la disponibilité du trading crypto
+                assets = self.api.list_assets(asset_class='crypto')
+                self.symbols = [asset.symbol for asset in assets if asset.tradable]
+                
+                if self.symbols:
+                    logger.info(f"Trouvé {len(self.symbols)} symboles crypto disponibles")
+                    logger.info(f"Exemples: {', '.join(self.symbols[:5])}")
+                else:
+                    logger.warning("Aucun symbole crypto disponible")
+                
+                return True
+            else:
+                logger.error("Impossible de récupérer les informations du compte")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Erreur d'initialisation: {e}")
+            return False
+            
+    def start(self, duration_seconds: Optional[int] = None):
+        """Démarrer la session de trading crypto"""
+        self.session_start_time = datetime.now()
+        
+        if duration_seconds is not None:
+            self.session_end_time = self.session_start_time + timedelta(seconds=duration_seconds)
+        else:
+            self.session_end_time = self.session_start_time + timedelta(seconds=int(self.session_duration))
+            
+        logger.info(f"Démarrage de la session de trading crypto à {self.session_start_time}")
+        logger.info(f"La session se terminera à {self.session_end_time}")
+        
+        # Initialiser le trader
+        initialized = self.initialize()
+        if not initialized:
+            logger.error("Échec de l'initialisation, abandon")
+            self.generate_performance_report()
+            return
+            
+        # Démarrer la boucle de trading
+        self.trading_loop()
+        
+        # Générer un rapport de performance à la fin
+        self.generate_performance_report()
+            
+    def trading_loop(self):
+        """Boucle principale de trading"""
+        global running
+        
+        try:
+            while running and datetime.now() < self.session_end_time:
+                # Limiter aux 10 premières cryptos pour éviter les limites de taux
+                trading_symbols = self.symbols[:10] if len(self.symbols) > 10 else self.symbols
+                
+                # Traiter chaque symbole
+                for symbol in trading_symbols:
+                    try:
+                        self.process_symbol(symbol)
+                    except Exception as e:
+                        logger.error(f"Erreur de traitement de {symbol}: {e}")
+                
+                # Mettre à jour l'état du portefeuille
+                self.update_portfolio_state()
+                
+                # Attendre 60 secondes avant la prochaine itération
+                time_remaining = int((self.session_end_time - datetime.now()).total_seconds() / 60)
+                logger.info(f"Attente de 60 secondes avant le prochain cycle. Fin de session dans {time_remaining} minutes")
+                time.sleep(60)
+                
+        except Exception as e:
+            logger.error(f"Erreur dans la boucle de trading: {e}")
+        finally:
+            logger.info("Boucle de trading terminée")
+            
+    def process_symbol(self, symbol: str):
+        """Traiter un symbole de trading"""
+        logger.info(f"Traitement de {symbol}")
+        
+        # Obtenir les données historiques (intervalles de 5 minutes pour les dernières 24 heures)
+        end = datetime.now()
+        start = end - timedelta(days=1)
+        
+        try:
+            # Formater les dates pour l'API
+            start_str = start.strftime('%Y-%m-%d')
+            end_str = end.strftime('%Y-%m-%d')
+            
+            # Obtenir les barres de prix
+            bars = self.api.get_crypto_bars(
+                symbol,
+                timeframe='5Min',
+                start=start_str,
+                end=end_str
+            ).df
+            
+            if bars.empty:
+                logger.warning(f"Pas de données historiques disponibles pour {symbol}")
+                return
+            
+            # Si les données sont multi-index (symbole, timestamp), prendre juste le symbole concerné
+            if isinstance(bars.index, pd.MultiIndex):
+                bars = bars.loc[symbol]
+                
+            # Calculer les moyennes mobiles
+            bars['fast_ma'] = bars['close'].rolling(window=self.fast_ma_period).mean()
+            bars['slow_ma'] = bars['close'].rolling(window=self.slow_ma_period).mean()
+            
+            # Obtenir la position actuelle
+            position = None
+            try:
+                position = self.api.get_position(symbol)
+            except:
+                pass  # Pas de position existante
+            
+            # Obtenir le prix actuel
+            try:
+                latest_trade = self.api.get_latest_crypto_quote(symbol)
+                current_price = float(latest_trade.ap)  # ask price
+                logger.info(f"{symbol} prix actuel: ${current_price:.4f}")
+            except Exception as e:
+                logger.error(f"Impossible d'obtenir le prix actuel pour {symbol}: {e}")
+                return
+            
+            # Logique de trading - Croisement de moyennes mobiles
+            if len(bars) >= self.slow_ma_period:
+                last_row = bars.iloc[-1]
+                prev_row = bars.iloc[-2]
+                
+                # Vérifier le signal d'achat: MA rapide croise au-dessus de la MA lente
+                buy_signal = (
+                    prev_row['fast_ma'] <= prev_row['slow_ma'] and 
+                    last_row['fast_ma'] > last_row['slow_ma']
+                )
+                
+                # Vérifier le signal de vente: MA rapide croise en dessous de la MA lente
+                sell_signal = (
+                    prev_row['fast_ma'] >= prev_row['slow_ma'] and 
+                    last_row['fast_ma'] < last_row['slow_ma']
+                )
+                
+                # Exécuter les signaux
+                if buy_signal and not position:
+                    self.execute_buy(symbol, current_price)
+                elif sell_signal and position:
+                    self.execute_sell(symbol, current_price, position)
+                
+                # Vérifier le stop loss et le take profit
+                if position:
+                    entry_price = float(position.avg_entry_price)
+                    if entry_price > 0:
+                        pnl_pct = (current_price - entry_price) / entry_price
+                        
+                        if pnl_pct <= -self.stop_loss_pct:
+                            logger.info(f"{symbol} a atteint le stop loss à {pnl_pct:.2%}")
+                            self.execute_sell(symbol, current_price, position)
+                        elif pnl_pct >= self.take_profit_pct:
+                            logger.info(f"{symbol} a atteint le take profit à {pnl_pct:.2%}")
+                            self.execute_sell(symbol, current_price, position)
+            
+        except Exception as e:
+            logger.error(f"Erreur de traitement de {symbol}: {e}")
+    
+    def execute_buy(self, symbol: str, price: float):
+        """Exécuter un ordre d'achat"""
+        try:
+            # Calculer la taille de la position
+            position_value = self.portfolio_value * self.position_size_pct
+            qty = position_value / price
+            
+            logger.info(f"SIGNAL D'ACHAT: {symbol} à ${price:.4f}, qté: {qty:.6f}")
+            
+            # Arrondir la quantité à 6 décimales
+            qty = round(qty, 6)
+            
+            # Placer un ordre au marché
+            order = self.api.submit_order(
+                symbol=symbol,
+                qty=qty,
+                side='buy',
+                type='market',
+                time_in_force='gtc'
+            )
+            
+            if order:
+                logger.info(f"Ordre d'achat placé pour {symbol}: {order.id}")
+            else:
+                logger.error(f"Échec du placement de l'ordre d'achat pour {symbol}")
+                
+        except Exception as e:
+            logger.error(f"Erreur d'exécution d'achat pour {symbol}: {e}")
+    
+    def execute_sell(self, symbol: str, price: float, position):
+        """Exécuter un ordre de vente"""
+        try:
+            qty = float(position.qty)
+            
+            if qty <= 0:
+                logger.warning(f"Quantité de position invalide pour {symbol}: {qty}")
+                return
+                
+            logger.info(f"SIGNAL DE VENTE: {symbol} à ${price:.4f}, qté: {qty:.6f}")
+            
+            # Placer un ordre au marché
+            order = self.api.submit_order(
+                symbol=symbol,
+                qty=qty,
+                side='sell',
+                type='market',
+                time_in_force='gtc'
+            )
+            
+            if order:
+                logger.info(f"Ordre de vente placé pour {symbol}: {order.id}")
+            else:
+                logger.error(f"Échec du placement de l'ordre de vente pour {symbol}")
+                
+        except Exception as e:
+            logger.error(f"Erreur d'exécution de vente pour {symbol}: {e}")
+    
+    def update_portfolio_state(self):
+        """Mettre à jour la valeur du portefeuille et les positions"""
+        try:
+            account = self.api.get_account()
+            self.portfolio_value = float(account.portfolio_value)
+            logger.info(f"Valeur actuelle du portefeuille: ${self.portfolio_value:.2f}")
+            
+            # Mettre à jour les positions
+            try:
+                positions = self.api.list_positions()
+                crypto_positions = [p for p in positions if '/' in p.symbol]
+                
+                # Journaliser les positions ouvertes
+                if crypto_positions:
+                    logger.info(f"Positions ouvertes actuelles: {len(crypto_positions)}")
+                    for pos in crypto_positions:
+                        entry_price = float(pos.avg_entry_price)
+                        current_price = float(pos.current_price)
+                        qty = float(pos.qty)
+                        market_value = float(pos.market_value)
+                        pnl = float(pos.unrealized_pl)
+                        pnl_pct = float(pos.unrealized_plpc) * 100
+                        
+                        logger.info(f"  {pos.symbol}: {qty:.6f} @ ${entry_price:.4f} - Valeur: ${market_value:.2f} - P/L: ${pnl:.2f} ({pnl_pct:.2f}%)")
+                else:
+                    logger.info("Pas de positions ouvertes")
+            except Exception as e:
+                logger.error(f"Erreur de récupération des positions: {e}")
+                
+        except Exception as e:
+            logger.error(f"Erreur de mise à jour de l'état du portefeuille: {e}")
+    
+    def generate_performance_report(self):
+        """Générer un rapport de performance à la fin de la session de trading"""
+        try:
+            end_time = datetime.now()
+            duration = end_time - self.session_start_time if self.session_start_time else timedelta(0)
+            hours, remainder = divmod(duration.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            
+            logger.info("===================================================")
+            logger.info("RAPPORT DE PERFORMANCE DE LA SESSION DE TRADING CRYPTO")
+            logger.info("===================================================")
+            logger.info(f"Durée de la session: {hours}h {minutes}m {seconds}s")
+            logger.info(f"Heure de début: {self.session_start_time}")
+            logger.info(f"Heure de fin: {end_time}")
+            
+            # Obtenir l'état final du compte
+            try:
+                account = self.api.get_account()
+                final_value = float(account.portfolio_value)
+                
+                if self.initial_portfolio_value > 0:
+                    profit_loss = final_value - self.initial_portfolio_value
+                    profit_loss_pct = (profit_loss / self.initial_portfolio_value) * 100
+                    logger.info(f"Valeur initiale du portefeuille: ${self.initial_portfolio_value:.2f}")
+                    logger.info(f"Valeur finale du portefeuille: ${final_value:.2f}")
+                    logger.info(f"Profit/Perte: ${profit_loss:.2f} ({profit_loss_pct:.2f}%)")
+            except Exception as e:
+                logger.warning(f"Impossible de récupérer les informations finales du compte: {e}")
+            
+            # Afficher les positions ouvertes
+            try:
+                positions = self.api.list_positions()
+                crypto_positions = [p for p in positions if '/' in p.symbol]
+                
+                if crypto_positions:
+                    logger.info(f"Positions ouvertes à la fin de la session: {len(crypto_positions)}")
+                    for pos in crypto_positions:
+                        entry_price = float(pos.avg_entry_price)
+                        current_price = float(pos.current_price)
+                        qty = float(pos.qty)
+                        market_value = float(pos.market_value)
+                        pnl = float(pos.unrealized_pl)
+                        pnl_pct = float(pos.unrealized_plpc) * 100
+                        
+                        logger.info(f"  {pos.symbol}: {qty:.6f} @ ${entry_price:.4f} - Valeur: ${market_value:.2f} - P/L: ${pnl:.2f} ({pnl_pct:.2f}%)")
+                else:
+                    logger.info("Pas de positions ouvertes à la fin de la session")
+            except Exception as e:
+                logger.warning(f"Impossible de récupérer les informations de position: {e}")
+                
+            logger.info("===================================================")
+            logger.info("SESSION DE TRADING CRYPTO TERMINÉE")
+            logger.info("===================================================")
+                
+        except Exception as e:
+            logger.error(f"Erreur de génération du rapport de performance: {e}")
+
+def main():
+    """Point d'entrée principal"""
+    parser = argparse.ArgumentParser(description="Système de trading crypto Alpaca")
+    parser.add_argument("--duration", type=str, choices=["1h", "4h", "8h", "custom"], default="1h",
+                        help="Durée de la session de trading (1h, 4h, 8h, ou custom)")
+    parser.add_argument("--custom-seconds", type=int, default=0,
+                        help="Durée personnalisée en secondes si --duration=custom")
+    parser.add_argument("--log-level", type=str, choices=["DEBUG", "INFO", "WARNING", "ERROR"], 
+                        default="INFO", help="Niveau de journalisation")
+                        
+    args = parser.parse_args()
+    
+    # Définir le niveau de journalisation
+    numeric_level = getattr(logging, args.log_level)
+    logging.basicConfig(level=numeric_level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    
+    # Déterminer la durée de la session
+    duration_map = {
+        "1h": SessionDuration.ONE_HOUR,
+        "4h": SessionDuration.FOUR_HOURS,
+        "8h": SessionDuration.EIGHT_HOURS,
+        "custom": SessionDuration.CUSTOM
+    }
+    session_duration = duration_map.get(args.duration, SessionDuration.ONE_HOUR)
+    custom_duration = args.custom_seconds if args.duration == "custom" else 0
+    
+    # Créer le trader
+    trader = AlpacaCryptoTrader(session_duration=session_duration)
+    
+    # Enregistrer les gestionnaires de signaux pour une fermeture propre
+    def signal_handler(sig, frame):
+        global running, session_end_time
+        logger.info(f"Signal {sig} reçu, arrêt en cours...")
+        running = False
+        session_end_time = datetime.now()
+        
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+    
+    # Exécuter le trader
+    try:
+        if custom_duration > 0:
+            trader.start(custom_duration)
+        else:
+            trader.start()
+    except KeyboardInterrupt:
+        logger.info("Interruption clavier reçue, arrêt en cours...")
+    except Exception as e:
+        logger.error(f"Erreur d'exécution du trader crypto: {e}")
+    finally:
+        logger.info("Arrêt du trader crypto terminé")
+
+if __name__ == "__main__":
+    main()

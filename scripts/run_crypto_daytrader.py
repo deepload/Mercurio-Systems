@@ -122,18 +122,27 @@ class CryptoDayTrader:
             # Initialize event bus
             self.event_bus = EventBus()
             
-            # Initialize services
-            self.market_data = MarketDataService(
-                api_keys=crypto_config.get("api_keys", {}),
-                exchange=crypto_config.get("exchange", "binance")
-            )
+            # Initialize services with updated interface supporting Alpaca levels
+            # Use 'alpaca' as the preferred provider for market data
+            self.market_data = MarketDataService(provider_name="alpaca")
             
+            # Check if Alpaca is properly configured and available
+            active_provider = await self.market_data.active_provider()
+            if active_provider and active_provider.name == "Alpaca":
+                logger.info(f"Using Alpaca (level {active_provider.subscription_level if hasattr(active_provider, 'subscription_level') else 'unknown'}) for crypto trading")
+            else:
+                logger.warning("Alpaca provider not active, falling back to alternative provider")
+            
+            # Initialize trading service with default parameters
+            paper_trading = not crypto_config.get("live_trading", False)
             self.trading_service = TradingService(
-                api_keys=crypto_config.get("api_keys", {}),
-                exchange=crypto_config.get("exchange", "binance"),
-                paper_trading=not crypto_config.get("live_trading", False),
+                paper_trading=paper_trading,
                 event_bus=self.event_bus
             )
+            
+            # Log trading mode
+            mode = "paper" if paper_trading else "live"
+            logger.info(f"Trading service initialized in {mode.upper()} mode")
             
             # Initialize market analyzer
             self.market_analyzer = MarketAnalyzer()
