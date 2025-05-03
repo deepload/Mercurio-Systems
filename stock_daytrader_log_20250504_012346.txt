@@ -1,0 +1,38 @@
+2025-05-04 01:23:46,679 - stock_daytrader - INFO - Démarrage du script de day trading. Appuyez sur Ctrl+C pour arrêter proprement.
+2025-05-04 01:23:46,680 - stock_daytrader - INFO - Rafraîchissement de la liste des symboles via get_all_symbols.py...
+2025-05-04 01:24:02,308 - stock_daytrader - INFO - Liste des symboles rafraîchie avec succès
+2025-05-04 01:24:02,309 - stock_daytrader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-04 01:24:02,309 - stock_daytrader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-04 01:24:02,309 - stock_daytrader - INFO - StockDayTrader initialisé
+2025-05-04 01:24:02,321 - stock_daytrader - INFO - Mode continu activé: le script fonctionnera indéfiniment
+2025-05-04 01:24:02,321 - stock_daytrader - INFO - Démarrage de la session de trading d'actions à 2025-05-04 01:24:02.321393
+2025-05-04 01:24:02,321 - stock_daytrader - INFO - La session se terminera à 2026-05-04 01:24:02.321393
+2025-05-04 01:24:02,693 - stock_daytrader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-04 01:24:02,693 - stock_daytrader - INFO - Valeur initiale du portefeuille: $99043.88
+2025-05-04 01:24:02,693 - stock_daytrader - INFO - Mode trading: ACTIVE
+2025-05-04 01:24:03,506 - stock_daytrader - INFO - Récupéré 10 symboles selon le filtre: active_assets
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Service de données de marché de repli initialisé
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Service de trading de repli initialisé
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Gestionnaire de stratégies de repli initialisé
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie de moyenne mobile de repli initialisée (fenêtres: 10, 30)
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie de moyenne mobile ML de repli initialisée (fenêtres: 5, 20)
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie LSTM de repli initialisée
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie Transformer de repli initialisée
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie MSI de repli initialisée
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Toutes les stratégies (5) ont été initialisées
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie MovingAverageStrategy enregistrée
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie MovingAverageMLStrategy enregistrée
+2025-05-04 01:24:03,514 - stock_daytrader - INFO - Stratégie LSTMPredictorStrategy enregistrée
+2025-05-04 01:24:03,516 - stock_daytrader - INFO - Stratégie TransformerStrategy enregistrée
+2025-05-04 01:24:03,516 - stock_daytrader - INFO - Stratégie MSIStrategy enregistrée
+2025-05-04 01:24:03,516 - stock_daytrader - INFO - Services Mercurio initialisés avec succès
+2025-05-04 01:24:03,516 - stock_daytrader - INFO - ===== Cycle de trading #1 =====
+2025-05-04 01:24:03,634 - stock_daytrader - INFO - Le marché est fermé. Prochaine ouverture à 2025-05-05 09:30:00
+2025-05-04 01:24:03,634 - stock_daytrader - INFO - Attente de 30 minutes avant la prochaine vérification
+2025-05-04 01:24:22,223 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...
+2025-05-04 01:24:22,880 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...
+2025-05-04 01:24:29,023 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...
+2025-05-04 01:24:29,870 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...
+2025-05-04 01:24:30,189 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...
+2025-05-04 01:24:30,394 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...
+2025-05-04 01:24:30,594 - stock_daytrader - INFO - Signal d'arrêt reçu, arrêt en cours...

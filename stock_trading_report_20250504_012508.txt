@@ -1,0 +1,44 @@
+===================================================
+RAPPORT DE PERFORMANCE DE LA SESSION DE TRADING
+===================================================
+
+Durée de la session: 0h 0m 1s
+Heure de début: 2025-05-04 01:25:07.190159
+Heure de fin: 2025-05-04 01:25:08.403939
+
+Stratégie(s) utilisée(s): ALL
+Filtre d'actions: active_assets
+Nombre d'actions suivies: 10
+
+Valeur initiale du portefeuille: $99043.88
+Valeur finale du portefeuille: $99043.88
+Profit/Perte: $0.00 (0.00%)
+
+Positions ouvertes à la fin de la session:
+  AAVEUSD: 33 actions @ $180.14 - Valeur: $5944.24 - P/L: $-4.78 (-0.08%)
+  BATUSD: 13523 actions @ $0.15 - Valeur: $1978.48 - P/L: $-1.49 (-0.08%)
+  DOGEUSD: 44767 actions @ $0.18 - Valeur: $7869.85 - P/L: $-63.09 (-0.80%)
+  DOTUSD: 488 actions @ $4.06 - Valeur: $1971.94 - P/L: $-7.98 (-0.40%)
+  ETHUSD: 2 actions @ $1846.15 - Valeur: $3951.16 - P/L: $-13.42 (-0.34%)
+  GRTUSD: 10499 actions @ $0.09 - Valeur: $990.98 - P/L: $0.52 (0.05%)
+  LINKUSD: 276 actions @ $14.36 - Valeur: $3967.77 - P/L: $0.73 (0.02%)
+  LTCUSD: 91 actions @ $87.19 - Valeur: $7911.01 - P/L: $-20.31 (-0.26%)
+  MSFT: -1 actions @ $393.78 - Valeur: $-304.01 - P/L: $-28.98 (-10.54%)
+  PEPEUSD: 717331936 actions @ $0.00 - Valeur: $5996.89 - P/L: $36.58 (0.61%)
+  SHIBUSD: 454657063 actions @ $0.00 - Valeur: $5924.18 - P/L: $-135.03 (-2.23%)
+  SOLUSD: 13 actions @ $147.56 - Valeur: $1973.98 - P/L: $-3.51 (-0.18%)
+  SUSHIUSD: 9349 actions @ $0.64 - Valeur: $5985.20 - P/L: $33.56 (0.56%)
+  USDTUSD: 19773 actions @ $1.00 - Valeur: $19758.78 - P/L: $-39.39 (-0.20%)
+  XRPUSD: 2706 actions @ $2.20 - Valeur: $5934.61 - P/L: $-17.04 (-0.29%)
+
+Valeur totale des positions: $79855.05
+Profit/Perte non réalisé total: $-263.63
+
+===================================================
+PERFORMANCE PAR STRATÉGIE
+===================================================
+
+===================================================
+RÉSUMÉ DES TRANSACTIONS
+===================================================
+Aucune transaction effectuée
