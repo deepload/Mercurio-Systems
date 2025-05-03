@@ -355,10 +355,19 @@ Results are saved to the `reports/comprehensive/` directory with full metrics an
 
 Comprehensive documentation is available in the [docs](./docs) directory:
 
-- **[For Dummies Guide](./docs/for-dummies/README.md)**: Complete 12-chapter guide from beginner to advanced
-- **[Beginner Guides](./docs/guides/beginner/)**: Quick start resources for new users
-- **[Advanced Guides](./docs/guides/advanced/)**: Specialized topics for experienced traders
-- **[Reference Documentation](./docs/reference/)**: Technical details and API specifications
+### 📔 Guides Principaux
+
+- **[🔍 Index des Guides](./docs/GUIDES_INDEX.md)**: Point d'entrée central avec tous les guides disponibles
+- **[📈 Guide de Day Trading](./docs/day_trading_guide.md)**: Système automatisé de day trading sur actions et crypto
+- **[📊 Guide des Options](./docs/options_trading.md)**: Trading d'options avec Mercurio AI
+- **[🧠 Guide d'Entraînement des Modèles](./docs/model_training_guide.md)**: Créer et entraîner des modèles d'IA
+
+### 📖 Documentation Générale
+
+- **[📚 Pour les Débutants](./docs/for-dummies/README.md)**: Guide complet en 12 chapitres pour débutants
+- **[🔰 Guides Débutants](./docs/guides/beginner/)**: Ressources pour démarrer rapidement
+- **[🔧 Guides Avancés](./docs/guides/advanced/)**: Sujets spécialisés pour traders expérimentés
+- **[📝 Documentation Référence](./docs/reference/)**: Détails techniques et spécifications API
 
 ## 🧪 Testing
 

@@ -1,0 +1,126 @@
+2025-05-04 00:26:32,362 - alpaca_crypto_trader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-04 00:26:32,363 - alpaca_crypto_trader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-04 00:26:32,363 - alpaca_crypto_trader - INFO - AlpacaCryptoTrader initialisé
+2025-05-04 00:26:32,364 - alpaca_crypto_trader - INFO - Démarrage de la session de trading crypto à 2025-05-04 00:26:32.364124
+2025-05-04 00:26:32,364 - alpaca_crypto_trader - INFO - La session se terminera à 2025-05-04 09:26:32.364124
+2025-05-04 00:26:32,724 - alpaca_crypto_trader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-04 00:26:32,726 - alpaca_crypto_trader - INFO - Valeur initiale du portefeuille: $99397.75
+2025-05-04 00:26:32,726 - alpaca_crypto_trader - INFO - Mode trading: ACTIVE
+2025-05-04 00:26:32,845 - alpaca_crypto_trader - INFO - Trouvé 24 symboles crypto disponibles (USD seulement)
+2025-05-04 00:26:32,845 - alpaca_crypto_trader - INFO - Exemples: UNI/USD, DOGE/USD, GRT/USD, USDT/USD, ETH/USD
+2025-05-04 00:26:32,970 - alpaca_crypto_trader - INFO - Solde USD disponible: $60064.54
+2025-05-04 00:26:32,970 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:26:33,575 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1353
+2025-05-04 00:26:33,576 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:26:33,814 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1766
+2025-05-04 00:26:33,814 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:26:34,058 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0942
+2025-05-04 00:26:34,059 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:26:34,299 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0003
+2025-05-04 00:26:34,300 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:26:34,539 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1838.6825
+2025-05-04 00:26:34,539 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:26:34,783 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0374
+2025-05-04 00:26:34,783 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:26:35,024 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.6580
+2025-05-04 00:26:35,024 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:26:35,261 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1909
+2025-05-04 00:26:35,262 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:26:35,501 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1528.6075
+2025-05-04 00:26:35,502 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:26:35,744 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1459
+2025-05-04 00:26:35,862 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99397.75
+2025-05-04 00:26:35,976 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:26:35,977 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 539 minutes
+2025-05-04 00:27:35,983 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:27:36,228 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1353
+2025-05-04 00:27:36,229 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:27:36,468 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1766
+2025-05-04 00:27:36,469 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:27:36,709 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0941
+2025-05-04 00:27:36,709 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:27:36,950 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0003
+2025-05-04 00:27:36,951 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:27:37,190 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1838.6825
+2025-05-04 00:27:37,191 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:27:37,424 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0374
+2025-05-04 00:27:37,426 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:27:37,665 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.6580
+2025-05-04 00:27:37,666 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:27:37,908 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1909
+2025-05-04 00:27:37,908 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:27:38,147 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1528.6075
+2025-05-04 00:27:38,148 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:27:38,389 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1459
+2025-05-04 00:27:38,505 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99397.75
+2025-05-04 00:27:38,623 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:27:38,623 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 538 minutes
+2025-05-04 00:28:38,624 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:28:38,871 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1326
+2025-05-04 00:28:38,873 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:28:39,109 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1763
+2025-05-04 00:28:39,109 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:28:39,353 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0941
+2025-05-04 00:28:39,353 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:28:39,604 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0002
+2025-05-04 00:28:39,605 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:28:39,856 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1838.6825
+2025-05-04 00:28:39,857 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:28:40,098 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0351
+2025-05-04 00:28:40,099 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:28:40,338 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.6510
+2025-05-04 00:28:40,339 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:28:40,579 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1909
+2025-05-04 00:28:40,581 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:28:40,819 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1528.6075
+2025-05-04 00:28:40,820 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:28:41,058 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1458
+2025-05-04 00:28:41,176 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99397.75
+2025-05-04 00:28:41,290 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:28:41,290 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 537 minutes
+2025-05-04 00:29:41,293 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:29:41,538 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1284
+2025-05-04 00:29:41,538 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:29:41,778 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1763
+2025-05-04 00:29:41,778 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:29:42,019 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0941
+2025-05-04 00:29:42,019 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:29:42,260 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0001
+2025-05-04 00:29:42,260 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:29:42,497 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1838.6825
+2025-05-04 00:29:42,497 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:29:42,739 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0351
+2025-05-04 00:29:42,739 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:29:42,985 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.6510
+2025-05-04 00:29:42,985 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:29:43,230 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1909
+2025-05-04 00:29:43,230 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:29:43,474 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1528.6075
+2025-05-04 00:29:43,476 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:29:43,713 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1458
+2025-05-04 00:29:43,828 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99397.75
+2025-05-04 00:29:43,945 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:29:43,945 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 536 minutes
+2025-05-04 00:30:43,948 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 00:30:44,196 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1322
+2025-05-04 00:30:44,197 - alpaca_crypto_trader - INFO - Traitement de DOGE/USD
+2025-05-04 00:30:44,447 - alpaca_crypto_trader - INFO - DOGE/USD prix actuel (dernière barre): $0.1763
+2025-05-04 00:30:44,448 - alpaca_crypto_trader - INFO - Traitement de GRT/USD
+2025-05-04 00:30:44,693 - alpaca_crypto_trader - INFO - GRT/USD prix actuel (dernière barre): $0.0941
+2025-05-04 00:30:44,693 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 00:30:44,933 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0003
+2025-05-04 00:30:44,933 - alpaca_crypto_trader - INFO - Traitement de ETH/USD
+2025-05-04 00:30:45,171 - alpaca_crypto_trader - INFO - ETH/USD prix actuel (dernière barre): $1839.6000
+2025-05-04 00:30:45,172 - alpaca_crypto_trader - INFO - Traitement de DOT/USD
+2025-05-04 00:30:45,415 - alpaca_crypto_trader - INFO - DOT/USD prix actuel (dernière barre): $4.0378
+2025-05-04 00:30:45,415 - alpaca_crypto_trader - INFO - Traitement de AVAX/USD
+2025-05-04 00:30:45,652 - alpaca_crypto_trader - INFO - AVAX/USD prix actuel (dernière barre): $20.6591
+2025-05-04 00:30:45,652 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 00:30:45,892 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1909
+2025-05-04 00:30:45,892 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-04 00:30:46,133 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1530.2950
+2025-05-04 00:30:46,133 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-04 00:30:46,367 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1459
+2025-05-04 00:30:46,484 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99397.75
+2025-05-04 00:30:46,599 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 00:30:46,600 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 535 minutes

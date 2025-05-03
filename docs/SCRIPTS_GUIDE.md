@@ -1,5 +1,14 @@
 # Guide des Scripts Utilitaires de MercurioAI
 
+> [!NOTE]
+> **Navigation Rapide:**
+> - [🔍 Index de tous les guides](./GUIDES_INDEX.md)
+> - [📈 Guide de Day Trading](./day_trading_guide.md)
+> - [📊 Guide des Options](./options_trading.md)
+> - [🧠 Guide d'Entraînement des Modèles](./MODEL_TRAINING_GUIDE.md)
+> - [🔍 Guide du Screener d'Actifs](./ASSET_SCREENER_GUIDE.md)
+> - [📔 Documentation Principale](./README.md)
+
 Ce document décrit les scripts utilitaires disponibles dans le dossier `/scripts` de MercurioAI. Ces scripts sont conçus pour faciliter l'utilisation, le test et la démonstration des fonctionnalités de la plateforme.
 
 Chaque script est documenté avec ses paramètres disponibles et des exemples de cas d'utilisation pour vous aider à tirer le meilleur parti de la plateforme Mercurio AI.

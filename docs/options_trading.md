@@ -1,5 +1,12 @@
 # Trading d'Options avec Mercurio AI
 
+> [!NOTE]
+> **Navigation Rapide:**
+> - [🔍 Index de tous les guides](./GUIDES_INDEX.md)
+> - [📈 Guide de Day Trading](./day_trading_guide.md)
+> - [🧠 Guide d'Entraînement des Modèles](./model_training_guide.md)
+> - [📔 Documentation Principale](./README.md)
+
 ## Introduction
 
 Ce document décrit les fonctionnalités de trading d'options implémentées dans la plateforme Mercurio AI. Le module de trading d'options permet d'exploiter l'abonnement Alpaca AlgoTrader Plus avec Options Trading Level 1 pour exécuter des stratégies de trading d'options basées sur les signaux générés par les autres stratégies du système.
