@@ -1,7 +1,1 @@
-{
-  "date": "2025-05-03T19:48:57.933874",
-  "stocks_count": 11501,
-  "crypto_count": 24,
-  "stocks_file": "data/all_stocks_20250503.csv",
-  "crypto_file": "data/all_crypto_20250503.csv"
-}
+{"date": "20250503", "stocks_count": 11501, "crypto_count": 24}

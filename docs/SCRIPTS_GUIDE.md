@@ -188,6 +188,31 @@ python scripts/trading_agent_fixed.py --strategy MovingAverageStrategy --symbols
 
 Ces scripts permettent d'analyser le marché et d'évaluer les performances des stratégies.
 
+### `get_all_symbols.py`
+
+**Fonction** : Récupère tous les symboles d'actions et de crypto-monnaies disponibles via différentes sources de données (Alpaca, Yahoo Finance) et vérifie leur accessibilité.
+
+**Paramètres** : Ce script n'a pas de paramètres en ligne de commande, il utilise les variables d'environnement configurées dans le fichier `.env`.
+
+**Utilisation** :
+```bash
+python scripts/get_all_symbols.py
+```
+
+**Description** : Ce script interroge plusieurs sources de données pour récupérer la liste complète des symboles d'actions et de crypto-monnaies disponibles. Il vérifie ensuite que les données historiques sont accessibles pour chaque symbole. Les résultats sont sauvegardés dans des fichiers CSV dans le dossier `data` qui peuvent être utilisés pour l'entraînement des modèles.
+
+Les fichiers générés incluent :
+- `all_stocks_YYYYMMDD.csv` : Liste complète des actions accessibles
+- `all_crypto_YYYYMMDD.csv` : Liste complète des crypto-monnaies accessibles
+- `symbols_metadata_YYYYMMDD.json` : Métadonnées sur les symboles
+
+Ce script garantit que tous les actifs majeurs (comme Apple, Microsoft, Berkshire Hathaway, etc.) sont inclus dans la liste, même s'ils ne sont pas disponibles via l'API Alpaca, en utilisant des sources alternatives comme Yahoo Finance.
+
+**Cas d'utilisation** :
+1. **Préparation pour l'entraînement** : Obtenir la liste complète des symboles avant d'exécuter `train_all_models.py`
+2. **Vérification de l'accès aux données** : Identifier quels symboles sont réellement accessibles via votre abonnement API
+3. **Mise à jour périodique** : Maintenir une liste à jour des actifs disponibles pour le trading et l'analyse
+
 ### `market_analyzer.py`
 
 **Fonction** : Analyse approfondie du marché pour divers instruments.
