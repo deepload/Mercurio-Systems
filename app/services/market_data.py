@@ -76,14 +76,27 @@ class MarketDataService:
                 
                 # URL des données de marché (identique pour paper et live)
                 data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
-                logger.info(f"Using Alpaca base_url: {base_url} and data_url: {data_url}")
+                # Commentons cette ligne pour éviter l'affichage qui peut créer des confusions
+                # logger.info(f"Using Alpaca base_url: {base_url} and data_url: {data_url}")
                 
+                # Initialisation sans 'data_url' (compatible avec toutes les versions)
+                # La version récente de l'API Alpaca a changé la façon dont le client est initialisé
+                # Optons pour la méthode la plus compatible
                 self.alpaca_client = tradeapi.REST(
                     key_id=self.alpaca_key,
                     secret_key=self.alpaca_secret,
-                    base_url=base_url,
-                    data_url=data_url
+                    base_url=base_url
                 )
+                logger.info(f"Initialized Alpaca client with base_url: {base_url}")
+                
+                # Pour les versions qui supportent data_url comme attribut
+                # Note: Cela n'affectera pas les versions qui ne le supportent pas
+                try:
+                    if hasattr(self.alpaca_client, 'data_url'):
+                        self.alpaca_client.data_url = data_url
+                        logger.info(f"Set data_url attribute to {data_url}")
+                except Exception as e:
+                    logger.warning(f"Could not set data_url attribute: {e}")
                 logger.info("Legacy Alpaca client initialized successfully")
                 
                 # Register Alpaca as a provider option
@@ -208,33 +221,60 @@ class MarketDataService:
                     end_str = end_date.isoformat() + "Z"
                 # Convertir le format du symbole pour les cryptos si nécessaire
                 alpaca_symbol = symbol
-                if "-USD" in symbol:
-                    alpaca_symbol = symbol.replace("-USD", "USD")
-                    logging.info(f"Converting crypto symbol for Alpaca: {symbol} -> {alpaca_symbol}")
+                is_crypto = "-USD" in symbol
+                
+                if is_crypto:
+                    # Format correct pour l'API crypto d'Alpaca: BTC/USD (avec slash)
+                    alpaca_symbol = symbol.replace("-USD", "/USD")
+                    logging.info(f"Converting crypto symbol format for Alpaca: {symbol} -> {alpaca_symbol}")
                 
                 # Utiliser l'endpoint approprié selon qu'il s'agit d'une crypto ou d'une action
-                try:
-                    if "-USD" in symbol:
-                        # Pour les cryptos, utiliser l'API crypto spécifique avec les paramètres requis
-                        logger.info(f"Using Alpaca crypto API endpoint for {symbol}")
-                        data = self.alpaca_client.get_crypto_bars(
-                            alpaca_symbol,
-                            alpaca_timeframe,
-                            start=start_str,
-                            end=end_str,
-                            exchanges=["CBSE"]  # Coinbase est souvent l'échange par défaut
+                # Pour les cryptos, utiliser l'API spécifique d'Alpaca selon la documentation officielle
+                if is_crypto:
+                    logger.info(f"Cryptocurrency detected: {symbol}. Using dedicated Alpaca crypto API.")
+                    
+                    # D'après la documentation Alpaca, les crypto utilisent un endpoint spécifique
+                    # https://docs.alpaca.markets/docs/crypto-trading
+                    success = False
+                    crypto_methods = [
+                        # 1. API crypto v1beta3 (format recommandé dans la doc)
+                        lambda: self._get_crypto_data_v1beta3(alpaca_symbol, start_str, end_str, alpaca_timeframe),
+                        
+                        # 2. Méthode SDK avec get_crypto_bars (si disponible)
+                        lambda: self.alpaca_client.get_crypto_bars(
+                            alpaca_symbol, alpaca_timeframe, start=start_str, end=end_str
+                        ).df,
+                        
+                        # 3. Méthode générique get_bars comme dernier recours
+                        lambda: self.alpaca_client.get_bars(
+                            alpaca_symbol.replace("/", ""), alpaca_timeframe, start=start_str, end=end_str
                         ).df
-                    else:
-                        # Pour les actions, utiliser l'API stock standard
-                        data = self.alpaca_client.get_bars(
-                            alpaca_symbol, 
-                            alpaca_timeframe,
-                            start=start_str,
-                            end=end_str
-                        ).df
-                except AttributeError:
-                    # Fallback à la méthode standard si get_crypto_bars n'existe pas dans cette version
-                    logger.warning("Falling back to standard get_bars method (crypto endpoint not available in this SDK version)")
+                    ]
+                    
+                    # Essayer chaque méthode en séquence jusqu'à ce qu'une fonctionne
+                    for i, method in enumerate(crypto_methods):
+                        try:
+                            if i == 0:  # Pour la méthode API directe
+                                data = method()
+                                if data is not None and not data.empty:
+                                    success = True
+                                    break
+                            else:  # Pour les méthodes SDK
+                                data = method()
+                                success = True
+                                break
+                        except Exception as e:
+                            error_msg = str(e)[:100]
+                            logger.warning(f"Crypto method {i+1} failed: {error_msg}")
+                            if "403" in error_msg or "Forbidden" in error_msg:
+                                logger.warning("Access denied (403). Your plan may not include crypto data.")
+                    
+                    # Si aucune méthode n'a fonctionné, lever une exception claire
+                    if not success:
+                        raise ValueError(f"Could not get crypto data for {symbol} from Alpaca. Your plan may not include crypto data.")
+                else:
+                    # Pour les actions, utiliser l'API stock standard (plus simple)
+                    logger.info(f"Using standard stock API for {symbol}")
                     data = self.alpaca_client.get_bars(
                         alpaca_symbol, 
                         alpaca_timeframe,
@@ -287,19 +327,70 @@ class MarketDataService:
         except Exception as e:
             logger.error(f"Error fetching latest price from {self.active_provider.name}: {e}")
             
-        # Legacy fallback for backward compatibility
+        # Legacy fallback for backward compatibility with Alpaca
         if self.alpaca_client:
             try:
-                # Convertir le format du symbole pour les cryptos si nécessaire
+                # Détecter si c'est une crypto
+                is_crypto = "-USD" in symbol
                 alpaca_symbol = symbol
-                if "-USD" in symbol:
-                    alpaca_symbol = symbol.replace("-USD", "USD")
-                    logger.info(f"Converting crypto symbol for Alpaca: {symbol} -> {alpaca_symbol}")
                 
-                logger.info(f"Falling back to legacy Alpaca client for {symbol} price")
-                last_trade = self.alpaca_client.get_latest_trade(alpaca_symbol)
-                if last_trade:
-                    return last_trade.price
+                if is_crypto:
+                    # Utiliser l'API dédiée pour les cryptos
+                    # Format correct avec slash : BTC/USD
+                    alpaca_symbol = symbol.replace("-USD", "/USD")
+                    logger.info(f"Converting crypto symbol for Alpaca: {symbol} -> {alpaca_symbol}")
+                    
+                    # Essayer différentes méthodes pour obtenir le prix des cryptos
+                    logger.info(f"Trying dedicated crypto price API for {alpaca_symbol}")
+                    
+                    # 1. Méthode directe via l'API v1beta3 (plus fiable)
+                    try:
+                        import requests
+                        # Endpoint pour prix réel-time de crypto
+                        url = "https://data.alpaca.markets/v1beta3/crypto/us/latest/quotes"
+                        params = {"symbols": alpaca_symbol}
+                        headers = {
+                            "APCA-API-KEY-ID": self.alpaca_key,
+                            "APCA-API-SECRET-KEY": self.alpaca_secret
+                        }
+                        
+                        logger.info(f"Making API request to: {url} for {alpaca_symbol}")
+                        response = requests.get(url, params=params, headers=headers)
+                        if response.status_code == 200:
+                            data = response.json()
+                            if "quotes" in data and alpaca_symbol in data["quotes"]:
+                                # Utiliser le prix moyen entre bid/ask
+                                quote = data["quotes"][alpaca_symbol]
+                                if "ap" in quote and "bp" in quote:
+                                    price = (quote["ap"] + quote["bp"]) / 2
+                                    logger.info(f"Got crypto price ${price:.2f} for {alpaca_symbol} via v1beta3 API")
+                                    return price
+                    except Exception as e:
+                        logger.warning(f"Direct crypto API failed: {str(e)[:100]}")
+                    
+                    # 2. Méthode historique (dernier prix de la journée)
+                    try:
+                        end_date = datetime.now()
+                        start_date = end_date - timedelta(minutes=15)
+                        # Utiliser la méthode _get_crypto_data_v1beta3 déjà implémentée
+                        df = self._get_crypto_data_v1beta3(
+                            alpaca_symbol,
+                            start_date.isoformat() + "Z",
+                            end_date.isoformat() + "Z",
+                            "1Min"
+                        )
+                        if not df.empty:
+                            price = df['close'].iloc[-1]
+                            logger.info(f"Got crypto price ${price:.2f} for {alpaca_symbol} via historical data")
+                            return price
+                    except Exception as e:
+                        logger.warning(f"Historical crypto data failed: {str(e)[:100]}")
+                else:
+                    # Pour les actions, utiliser la méthode standard
+                    logger.info(f"Falling back to legacy Alpaca client for {symbol} stock price")
+                    last_trade = self.alpaca_client.get_latest_trade(alpaca_symbol)
+                    if last_trade:
+                        return last_trade.price
             except Exception as e:
                 logger.error(f"Error fetching latest price from legacy Alpaca client: {e}")
         
@@ -376,6 +467,95 @@ class MarketDataService:
             return ["BTC-USD", "ETH-USD", "XRP-USD", "LTC-USD", "DOGE-USD"]
         else:
             return ["AAPL", "MSFT", "AMZN", "GOOGL", "META"]
+    
+    # Méthode pour appeler directement l'API crypto d'Alpaca selon la documentation officielle
+    def _get_crypto_data_v1beta3(self, symbol: str, start_str: str, end_str: str, timeframe: str) -> pd.DataFrame:
+        """
+        Appelle directement l'API Crypto d'Alpaca en v1beta3 selon la documentation officielle
+        https://docs.alpaca.markets/docs/crypto-trading
+        
+        Args:
+            symbol: Le symbole crypto au format BTC/USD
+            start_str: Date de début au format string
+            end_str: Date de fin au format string
+            timeframe: Intervalle de temps (1Day, 1Hour, etc.)
+            
+        Returns:
+            DataFrame avec les données crypto ou None en cas d'échec
+        """
+        import requests
+        
+        try:
+            # Format de l'URL selon la documentation
+            # https://data.alpaca.markets/v1beta3/crypto/us/bars
+            base_url = "https://data.alpaca.markets/v1beta3/crypto/us/bars"
+            
+            # Adapter le timeframe au format de l'API v1beta3
+            v1beta3_timeframe = timeframe
+            if timeframe == "1Day":
+                v1beta3_timeframe = "1D"
+            elif timeframe == "1Hour":
+                v1beta3_timeframe = "1H"
+            
+            # Paramètres de la requête
+            params = {
+                "symbols": symbol,
+                "timeframe": v1beta3_timeframe,
+                "start": start_str,
+                "end": end_str,
+                "limit": 1000
+            }
+            
+            # En-têtes avec authentification
+            headers = {
+                "APCA-API-KEY-ID": self.alpaca_key,
+                "APCA-API-SECRET-KEY": self.alpaca_secret
+            }
+            
+            # Exécuter la requête
+            logger.info(f"Making direct API call to Alpaca crypto endpoint for {symbol}")
+            response = requests.get(base_url, params=params, headers=headers)
+            
+            # Vérifier le statut de la réponse
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Vérifier que nous avons des données pour ce symbole
+                if data and "bars" in data and symbol in data["bars"] and len(data["bars"][symbol]) > 0:
+                    # Convertir les données en DataFrame
+                    bars = data["bars"][symbol]
+                    df = pd.DataFrame(bars)
+                    
+                    # Renommer et formater les colonnes pour correspondre au format attendu
+                    df.rename(columns={
+                        "t": "timestamp",
+                        "o": "open",
+                        "h": "high",
+                        "l": "low",
+                        "c": "close",
+                        "v": "volume"
+                    }, inplace=True)
+                    
+                    # Convertir la colonne timestamp en datetime
+                    df["timestamp"] = pd.to_datetime(df["timestamp"])
+                    df.set_index("timestamp", inplace=True)
+                    
+                    logger.info(f"Successfully retrieved {len(df)} bars for {symbol} from Alpaca v1beta3 API")
+                    return df
+                else:
+                    logger.warning(f"No data returned for {symbol} from Alpaca v1beta3 API")
+                    return pd.DataFrame()
+            else:
+                error_msg = f"API error: {response.status_code} {response.text[:100]}"
+                logger.warning(error_msg)
+                # Vérifier spécifiquement les erreurs d'autorisation
+                if response.status_code == 403:
+                    logger.warning("Received 403 Forbidden. Your Alpaca plan likely does not include crypto data access.")
+                return pd.DataFrame()
+                
+        except Exception as e:
+            logger.warning(f"Error in direct API call to Alpaca: {str(e)[:200]}")
+            return pd.DataFrame()
     
     # Legacy method for backward compatibility - delegates to sample provider
     async def _generate_sample_data(
