@@ -269,7 +269,8 @@ class OptionsStrategy(BaseStrategy):
         self, 
         data: pd.DataFrame,
         initial_capital: float = 10000.0,
-        timeframe: TimeFrame = TimeFrame.DAY
+        timeframe: TimeFrame = TimeFrame.DAY,
+        symbol: str = "UNKNOWN"
     ) -> Dict[str, Any]:
         """
         Backtest the options strategy.
