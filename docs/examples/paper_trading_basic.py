@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 if __name__ == "__main__":
     logger.info("Starting basic paper trading with default settings")
     logger.info("This will use the default moving average strategy")
-    logger.info("Trading AAPL, MSFT, and GOOGL symbols")
+    logger.info("Trading AAPL, MSFT, GOOGL, and BTC-USD symbols")
     logger.info("Checking for signals every 60 seconds with 2% risk limit per position")
     
     # Import and run the script

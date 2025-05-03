@@ -27,23 +27,35 @@ MercurioAI currently supports live trading through Alpaca. To set up your accoun
 
 ### 2. Configure MercurioAI for Live Trading
 
-1. Update your `.env` file with live trading credentials:
+1. Ensure your `.env` file contains both paper and live trading credentials, and set the mode to live:
 
 ```
-# Replace paper trading keys with live trading keys
-ALPACA_KEY=your_live_alpaca_key_here
-ALPACA_SECRET=your_live_alpaca_secret_here
+# Paper trading configuration
+ALPACA_PAPER_KEY=your_paper_key_here
+ALPACA_PAPER_SECRET=your_paper_secret_here
+ALPACA_PAPER_URL=https://paper-api.alpaca.markets
+
+# Live trading configuration
+ALPACA_LIVE_KEY=your_live_key_here
+ALPACA_LIVE_SECRET=your_live_secret_here
+ALPACA_LIVE_URL=https://api.alpaca.markets
+
+# Data API URL for both modes
+ALPACA_DATA_URL=https://data.alpaca.markets
 
 # Set trading mode to live
-TRADING_MODE=live
+ALPACA_MODE=live
 ```
 
-2. Modify `app/services/trading.py` if necessary:
-
-The `TradingService` class has a parameter `is_paper` which defaults to `True`. When transitioning to live trading, you'll need to initialize it with `is_paper=False`:
+2. The trading service will now automatically detect the trading mode from the environment variable:
 
 ```python
-trading_service = TradingService(is_paper=False)
+# No need to specify is_paper=False anymore
+# The trading service checks ALPACA_MODE in the .env file
+trading_service = TradingService()
+
+# You can also check the current mode:
+current_mode = trading_service.get_trading_mode()  # Returns 'paper' or 'live'
 ```
 
 ### 3. Risk Management Configuration

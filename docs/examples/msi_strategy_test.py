@@ -20,8 +20,8 @@ def parse_arguments():
     
     parser.add_argument('--duration', type=int, default=24,
                         help='Test duration in hours')
-    parser.add_argument('--symbols', type=str, default='BTC/USDT,ETH/USDT',
-                        help='Comma-separated list of symbols to trade')
+    parser.add_argument('--symbols', type=str, default='BTC-USD,ETH-USD',
+                        help='Comma-separated list of symbols to trade (format: BTC-USD,ETH-USD)')
     parser.add_argument('--risk', type=str, default='moderate', 
                         choices=['conservative', 'moderate', 'aggressive'],
                         help='Risk profile (conservative, moderate, aggressive)')

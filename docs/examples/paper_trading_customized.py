@@ -20,8 +20,8 @@ def parse_arguments():
     
     parser.add_argument('--strategy', type=str, default='MovingAverageStrategy',
                         help='Strategy to use')
-    parser.add_argument('--symbols', type=str, default='AAPL,TSLA,AMZN',
-                        help='Comma-separated list of symbols to trade')
+    parser.add_argument('--symbols', type=str, default='AAPL,TSLA,BTC-USD,ETH-USD',
+                        help='Comma-separated list of symbols to trade (stocks and crypto)')
     parser.add_argument('--risk_limit', type=float, default=0.01,
                         help='Maximum portfolio percentage per position (0.01 = 1%%)')
     parser.add_argument('--interval', type=int, default=300,

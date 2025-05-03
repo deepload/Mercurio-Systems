@@ -9,16 +9,24 @@ This guide provides the essential steps to quickly begin trading with MercurioAI
    Edit your `.env` file to include your API credentials:
 
    ```
-   # For paper trading (Alpaca)
-   ALPACA_KEY=your_paper_key_here
-   ALPACA_SECRET=your_paper_secret_here
-   ALPACA_BASE_URL=https://paper-api.alpaca.markets
+   # Alpaca Trading Mode - 'paper' or 'live'
+   ALPACA_MODE=paper
    
-   # For live trading (uncomment when ready)
-   # ALPACA_KEY=your_live_key_here
-   # ALPACA_SECRET=your_live_secret_here
-   # ALPACA_BASE_URL=https://api.alpaca.markets
+   # Paper Trading Credentials
+   ALPACA_PAPER_KEY=your_paper_key_here
+   ALPACA_PAPER_SECRET=your_paper_secret_here
+   ALPACA_PAPER_URL=https://paper-api.alpaca.markets
+   
+   # Live Trading Credentials (configure but keep ALPACA_MODE=paper until ready)
+   ALPACA_LIVE_KEY=your_live_key_here
+   ALPACA_LIVE_SECRET=your_live_secret_here
+   ALPACA_LIVE_URL=https://api.alpaca.markets
+   
+   # Market Data URL (used for both paper and live)
+   ALPACA_DATA_URL=https://data.alpaca.markets
    ```
+   
+   > **Note**: Switching between paper and live trading is now as simple as changing `ALPACA_MODE=paper` to `ALPACA_MODE=live`
 
    > **Note**: If you don't have API keys, MercurioAI can still run in demo mode with sample data.
 
@@ -64,7 +72,7 @@ For customized testing:
 python paper_trading_test.py \
   --capital 50000 \
   --duration 48 \
-  --symbols BTC/USDT ETH/USDT \
+  --symbols BTC-USD ETH-USD \
   --risk moderate \
   --strategies TransformerStrategy LLMStrategy
 ```
@@ -243,6 +251,20 @@ Example configuration in `config/paper_test_config.json`:
   }
 }
 ```
+
+### Method 6: Crypto Trading
+
+For cryptocurrency trading, Mercurio AI now fully supports the Alpaca crypto API with proper formatting:
+
+```bash
+python run_crypto_paper_trading.py \
+  --duration_minutes 60 \
+  --initial_capital 1000
+```
+
+This will run paper trading on multiple cryptocurrencies using Alpaca's crypto API and compare the performance of different strategies.
+
+> **Note**: Cryptocurrency symbols use the format `BTC-USD`, `ETH-USD`, etc. in Mercurio AI.
 
 ## Live Trading
 

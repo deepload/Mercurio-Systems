@@ -49,7 +49,7 @@ Mercurio AI supports multiple data sources, arranged in a fallback hierarchy:
 These external APIs provide market data, and may require API keys:
 
 1. **AlphaVantage**: Stocks, forex, cryptocurrencies
-2. **Alpaca**: US stocks and ETFs
+2. **Alpaca**: US stocks, ETFs, and cryptocurrencies (BTC-USD, ETH-USD, etc.)
 3. **Binance**: Cryptocurrencies
 4. **Yahoo Finance**: Stocks, ETFs, mutual funds (used as a free fallback)
 
