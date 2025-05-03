@@ -94,6 +94,23 @@ async def main():
     """Main function to run all tests"""
     logger.info("=== MERCURIO AI API ACCESS TEST ===")
     
+    # Afficher le mode Alpaca actif
+    alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+    logger.info(f"\n=== ALPACA MODE: {alpaca_mode.upper()} ===")
+    
+    # Afficher les clés utilisées (masquées pour la sécurité)
+    if alpaca_mode == "live":
+        key = os.getenv("ALPACA_LIVE_KEY", "")
+        url = os.getenv("ALPACA_LIVE_URL", "")
+    else:
+        key = os.getenv("ALPACA_PAPER_KEY", "")
+        url = os.getenv("ALPACA_PAPER_URL", "")
+        
+    if key:
+        masked_key = "*" * (len(key) - 4) + key[-4:]
+        logger.info(f"Using Alpaca key: {masked_key}")
+        logger.info(f"Using Alpaca URL: {url}\n")
+    
     # Test each provider
     await test_provider('polygon')
     await test_provider('yahoo')
