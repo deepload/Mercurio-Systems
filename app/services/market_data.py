@@ -76,31 +76,27 @@ class MarketDataService:
                 
                 # URL des données de marché (identique pour paper et live)
                 data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
-                logger.info(f"Using Alpaca base_url: {base_url} and data_url: {data_url}")
+                # Commentons cette ligne pour éviter l'affichage qui peut créer des confusions
+                # logger.info(f"Using Alpaca base_url: {base_url} and data_url: {data_url}")
                 
-                # Tentative d'initialisation compatible avec différentes versions
+                # Initialisation sans 'data_url' (compatible avec toutes les versions)
+                # La version récente de l'API Alpaca a changé la façon dont le client est initialisé
+                # Optons pour la méthode la plus compatible
+                self.alpaca_client = tradeapi.REST(
+                    key_id=self.alpaca_key,
+                    secret_key=self.alpaca_secret,
+                    base_url=base_url
+                )
+                logger.info(f"Initialized Alpaca client with base_url: {base_url}")
+                
+                # Pour les versions qui supportent data_url comme attribut
+                # Note: Cela n'affectera pas les versions qui ne le supportent pas
                 try:
-                    # Méthode pour versions récentes (avec data_url)
-                    self.alpaca_client = tradeapi.REST(
-                        key_id=self.alpaca_key, 
-                        secret_key=self.alpaca_secret,
-                        base_url=base_url,
-                        data_url=data_url
-                    )
-                    logger.info("Initialized Alpaca with data_url parameter")
-                except TypeError:
-                    # Méthode pour versions plus anciennes (sans data_url)
-                    self.alpaca_client = tradeapi.REST(
-                        key_id=self.alpaca_key,
-                        secret_key=self.alpaca_secret,
-                        base_url=base_url
-                    )
-                    logger.info("Initialized Alpaca without data_url parameter (older API version)")
-                    
-                    # Configuration manuelle de l'API data URL pour certaines versions
                     if hasattr(self.alpaca_client, 'data_url'):
                         self.alpaca_client.data_url = data_url
-                        logger.info(f"Set data_url attribute manually to {data_url}")
+                        logger.info(f"Set data_url attribute to {data_url}")
+                except Exception as e:
+                    logger.warning(f"Could not set data_url attribute: {e}")
                 logger.info("Legacy Alpaca client initialized successfully")
                 
                 # Register Alpaca as a provider option
@@ -358,6 +354,7 @@ class MarketDataService:
                             "APCA-API-SECRET-KEY": self.alpaca_secret
                         }
                         
+                        logger.info(f"Making API request to: {url} for {alpaca_symbol}")
                         response = requests.get(url, params=params, headers=headers)
                         if response.status_code == 200:
                             data = response.json()
