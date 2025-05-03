@@ -1,0 +1,57 @@
+2025-05-03 23:07:08,379 - alpaca_crypto_trader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-03 23:07:08,379 - alpaca_crypto_trader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-03 23:07:08,379 - alpaca_crypto_trader - INFO - AlpacaCryptoTrader initialisé
+2025-05-03 23:07:08,379 - alpaca_crypto_trader - INFO - Démarrage de la session de trading crypto à 2025-05-03 23:07:08.379683
+2025-05-03 23:07:08,379 - alpaca_crypto_trader - INFO - La session se terminera à 2025-05-04 08:07:08.379683
+2025-05-03 23:07:08,789 - alpaca_crypto_trader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-03 23:07:08,791 - alpaca_crypto_trader - INFO - Valeur initiale du portefeuille: $99576.29
+2025-05-03 23:07:08,791 - alpaca_crypto_trader - INFO - Mode trading: ACTIVE
+2025-05-03 23:07:08,911 - alpaca_crypto_trader - INFO - Trouvé 57 symboles crypto disponibles (USD seulement)
+2025-05-03 23:07:08,912 - alpaca_crypto_trader - INFO - Exemples: LTC/USDT, DOT/USDC, BAT/USD, MKR/USDC, MKR/USD
+2025-05-03 23:07:09,036 - alpaca_crypto_trader - INFO - Solde USD disponible: $99880.30
+2025-05-03 23:07:09,036 - alpaca_crypto_trader - INFO - Traitement de LTC/USDT
+2025-05-03 23:07:09,648 - alpaca_crypto_trader - INFO - LTC/USDT prix actuel (dernière barre): $87.8400
+2025-05-03 23:07:09,648 - alpaca_crypto_trader - INFO - Traitement de DOT/USDC
+2025-05-03 23:07:09,891 - alpaca_crypto_trader - INFO - DOT/USDC prix actuel (dernière barre): $4.1563
+2025-05-03 23:07:09,891 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-03 23:07:10,134 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1524
+2025-05-03 23:07:10,135 - alpaca_crypto_trader - INFO - Traitement de MKR/USDC
+2025-05-03 23:07:10,377 - alpaca_crypto_trader - INFO - MKR/USDC prix actuel (dernière barre): $1572.2850
+2025-05-03 23:07:10,377 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-03 23:07:10,618 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1572.6100
+2025-05-03 23:07:10,619 - alpaca_crypto_trader - INFO - Traitement de SHIB/USD
+2025-05-03 23:07:10,864 - alpaca_crypto_trader - INFO - SHIB/USD prix actuel (dernière barre): $0.0000
+2025-05-03 23:07:10,864 - alpaca_crypto_trader - INFO - Traitement de SHIB/USDC
+2025-05-03 23:07:11,110 - alpaca_crypto_trader - INFO - SHIB/USDC prix actuel (dernière barre): $0.0000
+2025-05-03 23:07:11,110 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-03 23:07:11,355 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.2088
+2025-05-03 23:07:11,356 - alpaca_crypto_trader - INFO - Traitement de SHIB/USDT
+2025-05-03 23:07:11,597 - alpaca_crypto_trader - INFO - SHIB/USDT prix actuel (dernière barre): $0.0000
+2025-05-03 23:07:11,597 - alpaca_crypto_trader - INFO - Traitement de SOL/USD
+2025-05-03 23:07:11,839 - alpaca_crypto_trader - INFO - SOL/USD prix actuel (dernière barre): $148.2460
+2025-05-03 23:07:11,955 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99576.29
+2025-05-03 23:07:12,069 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-03 23:07:12,070 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 539 minutes
+2025-05-03 23:08:12,080 - alpaca_crypto_trader - INFO - Traitement de LTC/USDT
+2025-05-03 23:08:12,346 - alpaca_crypto_trader - INFO - LTC/USDT prix actuel (dernière barre): $87.8400
+2025-05-03 23:08:12,347 - alpaca_crypto_trader - INFO - Traitement de DOT/USDC
+2025-05-03 23:08:12,590 - alpaca_crypto_trader - INFO - DOT/USDC prix actuel (dernière barre): $4.1563
+2025-05-03 23:08:12,590 - alpaca_crypto_trader - INFO - Traitement de BAT/USD
+2025-05-03 23:08:12,836 - alpaca_crypto_trader - INFO - BAT/USD prix actuel (dernière barre): $0.1524
+2025-05-03 23:08:12,837 - alpaca_crypto_trader - INFO - Traitement de MKR/USDC
+2025-05-03 23:08:13,084 - alpaca_crypto_trader - INFO - MKR/USDC prix actuel (dernière barre): $1572.2850
+2025-05-03 23:08:13,086 - alpaca_crypto_trader - INFO - Traitement de MKR/USD
+2025-05-03 23:08:13,324 - alpaca_crypto_trader - INFO - MKR/USD prix actuel (dernière barre): $1572.6100
+2025-05-03 23:08:13,325 - alpaca_crypto_trader - INFO - Traitement de SHIB/USD
+2025-05-03 23:08:13,564 - alpaca_crypto_trader - INFO - SHIB/USD prix actuel (dernière barre): $0.0000
+2025-05-03 23:08:13,564 - alpaca_crypto_trader - INFO - Traitement de SHIB/USDC
+2025-05-03 23:08:13,801 - alpaca_crypto_trader - INFO - SHIB/USDC prix actuel (dernière barre): $0.0000
+2025-05-03 23:08:13,802 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-03 23:08:14,044 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.2088
+2025-05-03 23:08:14,045 - alpaca_crypto_trader - INFO - Traitement de SHIB/USDT
+2025-05-03 23:08:14,284 - alpaca_crypto_trader - INFO - SHIB/USDT prix actuel (dernière barre): $0.0000
+2025-05-03 23:08:14,286 - alpaca_crypto_trader - INFO - Traitement de SOL/USD
+2025-05-03 23:08:14,522 - alpaca_crypto_trader - INFO - SOL/USD prix actuel (dernière barre): $148.2460
+2025-05-03 23:08:14,638 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99576.29
+2025-05-03 23:08:14,755 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-03 23:08:14,756 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 538 minutes

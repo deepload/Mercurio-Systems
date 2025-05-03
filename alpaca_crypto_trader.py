@@ -135,13 +135,23 @@ class AlpacaCryptoTrader:
                 
                 # Vérifier la disponibilité du trading crypto
                 assets = self.api.list_assets(asset_class='crypto')
-                self.symbols = [asset.symbol for asset in assets if asset.tradable]
+                # Filtrer pour ne garder que les paires USD (éviter USDT/USDC qui nécessitent des soldes spécifiques)
+                self.symbols = [asset.symbol for asset in assets if asset.tradable and '/USD' in asset.symbol]
                 
                 if self.symbols:
-                    logger.info(f"Trouvé {len(self.symbols)} symboles crypto disponibles")
+                    logger.info(f"Trouvé {len(self.symbols)} symboles crypto disponibles (USD seulement)")
                     logger.info(f"Exemples: {', '.join(self.symbols[:5])}")
                 else:
-                    logger.warning("Aucun symbole crypto disponible")
+                    logger.warning("Aucun symbole crypto disponible avec USD")
+                    
+                # Vérifier le solde disponible en USD
+                try:
+                    account = self.api.get_account()
+                    cash = float(account.cash)
+                    logger.info(f"Solde USD disponible: ${cash:.2f}")
+                except Exception as e:
+                    logger.warning(f"Impossible de récupérer le solde USD: {e}")
+                    pass
                 
                 return True
             else:
