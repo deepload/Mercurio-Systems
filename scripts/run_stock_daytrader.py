@@ -203,21 +203,23 @@ class StockDayTrader:
             # Get account information
             account_info = await self.trading_service.get_account_info()
             self.portfolio_value = account_info.get("portfolio_value", 0.0)
-            self.cash = account_info.get("cash", 0.0)
+            # Connect to Alpaca account
+            account = await self.trading_service.get_account_info()
+            if account:
+                self.portfolio_value = account.get("portfolio_value", 0.0)
+                self.peak_portfolio_value = self.portfolio_value
+                
+                logger.info(f"Connected to account: {account.get('id', 'unknown')}")
+                logger.info(f"Account status: {account.get('status', 'unknown')}")
+                logger.info(f"Portfolio value: ${self.portfolio_value:.2f}")
             
-            # Update risk manager with current capital
-            self.risk_manager.update_capital(self.portfolio_value)
-            
-            logger.info(f"Connected to account: {account_info.get('id', 'unknown')}")
-            logger.info(f"Account status: {account_info.get('status', 'unknown')}")
-            logger.info(f"Portfolio value: ${self.portfolio_value:.2f}")
-            
-            # Subscribe to events
+            # Subscribe to market data events
             try:
-                asyncio.create_task(self.event_bus.subscribe(
-                    EventType.MARKET_DATA_UPDATED,
-                    self._handle_market_data_update
-                ))
+                await self.event_bus.subscribe("market_data_update", self._handle_market_data_update)
+                await self.event_bus.subscribe("market_anomaly", self._handle_market_anomaly)
+                await self.event_bus.subscribe("excessive_loss", self._handle_excessive_loss)
+                await self.event_bus.subscribe("strategy_signal", self._handle_strategy_signal)
+                logger.info("Successfully subscribed to all event streams")
             except Exception as e:
                 logger.warning(f"Could not subscribe to market data events: {e}")
                 logger.warning("Continuing without event subscription - will use polling instead")
@@ -478,6 +480,8 @@ class StockDayTrader:
             
         except Exception as e:
             logger.error(f"Error checking market conditions: {e}")
+            # Use fallback normal market condition to avoid stopping trading completely
+            return MarketCondition.NORMAL
     
     def should_resume_trading(self) -> bool:
         """Determine if paused trading should be resumed"""
@@ -487,12 +491,144 @@ class StockDayTrader:
             
         # Resume after timeout period if not in dangerous conditions
         pause_duration = (datetime.now() - self.last_market_check).total_seconds()
-        max_pause_duration = self.config.get("max_pause_duration_seconds", 1800)  # 30 minutes default
+        max_pause_duration = self.config.get("stock", {}).get("max_pause_duration_seconds", 1800)  # 30 minutes default
         
         if pause_duration > max_pause_duration and self.market_condition != MarketCondition.DANGEROUS:
             return True
             
         return False
+        
+    async def _handle_market_data_update(self, data: Dict[str, Any]) -> None:
+        """Handle market data updates from event stream"""
+        try:
+            symbol = data.get("symbol")
+            price = data.get("price")
+            timestamp = data.get("timestamp")
+            
+            if not symbol or not price:
+                return
+                
+            logger.debug(f"Received market data update: {symbol} @ ${price} [{timestamp}]")
+            
+            # Update cached prices
+            self.latest_prices[symbol] = price
+            
+            # Check for active positions with this symbol and update unrealized P/L
+            if symbol in self.positions:
+                position = self.positions[symbol]
+                entry_price = position.get("avg_entry_price", 0)
+                quantity = position.get("quantity", 0)
+                
+                if entry_price > 0 and quantity != 0:
+                    pl = (price - entry_price) * quantity
+                    pl_pct = (price / entry_price - 1) * 100 * (1 if quantity > 0 else -1)
+                    
+                    # Update position data
+                    position["current_price"] = price
+                    position["unrealized_pl"] = pl
+                    position["unrealized_plpc"] = pl_pct / 100  # Store as decimal
+                    
+                    # Check for excessive losses
+                    stop_loss_pct = position.get("stop_loss_pct", 0.05) * 100
+                    
+                    if pl_pct < -stop_loss_pct:
+                        logger.warning(f"Position {symbol} reached stop loss threshold: {pl_pct:.2f}% loss")
+                        
+                        # Emit excessive loss event
+                        await self.event_bus.emit("excessive_loss", {
+                            "symbol": symbol,
+                            "loss_percentage": abs(pl_pct),
+                            "position": position
+                        })
+        except Exception as e:
+            logger.error(f"Error handling market data update: {e}")
+            
+    async def _handle_market_anomaly(self, data: Dict[str, Any]) -> None:
+        """Handle market anomaly events"""
+        try:
+            symbol = data.get("symbol", "unknown")
+            anomaly_type = data.get("type", "unknown")
+            severity = data.get("severity", 0)
+            
+            logger.warning(f"Market anomaly detected: {anomaly_type} for {symbol} (severity: {severity:.2f})")
+            
+            # Pause trading if severe anomaly detected
+            if severity > 0.7 and not self.trading_paused:
+                self.trading_paused = True
+                self.pause_reason = f"Severe market anomaly: {anomaly_type} for {symbol}"
+                logger.warning(f"Trading PAUSED: {self.pause_reason}")
+        except Exception as e:
+            logger.error(f"Error handling market anomaly: {e}")
+            
+    async def _handle_excessive_loss(self, data: Dict[str, Any]) -> None:
+        """Handle excessive loss events"""
+        try:
+            symbol = data.get("symbol", "unknown")
+            loss_pct = data.get("loss_percentage", 0)
+            
+            logger.warning(f"Excessive loss detected for {symbol}: {loss_pct:.2f}%")
+            
+            # Check against max loss threshold from config
+            max_loss_pct = self.config.get("stock", {}).get("max_daily_loss_percentage", 5.0)
+            
+            if loss_pct > max_loss_pct and not self.trading_paused:
+                self.trading_paused = True
+                self.pause_reason = f"Excessive loss for {symbol}: {loss_pct:.2f}% exceeded threshold of {max_loss_pct}%"
+                logger.warning(f"Trading PAUSED: {self.pause_reason}")
+        except Exception as e:
+            logger.error(f"Error handling excessive loss: {e}")
+            
+    async def _handle_strategy_signal(self, data: Dict[str, Any]) -> None:
+        """Handle strategy signals from event-based strategies"""
+        try:
+            symbol = data.get("symbol")
+            action = data.get("action")
+            strategy = data.get("strategy")
+            confidence = data.get("confidence", 0.5)
+            
+            if not symbol or not action or action == "hold":
+                return
+                
+            logger.info(f"Strategy signal received: {action} {symbol} from {strategy} (confidence: {confidence:.2f})")
+            
+            # Get latest price for the symbol
+            latest_price = self.latest_prices.get(symbol)
+            
+            if not latest_price:
+                latest_price = await self.market_data.get_latest_price(symbol)
+                if not latest_price:
+                    logger.warning(f"Cannot execute signal: no price available for {symbol}")
+                    return
+                    
+            # Get position information
+            position = await self.trading_service.get_position(symbol)
+            
+            # Calculate risk parameters
+            stop_loss = data.get("stop_loss", latest_price * 0.95)  # Default 5% stop loss
+            take_profit = data.get("take_profit", latest_price * 1.15)  # Default 15% take profit
+            
+            risk_params = self.risk_manager.calculate_position_size(
+                symbol, 
+                latest_price, 
+                stop_loss
+            )
+            
+            # Build complete signal
+            complete_signal = {
+                "symbol": symbol,
+                "action": action,
+                "strategy": strategy,
+                "confidence": confidence,
+                "price": latest_price,
+                "stop_loss": stop_loss,
+                "take_profit": take_profit,
+                **risk_params
+            }
+            
+            # Execute the signal
+            await self.execute_signal(symbol, complete_signal, latest_price, position)
+        except Exception as e:
+            logger.error(f"Error handling strategy signal: {e}")
         
     async def process_symbol(self, symbol: str) -> None:
         """Process a single trading symbol"""
@@ -503,13 +639,33 @@ class StockDayTrader:
                 logger.warning(f"Unable to get latest price for {symbol}")
                 return
                 
-            # Get historical data for analysis
+            # Get historical data for analysis with retry logic
             end_date = datetime.now()
             start_date = end_date - timedelta(days=30)  # 30 days of data
             
-            data = await self.market_data.get_historical_data(
-                symbol, start_date, end_date, timeframe="1Day"
-            )
+            # Implement retry with backoff for data fetching
+            max_retries = 3
+            retry_count = 0
+            backoff_factor = 2
+            data = None
+            
+            while retry_count < max_retries and data is None:
+                try:
+                    data = await self.market_data.get_historical_data(
+                        symbol, start_date, end_date, timeframe="1Day"
+                    )
+                    
+                    if data is None or len(data) == 0:
+                        retry_count += 1
+                        wait_time = backoff_factor ** retry_count
+                        logger.warning(f"No data received for {symbol}, retry {retry_count}/{max_retries} after {wait_time}s")
+                        await asyncio.sleep(wait_time)
+                    
+                except Exception as e:
+                    retry_count += 1
+                    wait_time = backoff_factor ** retry_count
+                    logger.warning(f"Error fetching data for {symbol}: {e}, retry {retry_count}/{max_retries} after {wait_time}s")
+                    await asyncio.sleep(wait_time)
             
             if data is None or len(data) == 0:
                 logger.warning(f"No historical data available for {symbol}")
@@ -546,6 +702,9 @@ class StockDayTrader:
                 
         except Exception as e:
             logger.error(f"Error processing symbol {symbol}: {e}")
+            # Log backtrace for easier debugging
+            import traceback
+            logger.debug(f"Symbol processing error details: {traceback.format_exc()}")
             
     async def execute_signal(self, symbol: str, signal: Dict[str, Any], current_price: float, position: Optional[Dict[str, Any]]) -> None:
         """Execute a trading signal for a symbol"""
@@ -645,7 +804,7 @@ class StockDayTrader:
                             logger.warning(f"Trading PAUSED: {self.pause_reason}")
                 
                 # Update positions
-                self.positions = await self.trading_service.get_all_positions()
+                self.positions = await self.trading_service.get_positions()
                 
                 # Check max drawdown
                 if self.portfolio_value > self.peak_portfolio_value:
