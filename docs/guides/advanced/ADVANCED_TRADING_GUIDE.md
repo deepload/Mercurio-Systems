@@ -29,14 +29,26 @@ Paper trading allows you to test your strategies with real-time market data with
 
 ### Setup for Paper Trading
 
-1. **Configure Alpaca Paper API Keys**:
+1. **Configure Alpaca API Keys**:
    
-   In your `.env` file, ensure you have the following settings:
+   In your `.env` file, configure both paper and live trading credentials:
 
    ```
-   ALPACA_KEY=your_alpaca_key_here
-   ALPACA_SECRET=your_alpaca_secret_here
-   ALPACA_BASE_URL=https://paper-api.alpaca.markets
+   # Paper trading configuration
+   ALPACA_PAPER_KEY=your_paper_key_here
+   ALPACA_PAPER_SECRET=your_paper_secret_here
+   ALPACA_PAPER_URL=https://paper-api.alpaca.markets
+   
+   # Live trading configuration
+   ALPACA_LIVE_KEY=your_live_key_here
+   ALPACA_LIVE_SECRET=your_live_secret_here
+   ALPACA_LIVE_URL=https://api.alpaca.markets
+   
+   # Data API URL for both modes
+   ALPACA_DATA_URL=https://data.alpaca.markets
+   
+   # Set the active trading mode (paper or live)
+   ALPACA_MODE=paper
    ```
 
    You can obtain paper trading keys by signing up at [Alpaca](https://app.alpaca.markets/signup).
@@ -49,11 +61,12 @@ Paper trading allows you to test your strategies with real-time market data with
    # Create a copy of run_live_trading.py named run_paper_trading.py
    # Then modify the TradingService initialization to use paper trading:
    
-   # Original line in run_live_trading.py:
-   self.trading_service = TradingService(is_paper=False)
-   
-   # Modified line for run_paper_trading.py:
-   self.trading_service = TradingService(is_paper=True)
+   # The trading service now automatically detects the mode from ALPACA_MODE in .env
+   # So both scripts use the same initialization:
+   self.trading_service = TradingService()
+
+   # To check the current mode:
+   print(f"Current trading mode: {self.trading_service.get_trading_mode()}")
    
    # Also modify the confirmation prompt:
    confirmation = input("Type 'CONFIRM' to start paper trading or anything else to abort: ")

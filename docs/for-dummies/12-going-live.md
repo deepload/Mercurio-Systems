@@ -29,13 +29,20 @@ Mercurio AI can connect to various brokers through their APIs:
 from app.services.trading import TradingService
 
 # Initialize live trading with a broker
+# Mercurio will use the configured API keys from .env based on ALPACA_MODE
 trading_service = TradingService(
-    mode="live",
-    broker="alpaca",  # Replace with your broker
-    api_key="YOUR_API_KEY",
-    api_secret="YOUR_API_SECRET",
-    base_url="https://api.alpaca.markets"  # URL depends on broker
+    mode="live",    # Using live mode
+    broker="alpaca"  # No need to specify keys directly, they're loaded from .env
 )
+
+# For reference, .env should be configured with both paper and live credentials:
+# ALPACA_MODE=live             # 'paper' or 'live' to switch modes
+# ALPACA_PAPER_KEY=your_key    # Paper trading key
+# ALPACA_PAPER_SECRET=your_secret
+# ALPACA_PAPER_URL=https://paper-api.alpaca.markets
+# ALPACA_LIVE_KEY=your_key     # Live trading key
+# ALPACA_LIVE_SECRET=your_secret
+# ALPACA_LIVE_URL=https://api.alpaca.markets
 
 # Verify connection
 account_info = await trading_service.get_account_info()
@@ -48,7 +55,7 @@ print(f"Buying Power: ${account_info['buying_power']}")
 
 Mercurio AI supports several brokers:
 
-- **Alpaca**: US stocks and ETFs
+- **Alpaca**: US stocks and cryptocurrencies (e.g., BTC-USD, ETH-USD)
 - **Interactive Brokers**: Global markets
 - **Binance**: Cryptocurrencies
 - **Others**: Via custom adapters
@@ -83,11 +90,11 @@ async def run_live_trading():
     market_data = MarketDataService()
     
     # IMPORTANT: In live mode, real trades will be placed
+    # Credentials are loaded from .env file based on ALPACA_MODE
     trading = TradingService(
         mode="live",
-        broker="alpaca",
-        api_key="YOUR_API_KEY",
-        api_secret="YOUR_API_SECRET"
+        broker="alpaca"
+        # API keys are automatically loaded from .env based on ALPACA_MODE=live
     )
     
     # Create strategy

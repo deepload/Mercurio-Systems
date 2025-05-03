@@ -22,7 +22,7 @@ Mercurio is a comprehensive algorithmic trading platform built with reliability 
 - **Paper Trading Mode**: Practice risk-free with simulated trading
 - **Comprehensive Backtesting**: Evaluate strategies against historical data
 - **Interactive Dashboards**: Monitor performance with Streamlit-powered visualizations
-- **Asset Diversity**: Trade stocks and cryptocurrencies across multiple timeframes
+- **Asset Diversity**: Trade stocks and cryptocurrencies (BTC-USD, ETH-USD, etc.) across multiple timeframes
 - **Resilient Architecture**: Ensures continuous operation even during outages
 
 ## 📂 Project Structure
@@ -101,7 +101,8 @@ Mercurio/
     <td>
       • Docker and Docker Compose (for containerized deployment)<br>
       • Polygon.io API key (for production-quality market data)<br>
-      • Alpaca API key and secret (for live trading)<br>
+      • Alpaca Paper Trading API keys (for risk-free paper trading)<br>
+      • Alpaca Live Trading API keys (for real money trading)<br>
     </td>
   </tr>
   <tr>
@@ -131,6 +132,7 @@ pip install -r requirements.txt
 # Set up environment variables (optional for testing)
 copy .env.example .env
 # Edit .env with your API keys if available
+# For Alpaca, configure both paper and live trading modes:
 ```
 </details>
 

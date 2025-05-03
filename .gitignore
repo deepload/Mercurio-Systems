@@ -10,3 +10,4 @@ models/model.gguf
 results/*.json
 paper_trading_test.log
 ./*.log
+./results/*

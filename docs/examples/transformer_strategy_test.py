@@ -20,8 +20,8 @@ def parse_arguments():
     
     parser.add_argument('--duration', type=int, default=24,
                         help='Test duration in hours')
-    parser.add_argument('--symbols', type=str, default='BTC/USDT',
-                        help='Comma-separated list of symbols to trade')
+    parser.add_argument('--symbols', type=str, default='BTC-USD',
+                        help='Comma-separated list of symbols to trade (format: BTC-USD,ETH-USD)')
     parser.add_argument('--sequence_length', type=int, default=30,
                         help='Sequence length for transformer model')
     parser.add_argument('--d_model', type=int, default=64,

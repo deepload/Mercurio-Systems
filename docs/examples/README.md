@@ -33,7 +33,7 @@ python basic_ma_strategy.py
 python paper_trading_customized.py --strategy MovingAverageStrategy --symbols AAPL,MSFT --risk_limit 0.02
 
 # Test LLM-based strategies
-python llm_strategy_test.py --symbols BTC/USDT --duration 24
+python llm_strategy_test.py --symbols BTC-USD --duration 24
 ```
 
 Each script includes help documentation accessible with the `--help` flag.
