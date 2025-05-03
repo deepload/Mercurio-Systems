@@ -97,6 +97,8 @@ class AlpacaCryptoTrader:
         
         # Paramètres de trading
         self.symbols = []  # Sera rempli avec les symboles crypto disponibles
+        self.custom_symbols = []  # Liste personnalisée de symboles à utiliser
+        self.use_custom_symbols = False  # Si True, utilise custom_symbols au lieu de la liste filtrée
         self.fast_ma_period = 5   # 5 minutes pour la moyenne mobile rapide
         self.slow_ma_period = 15  # 15 minutes pour la moyenne mobile lente
         self.position_size_pct = 0.02  # 2% du portefeuille par position
@@ -135,14 +137,28 @@ class AlpacaCryptoTrader:
                 
                 # Vérifier la disponibilité du trading crypto
                 assets = self.api.list_assets(asset_class='crypto')
-                # Filtrer pour ne garder que les paires USD (éviter USDT/USDC qui nécessitent des soldes spécifiques)
-                self.symbols = [asset.symbol for asset in assets if asset.tradable and '/USD' in asset.symbol]
                 
-                if self.symbols:
-                    logger.info(f"Trouvé {len(self.symbols)} symboles crypto disponibles (USD seulement)")
-                    logger.info(f"Exemples: {', '.join(self.symbols[:5])}")
+                if not self.use_custom_symbols:
+                    # Filtrer pour ne garder que les paires USD pures (exclure explicitement USDT/USDC)
+                    self.symbols = [asset.symbol for asset in assets if asset.tradable 
+                                  and '/USD' in asset.symbol 
+                                  and not '/USDT' in asset.symbol 
+                                  and not '/USDC' in asset.symbol]
+                    
+                    if self.symbols:
+                        logger.info(f"Trouvé {len(self.symbols)} symboles crypto disponibles (USD seulement)")
+                        logger.info(f"Exemples: {', '.join(self.symbols[:5])}")
+                    else:
+                        logger.warning("Aucun symbole crypto disponible avec USD")
                 else:
-                    logger.warning("Aucun symbole crypto disponible avec USD")
+                    # Utiliser la liste personnalisée et vérifier que les symboles sont tradables
+                    tradable_assets = [asset.symbol for asset in assets if asset.tradable]
+                    self.symbols = [symbol for symbol in self.custom_symbols if symbol in tradable_assets]
+                    logger.info(f"Utilisation d'une liste personnalisée de {len(self.symbols)} symboles crypto")
+                    if self.symbols:
+                        logger.info(f"Exemples: {', '.join(self.symbols[:5])}")
+                    else:
+                        logger.warning("Aucun symbole personnalisé n'est tradable")
                     
                 # Vérifier le solde disponible en USD
                 try:
@@ -193,8 +209,9 @@ class AlpacaCryptoTrader:
         
         try:
             while running and datetime.now() < self.session_end_time:
-                # Limiter aux 10 premières cryptos pour éviter les limites de taux
-                trading_symbols = self.symbols[:10] if len(self.symbols) > 10 else self.symbols
+                # Déterminer les symboles à trader pour cette itération
+                # Limiter aux 10 premières cryptos pour éviter les limites de taux si pas de liste personnalisée
+                trading_symbols = self.symbols[:10] if (len(self.symbols) > 10 and not self.use_custom_symbols) else self.symbols
                 
                 # Traiter chaque symbole
                 for symbol in trading_symbols:

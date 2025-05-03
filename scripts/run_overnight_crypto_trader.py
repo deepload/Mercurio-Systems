@@ -18,6 +18,44 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Importer le trader de crypto
 from alpaca_crypto_trader import AlpacaCryptoTrader, SessionDuration
 
+# Liste personnalisée de cryptos à trader
+PERSONALIZED_CRYPTO_LIST = [
+    "AAVE/USD",
+    "AAVE/USDT",
+    "AVAX/USD",
+    "BAT/USD",
+    "BCH/USD",
+    "BCH/USDT",
+    "BTC/USD",
+    "BTC/USDT",
+    "CRV/USD",
+    "DOGE/USD",
+    "DOGE/USDT",
+    "DOT/USD",
+    "ETH/USD",
+    "ETH/USDT",
+    "GRT/USD",
+    "LINK/USD",
+    "LINK/USDT",
+    "LTC/USD",
+    "LTC/USDT",
+    "MKR/USD",
+    "PEPE/USD",
+    "SHIB/USD",
+    "SOL/USD",
+    "SUSHI/USD",
+    "SUSHI/USDT",
+    "TRUMP/USD",
+    "UNI/USD",
+    "UNI/USDT",
+    "USDC/USD",
+    "USDT/USD",
+    "XRP/USD",
+    "XTZ/USD",
+    "YFI/USD",
+    "YFI/USDT"
+]
+
 def main():
     """Point d'entrée principal"""
     parser = argparse.ArgumentParser(description="Lancer le trader crypto pour la nuit")
@@ -31,6 +69,8 @@ def main():
                         help="Période de la moyenne mobile rapide en minutes (default: 5)")
     parser.add_argument("--slow-ma", type=int, default=15,
                         help="Période de la moyenne mobile lente en minutes (default: 15)")
+    parser.add_argument("--use-custom-symbols", action="store_true", 
+                        help="Utiliser la liste personnalisée de symboles au lieu du filtre automatique")
                         
     args = parser.parse_args()
     
@@ -54,6 +94,11 @@ def main():
     trader.take_profit_pct = args.take_profit
     trader.fast_ma_period = args.fast_ma
     trader.slow_ma_period = args.slow_ma
+    
+    # Utiliser la liste personnalisée de symboles
+    # Cette liste sera utilisée après l'initialisation
+    trader.custom_symbols = PERSONALIZED_CRYPTO_LIST
+    trader.use_custom_symbols = args.use_custom_symbols
     
     # Démarrer le trader
     trader.start()
