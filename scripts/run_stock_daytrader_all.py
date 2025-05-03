@@ -28,7 +28,7 @@ import threading
 import concurrent.futures
 from enum import Enum
 from typing import Dict, List, Any, Optional, Tuple
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 import pandas as pd
 import numpy as np
 
@@ -200,15 +200,17 @@ class StockDayTrader:
     - Génère des rapports de performance détaillés
     """
     
-    def __init__(self, session_duration: SessionDuration = SessionDuration.MARKET_HOURS,
-                 strategy_type: TradingStrategy = TradingStrategy.ALL,
+    def __init__(self, 
+                 strategy_type: TradingStrategy = TradingStrategy.MOVING_AVERAGE,
                  stock_filter: StockFilter = StockFilter.ACTIVE_ASSETS,
-                 max_symbols: int = 30,
+                 max_symbols: int = 20,
                  position_size_pct: float = 0.02,
-                 stop_loss_pct: float = 0.02,
-                 take_profit_pct: float = 0.04,
-                 use_threads: bool = True,
-                 use_custom_symbols: bool = False):
+                 session_duration: SessionDuration = SessionDuration.MARKET_HOURS,
+                 use_threads: bool = False,
+                 use_custom_symbols: bool = False,
+                 auto_retrain: bool = False,
+                 retrain_interval: int = 6,
+                 retrain_symbols: int = 10):
         """
         Initialiser le système de daytrading
         
@@ -275,6 +277,13 @@ class StockDayTrader:
         self.session_start_time = None
         self.session_end_time = None
         self.strategy_performance = {}
+        
+        # Paramètres de réentraînement des modèles
+        self.auto_retrain = auto_retrain
+        self.retrain_interval = retrain_interval
+        self.retrain_symbols = retrain_symbols
+        self.last_retrain_time = datetime.now() - timedelta(hours=retrain_interval)
+        self.is_retraining = False
         
         logger.info("StockDayTrader initialisé")
         
@@ -651,6 +660,16 @@ class StockDayTrader:
                     if not clock.is_open and self.session_duration in [SessionDuration.MARKET_HOURS, SessionDuration.EXTENDED_HOURS, SessionDuration.CONTINUOUS]:
                         next_open = clock.next_open.strftime('%Y-%m-%d %H:%M:%S')
                         logger.info(f"Le marché est fermé. Prochaine ouverture à {next_open}")
+                        
+                        # Réentraîner les modèles pendant la période d'inactivité si l'option est activée
+                        if self.auto_retrain:
+                            # Calculer le temps restant avant la prochaine ouverture du marché
+                            time_to_next_open = (clock.next_open - datetime.now(timezone.utc)).total_seconds()
+                            
+                            # Si nous avons au moins 15 minutes avant l'ouverture du marché, réentraîner les modèles
+                            if time_to_next_open > 900:  # 15 minutes en secondes
+                                self.retrain_models()
+                        
                         logger.info(f"Attente de {MARKET_CHECK_INTERVAL//60} minutes avant la prochaine vérification")
                         time.sleep(MARKET_CHECK_INTERVAL)  # 30 minutes par défaut
                         continue
@@ -684,6 +703,97 @@ class StockDayTrader:
             logger.error(f"Erreur dans la boucle de trading: {e}")
         finally:
             logger.info("Boucle de trading terminée")
+    
+    def retrain_models(self) -> bool:
+        """
+        Réentraîne les modèles ML pendant les périodes d'inactivité
+        
+        Returns:
+            bool: True si le réentraînement a été effectué avec succès, False sinon
+        """
+        # Vérifier si le réentraînement est autorisé
+        if not self.auto_retrain or getattr(self, 'is_retraining', False):
+            return False
+            
+        # Vérifier l'intervalle de réentraînement
+        current_time = datetime.now()
+        last_retrain_time = getattr(self, 'last_retrain_time', current_time - timedelta(hours=self.retrain_interval))
+        time_since_last_retrain = (current_time - last_retrain_time).total_seconds() / 3600
+        
+        if time_since_last_retrain < self.retrain_interval:
+            logger.debug(f"Pas assez de temps écoulé depuis le dernier réentraînement ({time_since_last_retrain:.1f}h/{self.retrain_interval}h)")
+            return False
+        
+        setattr(self, 'is_retraining', True)
+        try:
+            logger.info("=" * 60)
+            logger.info(f"Début du réentraînement des modèles ML - {current_time}")
+            
+            # Récupérer les stratégies ML
+            ml_strategies = []
+            for strategy_name, strategy in self.strategies.items():
+                # Vérifier si la stratégie a une méthode train
+                if hasattr(strategy, 'train') and callable(getattr(strategy, 'train')):
+                    ml_strategies.append((strategy_name, strategy))
+            
+            if not ml_strategies:
+                logger.info("Aucune stratégie ML trouvée pour le réentraînement")
+                return False
+                
+            logger.info(f"Réentraînement de {len(ml_strategies)} stratégies ML: {', '.join([name for name, _ in ml_strategies])}")
+            
+            # Sélectionner des symboles pour l'entraînement (sous-ensemble des symboles de trading)
+            training_symbols = self.symbols[:min(len(self.symbols), self.retrain_symbols)]
+            if not training_symbols:
+                # Utiliser des symboles par défaut si aucun n'est disponible
+                default_symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "META", "TSLA", "NVDA", "JPM", "BAC", "WMT"]
+                training_symbols = default_symbols[:self.retrain_symbols]
+                
+            logger.info(f"Symboles utilisés pour l'entraînement: {', '.join(training_symbols)}")
+            
+            # Récupérer l'historique de données pour l'entraînement
+            for symbol in training_symbols:
+                try:
+                    # Récupérer 6 mois de données historiques
+                    end = datetime.now()
+                    start = end - timedelta(days=180)
+                    logger.info(f"Récupération des données historiques pour {symbol}")
+                    
+                    bars = self.api.get_bars(
+                        symbol, 
+                        '1D',
+                        start.strftime('%Y-%m-%d'),
+                        end.strftime('%Y-%m-%d')
+                    ).df
+                    
+                    if bars.empty or len(bars) < 30:
+                        logger.warning(f"Données insuffisantes pour {symbol} - ignorant ce symbole")
+                        continue
+                        
+                    logger.info(f"Données récupérées pour {symbol}: {len(bars)} jours")
+                    
+                    # Entraîner chaque stratégie avec ces données
+                    for strategy_name, strategy in ml_strategies:
+                        try:
+                            logger.info(f"Entraînement de {strategy_name} sur {symbol}...")
+                            strategy.train(bars, symbol=symbol)
+                            logger.info(f"Entraînement de {strategy_name} sur {symbol} terminé")
+                        except Exception as e:
+                            logger.error(f"Erreur lors de l'entraînement de {strategy_name} sur {symbol}: {e}")
+                except Exception as e:
+                    logger.error(f"Erreur lors de la récupération des données pour {symbol}: {e}")
+            
+            # Mettre à jour l'horodatage du dernier réentraînement
+            setattr(self, 'last_retrain_time', current_time)
+            logger.info(f"Réentraînement des modèles ML terminé - {datetime.now()}")
+            logger.info("=" * 60)
+            return True
+            
+        except Exception as e:
+            logger.error(f"Erreur lors du réentraînement des modèles ML: {e}")
+            return False
+        finally:
+            setattr(self, 'is_retraining', False)
     
     def calculate_wait_time(self, cycle_duration: float) -> int:
         """Calculer le temps d'attente entre les cycles"""
@@ -1196,6 +1306,12 @@ def main():
                         help='Utiliser une liste personnalisée de symboles ou les symboles du fichier CSV')
     parser.add_argument('--refresh-symbols', action='store_true',
                         help='Exécuter get_all_symbols.py pour rafraîchir la liste des symboles avant de démarrer')
+    parser.add_argument('--auto-retrain', action='store_true',
+                        help='Réentraîner automatiquement les modèles ML pendant les périodes d\'inactivité')
+    parser.add_argument('--retrain-interval', type=int, default=6,
+                        help='Intervalle minimal en heures entre les réentraînements de modèles (default: 6)')
+    parser.add_argument('--retrain-symbols', type=int, default=10,
+                        help='Nombre de symboles à utiliser pour le réentraînement des modèles (default: 10)')
     
     args = parser.parse_args()
     
