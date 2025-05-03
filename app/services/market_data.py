@@ -185,8 +185,14 @@ class MarketDataService:
                     # Use RFC3339 for intraday bars
                     start_str = start_date.isoformat() + "Z"
                     end_str = end_date.isoformat() + "Z"
+                # Convertir le format du symbole pour les cryptos si nécessaire
+                alpaca_symbol = symbol
+                if "-USD" in symbol:
+                    alpaca_symbol = symbol.replace("-USD", "USD")
+                    logging.info(f"Converting crypto symbol for Alpaca: {symbol} -> {alpaca_symbol}")
+                
                 data = self.alpaca_client.get_bars(
-                    symbol, 
+                    alpaca_symbol, 
                     alpaca_timeframe,
                     start=start_str,
                     end=end_str
@@ -240,8 +246,14 @@ class MarketDataService:
         # Legacy fallback for backward compatibility
         if self.alpaca_client:
             try:
+                # Convertir le format du symbole pour les cryptos si nécessaire
+                alpaca_symbol = symbol
+                if "-USD" in symbol:
+                    alpaca_symbol = symbol.replace("-USD", "USD")
+                    logger.info(f"Converting crypto symbol for Alpaca: {symbol} -> {alpaca_symbol}")
+                
                 logger.info(f"Falling back to legacy Alpaca client for {symbol} price")
-                last_trade = self.alpaca_client.get_latest_trade(symbol)
+                last_trade = self.alpaca_client.get_latest_trade(alpaca_symbol)
                 if last_trade:
                     return last_trade.price
             except Exception as e:
