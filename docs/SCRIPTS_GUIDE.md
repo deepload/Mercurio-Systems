@@ -140,8 +140,11 @@ python scripts/run_strategy_crypto_trader.py --fast-ma 10 --slow-ma 30
 # Trading avec la stratégie Transformer pendant 8 heures
 python scripts/run_strategy_crypto_trader.py --strategy transformer --duration 8h --use-custom-symbols
 
-# Trading avec Transformer personnalisé pour les cryptomonnaies à forte volatilité
+# Trading avec Transformer personnalisé pour les cryptomonnaies à forte volatilité (risque modéré)
 python scripts/run_strategy_crypto_trader.py --strategy transformer --sequence-length 120 --d-model 128 --nhead 8 --position-size 0.01 --stop-loss 0.02 --take-profit 0.05 --use-gpu
+
+# Trading avec Transformer personnalisé pour marchés volatils (risque accru)
+python scripts/run_strategy_crypto_trader.py --strategy transformer --duration night --sequence-length 120 --d-model 128 --nhead 8 --num-layers 3 --signal-threshold 0.6 --position-size 0.015 --stop-loss 0.02 --take-profit 0.05 --use-gpu
 ```
 
 **Description** : Ce script permet de lancer un trader de cryptomonnaies avec différentes stratégies de trading (moving average, momentum, mean reversion, breakout, statistical arbitrage). Il offre des options détaillées pour configurer chaque stratégie ainsi que les durées de session. Le script prend en charge le paper trading via Alpaca et peut utiliser une liste personnalisée de paires de cryptomonnaies.
