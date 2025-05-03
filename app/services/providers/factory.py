@@ -39,6 +39,14 @@ class MarketDataProviderFactory:
     
     def _register_available_providers(self):
         """Register all available providers dynamically."""
+        # Try to register Alpaca provider (highest priority for premium subscription)
+        try:
+            from app.services.providers.alpaca import AlpacaProvider
+            self.register_provider("alpaca", AlpacaProvider, priority=5)
+            logger.info("Alpaca provider registered with highest priority")
+        except ImportError:
+            logger.info("Alpaca provider not available (missing dependencies)")
+            
         # Try to register Polygon provider
         try:
             from app.services.providers.polygon import PolygonProvider
