@@ -11,3 +11,4 @@ results/*.json
 paper_trading_test.log
 ./*.log
 ./results/*
+./models/*
