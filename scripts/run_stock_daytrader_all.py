@@ -41,16 +41,16 @@ from dotenv import load_dotenv
 
 # Importer les services et stratégies de Mercurio AI
 try:
-    from mercurio.services.market_data_service import MarketDataService
-    from mercurio.services.trading_service import TradingService
-    from mercurio.services.backtesting_service import BacktestingService
-    from mercurio.strategies.strategy_manager import StrategyManager
-    from mercurio.strategies.moving_average_strategy import MovingAverageStrategy
-    from mercurio.strategies.moving_average_ml_strategy import MovingAverageMLStrategy
-    from mercurio.strategies.lstm_predictor_strategy import LSTMPredictorStrategy
-    from mercurio.strategies.transformer_strategy import TransformerStrategy
-    from mercurio.strategies.msi_strategy import MSIStrategy
-    from mercurio.utils.logger import setup_logging
+    from app.services.market_data_service import MarketDataService
+    from app.services.trading_service import TradingService
+    from app.services.backtesting_service import BacktestingService
+    from app.strategies.strategy_manager import StrategyManager
+    from app.strategies.moving_average_strategy import MovingAverageStrategy
+    from app.strategies.moving_average_ml_strategy import MovingAverageMLStrategy
+    from app.strategies.lstm_predictor_strategy import LSTMPredictorStrategy
+    from app.strategies.transformer_strategy import TransformerStrategy
+    from app.strategies.msi_strategy import MSIStrategy
+    from app.utils.logger import setup_logging
 except ImportError as e:
     print(f"Erreur d'importation des modules Mercurio: {e}")
     print("Utilisation des services de base uniquement")
@@ -505,24 +505,48 @@ class StockDayTrader:
                     long_window=20,
                     use_ml=True
                 )
-                
-                self.strategies[TradingStrategy.LSTM_PREDICTOR] = LSTMPredictorStrategy(
-                    market_data_service=self.market_data_service,
-                    trading_service=self.trading_service
-                )
-                
-                self.strategies[TradingStrategy.TRANSFORMER] = TransformerStrategy(
-                    market_data_service=self.market_data_service,
-                    trading_service=self.trading_service
-                )
-                
-                self.strategies[TradingStrategy.MSI] = MSIStrategy(
-                    market_data_service=self.market_data_service,
-                    trading_service=self.trading_service
-                )
-                
-                logger.info(f"Toutes les stratégies ({len(self.strategies)}) ont été initialisées")
-                
+            elif self.strategy_type == TradingStrategy.LSTM_PREDICTOR:
+                # Vérifier si nous pouvons importer LSTMPredictorStrategy
+                try:
+                    from app.strategies.lstm_predictor_strategy import LSTMPredictorStrategy
+                    self.strategies[self.strategy_type] = LSTMPredictorStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+                except ImportError:
+                    # Utiliser la classe de repli si le module n'est pas disponible
+                    self.strategies[self.strategy_type] = FallbackLSTMPredictorStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+            elif self.strategy_type == TradingStrategy.TRANSFORMER:
+                # Vérifier si nous pouvons importer TransformerStrategy
+                try:
+                    from app.strategies.transformer_strategy import TransformerStrategy
+                    self.strategies[self.strategy_type] = TransformerStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+                except ImportError:
+                    # Utiliser la classe de repli si le module n'est pas disponible
+                    self.strategies[self.strategy_type] = FallbackTransformerStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+            elif self.strategy_type == TradingStrategy.MSI:
+                # Vérifier si nous pouvons importer MSIStrategy
+                try:
+                    from app.strategies.msi_strategy import MSIStrategy
+                    self.strategies[self.strategy_type] = MSIStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+                except ImportError:
+                    # Utiliser la classe de repli si le module n'est pas disponible
+                    self.strategies[self.strategy_type] = FallbackMSIStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
             else:
                 # Créer uniquement la stratégie spécifiée
                 if self.strategy_type == TradingStrategy.MOVING_AVERAGE:
