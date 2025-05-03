@@ -1,5 +1,12 @@
 # Guide d'Entraînement des Modèles MercurioAI
 
+> [!NOTE]
+> **Navigation Rapide:**
+> - [🔍 Index de tous les guides](./GUIDES_INDEX.md)
+> - [📈 Guide de Day Trading](./day_trading_guide.md)
+> - [📊 Guide des Options](./options_trading.md)
+> - [📔 Documentation Principale](./README.md)
+
 Ce guide explique en détail comment entraîner, optimiser et dépanner les modèles d'intelligence artificielle intégrés dans MercurioAI.
 
 ## Table des matières

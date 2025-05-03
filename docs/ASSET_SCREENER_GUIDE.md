@@ -1,5 +1,13 @@
 # Guide du Screener d'Actifs MercurioAI
 
+> [!NOTE]
+> **Navigation Rapide:**
+> - [🔍 Index de tous les guides](./GUIDES_INDEX.md)
+> - [📈 Guide de Day Trading](./day_trading_guide.md)
+> - [📊 Guide des Options](./options_trading.md)
+> - [🧠 Guide d'Entraînement des Modèles](./MODEL_TRAINING_GUIDE.md)
+> - [📔 Documentation Principale](./README.md)
+
 Ce guide explique comment utiliser le système de screening d'actifs de MercurioAI pour identifier les meilleures opportunités d'investissement parmi les actions et les cryptomonnaies.
 
 ## Table des matières

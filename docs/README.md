@@ -42,12 +42,20 @@ Entraînez facilement vos propres modèles d'intelligence artificielle pour la p
 
 Cette documentation est organisée en plusieurs sections pour vous aider à naviguer facilement :
 
-- [Guide des scripts](./SCRIPTS_GUIDE.md) : Documentation détaillée des scripts disponibles
-- [Guide du Screener d'Actifs](./ASSET_SCREENER_GUIDE.md) : Guide complet du screener d'actifs intelligent
-- [Pour les débutants](./for-dummies/) : Guides simples pour commencer
-- [Guides avancés](./guides/) : Tutoriels détaillés pour les utilisateurs expérimentés
-- [Référence technique](./reference/) : Documentation technique complète de l'API
-- [Exemples](./examples/) : Exemples de code et de configurations
+### Guides Spécialisés
+
+- [📈 Guide de Day Trading](./day_trading_guide.md) : Comment utiliser le système de day trading automatisé
+- [📊 Guide des Options](./options_trading.md) : Trading d'options avec Mercurio AI
+- [🧠 Guide d'Entraînement des Modèles](./model_training_guide.md) : Créer et entraîner vos propres modèles d'IA
+- [🔍 Guide du Screener d'Actifs](./ASSET_SCREENER_GUIDE.md) : Identifier les meilleures opportunités d'investissement
+
+### Documentation Générale
+
+- [📜 Guide des Scripts](./SCRIPTS_GUIDE.md) : Documentation détaillée des scripts disponibles
+- [📖 Pour les Débutants](./for-dummies/) : Guides simples pour commencer
+- [📚 Guides Avancés](./guides/) : Tutoriels détaillés pour les utilisateurs expérimentés
+- [📝 Référence Technique](./reference/) : Documentation technique complète de l'API
+- [💻 Exemples](./examples/) : Exemples de code et de configurations
 
 ## Flux de travail recommandé
 
