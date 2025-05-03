@@ -15,10 +15,19 @@ async def main():
     # Load environment variables
     load_dotenv()
     
-    # Get Alpaca credentials
-    alpaca_key = os.getenv("ALPACA_KEY")
-    alpaca_secret = os.getenv("ALPACA_SECRET")
-    alpaca_url = os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
+    # Get Alpaca credentials based on ALPACA_MODE
+    alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+    
+    if alpaca_mode == "paper":
+        alpaca_key = os.getenv("ALPACA_PAPER_KEY")
+        alpaca_secret = os.getenv("ALPACA_PAPER_SECRET")
+        alpaca_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+        logger.info("Using Alpaca PAPER trading environment")
+    else:  # live mode
+        alpaca_key = os.getenv("ALPACA_LIVE_KEY")
+        alpaca_secret = os.getenv("ALPACA_LIVE_SECRET")
+        alpaca_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+        logger.info("Using Alpaca LIVE trading environment")
     
     logger.info(f"Testing Alpaca connection with base URL: {alpaca_url}")
     

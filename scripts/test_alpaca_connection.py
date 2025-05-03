@@ -12,14 +12,24 @@ import alpaca_trade_api as tradeapi
 print("Loading environment variables...")
 load_dotenv()
 
-# Get API keys
-alpaca_key = os.getenv("ALPACA_KEY")
-alpaca_secret = os.getenv("ALPACA_SECRET")
-base_url = os.getenv("ALPACA_BASE_URL", "https://paper-api.alpaca.markets")
+# Get API keys based on ALPACA_MODE
+alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+print(f"Using Alpaca mode: {alpaca_mode}")
+
+if alpaca_mode == "paper":
+    alpaca_key = os.getenv("ALPACA_PAPER_KEY")
+    alpaca_secret = os.getenv("ALPACA_PAPER_SECRET")
+    base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+    print("Using Alpaca PAPER trading environment")
+else:  # live mode
+    alpaca_key = os.getenv("ALPACA_LIVE_KEY")
+    alpaca_secret = os.getenv("ALPACA_LIVE_SECRET")
+    base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+    print("Using Alpaca LIVE trading environment")
 
 # Check if keys are loaded
-print(f"ALPACA_KEY found: {bool(alpaca_key)}")
-print(f"ALPACA_SECRET found: {bool(alpaca_secret)}")
+print(f"Alpaca API key found: {bool(alpaca_key)}")
+print(f"Alpaca API secret found: {bool(alpaca_secret)}")
 print(f"Using base URL: {base_url}")
 
 if not alpaca_key or not alpaca_secret:
