@@ -1,0 +1,78 @@
+{
+  "live_trading": false,
+  "auto_confirm_paper": true,
+  "ignore_market_hours": true,
+  "market_data_provider": null,
+  "check_interval_seconds": 60,
+  "assume_fill": true,
+  "avoid_anomalies": true,
+  "allow_shorts": true,
+  
+  "symbols": [
+    "AAPL",
+    "MSFT",
+    "AMZN",
+    "GOOGL",
+    "TSLA",
+    "BTC/USD",
+    "ETH/USD"
+  ],
+  
+  "strategies": [
+    "MovingAverageStrategy",
+    "LSTMPredictorStrategy",
+    "TransformerStrategy",
+    "MSIStrategy",
+    "LLMStrategy"
+  ],
+  
+  "strategy_params": {
+    "MovingAverageStrategy": {
+      "short_window": 10,
+      "long_window": 50,
+      "use_ml": true
+    },
+    "LSTMPredictorStrategy": {
+      "sequence_length": 60,
+      "prediction_horizon": 1,
+      "lstm_units": 100,
+      "dropout_rate": 0.2
+    },
+    "TransformerStrategy": {
+      "window_size": 60,
+      "forecast_horizon": 5
+    }
+  },
+  
+  "primary_timeframe": "1h",
+  "primary_timeframe_days": 30,
+  "secondary_timeframe": "15m",
+  "secondary_timeframe_days": 10,
+  
+  "initial_capital": 100000.0,
+  "max_position_size_pct": 0.05,
+  "max_portfolio_risk_pct": 0.5,
+  "base_risk_per_trade_pct": 0.01,
+  "min_execution_confidence": 0.75,
+  
+  "volatility_window": 20,
+  "trend_window": 50,
+  "volume_window": 10,
+  
+  "lookback_period": 20,
+  "performance_weight": 0.7,
+  "regime_weight": 0.3,
+  
+  "risk_adjustment_interval_seconds": 3600,
+  
+  "advanced_settings": {
+    "allow_shorts": true,
+    "dynamic_position_sizing": true,
+    "trailing_stops": true,
+    "smart_martingale": false,
+    "pyramiding": false,
+    "max_open_positions": 10,
+    "position_correlation_limit": 0.7,
+    "sector_exposure_limit": 0.3
+  }
+}
