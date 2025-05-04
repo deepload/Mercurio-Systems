@@ -1,3 +1,0 @@
-2025-05-04 00:15:51,600 - stock_daytrader - INFO - Démarrage du script de day trading. Appuyez sur Ctrl+C pour arrêter proprement.
-2025-05-04 00:15:51,602 - stock_daytrader - INFO - Rafraîchissement de la liste des symboles via get_all_symbols.py...
-2025-05-04 00:16:07,035 - stock_daytrader - INFO - Liste des symboles rafraîchie avec succès
