@@ -2986,3 +2986,29 @@
 2025-05-04 02:06:14,769 - alpaca_crypto_trader - INFO - Traitement de SHIB/USD
 2025-05-04 02:06:15,012 - alpaca_crypto_trader - INFO - SHIB/USD prix actuel (dernière barre): $0.0000
 2025-05-04 02:06:15,013 - alpaca_crypto_trader - INFO - Traitement de SOL/USD
+2025-05-04 02:06:15,253 - alpaca_crypto_trader - INFO - SOL/USD prix actuel (dernière barre): $146.9450
+2025-05-04 02:06:15,255 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USD
+2025-05-04 02:06:15,497 - alpaca_crypto_trader - INFO - SUSHI/USD prix actuel (dernière barre): $0.6296
+2025-05-04 02:06:15,497 - alpaca_crypto_trader - INFO - Traitement de SUSHI/USDT
+2025-05-04 02:06:15,742 - alpaca_crypto_trader - INFO - SUSHI/USDT prix actuel (dernière barre): $0.6293
+2025-05-04 02:06:15,743 - alpaca_crypto_trader - INFO - Traitement de TRUMP/USD
+2025-05-04 02:06:16,001 - alpaca_crypto_trader - INFO - TRUMP/USD prix actuel (dernière barre): $11.4100
+2025-05-04 02:06:16,002 - alpaca_crypto_trader - INFO - Traitement de UNI/USD
+2025-05-04 02:06:16,247 - alpaca_crypto_trader - INFO - UNI/USD prix actuel (dernière barre): $5.1007
+2025-05-04 02:06:16,247 - alpaca_crypto_trader - INFO - Traitement de UNI/USDT
+2025-05-04 02:06:16,489 - alpaca_crypto_trader - INFO - UNI/USDT prix actuel (dernière barre): $5.0988
+2025-05-04 02:06:16,491 - alpaca_crypto_trader - INFO - Traitement de USDC/USD
+2025-05-04 02:06:16,732 - alpaca_crypto_trader - INFO - USDC/USD prix actuel (dernière barre): $0.9995
+2025-05-04 02:06:16,733 - alpaca_crypto_trader - INFO - Traitement de USDT/USD
+2025-05-04 02:06:16,975 - alpaca_crypto_trader - INFO - USDT/USD prix actuel (dernière barre): $1.0002
+2025-05-04 02:06:16,976 - alpaca_crypto_trader - INFO - Traitement de XRP/USD
+2025-05-04 02:06:17,215 - alpaca_crypto_trader - INFO - XRP/USD prix actuel (dernière barre): $2.1898
+2025-05-04 02:06:17,215 - alpaca_crypto_trader - INFO - Traitement de XTZ/USD
+2025-05-04 02:06:17,460 - alpaca_crypto_trader - INFO - XTZ/USD prix actuel (dernière barre): $0.5567
+2025-05-04 02:06:17,460 - alpaca_crypto_trader - INFO - Traitement de YFI/USD
+2025-05-04 02:06:17,699 - alpaca_crypto_trader - INFO - YFI/USD prix actuel (dernière barre): $5431.4555
+2025-05-04 02:06:17,700 - alpaca_crypto_trader - INFO - Traitement de YFI/USDT
+2025-05-04 02:06:17,938 - alpaca_crypto_trader - INFO - YFI/USDT prix actuel (dernière barre): $5430.8625
+2025-05-04 02:06:18,057 - alpaca_crypto_trader - INFO - Valeur actuelle du portefeuille: $99479.12
+2025-05-04 02:06:18,176 - alpaca_crypto_trader - INFO - Pas de positions ouvertes
+2025-05-04 02:06:18,178 - alpaca_crypto_trader - INFO - Attente de 60 secondes avant le prochain cycle. Fin de session dans 432 minutes
