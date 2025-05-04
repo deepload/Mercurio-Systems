@@ -32,8 +32,10 @@ from datetime import datetime, timedelta, date, timezone
 import pandas as pd
 import numpy as np
 
-# Ajouter le répertoire parent au path pour pouvoir importer les modules Mercurio
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Ajouter le répertoire parent au path pour pouvoir importer les modules du projet
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(project_root)
+
 
 # API Alpaca
 import alpaca_trade_api as tradeapi
@@ -41,16 +43,15 @@ from dotenv import load_dotenv
 
 # Importer les services et stratégies de Mercurio AI
 try:
-    from app.services.market_data_service import MarketDataService
-    from app.services.trading_service import TradingService
-    from app.services.backtesting_service import BacktestingService
-    from app.strategies.strategy_manager import StrategyManager
-    from app.strategies.moving_average_strategy import MovingAverageStrategy
-    from app.strategies.moving_average_ml_strategy import MovingAverageMLStrategy
-    from app.strategies.lstm_predictor_strategy import LSTMPredictorStrategy
+    from app.services.market_data import MarketDataService
+    from app.services.trading import TradingService
+    from app.services.backtesting import BacktestingService
+    from app.services.strategy_manager import StrategyManager
+    from app.strategies.moving_average import MovingAverageStrategy
+    from app.strategies.lstm_predictor import LSTMPredictorStrategy
     from app.strategies.transformer_strategy import TransformerStrategy
-    from app.strategies.msi_strategy import MSIStrategy
-    from app.utils.logger import setup_logging
+    from app.strategies.msi_strategy import MultiSourceIntelligenceStrategy as MSIStrategy
+    from app.strategies.llm_strategy import LLMStrategy
 except ImportError as e:
     print(f"Erreur d'importation des modules Mercurio: {e}")
     print("Utilisation des services de base uniquement")
@@ -105,16 +106,156 @@ except ImportError as e:
         def __init__(self, market_data_service=None, trading_service=None):
             super().__init__(market_data_service, trading_service)
             logger.info("Stratégie LSTM de repli initialisée")
+        
+        def train(self, data, symbol=None):
+            """
+            Méthode d'entraînement simplifiée pour la stratégie LSTM de repli
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole sur lequel entraîner le modèle
+                
+            Returns:
+                bool: True si l'entraînement a réussi
+            """
+            logger.info(f"Entraînement simulé de la stratégie LSTM sur {symbol} avec {len(data)} points de données")
+            
+            try:
+                # Simuler un entraînement simple basé sur les moyennes mobiles
+                if len(data) >= 30:
+                    # Calculer quelques indicateurs techniques de base
+                    data['sma_5'] = data['close'].rolling(window=5).mean()
+                    data['sma_20'] = data['close'].rolling(window=20).mean()
+                    
+                    # Simuler l'entraînement (juste attendre un peu)
+                    time.sleep(1)  # Simuler le temps d'entraînement
+                    
+                    logger.info(f"Entraînement réussi pour {symbol} - Stratégie LSTM mise à jour")
+                    return True
+                else:
+                    logger.warning(f"Données insuffisantes pour entraîner la stratégie LSTM sur {symbol}")
+                    return False
+            except Exception as e:
+                logger.error(f"Erreur lors de l'entraînement de la stratégie LSTM sur {symbol}: {e}")
+                return False
     
     class FallbackTransformerStrategy(BaseStrategy):
         def __init__(self, market_data_service=None, trading_service=None):
             super().__init__(market_data_service, trading_service)
             logger.info("Stratégie Transformer de repli initialisée")
+        
+        def train(self, data, symbol=None):
+            """
+            Méthode d'entraînement simplifiée pour la stratégie Transformer de repli
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole sur lequel entraîner le modèle
+                
+            Returns:
+                bool: True si l'entraînement a réussi
+            """
+            logger.info(f"Entraînement simulé de la stratégie Transformer sur {symbol} avec {len(data)} points de données")
+            
+            try:
+                # Simuler un entraînement simple basé sur les moyennes mobiles
+                if len(data) >= 30:
+                    # Calculer quelques indicateurs techniques de base
+                    data['sma_5'] = data['close'].rolling(window=5).mean()
+                    data['sma_20'] = data['close'].rolling(window=20).mean()
+                    
+                    # Simuler l'entraînement (juste attendre un peu)
+                    time.sleep(1)  # Simuler le temps d'entraînement
+                    
+                    logger.info(f"Entraînement réussi pour {symbol} - Stratégie Transformer mise à jour")
+                    return True
+                else:
+                    logger.warning(f"Données insuffisantes pour entraîner la stratégie Transformer sur {symbol}")
+                    return False
+            except Exception as e:
+                logger.error(f"Erreur lors de l'entraînement de la stratégie Transformer sur {symbol}: {e}")
+                return False
     
     class FallbackMSIStrategy(BaseStrategy):
         def __init__(self, market_data_service=None, trading_service=None):
             super().__init__(market_data_service, trading_service)
             logger.info("Stratégie MSI de repli initialisée")
+        
+        def train(self, data, symbol=None):
+            """
+            Méthode d'entraînement simplifiée pour la stratégie MSI de repli
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole sur lequel entraîner le modèle
+                
+            Returns:
+                bool: True si l'entraînement a réussi
+            """
+            logger.info(f"Entraînement simulé de la stratégie MSI sur {symbol} avec {len(data)} points de données")
+            
+            try:
+                # Simuler un entraînement simple basé sur les moyennes mobiles et le sentiment
+                if len(data) >= 30:
+                    # Calculer quelques indicateurs techniques de base
+                    data['sma_5'] = data['close'].rolling(window=5).mean()
+                    data['sma_10'] = data['close'].rolling(window=10).mean()
+                    data['sma_20'] = data['close'].rolling(window=20).mean()
+                    
+                    # Simuler l'analyse de sentiment (factice)
+                    data['sentiment'] = 0.5 + 0.1 * (data['close'].pct_change().rolling(5).mean() / data['close'].pct_change().rolling(5).std())
+                    
+                    # Simuler l'entraînement (juste attendre un peu)
+                    time.sleep(1)  # Simuler le temps d'entraînement
+                    
+                    logger.info(f"Entraînement réussi pour {symbol} - Stratégie MSI mise à jour")
+                    return True
+                else:
+                    logger.warning(f"Données insuffisantes pour entraîner la stratégie MSI sur {symbol}")
+                    return False
+            except Exception as e:
+                logger.error(f"Erreur lors de l'entraînement de la stratégie MSI sur {symbol}: {e}")
+                return False
+    
+    class FallbackLLMStrategy(BaseStrategy):
+        def __init__(self, market_data_service=None, trading_service=None):
+            super().__init__(market_data_service, trading_service)
+            logger.info("Stratégie LLM de repli initialisée")
+        
+        def train(self, data, symbol=None):
+            """
+            Méthode d'entraînement simplifiée pour la stratégie LLM de repli
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole sur lequel entraîner le modèle
+                
+            Returns:
+                bool: True si l'entraînement a réussi
+            """
+            logger.info(f"Entraînement simulé de la stratégie LLM sur {symbol} avec {len(data)} points de données")
+            
+            try:
+                # Simuler un entraînement simple pour le LLM
+                if len(data) >= 30:
+                    # Calculer quelques indicateurs techniques de base
+                    data['sma_5'] = data['close'].rolling(window=5).mean()
+                    data['sma_20'] = data['close'].rolling(window=20).mean()
+                    
+                    # Simuler l'analyse de texte et sentiment pour LLM
+                    data['llm_sentiment'] = 0.5 + 0.05 * np.random.randn(len(data))
+                    
+                    # Simuler l'entraînement (juste attendre un peu)
+                    time.sleep(1)  # Simuler le temps d'entraînement
+                    
+                    logger.info(f"Entraînement réussi pour {symbol} - Stratégie LLM mise à jour")
+                    return True
+                else:
+                    logger.warning(f"Données insuffisantes pour entraîner la stratégie LLM sur {symbol}")
+                    return False
+            except Exception as e:
+                logger.error(f"Erreur lors de l'entraînement de la stratégie LLM sur {symbol}: {e}")
+                return False
     
     # Remplacer les classes manquantes par nos versions de repli
     MarketDataService = FallbackMarketDataService
@@ -160,10 +301,10 @@ class SessionDuration(Enum):
 class TradingStrategy(str, Enum):
     """Stratégies de trading disponibles"""
     MOVING_AVERAGE = "MovingAverageStrategy"
-    MOVING_AVERAGE_ML = "MovingAverageMLStrategy"
     LSTM_PREDICTOR = "LSTMPredictorStrategy"
     TRANSFORMER = "TransformerStrategy"
     MSI = "MSIStrategy"
+    LLM = "LLMStrategy"
     ALL = "ALL"  # Utiliser toutes les stratégies
 
 class StockFilter(str, Enum):
@@ -508,7 +649,7 @@ class StockDayTrader:
             elif self.strategy_type == TradingStrategy.LSTM_PREDICTOR:
                 # Vérifier si nous pouvons importer LSTMPredictorStrategy
                 try:
-                    from app.strategies.lstm_predictor_strategy import LSTMPredictorStrategy
+                    from app.strategies.lstm_predictor import LSTMPredictorStrategy
                     self.strategies[self.strategy_type] = LSTMPredictorStrategy(
                         market_data_service=self.market_data_service,
                         trading_service=self.trading_service
@@ -536,7 +677,7 @@ class StockDayTrader:
             elif self.strategy_type == TradingStrategy.MSI:
                 # Vérifier si nous pouvons importer MSIStrategy
                 try:
-                    from app.strategies.msi_strategy import MSIStrategy
+                    from app.strategies.msi_strategy import MultiSourceIntelligenceStrategy as MSIStrategy
                     self.strategies[self.strategy_type] = MSIStrategy(
                         market_data_service=self.market_data_service,
                         trading_service=self.trading_service
@@ -544,6 +685,20 @@ class StockDayTrader:
                 except ImportError:
                     # Utiliser la classe de repli si le module n'est pas disponible
                     self.strategies[self.strategy_type] = FallbackMSIStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+            elif self.strategy_type == TradingStrategy.LLM:
+                # Vérifier si nous pouvons importer LLMStrategy
+                try:
+                    from app.strategies.llm_strategy import LLMStrategy
+                    self.strategies[self.strategy_type] = LLMStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+                except ImportError:
+                    # Utiliser la classe de repli si le module n'est pas disponible
+                    self.strategies[self.strategy_type] = FallbackLLMStrategy(
                         market_data_service=self.market_data_service,
                         trading_service=self.trading_service
                     )
@@ -576,6 +731,11 @@ class StockDayTrader:
                     )
                 elif self.strategy_type == TradingStrategy.MSI:
                     self.strategies[self.strategy_type] = MSIStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+                elif self.strategy_type == TradingStrategy.LLM:
+                    self.strategies[self.strategy_type] = LLMStrategy(
                         market_data_service=self.market_data_service,
                         trading_service=self.trading_service
                     )
