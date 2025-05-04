@@ -1,0 +1,19 @@
+2025-05-04 02:28:27,610 - stock_daytrader - INFO - Démarrage du script de day trading. Appuyez sur Ctrl+C pour arrêter proprement.
+2025-05-04 02:28:27,611 - stock_daytrader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-04 02:28:27,611 - stock_daytrader - INFO - Utilisation du niveau d'abonnement Alpaca: 1
+2025-05-04 02:28:27,611 - stock_daytrader - INFO - StockDayTrader initialisé
+2025-05-04 02:28:27,611 - stock_daytrader - INFO - Mode continu activé: le script fonctionnera indéfiniment
+2025-05-04 02:28:27,612 - stock_daytrader - INFO - Démarrage de la session de trading d'actions à 2025-05-04 02:28:27.611435
+2025-05-04 02:28:27,625 - stock_daytrader - INFO - La session se terminera à 2026-05-04 02:28:27.611435
+2025-05-04 02:28:28,032 - stock_daytrader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-04 02:28:28,032 - stock_daytrader - INFO - Valeur initiale du portefeuille: $99487.38
+2025-05-04 02:28:28,033 - stock_daytrader - INFO - Mode trading: ACTIVE
+2025-05-04 02:28:28,826 - stock_daytrader - INFO - Récupéré 10 symboles selon le filtre: active_assets
+2025-05-04 02:28:28,832 - stock_daytrader - ERROR - Erreur lors de l'initialisation des services Mercurio: MarketDataService.__init__() got an unexpected keyword argument 'provider'
+2025-05-04 02:28:28,832 - stock_daytrader - WARNING - Utilisation du mode natif Alpaca (sans services Mercurio)
+2025-05-04 02:28:28,832 - stock_daytrader - INFO - ===== Cycle de trading #1 =====
+2025-05-04 02:28:28,949 - stock_daytrader - INFO - Le marché est fermé. Prochaine ouverture à 2025-05-05 09:30:00
+2025-05-04 02:28:28,949 - stock_daytrader - INFO - ============================================================
+2025-05-04 02:28:28,949 - stock_daytrader - INFO - Début du réentraînement des modèles ML - 2025-05-04 02:28:28.949902
+2025-05-04 02:28:28,949 - stock_daytrader - INFO - Aucune stratégie ML trouvée pour le réentraînement
+2025-05-04 02:28:28,950 - stock_daytrader - INFO - Attente de 30 minutes avant la prochaine vérification

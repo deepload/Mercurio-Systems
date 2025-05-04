@@ -1,0 +1,1184 @@
+2025-05-04 02:37:02,222 - app.utils.env_loader - INFO - Loading environment variables from C:\Projects\MercurioAI\.env
+2025-05-04 02:37:02,225 - app.utils.env_loader - INFO - Alpaca API credentials loaded successfully
+2025-05-04 02:37:02,225 - app.utils.env_loader - INFO - Polygon API key loaded successfully
+2025-05-04 02:37:02,488 - integrated_trader - INFO - Service de calendrier de marché importé avec succès
+2025-05-04 02:37:02,489 - integrated_trader - INFO - MercurioAI - Système Intégré de Trading et Entraînement
+2025-05-04 02:37:02,489 - integrated_trader - INFO - Stratégie: ALL
+2025-05-04 02:37:02,501 - integrated_trader - INFO - Durée: continuous
+2025-05-04 02:37:02,501 - integrated_trader - INFO - Auto-retrain pendant trading: False
+2025-05-04 02:37:02,501 - integrated_trader - INFO - Auto-training pendant inactivité: True
+2025-05-04 02:37:02,501 - integrated_trader - INFO - Intervalle d'entraînement: 24 heures
+2025-05-04 02:37:04,279 - app.services.market_calendar - INFO - Service de calendrier de marché initialisé pour stock
+2025-05-04 02:37:04,279 - integrated_trader - INFO - Le marché est fermé.
+2025-05-04 02:37:04,279 - integrated_trader - INFO - Période d'inactivité détectée. Démarrage de l'entraînement des modèles...
+2025-05-04 02:37:04,279 - integrated_trader - INFO - Démarrage de l'entraînement des modèles...
+2025-05-04 02:37:04,279 - integrated_trader - INFO - Exécution de la commande: C:\Python\python.exe C:\Projects\MercurioAI\scripts\train_all_models.py --days 90 --include_stocks --include_crypto --top_assets 20
+2025-05-04 02:38:49,745 - integrated_trader - INFO - Entraînement des modèles terminé avec succès
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.1584 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.1584 - accuracy: 0.0000e+00 - val_loss: 1.0869 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.1231 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 1.1231 - accuracy: 0.0000e+00 - val_loss: 1.0792 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,746 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0676 - accuracy: 0.7500
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 1.0676 - accuracy: 0.7500 - val_loss: 1.0622 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0304 - accuracy: 0.5000
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 1.0304 - accuracy: 0.5000 - val_loss: 1.0351 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9834 - accuracy: 0.5000
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9834 - accuracy: 0.5000 - val_loss: 1.0100 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,747 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9808 - accuracy: 0.5000
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9808 - accuracy: 0.5000 - val_loss: 0.9841 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9619 - accuracy: 0.5000
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9619 - accuracy: 0.5000 - val_loss: 0.9582 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9424 - accuracy: 0.5000
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9424 - accuracy: 0.5000 - val_loss: 0.9322 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,748 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9071 - accuracy: 0.5000
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9071 - accuracy: 0.5000 - val_loss: 0.9119 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8661 - accuracy: 0.5000
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.8661 - accuracy: 0.5000 - val_loss: 0.8958 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8367 - accuracy: 0.5000
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8367 - accuracy: 0.5000 - val_loss: 0.8875 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8209 - accuracy: 0.5000
+2025-05-04 02:38:49,749 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8209 - accuracy: 0.5000 - val_loss: 0.8818 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8068 - accuracy: 0.5000
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8068 - accuracy: 0.5000 - val_loss: 0.8788 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7883 - accuracy: 0.5000
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.7883 - accuracy: 0.5000 - val_loss: 0.8785 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7358 - accuracy: 0.5000
+2025-05-04 02:38:49,751 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7358 - accuracy: 0.5000 - val_loss: 0.8815 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7166 - accuracy: 0.5000
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7166 - accuracy: 0.5000 - val_loss: 0.8806 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7747 - accuracy: 0.2500
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7747 - accuracy: 0.2500 - val_loss: 0.8793 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7124 - accuracy: 0.5000
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7124 - accuracy: 0.5000 - val_loss: 0.8788 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7536 - accuracy: 0.5000
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7536 - accuracy: 0.5000 - val_loss: 0.8644 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,752 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7507 - accuracy: 0.5000
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7507 - accuracy: 0.5000 - val_loss: 0.8463 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7615 - accuracy: 0.5000
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7615 - accuracy: 0.5000 - val_loss: 0.8255 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7398 - accuracy: 0.5000
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7398 - accuracy: 0.5000 - val_loss: 0.8067 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,753 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6818 - accuracy: 0.5000
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.6818 - accuracy: 0.5000 - val_loss: 0.7956 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7294 - accuracy: 0.5000
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.7294 - accuracy: 0.5000 - val_loss: 0.7863 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6944 - accuracy: 0.5000
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6944 - accuracy: 0.5000 - val_loss: 0.7797 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7014 - accuracy: 0.5000
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.7014 - accuracy: 0.5000 - val_loss: 0.7722 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6818 - accuracy: 0.7500
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6818 - accuracy: 0.7500 - val_loss: 0.7644 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,754 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7041 - accuracy: 0.5000
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7041 - accuracy: 0.5000 - val_loss: 0.7559 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6878 - accuracy: 0.5000
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6878 - accuracy: 0.5000 - val_loss: 0.7472 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7327 - accuracy: 0.5000
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7327 - accuracy: 0.5000 - val_loss: 0.7383 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7304 - accuracy: 0.5000
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.7304 - accuracy: 0.5000 - val_loss: 0.7298 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7052 - accuracy: 0.5000
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7052 - accuracy: 0.5000 - val_loss: 0.7209 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] Epoch 33/50
+2025-05-04 02:38:49,756 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6658 - accuracy: 0.7500
+2025-05-04 02:38:49,757 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.6658 - accuracy: 0.7500 - val_loss: 0.7127 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,757 - integrated_trader - INFO - [TRAINING] Epoch 34/50
+2025-05-04 02:38:49,757 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6891 - accuracy: 0.5000
+2025-05-04 02:38:49,757 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6891 - accuracy: 0.5000 - val_loss: 0.7048 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,757 - integrated_trader - INFO - [TRAINING] Epoch 35/50
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6818 - accuracy: 1.0000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6818 - accuracy: 1.0000 - val_loss: 0.6977 - val_accuracy: 1.0000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] Epoch 36/50
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7070 - accuracy: 0.5000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7070 - accuracy: 0.5000 - val_loss: 0.6905 - val_accuracy: 1.0000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] Epoch 37/50
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7032 - accuracy: 0.5000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7032 - accuracy: 0.5000 - val_loss: 0.6836 - val_accuracy: 1.0000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] Epoch 38/50
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7143 - accuracy: 0.5000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7143 - accuracy: 0.5000 - val_loss: 0.6779 - val_accuracy: 1.0000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] Epoch 39/50
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7008 - accuracy: 0.5000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7008 - accuracy: 0.5000 - val_loss: 0.6738 - val_accuracy: 1.0000
+2025-05-04 02:38:49,758 - integrated_trader - INFO - [TRAINING] Epoch 40/50
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7044 - accuracy: 0.2500
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7044 - accuracy: 0.2500 - val_loss: 0.6698 - val_accuracy: 1.0000
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] Epoch 41/50
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6565 - accuracy: 0.7500
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6565 - accuracy: 0.7500 - val_loss: 0.6662 - val_accuracy: 1.0000
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] Epoch 42/50
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6782 - accuracy: 0.7500
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6782 - accuracy: 0.7500 - val_loss: 0.6629 - val_accuracy: 1.0000
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] Epoch 43/50
+2025-05-04 02:38:49,760 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6828 - accuracy: 0.7500
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6828 - accuracy: 0.7500 - val_loss: 0.6607 - val_accuracy: 1.0000
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] Epoch 44/50
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7158 - accuracy: 0.5000
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7158 - accuracy: 0.5000 - val_loss: 0.6667 - val_accuracy: 1.0000
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] Epoch 45/50
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6794 - accuracy: 0.7500
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6794 - accuracy: 0.7500 - val_loss: 0.6811 - val_accuracy: 1.0000
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] Epoch 46/50
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7284 - accuracy: 0.2500
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.7284 - accuracy: 0.2500 - val_loss: 0.6890 - val_accuracy: 1.0000
+2025-05-04 02:38:49,761 - integrated_trader - INFO - [TRAINING] Epoch 47/50
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7417 - accuracy: 0.2500
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7417 - accuracy: 0.2500 - val_loss: 0.6933 - val_accuracy: 1.0000
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] Epoch 48/50
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7064 - accuracy: 0.5000
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7064 - accuracy: 0.5000 - val_loss: 0.6974 - val_accuracy: 1.0000
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] Epoch 49/50
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6889 - accuracy: 0.5000
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6889 - accuracy: 0.5000 - val_loss: 0.7014 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] Epoch 50/50
+2025-05-04 02:38:49,762 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6884 - accuracy: 0.5000
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.6884 - accuracy: 0.5000 - val_loss: 0.7031 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7031 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 21ms/step - loss: 0.7031 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0984 - accuracy: 0.2500
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.0984 - accuracy: 0.2500 - val_loss: 0.9711 - val_accuracy: 1.0000
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0209 - accuracy: 0.7500
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 1.0209 - accuracy: 0.7500 - val_loss: 0.8739 - val_accuracy: 1.0000
+2025-05-04 02:38:49,763 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8966 - accuracy: 1.0000
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8966 - accuracy: 1.0000 - val_loss: 0.7750 - val_accuracy: 1.0000
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7528 - accuracy: 1.0000
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7528 - accuracy: 1.0000 - val_loss: 0.6756 - val_accuracy: 1.0000
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6938 - accuracy: 1.0000
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.6938 - accuracy: 1.0000 - val_loss: 0.5751 - val_accuracy: 1.0000
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,764 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5785 - accuracy: 1.0000
+2025-05-04 02:38:49,765 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.5785 - accuracy: 1.0000 - val_loss: 0.4741 - val_accuracy: 1.0000
+2025-05-04 02:38:49,765 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,765 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5212 - accuracy: 1.0000
+2025-05-04 02:38:49,765 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.5212 - accuracy: 1.0000 - val_loss: 0.3770 - val_accuracy: 1.0000
+2025-05-04 02:38:49,765 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.3977 - accuracy: 1.0000
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.3977 - accuracy: 1.0000 - val_loss: 0.2892 - val_accuracy: 1.0000
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.3361 - accuracy: 1.0000
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.3361 - accuracy: 1.0000 - val_loss: 0.2136 - val_accuracy: 1.0000
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.2337 - accuracy: 1.0000
+2025-05-04 02:38:49,766 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.2337 - accuracy: 1.0000 - val_loss: 0.1538 - val_accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1754 - accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.1754 - accuracy: 1.0000 - val_loss: 0.1098 - val_accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1280 - accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.1280 - accuracy: 1.0000 - val_loss: 0.0788 - val_accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0823 - accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0823 - accuracy: 1.0000 - val_loss: 0.0569 - val_accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0375 - accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0375 - accuracy: 1.0000 - val_loss: 0.0424 - val_accuracy: 1.0000
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,767 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0444 - accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0444 - accuracy: 1.0000 - val_loss: 0.0324 - val_accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0367 - accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0367 - accuracy: 1.0000 - val_loss: 0.0252 - val_accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0312 - accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.0312 - accuracy: 1.0000 - val_loss: 0.0198 - val_accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0139 - accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0139 - accuracy: 1.0000 - val_loss: 0.0159 - val_accuracy: 1.0000
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,768 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0119 - accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0119 - accuracy: 1.0000 - val_loss: 0.0129 - val_accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0189 - accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0189 - accuracy: 1.0000 - val_loss: 0.0105 - val_accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0126 - accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0126 - accuracy: 1.0000 - val_loss: 0.0086 - val_accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0115 - accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0115 - accuracy: 1.0000 - val_loss: 0.0072 - val_accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0174 - accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0174 - accuracy: 1.0000 - val_loss: 0.0059 - val_accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0067 - accuracy: 1.0000
+2025-05-04 02:38:49,770 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0067 - accuracy: 1.0000 - val_loss: 0.0050 - val_accuracy: 1.0000
+2025-05-04 02:38:49,771 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,771 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0055 - accuracy: 1.0000
+2025-05-04 02:38:49,771 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0055 - accuracy: 1.0000 - val_loss: 0.0042 - val_accuracy: 1.0000
+2025-05-04 02:38:49,771 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,771 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0033 - accuracy: 1.0000
+2025-05-04 02:38:49,771 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0033 - accuracy: 1.0000 - val_loss: 0.0036 - val_accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0038 - accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.0038 - accuracy: 1.0000 - val_loss: 0.0031 - val_accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0037 - accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0037 - accuracy: 1.0000 - val_loss: 0.0027 - val_accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0039 - accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.0039 - accuracy: 1.0000 - val_loss: 0.0024 - val_accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0022 - accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0022 - accuracy: 1.0000 - val_loss: 0.0021 - val_accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0023 - accuracy: 1.0000
+2025-05-04 02:38:49,772 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.0023 - accuracy: 1.0000 - val_loss: 0.0019 - val_accuracy: 1.0000
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0081 - accuracy: 1.0000
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0081 - accuracy: 1.0000 - val_loss: 0.0017 - val_accuracy: 1.0000
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] Epoch 33/50
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0021 - accuracy: 1.0000
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0021 - accuracy: 1.0000 - val_loss: 0.0015 - val_accuracy: 1.0000
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] Epoch 34/50
+2025-05-04 02:38:49,774 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0015 - accuracy: 1.0000
+2025-05-04 02:38:49,775 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0015 - accuracy: 1.0000 - val_loss: 0.0014 - val_accuracy: 1.0000
+2025-05-04 02:38:49,775 - integrated_trader - INFO - [TRAINING] Epoch 35/50
+2025-05-04 02:38:49,775 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0018 - accuracy: 1.0000
+2025-05-04 02:38:49,775 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0018 - accuracy: 1.0000 - val_loss: 0.0013 - val_accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] Epoch 36/50
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0015 - accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0015 - accuracy: 1.0000 - val_loss: 0.0012 - val_accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] Epoch 37/50
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0024 - accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.0024 - accuracy: 1.0000 - val_loss: 0.0011 - val_accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] Epoch 38/50
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 9.1548e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 9.1548e-04 - accuracy: 1.0000 - val_loss: 9.9901e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] Epoch 39/50
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 8.3522e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 8.3522e-04 - accuracy: 1.0000 - val_loss: 9.3232e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,776 - integrated_trader - INFO - [TRAINING] Epoch 40/50
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0023 - accuracy: 1.0000
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0023 - accuracy: 1.0000 - val_loss: 8.7277e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] Epoch 41/50
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0010 - accuracy: 1.0000
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0010 - accuracy: 1.0000 - val_loss: 8.2042e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] Epoch 42/50
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0017 - accuracy: 1.0000
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.0017 - accuracy: 1.0000 - val_loss: 7.7337e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,777 - integrated_trader - INFO - [TRAINING] Epoch 43/50
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0013 - accuracy: 1.0000
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.0013 - accuracy: 1.0000 - val_loss: 7.3138e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] Epoch 44/50
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 5.5355e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 5.5355e-04 - accuracy: 1.0000 - val_loss: 6.9445e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] Epoch 45/50
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0013 - accuracy: 1.0000
+2025-05-04 02:38:49,778 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.0013 - accuracy: 1.0000 - val_loss: 6.6104e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] Epoch 46/50
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 7.4911e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 7.4911e-04 - accuracy: 1.0000 - val_loss: 6.3119e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] Epoch 47/50
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0013 - accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.0013 - accuracy: 1.0000 - val_loss: 6.0403e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] Epoch 48/50
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0010 - accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0010 - accuracy: 1.0000 - val_loss: 5.7937e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,779 - integrated_trader - INFO - [TRAINING] Epoch 49/50
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 6.2652e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 6.2652e-04 - accuracy: 1.0000 - val_loss: 5.5721e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] Epoch 50/50
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0019 - accuracy: 1.0000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.0019 - accuracy: 1.0000 - val_loss: 5.3606e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 5.3606e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 21ms/step - loss: 5.3606e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0905 - accuracy: 0.5000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.0905 - accuracy: 0.5000 - val_loss: 1.0774 - val_accuracy: 0.5000
+2025-05-04 02:38:49,780 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0768 - accuracy: 0.5000
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 1.0768 - accuracy: 0.5000 - val_loss: 1.0494 - val_accuracy: 0.5000
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0313 - accuracy: 0.7500
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 1.0313 - accuracy: 0.7500 - val_loss: 1.0204 - val_accuracy: 0.5000
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0378 - accuracy: 0.2500
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 1.0378 - accuracy: 0.2500 - val_loss: 0.9928 - val_accuracy: 0.5000
+2025-05-04 02:38:49,782 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9801 - accuracy: 0.5000
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9801 - accuracy: 0.5000 - val_loss: 0.9666 - val_accuracy: 0.5000
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9949 - accuracy: 0.5000
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9949 - accuracy: 0.5000 - val_loss: 0.9432 - val_accuracy: 0.5000
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9329 - accuracy: 0.5000
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9329 - accuracy: 0.5000 - val_loss: 0.9198 - val_accuracy: 0.5000
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,783 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9733 - accuracy: 0.5000
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9733 - accuracy: 0.5000 - val_loss: 0.8964 - val_accuracy: 0.5000
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9211 - accuracy: 0.5000
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9211 - accuracy: 0.5000 - val_loss: 0.8768 - val_accuracy: 0.5000
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9225 - accuracy: 0.5000
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9225 - accuracy: 0.5000 - val_loss: 0.8587 - val_accuracy: 0.5000
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,784 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7967 - accuracy: 0.7500
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7967 - accuracy: 0.7500 - val_loss: 0.8414 - val_accuracy: 0.5000
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8416 - accuracy: 0.5000
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.8416 - accuracy: 0.5000 - val_loss: 0.8248 - val_accuracy: 0.5000
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9018 - accuracy: 0.5000
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.9018 - accuracy: 0.5000 - val_loss: 0.8091 - val_accuracy: 0.5000
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,785 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8437 - accuracy: 0.5000
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8437 - accuracy: 0.5000 - val_loss: 0.7943 - val_accuracy: 0.5000
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8114 - accuracy: 0.5000
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8114 - accuracy: 0.5000 - val_loss: 0.7794 - val_accuracy: 0.5000
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7527 - accuracy: 0.5000
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7527 - accuracy: 0.5000 - val_loss: 0.7663 - val_accuracy: 0.5000
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,786 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7502 - accuracy: 0.5000
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7502 - accuracy: 0.5000 - val_loss: 0.7545 - val_accuracy: 0.5000
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7078 - accuracy: 0.7500
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7078 - accuracy: 0.7500 - val_loss: 0.7444 - val_accuracy: 0.5000
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7318 - accuracy: 0.7500
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7318 - accuracy: 0.7500 - val_loss: 0.7369 - val_accuracy: 0.5000
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7065 - accuracy: 0.5000
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7065 - accuracy: 0.5000 - val_loss: 0.7310 - val_accuracy: 1.0000
+2025-05-04 02:38:49,787 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8581 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.8581 - accuracy: 0.0000e+00 - val_loss: 0.7264 - val_accuracy: 0.5000
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8618 - accuracy: 0.2500
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.8618 - accuracy: 0.2500 - val_loss: 0.7215 - val_accuracy: 1.0000
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6774 - accuracy: 0.5000
+2025-05-04 02:38:49,788 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6774 - accuracy: 0.5000 - val_loss: 0.7179 - val_accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7090 - accuracy: 0.7500
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7090 - accuracy: 0.7500 - val_loss: 0.7159 - val_accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7151 - accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7151 - accuracy: 0.5000 - val_loss: 0.7142 - val_accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7354 - accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7354 - accuracy: 0.5000 - val_loss: 0.7122 - val_accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7832 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7832 - accuracy: 0.0000e+00 - val_loss: 0.7104 - val_accuracy: 0.5000
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,789 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7793 - accuracy: 0.2500
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7793 - accuracy: 0.2500 - val_loss: 0.7081 - val_accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6877 - accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6877 - accuracy: 0.5000 - val_loss: 0.7060 - val_accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7800 - accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7800 - accuracy: 0.5000 - val_loss: 0.7055 - val_accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6057 - accuracy: 0.7500
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6057 - accuracy: 0.7500 - val_loss: 0.7061 - val_accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6049 - accuracy: 1.0000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6049 - accuracy: 1.0000 - val_loss: 0.7061 - val_accuracy: 0.5000
+2025-05-04 02:38:49,791 - integrated_trader - INFO - [TRAINING] Epoch 33/50
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6295 - accuracy: 0.7500
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.6295 - accuracy: 0.7500 - val_loss: 0.7067 - val_accuracy: 0.5000
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] Epoch 34/50
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7332 - accuracy: 0.2500
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7332 - accuracy: 0.2500 - val_loss: 0.7069 - val_accuracy: 0.5000
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] Epoch 35/50
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8624 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.8624 - accuracy: 0.0000e+00 - val_loss: 0.7060 - val_accuracy: 0.5000
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] Epoch 36/50
+2025-05-04 02:38:49,793 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7105 - accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7105 - accuracy: 0.5000 - val_loss: 0.7039 - val_accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] Epoch 37/50
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6283 - accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6283 - accuracy: 0.5000 - val_loss: 0.7012 - val_accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] Epoch 38/50
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7557 - accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7557 - accuracy: 0.5000 - val_loss: 0.6999 - val_accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] Epoch 39/50
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8301 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8301 - accuracy: 0.0000e+00 - val_loss: 0.6995 - val_accuracy: 0.5000
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] Epoch 40/50
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7370 - accuracy: 0.2500
+2025-05-04 02:38:49,794 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7370 - accuracy: 0.2500 - val_loss: 0.6997 - val_accuracy: 0.5000
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] Epoch 41/50
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7239 - accuracy: 0.2500
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7239 - accuracy: 0.2500 - val_loss: 0.6998 - val_accuracy: 0.5000
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] Epoch 42/50
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7177 - accuracy: 0.2500
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7177 - accuracy: 0.2500 - val_loss: 0.6999 - val_accuracy: 0.5000
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] Epoch 43/50
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5781 - accuracy: 0.7500
+2025-05-04 02:38:49,795 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.5781 - accuracy: 0.7500 - val_loss: 0.6992 - val_accuracy: 0.5000
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] Epoch 44/50
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9238 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9238 - accuracy: 0.0000e+00 - val_loss: 0.6986 - val_accuracy: 0.5000
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] Epoch 45/50
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6590 - accuracy: 0.7500
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6590 - accuracy: 0.7500 - val_loss: 0.6980 - val_accuracy: 0.5000
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] Epoch 46/50
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7753 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7753 - accuracy: 0.0000e+00 - val_loss: 0.6975 - val_accuracy: 0.5000
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] Epoch 47/50
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6544 - accuracy: 0.5000
+2025-05-04 02:38:49,797 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6544 - accuracy: 0.5000 - val_loss: 0.6974 - val_accuracy: 0.5000
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] Epoch 48/50
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5815 - accuracy: 1.0000
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.5815 - accuracy: 1.0000 - val_loss: 0.6973 - val_accuracy: 0.5000
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] Epoch 49/50
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6683 - accuracy: 0.5000
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6683 - accuracy: 0.5000 - val_loss: 0.6975 - val_accuracy: 0.5000
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] Epoch 50/50
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8127 - accuracy: 0.2500
+2025-05-04 02:38:49,798 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.8127 - accuracy: 0.2500 - val_loss: 0.6981 - val_accuracy: 0.5000
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6981 - accuracy: 0.5000
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 20ms/step - loss: 0.6981 - accuracy: 0.5000
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.1196 - accuracy: 0.5000
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.1196 - accuracy: 0.5000 - val_loss: 1.0646 - val_accuracy: 0.5000
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0672 - accuracy: 0.5000
+2025-05-04 02:38:49,799 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 1.0672 - accuracy: 0.5000 - val_loss: 1.0314 - val_accuracy: 0.5000
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0916 - accuracy: 0.2500
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 1.0916 - accuracy: 0.2500 - val_loss: 1.0018 - val_accuracy: 0.5000
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0228 - accuracy: 0.5000
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 1.0228 - accuracy: 0.5000 - val_loss: 0.9782 - val_accuracy: 0.5000
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9627 - accuracy: 0.7500
+2025-05-04 02:38:49,800 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9627 - accuracy: 0.7500 - val_loss: 0.9558 - val_accuracy: 0.5000
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9369 - accuracy: 0.7500
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9369 - accuracy: 0.7500 - val_loss: 0.9331 - val_accuracy: 0.5000
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9293 - accuracy: 0.5000
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9293 - accuracy: 0.5000 - val_loss: 0.9102 - val_accuracy: 0.5000
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,801 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8888 - accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8888 - accuracy: 0.5000 - val_loss: 0.8856 - val_accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9195 - accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9195 - accuracy: 0.5000 - val_loss: 0.8601 - val_accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8682 - accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8682 - accuracy: 0.5000 - val_loss: 0.8335 - val_accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8621 - accuracy: 0.2500
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.8621 - accuracy: 0.2500 - val_loss: 0.8092 - val_accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8261 - accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8261 - accuracy: 0.5000 - val_loss: 0.7893 - val_accuracy: 0.5000
+2025-05-04 02:38:49,802 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7662 - accuracy: 0.7500
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7662 - accuracy: 0.7500 - val_loss: 0.7734 - val_accuracy: 0.5000
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8875 - accuracy: 0.2500
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8875 - accuracy: 0.2500 - val_loss: 0.7602 - val_accuracy: 0.5000
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7996 - accuracy: 0.5000
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7996 - accuracy: 0.5000 - val_loss: 0.7478 - val_accuracy: 0.5000
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6947 - accuracy: 0.5000
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6947 - accuracy: 0.5000 - val_loss: 0.7378 - val_accuracy: 0.5000
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,804 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7631 - accuracy: 0.5000
+2025-05-04 02:38:49,805 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.7631 - accuracy: 0.5000 - val_loss: 0.7300 - val_accuracy: 0.5000
+2025-05-04 02:38:49,805 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,805 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7001 - accuracy: 0.7500
+2025-05-04 02:38:49,805 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7001 - accuracy: 0.7500 - val_loss: 0.7241 - val_accuracy: 0.5000
+2025-05-04 02:38:49,805 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,806 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7779 - accuracy: 0.2500
+2025-05-04 02:38:49,806 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.7779 - accuracy: 0.2500 - val_loss: 0.7208 - val_accuracy: 0.5000
+2025-05-04 02:38:49,806 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,806 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8734 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,806 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8734 - accuracy: 0.0000e+00 - val_loss: 0.7199 - val_accuracy: 0.5000
+2025-05-04 02:38:49,806 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6325 - accuracy: 0.7500
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6325 - accuracy: 0.7500 - val_loss: 0.7205 - val_accuracy: 0.5000
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9044 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9044 - accuracy: 0.0000e+00 - val_loss: 0.7201 - val_accuracy: 0.5000
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,807 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6970 - accuracy: 0.7500
+2025-05-04 02:38:49,808 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6970 - accuracy: 0.7500 - val_loss: 0.7160 - val_accuracy: 0.5000
+2025-05-04 02:38:49,808 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,808 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8812 - accuracy: 0.5000
+2025-05-04 02:38:49,808 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.8812 - accuracy: 0.5000 - val_loss: 0.7130 - val_accuracy: 0.5000
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6208 - accuracy: 0.7500
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6208 - accuracy: 0.7500 - val_loss: 0.7095 - val_accuracy: 0.5000
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7346 - accuracy: 0.7500
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7346 - accuracy: 0.7500 - val_loss: 0.7076 - val_accuracy: 0.5000
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6992 - accuracy: 0.7500
+2025-05-04 02:38:49,809 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6992 - accuracy: 0.7500 - val_loss: 0.7073 - val_accuracy: 0.5000
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7347 - accuracy: 0.2500
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7347 - accuracy: 0.2500 - val_loss: 0.7069 - val_accuracy: 0.5000
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6853 - accuracy: 0.5000
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6853 - accuracy: 0.5000 - val_loss: 0.7062 - val_accuracy: 0.5000
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6777 - accuracy: 0.5000
+2025-05-04 02:38:49,810 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6777 - accuracy: 0.5000 - val_loss: 0.7052 - val_accuracy: 0.5000
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8007 - accuracy: 0.2500
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8007 - accuracy: 0.2500 - val_loss: 0.7046 - val_accuracy: 0.5000
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6703 - accuracy: 0.5000
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6703 - accuracy: 0.5000 - val_loss: 0.7048 - val_accuracy: 0.5000
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] Epoch 33/50
+2025-05-04 02:38:49,811 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5822 - accuracy: 1.0000
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.5822 - accuracy: 1.0000 - val_loss: 0.7072 - val_accuracy: 0.5000
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] Epoch 34/50
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7176 - accuracy: 0.5000
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7176 - accuracy: 0.5000 - val_loss: 0.7100 - val_accuracy: 0.5000
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] Epoch 35/50
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8079 - accuracy: 0.5000
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.8079 - accuracy: 0.5000 - val_loss: 0.7107 - val_accuracy: 0.5000
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] Epoch 36/50
+2025-05-04 02:38:49,812 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6230 - accuracy: 0.7500
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6230 - accuracy: 0.7500 - val_loss: 0.7103 - val_accuracy: 0.5000
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] Epoch 37/50
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7389 - accuracy: 0.7500
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7389 - accuracy: 0.7500 - val_loss: 0.7083 - val_accuracy: 0.5000
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] Epoch 38/50
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9046 - accuracy: 0.2500
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9046 - accuracy: 0.2500 - val_loss: 0.7056 - val_accuracy: 0.5000
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] Epoch 39/50
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6421 - accuracy: 0.7500
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6421 - accuracy: 0.7500 - val_loss: 0.7025 - val_accuracy: 0.5000
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] Epoch 40/50
+2025-05-04 02:38:49,813 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7125 - accuracy: 0.2500
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7125 - accuracy: 0.2500 - val_loss: 0.7013 - val_accuracy: 0.5000
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] Epoch 41/50
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5945 - accuracy: 0.7500
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.5945 - accuracy: 0.7500 - val_loss: 0.7007 - val_accuracy: 0.5000
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] Epoch 42/50
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6269 - accuracy: 0.7500
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6269 - accuracy: 0.7500 - val_loss: 0.7004 - val_accuracy: 0.5000
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] Epoch 43/50
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8469 - accuracy: 0.2500
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.8469 - accuracy: 0.2500 - val_loss: 0.7000 - val_accuracy: 0.5000
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] Epoch 44/50
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8409 - accuracy: 0.2500
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8409 - accuracy: 0.2500 - val_loss: 0.6997 - val_accuracy: 0.5000
+2025-05-04 02:38:49,814 - integrated_trader - INFO - [TRAINING] Epoch 45/50
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6670 - accuracy: 0.7500
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6670 - accuracy: 0.7500 - val_loss: 0.6996 - val_accuracy: 0.5000
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] Epoch 46/50
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8871 - accuracy: 0.2500
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.8871 - accuracy: 0.2500 - val_loss: 0.6998 - val_accuracy: 0.5000
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] Epoch 47/50
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7128 - accuracy: 0.5000
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7128 - accuracy: 0.5000 - val_loss: 0.7001 - val_accuracy: 0.5000
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] Epoch 48/50
+2025-05-04 02:38:49,816 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6600 - accuracy: 0.5000
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 44ms/step - loss: 0.6600 - accuracy: 0.5000 - val_loss: 0.7004 - val_accuracy: 0.5000
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] Epoch 49/50
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7883 - accuracy: 0.2500
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7883 - accuracy: 0.2500 - val_loss: 0.7005 - val_accuracy: 0.5000
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] Epoch 50/50
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7475 - accuracy: 0.2500
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7475 - accuracy: 0.2500 - val_loss: 0.7001 - val_accuracy: 0.5000
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7001 - accuracy: 0.5000
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 20ms/step - loss: 0.7001 - accuracy: 0.5000
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.2381 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.2381 - accuracy: 0.0000e+00 - val_loss: 1.2581 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.1476 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 1.1476 - accuracy: 0.0000e+00 - val_loss: 1.2755 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,817 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0742 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 1.0742 - accuracy: 0.0000e+00 - val_loss: 1.3081 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0141 - accuracy: 0.7500
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 1.0141 - accuracy: 0.7500 - val_loss: 1.3419 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9571 - accuracy: 0.7500
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9571 - accuracy: 0.7500 - val_loss: 1.3878 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,818 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9273 - accuracy: 1.0000
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9273 - accuracy: 1.0000 - val_loss: 1.4404 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8597 - accuracy: 1.0000
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8597 - accuracy: 1.0000 - val_loss: 1.4977 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8158 - accuracy: 1.0000
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.8158 - accuracy: 1.0000 - val_loss: 1.5650 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,819 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7610 - accuracy: 1.0000
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7610 - accuracy: 1.0000 - val_loss: 1.6475 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7037 - accuracy: 1.0000
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.7037 - accuracy: 1.0000 - val_loss: 1.7473 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6446 - accuracy: 1.0000
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.6446 - accuracy: 1.0000 - val_loss: 1.8676 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.2581 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 21ms/step - loss: 1.2581 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0490 - accuracy: 0.7500
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.0490 - accuracy: 0.7500 - val_loss: 1.0001 - val_accuracy: 1.0000
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,820 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0049 - accuracy: 0.7500
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 1.0049 - accuracy: 0.7500 - val_loss: 0.9138 - val_accuracy: 1.0000
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9571 - accuracy: 0.7500
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9571 - accuracy: 0.7500 - val_loss: 0.8234 - val_accuracy: 1.0000
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9353 - accuracy: 0.7500
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9353 - accuracy: 0.7500 - val_loss: 0.7359 - val_accuracy: 1.0000
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8661 - accuracy: 0.7500
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8661 - accuracy: 0.7500 - val_loss: 0.6537 - val_accuracy: 1.0000
+2025-05-04 02:38:49,822 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7617 - accuracy: 0.7500
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7617 - accuracy: 0.7500 - val_loss: 0.5712 - val_accuracy: 1.0000
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7572 - accuracy: 0.7500
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7572 - accuracy: 0.7500 - val_loss: 0.4906 - val_accuracy: 1.0000
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7554 - accuracy: 0.7500
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7554 - accuracy: 0.7500 - val_loss: 0.4172 - val_accuracy: 1.0000
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7107 - accuracy: 0.7500
+2025-05-04 02:38:49,823 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7107 - accuracy: 0.7500 - val_loss: 0.3514 - val_accuracy: 1.0000
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6302 - accuracy: 0.7500
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6302 - accuracy: 0.7500 - val_loss: 0.2963 - val_accuracy: 1.0000
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6784 - accuracy: 0.7500
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6784 - accuracy: 0.7500 - val_loss: 0.2555 - val_accuracy: 1.0000
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6040 - accuracy: 0.7500
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.6040 - accuracy: 0.7500 - val_loss: 0.2224 - val_accuracy: 1.0000
+2025-05-04 02:38:49,824 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6346 - accuracy: 0.7500
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6346 - accuracy: 0.7500 - val_loss: 0.2008 - val_accuracy: 1.0000
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6683 - accuracy: 0.7500
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.6683 - accuracy: 0.7500 - val_loss: 0.1862 - val_accuracy: 1.0000
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7258 - accuracy: 0.7500
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7258 - accuracy: 0.7500 - val_loss: 0.1762 - val_accuracy: 1.0000
+2025-05-04 02:38:49,825 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6580 - accuracy: 0.7500
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6580 - accuracy: 0.7500 - val_loss: 0.1707 - val_accuracy: 1.0000
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6474 - accuracy: 0.7500
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6474 - accuracy: 0.7500 - val_loss: 0.1701 - val_accuracy: 1.0000
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7039 - accuracy: 0.7500
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7039 - accuracy: 0.7500 - val_loss: 0.1784 - val_accuracy: 1.0000
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6043 - accuracy: 0.7500
+2025-05-04 02:38:49,826 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6043 - accuracy: 0.7500 - val_loss: 0.1855 - val_accuracy: 1.0000
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7155 - accuracy: 0.7500
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7155 - accuracy: 0.7500 - val_loss: 0.1986 - val_accuracy: 1.0000
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6119 - accuracy: 0.7500
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.6119 - accuracy: 0.7500 - val_loss: 0.2111 - val_accuracy: 1.0000
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5837 - accuracy: 0.7500
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.5837 - accuracy: 0.7500 - val_loss: 0.2254 - val_accuracy: 1.0000
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,827 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5084 - accuracy: 0.7500
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.5084 - accuracy: 0.7500 - val_loss: 0.2392 - val_accuracy: 1.0000
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6502 - accuracy: 0.7500
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6502 - accuracy: 0.7500 - val_loss: 0.2569 - val_accuracy: 1.0000
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6119 - accuracy: 0.7500
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.6119 - accuracy: 0.7500 - val_loss: 0.2688 - val_accuracy: 1.0000
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5714 - accuracy: 0.7500
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.5714 - accuracy: 0.7500 - val_loss: 0.2736 - val_accuracy: 1.0000
+2025-05-04 02:38:49,829 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5331 - accuracy: 0.7500
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.5331 - accuracy: 0.7500 - val_loss: 0.2742 - val_accuracy: 1.0000
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1701 - accuracy: 1.0000
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 22ms/step - loss: 0.1701 - accuracy: 1.0000
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0621 - accuracy: 0.5000
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.0621 - accuracy: 0.5000 - val_loss: 0.9872 - val_accuracy: 1.0000
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0465 - accuracy: 0.7500
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 1.0465 - accuracy: 0.7500 - val_loss: 0.9351 - val_accuracy: 1.0000
+2025-05-04 02:38:49,830 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0218 - accuracy: 0.7500
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 1.0218 - accuracy: 0.7500 - val_loss: 0.8902 - val_accuracy: 1.0000
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0446 - accuracy: 0.7500
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 1.0446 - accuracy: 0.7500 - val_loss: 0.8349 - val_accuracy: 1.0000
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9264 - accuracy: 0.7500
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9264 - accuracy: 0.7500 - val_loss: 0.7845 - val_accuracy: 1.0000
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,831 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9125 - accuracy: 0.7500
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.9125 - accuracy: 0.7500 - val_loss: 0.7252 - val_accuracy: 1.0000
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9535 - accuracy: 0.7500
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9535 - accuracy: 0.7500 - val_loss: 0.6616 - val_accuracy: 1.0000
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8131 - accuracy: 0.7500
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8131 - accuracy: 0.7500 - val_loss: 0.6046 - val_accuracy: 1.0000
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9069 - accuracy: 0.7500
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9069 - accuracy: 0.7500 - val_loss: 0.5500 - val_accuracy: 1.0000
+2025-05-04 02:38:49,832 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8088 - accuracy: 0.7500
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.8088 - accuracy: 0.7500 - val_loss: 0.4995 - val_accuracy: 1.0000
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8087 - accuracy: 0.7500
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8087 - accuracy: 0.7500 - val_loss: 0.4561 - val_accuracy: 1.0000
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7861 - accuracy: 0.7500
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7861 - accuracy: 0.7500 - val_loss: 0.4150 - val_accuracy: 1.0000
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,833 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7564 - accuracy: 0.7500
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7564 - accuracy: 0.7500 - val_loss: 0.3788 - val_accuracy: 1.0000
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8459 - accuracy: 0.7500
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.8459 - accuracy: 0.7500 - val_loss: 0.3492 - val_accuracy: 1.0000
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7811 - accuracy: 0.7500
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7811 - accuracy: 0.7500 - val_loss: 0.3263 - val_accuracy: 1.0000
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,834 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7606 - accuracy: 0.7500
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7606 - accuracy: 0.7500 - val_loss: 0.3082 - val_accuracy: 1.0000
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8131 - accuracy: 0.7500
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.8131 - accuracy: 0.7500 - val_loss: 0.2949 - val_accuracy: 1.0000
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7780 - accuracy: 0.7500
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 45ms/step - loss: 0.7780 - accuracy: 0.7500 - val_loss: 0.2841 - val_accuracy: 1.0000
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,835 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7475 - accuracy: 0.7500
+2025-05-04 02:38:49,836 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7475 - accuracy: 0.7500 - val_loss: 0.2741 - val_accuracy: 1.0000
+2025-05-04 02:38:49,836 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,836 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7087 - accuracy: 0.7500
+2025-05-04 02:38:49,836 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7087 - accuracy: 0.7500 - val_loss: 0.2681 - val_accuracy: 1.0000
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6388 - accuracy: 0.7500
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.6388 - accuracy: 0.7500 - val_loss: 0.2640 - val_accuracy: 1.0000
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7031 - accuracy: 0.7500
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7031 - accuracy: 0.7500 - val_loss: 0.2618 - val_accuracy: 1.0000
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7574 - accuracy: 0.7500
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7574 - accuracy: 0.7500 - val_loss: 0.2637 - val_accuracy: 1.0000
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6980 - accuracy: 0.7500
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6980 - accuracy: 0.7500 - val_loss: 0.2660 - val_accuracy: 1.0000
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,837 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7168 - accuracy: 0.7500
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.7168 - accuracy: 0.7500 - val_loss: 0.2698 - val_accuracy: 1.0000
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6662 - accuracy: 0.7500
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6662 - accuracy: 0.7500 - val_loss: 0.2752 - val_accuracy: 1.0000
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6098 - accuracy: 0.7500
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.6098 - accuracy: 0.7500 - val_loss: 0.2804 - val_accuracy: 1.0000
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,838 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6634 - accuracy: 0.7500
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6634 - accuracy: 0.7500 - val_loss: 0.2866 - val_accuracy: 1.0000
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7288 - accuracy: 0.7500
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7288 - accuracy: 0.7500 - val_loss: 0.2962 - val_accuracy: 1.0000
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7508 - accuracy: 0.7500
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7508 - accuracy: 0.7500 - val_loss: 0.3079 - val_accuracy: 1.0000
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6613 - accuracy: 0.7500
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.6613 - accuracy: 0.7500 - val_loss: 0.3172 - val_accuracy: 1.0000
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7075 - accuracy: 0.7500
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.7075 - accuracy: 0.7500 - val_loss: 0.3275 - val_accuracy: 1.0000
+2025-05-04 02:38:49,839 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.2618 - accuracy: 1.0000
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 21ms/step - loss: 0.2618 - accuracy: 1.0000
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0545 - accuracy: 0.7500
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.0545 - accuracy: 0.7500 - val_loss: 1.1964 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0357 - accuracy: 0.7500
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 1.0357 - accuracy: 0.7500 - val_loss: 1.2762 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9863 - accuracy: 0.7500
+2025-05-04 02:38:49,841 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9863 - accuracy: 0.7500 - val_loss: 1.3181 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9461 - accuracy: 0.7500
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.9461 - accuracy: 0.7500 - val_loss: 1.3714 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9052 - accuracy: 0.7500
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.9052 - accuracy: 0.7500 - val_loss: 1.4370 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,842 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8826 - accuracy: 0.7500
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8826 - accuracy: 0.7500 - val_loss: 1.5118 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8349 - accuracy: 0.7500
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8349 - accuracy: 0.7500 - val_loss: 1.5973 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7964 - accuracy: 0.7500
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.7964 - accuracy: 0.7500 - val_loss: 1.6969 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7769 - accuracy: 0.7500
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7769 - accuracy: 0.7500 - val_loss: 1.8078 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,843 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7857 - accuracy: 0.7500
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 46ms/step - loss: 0.7857 - accuracy: 0.7500 - val_loss: 1.9229 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6959 - accuracy: 0.7500
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.6959 - accuracy: 0.7500 - val_loss: 2.0329 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.1964 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,844 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 20ms/step - loss: 1.1964 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,845 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,845 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9915 - accuracy: 1.0000
+2025-05-04 02:38:49,845 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 0.9915 - accuracy: 1.0000 - val_loss: 0.9340 - val_accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9547 - accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 63ms/step - loss: 0.9547 - accuracy: 1.0000 - val_loss: 0.8464 - val_accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8781 - accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 65ms/step - loss: 0.8781 - accuracy: 1.0000 - val_loss: 0.7607 - val_accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7576 - accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 63ms/step - loss: 0.7576 - accuracy: 1.0000 - val_loss: 0.6720 - val_accuracy: 1.0000
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,846 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6646 - accuracy: 1.0000
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 62ms/step - loss: 0.6646 - accuracy: 1.0000 - val_loss: 0.5749 - val_accuracy: 1.0000
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5334 - accuracy: 1.0000
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 61ms/step - loss: 0.5334 - accuracy: 1.0000 - val_loss: 0.4725 - val_accuracy: 1.0000
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.4842 - accuracy: 1.0000
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 59ms/step - loss: 0.4842 - accuracy: 1.0000 - val_loss: 0.3714 - val_accuracy: 1.0000
+2025-05-04 02:38:49,847 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.3655 - accuracy: 1.0000
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.3655 - accuracy: 1.0000 - val_loss: 0.2789 - val_accuracy: 1.0000
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.2993 - accuracy: 1.0000
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.2993 - accuracy: 1.0000 - val_loss: 0.2015 - val_accuracy: 1.0000
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.2007 - accuracy: 1.0000
+2025-05-04 02:38:49,848 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.2007 - accuracy: 1.0000 - val_loss: 0.1424 - val_accuracy: 1.0000
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1368 - accuracy: 1.0000
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.1368 - accuracy: 1.0000 - val_loss: 0.0980 - val_accuracy: 1.0000
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1511 - accuracy: 1.0000
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.1511 - accuracy: 1.0000 - val_loss: 0.0645 - val_accuracy: 1.0000
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,849 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0670 - accuracy: 1.0000
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0670 - accuracy: 1.0000 - val_loss: 0.0431 - val_accuracy: 1.0000
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0375 - accuracy: 1.0000
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.0375 - accuracy: 1.0000 - val_loss: 0.0293 - val_accuracy: 1.0000
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0311 - accuracy: 1.0000
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.0311 - accuracy: 1.0000 - val_loss: 0.0204 - val_accuracy: 1.0000
+2025-05-04 02:38:49,850 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0196 - accuracy: 1.0000
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 56ms/step - loss: 0.0196 - accuracy: 1.0000 - val_loss: 0.0146 - val_accuracy: 1.0000
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0213 - accuracy: 1.0000
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 61ms/step - loss: 0.0213 - accuracy: 1.0000 - val_loss: 0.0106 - val_accuracy: 1.0000
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0176 - accuracy: 1.0000
+2025-05-04 02:38:49,851 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 61ms/step - loss: 0.0176 - accuracy: 1.0000 - val_loss: 0.0079 - val_accuracy: 1.0000
+2025-05-04 02:38:49,852 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,852 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0097 - accuracy: 1.0000
+2025-05-04 02:38:49,852 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 66ms/step - loss: 0.0097 - accuracy: 1.0000 - val_loss: 0.0060 - val_accuracy: 1.0000
+2025-05-04 02:38:49,852 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0052 - accuracy: 1.0000
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 66ms/step - loss: 0.0052 - accuracy: 1.0000 - val_loss: 0.0047 - val_accuracy: 1.0000
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0066 - accuracy: 1.0000
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 68ms/step - loss: 0.0066 - accuracy: 1.0000 - val_loss: 0.0038 - val_accuracy: 1.0000
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0049 - accuracy: 1.0000
+2025-05-04 02:38:49,853 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 62ms/step - loss: 0.0049 - accuracy: 1.0000 - val_loss: 0.0031 - val_accuracy: 1.0000
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0035 - accuracy: 1.0000
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.0035 - accuracy: 1.0000 - val_loss: 0.0026 - val_accuracy: 1.0000
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0031 - accuracy: 1.0000
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0031 - accuracy: 1.0000 - val_loss: 0.0021 - val_accuracy: 1.0000
+2025-05-04 02:38:49,854 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0032 - accuracy: 1.0000
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0032 - accuracy: 1.0000 - val_loss: 0.0018 - val_accuracy: 1.0000
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0017 - accuracy: 1.0000
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0017 - accuracy: 1.0000 - val_loss: 0.0016 - val_accuracy: 1.0000
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0044 - accuracy: 1.0000
+2025-05-04 02:38:49,855 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.0044 - accuracy: 1.0000 - val_loss: 0.0013 - val_accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 8.3197e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 8.3197e-04 - accuracy: 1.0000 - val_loss: 0.0012 - val_accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0014 - accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 60ms/step - loss: 0.0014 - accuracy: 1.0000 - val_loss: 0.0010 - val_accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 8.0718e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 55ms/step - loss: 8.0718e-04 - accuracy: 1.0000 - val_loss: 9.2434e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0013 - accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.0013 - accuracy: 1.0000 - val_loss: 8.2923e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 7.3780e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 7.3780e-04 - accuracy: 1.0000 - val_loss: 7.5014e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] Epoch 33/50
+2025-05-04 02:38:49,856 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 7.1291e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 7.1291e-04 - accuracy: 1.0000 - val_loss: 6.8373e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] Epoch 34/50
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 6.1167e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 6.1167e-04 - accuracy: 1.0000 - val_loss: 6.2744e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] Epoch 35/50
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0012 - accuracy: 1.0000
+2025-05-04 02:38:49,858 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 56ms/step - loss: 0.0012 - accuracy: 1.0000 - val_loss: 5.7859e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] Epoch 36/50
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 7.9626e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 65ms/step - loss: 7.9626e-04 - accuracy: 1.0000 - val_loss: 5.3642e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] Epoch 37/50
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 5.5845e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 66ms/step - loss: 5.5845e-04 - accuracy: 1.0000 - val_loss: 5.0002e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,859 - integrated_trader - INFO - [TRAINING] Epoch 38/50
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 7.0325e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 7.0325e-04 - accuracy: 1.0000 - val_loss: 4.6826e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] Epoch 39/50
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 6.1073e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 60ms/step - loss: 6.1073e-04 - accuracy: 1.0000 - val_loss: 4.4038e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] Epoch 40/50
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0014 - accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 0.0014 - accuracy: 1.0000 - val_loss: 4.1524e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] Epoch 41/50
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 6.6135e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 62ms/step - loss: 6.6135e-04 - accuracy: 1.0000 - val_loss: 3.9290e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] Epoch 42/50
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 3.8400e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,860 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 60ms/step - loss: 3.8400e-04 - accuracy: 1.0000 - val_loss: 3.7329e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] Epoch 43/50
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 5.6363e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 58ms/step - loss: 5.6363e-04 - accuracy: 1.0000 - val_loss: 3.5578e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] Epoch 44/50
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0017 - accuracy: 1.0000
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 0.0017 - accuracy: 1.0000 - val_loss: 3.3939e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,861 - integrated_trader - INFO - [TRAINING] Epoch 45/50
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 3.7237e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 3.7237e-04 - accuracy: 1.0000 - val_loss: 3.2485e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] Epoch 46/50
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 5.7472e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 68ms/step - loss: 5.7472e-04 - accuracy: 1.0000 - val_loss: 3.1168e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] Epoch 47/50
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 5.3198e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 56ms/step - loss: 5.3198e-04 - accuracy: 1.0000 - val_loss: 2.9983e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] Epoch 48/50
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 2.6299e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 2.6299e-04 - accuracy: 1.0000 - val_loss: 2.8922e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] Epoch 49/50
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 6.5146e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,862 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 6.5146e-04 - accuracy: 1.0000 - val_loss: 2.7939e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] Epoch 50/50
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 4.0071e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 61ms/step - loss: 4.0071e-04 - accuracy: 1.0000 - val_loss: 2.7045e-04 - val_accuracy: 1.0000
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 2.7045e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 28ms/step - loss: 2.7045e-04 - accuracy: 1.0000
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] Epoch 1/50
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.2866 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 3s 3s/step - loss: 1.2866 - accuracy: 0.0000e+00 - val_loss: 1.1704 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,864 - integrated_trader - INFO - [TRAINING] Epoch 2/50
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.1954 - accuracy: 0.0000e+00
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 1.1954 - accuracy: 0.0000e+00 - val_loss: 1.0804 - val_accuracy: 0.0000e+00
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] Epoch 3/50
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0872 - accuracy: 0.5000
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 56ms/step - loss: 1.0872 - accuracy: 0.5000 - val_loss: 1.0419 - val_accuracy: 1.0000
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] Epoch 4/50
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0631 - accuracy: 0.7500
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 62ms/step - loss: 1.0631 - accuracy: 0.7500 - val_loss: 1.0194 - val_accuracy: 1.0000
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] Epoch 5/50
+2025-05-04 02:38:49,865 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 1.0301 - accuracy: 0.7500
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 62ms/step - loss: 1.0301 - accuracy: 0.7500 - val_loss: 0.9885 - val_accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] Epoch 6/50
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9987 - accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.9987 - accuracy: 1.0000 - val_loss: 0.9578 - val_accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] Epoch 7/50
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9875 - accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.9875 - accuracy: 1.0000 - val_loss: 0.9189 - val_accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] Epoch 8/50
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.9359 - accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.9359 - accuracy: 1.0000 - val_loss: 0.8771 - val_accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] Epoch 9/50
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8972 - accuracy: 1.0000
+2025-05-04 02:38:49,866 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.8972 - accuracy: 1.0000 - val_loss: 0.8355 - val_accuracy: 1.0000
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] Epoch 10/50
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8537 - accuracy: 1.0000
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.8537 - accuracy: 1.0000 - val_loss: 0.7901 - val_accuracy: 1.0000
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] Epoch 11/50
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.8043 - accuracy: 1.0000
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.8043 - accuracy: 1.0000 - val_loss: 0.7385 - val_accuracy: 1.0000
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] Epoch 12/50
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7524 - accuracy: 1.0000
+2025-05-04 02:38:49,867 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.7524 - accuracy: 1.0000 - val_loss: 0.6869 - val_accuracy: 1.0000
+2025-05-04 02:38:49,868 - integrated_trader - INFO - [TRAINING] Epoch 13/50
+2025-05-04 02:38:49,868 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7073 - accuracy: 1.0000
+2025-05-04 02:38:49,868 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.7073 - accuracy: 1.0000 - val_loss: 0.6343 - val_accuracy: 1.0000
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] Epoch 14/50
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.7170 - accuracy: 1.0000
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.7170 - accuracy: 1.0000 - val_loss: 0.5814 - val_accuracy: 1.0000
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] Epoch 15/50
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.6042 - accuracy: 1.0000
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.6042 - accuracy: 1.0000 - val_loss: 0.5293 - val_accuracy: 1.0000
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] Epoch 16/50
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5403 - accuracy: 1.0000
+2025-05-04 02:38:49,869 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.5403 - accuracy: 1.0000 - val_loss: 0.4788 - val_accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] Epoch 17/50
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.4895 - accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.4895 - accuracy: 1.0000 - val_loss: 0.4314 - val_accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] Epoch 18/50
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.5309 - accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.5309 - accuracy: 1.0000 - val_loss: 0.3894 - val_accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] Epoch 19/50
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.4087 - accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.4087 - accuracy: 1.0000 - val_loss: 0.3522 - val_accuracy: 1.0000
+2025-05-04 02:38:49,870 - integrated_trader - INFO - [TRAINING] Epoch 20/50
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.3985 - accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 58ms/step - loss: 0.3985 - accuracy: 1.0000 - val_loss: 0.3184 - val_accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] Epoch 21/50
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.3182 - accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 58ms/step - loss: 0.3182 - accuracy: 1.0000 - val_loss: 0.2858 - val_accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] Epoch 22/50
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.2727 - accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 57ms/step - loss: 0.2727 - accuracy: 1.0000 - val_loss: 0.2544 - val_accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] Epoch 23/50
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.3332 - accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 50ms/step - loss: 0.3332 - accuracy: 1.0000 - val_loss: 0.2258 - val_accuracy: 1.0000
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] Epoch 24/50
+2025-05-04 02:38:49,871 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.2559 - accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.2559 - accuracy: 1.0000 - val_loss: 0.1995 - val_accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] Epoch 25/50
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1940 - accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.1940 - accuracy: 1.0000 - val_loss: 0.1745 - val_accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] Epoch 26/50
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1736 - accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.1736 - accuracy: 1.0000 - val_loss: 0.1477 - val_accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] Epoch 27/50
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1329 - accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.1329 - accuracy: 1.0000 - val_loss: 0.1240 - val_accuracy: 1.0000
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] Epoch 28/50
+2025-05-04 02:38:49,872 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.1228 - accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.1228 - accuracy: 1.0000 - val_loss: 0.1018 - val_accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] Epoch 29/50
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0984 - accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.0984 - accuracy: 1.0000 - val_loss: 0.0828 - val_accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] Epoch 30/50
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0826 - accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.0826 - accuracy: 1.0000 - val_loss: 0.0668 - val_accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] Epoch 31/50
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0572 - accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.0572 - accuracy: 1.0000 - val_loss: 0.0538 - val_accuracy: 1.0000
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] Epoch 32/50
+2025-05-04 02:38:49,874 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0426 - accuracy: 1.0000
+2025-05-04 02:38:49,875 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.0426 - accuracy: 1.0000 - val_loss: 0.0432 - val_accuracy: 1.0000
+2025-05-04 02:38:49,875 - integrated_trader - INFO - [TRAINING] Epoch 33/50
+2025-05-04 02:38:49,875 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0434 - accuracy: 1.0000
+2025-05-04 02:38:49,875 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 51ms/step - loss: 0.0434 - accuracy: 1.0000 - val_loss: 0.0346 - val_accuracy: 1.0000
+2025-05-04 02:38:49,875 - integrated_trader - INFO - [TRAINING] Epoch 34/50
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0382 - accuracy: 1.0000
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 55ms/step - loss: 0.0382 - accuracy: 1.0000 - val_loss: 0.0277 - val_accuracy: 1.0000
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] Epoch 35/50
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0344 - accuracy: 1.0000
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.0344 - accuracy: 1.0000 - val_loss: 0.0223 - val_accuracy: 1.0000
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] Epoch 36/50
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0260 - accuracy: 1.0000
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.0260 - accuracy: 1.0000 - val_loss: 0.0180 - val_accuracy: 1.0000
+2025-05-04 02:38:49,876 - integrated_trader - INFO - [TRAINING] Epoch 37/50
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0238 - accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 54ms/step - loss: 0.0238 - accuracy: 1.0000 - val_loss: 0.0146 - val_accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] Epoch 38/50
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0139 - accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 52ms/step - loss: 0.0139 - accuracy: 1.0000 - val_loss: 0.0119 - val_accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] Epoch 39/50
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0108 - accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.0108 - accuracy: 1.0000 - val_loss: 0.0099 - val_accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] Epoch 40/50
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0156 - accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 58ms/step - loss: 0.0156 - accuracy: 1.0000 - val_loss: 0.0083 - val_accuracy: 1.0000
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] Epoch 41/50
+2025-05-04 02:38:49,877 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0067 - accuracy: 1.0000
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 60ms/step - loss: 0.0067 - accuracy: 1.0000 - val_loss: 0.0070 - val_accuracy: 1.0000
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] Epoch 42/50
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0050 - accuracy: 1.0000
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 62ms/step - loss: 0.0050 - accuracy: 1.0000 - val_loss: 0.0060 - val_accuracy: 1.0000
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] Epoch 43/50
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0059 - accuracy: 1.0000
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0059 - accuracy: 1.0000 - val_loss: 0.0053 - val_accuracy: 1.0000
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] Epoch 44/50
+2025-05-04 02:38:49,878 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0075 - accuracy: 1.0000
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0075 - accuracy: 1.0000 - val_loss: 0.0046 - val_accuracy: 1.0000
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] Epoch 45/50
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0077 - accuracy: 1.0000
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.0077 - accuracy: 1.0000 - val_loss: 0.0041 - val_accuracy: 1.0000
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] Epoch 46/50
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0164 - accuracy: 1.0000
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 49ms/step - loss: 0.0164 - accuracy: 1.0000 - val_loss: 0.0036 - val_accuracy: 1.0000
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] Epoch 47/50
+2025-05-04 02:38:49,879 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0034 - accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 48ms/step - loss: 0.0034 - accuracy: 1.0000 - val_loss: 0.0032 - val_accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] Epoch 48/50
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0038 - accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 47ms/step - loss: 0.0038 - accuracy: 1.0000 - val_loss: 0.0029 - val_accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] Epoch 49/50
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0028 - accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 55ms/step - loss: 0.0028 - accuracy: 1.0000 - val_loss: 0.0026 - val_accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] Epoch 50/50
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0034 - accuracy: 1.0000
+2025-05-04 02:38:49,880 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 53ms/step - loss: 0.0034 - accuracy: 1.0000 - val_loss: 0.0024 - val_accuracy: 1.0000
+2025-05-04 02:38:49,881 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - ETA: 0s - loss: 0.0024 - accuracy: 1.0000
+2025-05-04 02:38:49,881 - integrated_trader - INFO - [TRAINING] 1/1 [==============================] - 0s 20ms/step - loss: 0.0024 - accuracy: 1.0000
+2025-05-04 02:38:49,881 - integrated_trader - INFO - Attente de 300 secondes avant la prochaine vérification...
+2025-05-04 02:43:52,689 - app.services.market_calendar - INFO - Service de calendrier de marché initialisé pour stock
+2025-05-04 02:43:52,689 - integrated_trader - INFO - Le marché est fermé.
+2025-05-04 02:43:52,689 - integrated_trader - INFO - En attente de l'ouverture du marché ou du prochain cycle d'entraînement...
+2025-05-04 02:43:52,689 - integrated_trader - INFO - Attente de 300 secondes avant la prochaine vérification...
