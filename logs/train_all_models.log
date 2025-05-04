@@ -2610,3 +2610,1601 @@
 2025-05-03 19:42:28,365 - __main__ - INFO - Modèle Transformer entraîné: Oui
 2025-05-03 19:42:28,368 - __main__ - INFO - Rapport d'entraînement sauvegardé dans reports/training_report_20250503_194228.csv
 2025-05-03 19:42:28,368 - __main__ - INFO - Entraînement réussi! Au moins un modèle a été entraîné avec succès.
+2025-05-04 02:29:54,611 - app.utils.env_loader - INFO - Loading environment variables from C:\Projects\MercurioAI\.env
+2025-05-04 02:29:54,612 - app.utils.env_loader - INFO - Alpaca API credentials loaded successfully
+2025-05-04 02:29:54,614 - app.utils.env_loader - INFO - Polygon API key loaded successfully
+2025-05-04 02:29:59,980 - __main__ - INFO - Ajout de 10 actions populaires par défaut
+2025-05-04 02:29:59,980 - __main__ - INFO - Ajout de 10 cryptomonnaies populaires par défaut
+2025-05-04 02:29:59,980 - __main__ - INFO - Entraînement des modèles pour 20 symboles
+2025-05-04 02:29:59,980 - __main__ - INFO - Liste des symboles: BTC-USD, SHIB-USD, AAPL, SOL-USD, PG, V, NVDA, MSFT, GOOGL, XRP-USD, LUNA-USD, AVAX-USD, ETH-USD, AMZN, ADA-USD, DOGE-USD, META, TSLA, DOT-USD, JPM
+2025-05-04 02:29:59,980 - __main__ - INFO - Période d'entraînement: 180 jours jusqu'à aujourd'hui
+2025-05-04 02:29:59,980 - __main__ - INFO - Entraînement du modèle LSTM pour BTC-USD
+2025-05-04 02:29:59,981 - __main__ - INFO - Entraînement du modèle LSTM pour BTC-USD
+2025-05-04 02:29:59,981 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:29:59,982 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:29:59,982 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:29:59,982 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:00,086 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:00,086 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:00,086 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:00,086 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:00,087 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:00,087 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:00,087 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:00,087 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:00,087 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:00,087 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:00,087 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:00,087 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:00,087 - app.services.market_data - INFO - Fetching historical data for BTC-USD from Alpaca
+2025-05-04 02:30:00,087 - root - INFO - Converting crypto symbol format for Alpaca: BTC-USD -> BTC/USD
+2025-05-04 02:30:00,088 - app.services.market_data - INFO - Cryptocurrency detected: BTC-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:30:00,088 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for BTC/USD
+2025-05-04 02:30:00,572 - app.services.market_data - INFO - Successfully retrieved 180 bars for BTC/USD from Alpaca v1beta3 API
+2025-05-04 02:30:05,299 - __main__ - INFO - Modèle LSTM pour BTC-USD sauvegardé dans: models\lstm\btc_usd\lstm_predictor_60_50.h5
+2025-05-04 02:30:05,299 - __main__ - INFO - Entraînement du modèle LSTM pour SHIB-USD
+2025-05-04 02:30:05,299 - __main__ - INFO - Entraînement du modèle LSTM pour SHIB-USD
+2025-05-04 02:30:05,299 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:05,299 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:05,300 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:05,300 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:05,300 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:05,300 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:05,300 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:05,300 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:05,300 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:05,301 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:05,301 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:05,301 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:05,301 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:05,301 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:05,301 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:05,301 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:05,301 - app.services.market_data - INFO - Fetching historical data for SHIB-USD from Alpaca
+2025-05-04 02:30:05,301 - root - INFO - Converting crypto symbol format for Alpaca: SHIB-USD -> SHIB/USD
+2025-05-04 02:30:05,301 - app.services.market_data - INFO - Cryptocurrency detected: SHIB-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:30:05,302 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SHIB/USD
+2025-05-04 02:30:05,777 - app.services.market_data - INFO - Successfully retrieved 180 bars for SHIB/USD from Alpaca v1beta3 API
+2025-05-04 02:30:13,325 - __main__ - INFO - Modèle LSTM pour SHIB-USD sauvegardé dans: models\lstm\shib_usd\lstm_predictor_60_50.h5
+2025-05-04 02:30:13,325 - __main__ - INFO - Entraînement du modèle LSTM pour AAPL
+2025-05-04 02:30:13,326 - __main__ - INFO - Entraînement du modèle LSTM pour AAPL
+2025-05-04 02:30:13,326 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:13,326 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:13,326 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:13,326 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:13,326 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:13,326 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:13,326 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:13,326 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:13,326 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:13,327 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:13,327 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:13,327 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:13,327 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:13,327 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:13,327 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:13,327 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:13,327 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-04 02:30:13,327 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-04 02:30:19,582 - __main__ - INFO - Modèle LSTM pour AAPL sauvegardé dans: models\lstm\aapl\lstm_predictor_60_50.h5
+2025-05-04 02:30:19,583 - __main__ - INFO - Entraînement du modèle LSTM pour SOL-USD
+2025-05-04 02:30:19,583 - __main__ - INFO - Entraînement du modèle LSTM pour SOL-USD
+2025-05-04 02:30:19,583 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:19,583 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:19,583 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:19,583 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:19,583 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:19,583 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:19,583 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:19,583 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:19,584 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:19,584 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:19,584 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:19,584 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:19,584 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:19,584 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:19,584 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:19,584 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:19,584 - app.services.market_data - INFO - Fetching historical data for SOL-USD from Alpaca
+2025-05-04 02:30:19,584 - root - INFO - Converting crypto symbol format for Alpaca: SOL-USD -> SOL/USD
+2025-05-04 02:30:19,584 - app.services.market_data - INFO - Cryptocurrency detected: SOL-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:30:19,586 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SOL/USD
+2025-05-04 02:30:20,066 - app.services.market_data - INFO - Successfully retrieved 180 bars for SOL/USD from Alpaca v1beta3 API
+2025-05-04 02:30:25,861 - __main__ - INFO - Modèle LSTM pour SOL-USD sauvegardé dans: models\lstm\sol_usd\lstm_predictor_60_50.h5
+2025-05-04 02:30:25,862 - __main__ - INFO - Entraînement du modèle LSTM pour PG
+2025-05-04 02:30:25,862 - __main__ - INFO - Entraînement du modèle LSTM pour PG
+2025-05-04 02:30:25,862 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:25,862 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:25,862 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:25,862 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:25,862 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:25,863 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:25,863 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:25,863 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:25,863 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:25,863 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:25,863 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:25,864 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:25,864 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:25,864 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:25,864 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:25,864 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:25,864 - app.services.market_data - INFO - Fetching historical data for PG from Alpaca
+2025-05-04 02:30:25,864 - app.services.market_data - INFO - Using standard stock API for PG
+2025-05-04 02:30:30,675 - __main__ - INFO - Modèle LSTM pour PG sauvegardé dans: models\lstm\pg\lstm_predictor_60_50.h5
+2025-05-04 02:30:30,676 - __main__ - INFO - Entraînement du modèle LSTM pour V
+2025-05-04 02:30:30,676 - __main__ - INFO - Entraînement du modèle LSTM pour V
+2025-05-04 02:30:30,676 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:30,676 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:30,676 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:30,676 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:30,677 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:30,677 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:30,677 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:30,677 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:30,677 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:30,677 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:30,677 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:30,677 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:30,678 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:30,678 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:30,678 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:30,678 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:30,678 - app.services.market_data - INFO - Fetching historical data for V from Alpaca
+2025-05-04 02:30:30,678 - app.services.market_data - INFO - Using standard stock API for V
+2025-05-04 02:30:35,498 - __main__ - INFO - Modèle LSTM pour V sauvegardé dans: models\lstm\v\lstm_predictor_60_50.h5
+2025-05-04 02:30:35,498 - __main__ - INFO - Entraînement du modèle LSTM pour NVDA
+2025-05-04 02:30:35,499 - __main__ - INFO - Entraînement du modèle LSTM pour NVDA
+2025-05-04 02:30:35,499 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:35,499 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:35,499 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:35,499 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:35,499 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:35,499 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:35,500 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:35,500 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:35,500 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:35,500 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:35,500 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:35,500 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:35,500 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:35,500 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:35,501 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:35,501 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:35,501 - app.services.market_data - INFO - Fetching historical data for NVDA from Alpaca
+2025-05-04 02:30:35,501 - app.services.market_data - INFO - Using standard stock API for NVDA
+2025-05-04 02:30:39,778 - __main__ - INFO - Modèle LSTM pour NVDA sauvegardé dans: models\lstm\nvda\lstm_predictor_60_50.h5
+2025-05-04 02:30:39,779 - __main__ - INFO - Entraînement du modèle LSTM pour MSFT
+2025-05-04 02:30:39,779 - __main__ - INFO - Entraînement du modèle LSTM pour MSFT
+2025-05-04 02:30:39,779 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:39,779 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:39,779 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:39,779 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:39,779 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:39,779 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:39,780 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:39,780 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:39,780 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:39,780 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:39,780 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:39,780 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:39,780 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:39,780 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:39,780 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:39,781 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:39,781 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-04 02:30:39,781 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-04 02:30:45,164 - __main__ - INFO - Modèle LSTM pour MSFT sauvegardé dans: models\lstm\msft\lstm_predictor_60_50.h5
+2025-05-04 02:30:45,165 - __main__ - INFO - Entraînement du modèle LSTM pour GOOGL
+2025-05-04 02:30:45,165 - __main__ - INFO - Entraînement du modèle LSTM pour GOOGL
+2025-05-04 02:30:45,165 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:45,166 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:45,166 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:45,166 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:45,166 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:45,166 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:45,166 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:45,166 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:45,166 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:45,166 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:45,167 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:45,167 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:45,167 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:45,167 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:45,167 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:45,167 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:45,167 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-04 02:30:45,167 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-04 02:30:49,393 - __main__ - INFO - Modèle LSTM pour GOOGL sauvegardé dans: models\lstm\googl\lstm_predictor_60_50.h5
+2025-05-04 02:30:49,393 - __main__ - INFO - Entraînement du modèle LSTM pour XRP-USD
+2025-05-04 02:30:49,393 - __main__ - INFO - Entraînement du modèle LSTM pour XRP-USD
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:49,393 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Fetching historical data for XRP-USD from Alpaca
+2025-05-04 02:30:49,393 - root - INFO - Converting crypto symbol format for Alpaca: XRP-USD -> XRP/USD
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Cryptocurrency detected: XRP-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:30:49,393 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for XRP/USD
+2025-05-04 02:30:49,791 - app.services.market_data - INFO - Successfully retrieved 179 bars for XRP/USD from Alpaca v1beta3 API
+2025-05-04 02:30:54,958 - __main__ - INFO - Modèle LSTM pour XRP-USD sauvegardé dans: models\lstm\xrp_usd\lstm_predictor_60_50.h5
+2025-05-04 02:30:54,958 - __main__ - INFO - Entraînement du modèle LSTM pour LUNA-USD
+2025-05-04 02:30:54,959 - __main__ - INFO - Entraînement du modèle LSTM pour LUNA-USD
+2025-05-04 02:30:54,959 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:54,959 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:54,959 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:54,959 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:54,959 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:54,959 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:54,959 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:54,960 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:54,960 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:54,960 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:54,960 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:54,960 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:54,960 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:54,960 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:54,960 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:54,960 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:54,960 - app.services.market_data - INFO - Fetching historical data for LUNA-USD from Alpaca
+2025-05-04 02:30:54,960 - root - INFO - Converting crypto symbol format for Alpaca: LUNA-USD -> LUNA/USD
+2025-05-04 02:30:54,960 - app.services.market_data - INFO - Cryptocurrency detected: LUNA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:30:54,961 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for LUNA/USD
+2025-05-04 02:30:55,337 - app.services.market_data - WARNING - No data returned for LUNA/USD from Alpaca v1beta3 API
+2025-05-04 02:30:55,337 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:30:55,698 - app.services.market_data - WARNING - Using sample data for LUNA-USD as fallback
+2025-05-04 02:30:55,699 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:30:55,704 - app.services.providers.sample - INFO - Generated sample data for LUNA-USD with 129 data points
+2025-05-04 02:30:59,780 - __main__ - INFO - Modèle LSTM pour LUNA-USD sauvegardé dans: models\lstm\luna_usd\lstm_predictor_60_50.h5
+2025-05-04 02:30:59,781 - __main__ - INFO - Entraînement du modèle LSTM pour AVAX-USD
+2025-05-04 02:30:59,781 - __main__ - INFO - Entraînement du modèle LSTM pour AVAX-USD
+2025-05-04 02:30:59,781 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:59,781 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:59,782 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:59,782 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:59,782 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:59,782 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:59,782 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:59,782 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:59,782 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:30:59,782 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:30:59,782 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:30:59,783 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:30:59,783 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:30:59,783 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:30:59,783 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:30:59,783 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:30:59,783 - app.services.market_data - INFO - Fetching historical data for AVAX-USD from Alpaca
+2025-05-04 02:30:59,783 - root - INFO - Converting crypto symbol format for Alpaca: AVAX-USD -> AVAX/USD
+2025-05-04 02:30:59,783 - app.services.market_data - INFO - Cryptocurrency detected: AVAX-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:30:59,784 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for AVAX/USD
+2025-05-04 02:31:00,176 - app.services.market_data - INFO - Successfully retrieved 180 bars for AVAX/USD from Alpaca v1beta3 API
+2025-05-04 02:31:07,238 - __main__ - INFO - Modèle LSTM pour AVAX-USD sauvegardé dans: models\lstm\avax_usd\lstm_predictor_60_50.h5
+2025-05-04 02:31:07,238 - __main__ - INFO - Entraînement du modèle LSTM pour ETH-USD
+2025-05-04 02:31:07,238 - __main__ - INFO - Entraînement du modèle LSTM pour ETH-USD
+2025-05-04 02:31:07,238 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:07,238 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:07,238 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:07,240 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:07,240 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:07,240 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:07,240 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:07,240 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:07,241 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:07,241 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:07,241 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:07,241 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:07,241 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:07,241 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:07,242 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:07,242 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:07,242 - app.services.market_data - INFO - Fetching historical data for ETH-USD from Alpaca
+2025-05-04 02:31:07,242 - root - INFO - Converting crypto symbol format for Alpaca: ETH-USD -> ETH/USD
+2025-05-04 02:31:07,242 - app.services.market_data - INFO - Cryptocurrency detected: ETH-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:07,242 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ETH/USD
+2025-05-04 02:31:07,742 - app.services.market_data - INFO - Successfully retrieved 180 bars for ETH/USD from Alpaca v1beta3 API
+2025-05-04 02:31:13,044 - __main__ - INFO - Modèle LSTM pour ETH-USD sauvegardé dans: models\lstm\eth_usd\lstm_predictor_60_50.h5
+2025-05-04 02:31:13,045 - __main__ - INFO - Entraînement du modèle LSTM pour AMZN
+2025-05-04 02:31:13,045 - __main__ - INFO - Entraînement du modèle LSTM pour AMZN
+2025-05-04 02:31:13,046 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:13,046 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:13,046 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:13,046 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:13,046 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:13,046 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:13,047 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:13,047 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:13,047 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:13,047 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:13,047 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:13,047 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:13,047 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:13,047 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:13,048 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:13,048 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:13,048 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-04 02:31:13,048 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-04 02:31:17,510 - __main__ - INFO - Modèle LSTM pour AMZN sauvegardé dans: models\lstm\amzn\lstm_predictor_60_50.h5
+2025-05-04 02:31:17,511 - __main__ - INFO - Entraînement du modèle LSTM pour ADA-USD
+2025-05-04 02:31:17,511 - __main__ - INFO - Entraînement du modèle LSTM pour ADA-USD
+2025-05-04 02:31:17,511 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:17,511 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:17,512 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:17,512 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:17,512 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:17,513 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:17,513 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:17,513 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:17,513 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:17,513 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:17,513 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:17,514 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:17,514 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:17,514 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:17,514 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:17,514 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:17,514 - app.services.market_data - INFO - Fetching historical data for ADA-USD from Alpaca
+2025-05-04 02:31:17,514 - root - INFO - Converting crypto symbol format for Alpaca: ADA-USD -> ADA/USD
+2025-05-04 02:31:17,514 - app.services.market_data - INFO - Cryptocurrency detected: ADA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:17,514 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ADA/USD
+2025-05-04 02:31:17,879 - app.services.market_data - WARNING - No data returned for ADA/USD from Alpaca v1beta3 API
+2025-05-04 02:31:17,880 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:31:18,244 - app.services.market_data - WARNING - Using sample data for ADA-USD as fallback
+2025-05-04 02:31:18,244 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:31:18,250 - app.services.providers.sample - INFO - Generated sample data for ADA-USD with 129 data points
+2025-05-04 02:31:23,752 - __main__ - INFO - Modèle LSTM pour ADA-USD sauvegardé dans: models\lstm\ada_usd\lstm_predictor_60_50.h5
+2025-05-04 02:31:23,752 - __main__ - INFO - Entraînement du modèle LSTM pour DOGE-USD
+2025-05-04 02:31:23,752 - __main__ - INFO - Entraînement du modèle LSTM pour DOGE-USD
+2025-05-04 02:31:23,752 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:23,752 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:23,752 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:23,754 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:23,754 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:23,754 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:23,754 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:23,754 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:23,754 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:23,755 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:23,755 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:23,755 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:23,755 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:23,756 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:23,756 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:23,756 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:23,756 - app.services.market_data - INFO - Fetching historical data for DOGE-USD from Alpaca
+2025-05-04 02:31:23,756 - root - INFO - Converting crypto symbol format for Alpaca: DOGE-USD -> DOGE/USD
+2025-05-04 02:31:23,756 - app.services.market_data - INFO - Cryptocurrency detected: DOGE-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:23,756 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOGE/USD
+2025-05-04 02:31:24,118 - app.services.market_data - INFO - Successfully retrieved 180 bars for DOGE/USD from Alpaca v1beta3 API
+2025-05-04 02:31:30,680 - __main__ - INFO - Modèle LSTM pour DOGE-USD sauvegardé dans: models\lstm\doge_usd\lstm_predictor_60_50.h5
+2025-05-04 02:31:30,681 - __main__ - INFO - Entraînement du modèle LSTM pour META
+2025-05-04 02:31:30,681 - __main__ - INFO - Entraînement du modèle LSTM pour META
+2025-05-04 02:31:30,681 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:30,681 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:30,681 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:30,682 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:30,682 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:30,682 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:30,682 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:30,682 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:30,682 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:30,683 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:30,683 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:30,683 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:30,683 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:30,683 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:30,683 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:30,683 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:30,683 - app.services.market_data - INFO - Fetching historical data for META from Alpaca
+2025-05-04 02:31:30,684 - app.services.market_data - INFO - Using standard stock API for META
+2025-05-04 02:31:35,326 - __main__ - INFO - Modèle LSTM pour META sauvegardé dans: models\lstm\meta\lstm_predictor_60_50.h5
+2025-05-04 02:31:35,326 - __main__ - INFO - Entraînement du modèle LSTM pour TSLA
+2025-05-04 02:31:35,326 - __main__ - INFO - Entraînement du modèle LSTM pour TSLA
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:35,326 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-04 02:31:35,326 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-04 02:31:39,908 - __main__ - INFO - Modèle LSTM pour TSLA sauvegardé dans: models\lstm\tsla\lstm_predictor_60_50.h5
+2025-05-04 02:31:39,908 - __main__ - INFO - Entraînement du modèle LSTM pour DOT-USD
+2025-05-04 02:31:39,909 - __main__ - INFO - Entraînement du modèle LSTM pour DOT-USD
+2025-05-04 02:31:39,909 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:39,909 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:39,909 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:39,909 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:39,909 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:39,909 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:39,910 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:39,910 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:39,910 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:39,911 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:39,911 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:39,911 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:39,911 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:39,911 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:39,911 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:39,911 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:39,911 - app.services.market_data - INFO - Fetching historical data for DOT-USD from Alpaca
+2025-05-04 02:31:39,912 - root - INFO - Converting crypto symbol format for Alpaca: DOT-USD -> DOT/USD
+2025-05-04 02:31:39,912 - app.services.market_data - INFO - Cryptocurrency detected: DOT-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:39,912 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOT/USD
+2025-05-04 02:31:40,276 - app.services.market_data - INFO - Successfully retrieved 180 bars for DOT/USD from Alpaca v1beta3 API
+2025-05-04 02:31:45,390 - __main__ - INFO - Modèle LSTM pour DOT-USD sauvegardé dans: models\lstm\dot_usd\lstm_predictor_60_50.h5
+2025-05-04 02:31:45,391 - __main__ - INFO - Entraînement du modèle LSTM pour JPM
+2025-05-04 02:31:45,391 - __main__ - INFO - Entraînement du modèle LSTM pour JPM
+2025-05-04 02:31:45,391 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:45,391 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:45,391 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:45,391 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:45,391 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:45,392 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:45,392 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:45,392 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:45,392 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:45,392 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:45,392 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:45,393 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:45,393 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:45,393 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:45,393 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:45,393 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:45,393 - app.services.market_data - INFO - Fetching historical data for JPM from Alpaca
+2025-05-04 02:31:45,393 - app.services.market_data - INFO - Using standard stock API for JPM
+2025-05-04 02:31:51,543 - __main__ - INFO - Modèle LSTM pour JPM sauvegardé dans: models\lstm\jpm\lstm_predictor_60_50.h5
+2025-05-04 02:31:51,544 - __main__ - INFO - Entraînement du modèle Transformer sur tous les symboles
+2025-05-04 02:31:51,544 - __main__ - INFO - Entraînement du modèle Transformer sur 20 symboles
+2025-05-04 02:31:51,544 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 60 sequence length
+2025-05-04 02:31:51,544 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:31:51,544 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:31:51,544 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:31:51,544 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:31:51,545 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:31:51,545 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:31:51,545 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:31:51,545 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:31:51,545 - __main__ - INFO - Chargement des données pour BTC-USD
+2025-05-04 02:31:51,546 - app.services.market_data - INFO - Fetching historical data for BTC-USD from Alpaca
+2025-05-04 02:31:51,546 - root - INFO - Converting crypto symbol format for Alpaca: BTC-USD -> BTC/USD
+2025-05-04 02:31:51,546 - app.services.market_data - INFO - Cryptocurrency detected: BTC-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:51,546 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for BTC/USD
+2025-05-04 02:31:52,035 - app.services.market_data - INFO - Successfully retrieved 180 bars for BTC/USD from Alpaca v1beta3 API
+2025-05-04 02:31:52,035 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:52,037 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:52,038 - __main__ - INFO - Chargement des données pour SHIB-USD
+2025-05-04 02:31:52,038 - app.services.market_data - INFO - Fetching historical data for SHIB-USD from Alpaca
+2025-05-04 02:31:52,038 - root - INFO - Converting crypto symbol format for Alpaca: SHIB-USD -> SHIB/USD
+2025-05-04 02:31:52,038 - app.services.market_data - INFO - Cryptocurrency detected: SHIB-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:52,038 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SHIB/USD
+2025-05-04 02:31:52,412 - app.services.market_data - INFO - Successfully retrieved 180 bars for SHIB/USD from Alpaca v1beta3 API
+2025-05-04 02:31:52,412 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:52,415 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:52,416 - __main__ - INFO - Chargement des données pour AAPL
+2025-05-04 02:31:52,416 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-04 02:31:52,416 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-04 02:31:52,781 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:52,783 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:52,785 - __main__ - INFO - Chargement des données pour SOL-USD
+2025-05-04 02:31:52,785 - app.services.market_data - INFO - Fetching historical data for SOL-USD from Alpaca
+2025-05-04 02:31:52,785 - root - INFO - Converting crypto symbol format for Alpaca: SOL-USD -> SOL/USD
+2025-05-04 02:31:52,785 - app.services.market_data - INFO - Cryptocurrency detected: SOL-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:52,786 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SOL/USD
+2025-05-04 02:31:53,261 - app.services.market_data - INFO - Successfully retrieved 180 bars for SOL/USD from Alpaca v1beta3 API
+2025-05-04 02:31:53,262 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:53,264 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:53,265 - __main__ - INFO - Chargement des données pour PG
+2025-05-04 02:31:53,265 - app.services.market_data - INFO - Fetching historical data for PG from Alpaca
+2025-05-04 02:31:53,265 - app.services.market_data - INFO - Using standard stock API for PG
+2025-05-04 02:31:53,394 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:53,396 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:53,397 - __main__ - INFO - Chargement des données pour V
+2025-05-04 02:31:53,397 - app.services.market_data - INFO - Fetching historical data for V from Alpaca
+2025-05-04 02:31:53,397 - app.services.market_data - INFO - Using standard stock API for V
+2025-05-04 02:31:53,523 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:53,525 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:53,526 - __main__ - INFO - Chargement des données pour NVDA
+2025-05-04 02:31:53,526 - app.services.market_data - INFO - Fetching historical data for NVDA from Alpaca
+2025-05-04 02:31:53,526 - app.services.market_data - INFO - Using standard stock API for NVDA
+2025-05-04 02:31:53,652 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:53,653 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:53,654 - __main__ - INFO - Chargement des données pour MSFT
+2025-05-04 02:31:53,654 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-04 02:31:53,654 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-04 02:31:53,780 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:53,781 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:53,783 - __main__ - INFO - Chargement des données pour GOOGL
+2025-05-04 02:31:53,783 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-04 02:31:53,783 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-04 02:31:53,916 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:53,917 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:53,920 - __main__ - INFO - Chargement des données pour XRP-USD
+2025-05-04 02:31:53,920 - app.services.market_data - INFO - Fetching historical data for XRP-USD from Alpaca
+2025-05-04 02:31:53,920 - root - INFO - Converting crypto symbol format for Alpaca: XRP-USD -> XRP/USD
+2025-05-04 02:31:53,920 - app.services.market_data - INFO - Cryptocurrency detected: XRP-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:53,920 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for XRP/USD
+2025-05-04 02:31:54,298 - app.services.market_data - INFO - Successfully retrieved 179 bars for XRP/USD from Alpaca v1beta3 API
+2025-05-04 02:31:54,299 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:54,300 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:54,302 - __main__ - INFO - Chargement des données pour LUNA-USD
+2025-05-04 02:31:54,302 - app.services.market_data - INFO - Fetching historical data for LUNA-USD from Alpaca
+2025-05-04 02:31:54,302 - root - INFO - Converting crypto symbol format for Alpaca: LUNA-USD -> LUNA/USD
+2025-05-04 02:31:54,303 - app.services.market_data - INFO - Cryptocurrency detected: LUNA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:54,303 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for LUNA/USD
+2025-05-04 02:31:54,658 - app.services.market_data - WARNING - No data returned for LUNA/USD from Alpaca v1beta3 API
+2025-05-04 02:31:54,658 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:31:54,779 - app.services.market_data - WARNING - Using sample data for LUNA-USD as fallback
+2025-05-04 02:31:54,779 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:31:54,785 - app.services.providers.sample - INFO - Generated sample data for LUNA-USD with 129 data points
+2025-05-04 02:31:54,785 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:54,786 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:54,787 - __main__ - INFO - Chargement des données pour AVAX-USD
+2025-05-04 02:31:54,787 - app.services.market_data - INFO - Fetching historical data for AVAX-USD from Alpaca
+2025-05-04 02:31:54,787 - root - INFO - Converting crypto symbol format for Alpaca: AVAX-USD -> AVAX/USD
+2025-05-04 02:31:54,788 - app.services.market_data - INFO - Cryptocurrency detected: AVAX-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:54,788 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for AVAX/USD
+2025-05-04 02:31:55,156 - app.services.market_data - INFO - Successfully retrieved 180 bars for AVAX/USD from Alpaca v1beta3 API
+2025-05-04 02:31:55,156 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:55,158 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:55,160 - __main__ - INFO - Chargement des données pour ETH-USD
+2025-05-04 02:31:55,160 - app.services.market_data - INFO - Fetching historical data for ETH-USD from Alpaca
+2025-05-04 02:31:55,161 - root - INFO - Converting crypto symbol format for Alpaca: ETH-USD -> ETH/USD
+2025-05-04 02:31:55,161 - app.services.market_data - INFO - Cryptocurrency detected: ETH-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:55,161 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ETH/USD
+2025-05-04 02:31:55,626 - app.services.market_data - INFO - Successfully retrieved 180 bars for ETH/USD from Alpaca v1beta3 API
+2025-05-04 02:31:55,627 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:55,629 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:55,630 - __main__ - INFO - Chargement des données pour AMZN
+2025-05-04 02:31:55,630 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-04 02:31:55,630 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-04 02:31:55,760 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:55,761 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:55,763 - __main__ - INFO - Chargement des données pour ADA-USD
+2025-05-04 02:31:55,763 - app.services.market_data - INFO - Fetching historical data for ADA-USD from Alpaca
+2025-05-04 02:31:55,763 - root - INFO - Converting crypto symbol format for Alpaca: ADA-USD -> ADA/USD
+2025-05-04 02:31:55,764 - app.services.market_data - INFO - Cryptocurrency detected: ADA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:55,764 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ADA/USD
+2025-05-04 02:31:56,127 - app.services.market_data - WARNING - No data returned for ADA/USD from Alpaca v1beta3 API
+2025-05-04 02:31:56,128 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:31:56,245 - app.services.market_data - WARNING - Using sample data for ADA-USD as fallback
+2025-05-04 02:31:56,260 - app.services.providers.sample - INFO - Generated sample data for ADA-USD with 129 data points
+2025-05-04 02:31:56,261 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:56,262 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:56,264 - __main__ - INFO - Chargement des données pour DOGE-USD
+2025-05-04 02:31:56,264 - app.services.market_data - INFO - Fetching historical data for DOGE-USD from Alpaca
+2025-05-04 02:31:56,264 - root - INFO - Converting crypto symbol format for Alpaca: DOGE-USD -> DOGE/USD
+2025-05-04 02:31:56,264 - app.services.market_data - INFO - Cryptocurrency detected: DOGE-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:56,265 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOGE/USD
+2025-05-04 02:31:56,632 - app.services.market_data - INFO - Successfully retrieved 180 bars for DOGE/USD from Alpaca v1beta3 API
+2025-05-04 02:31:56,633 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:56,634 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:56,636 - __main__ - INFO - Chargement des données pour META
+2025-05-04 02:31:56,636 - app.services.market_data - INFO - Fetching historical data for META from Alpaca
+2025-05-04 02:31:56,636 - app.services.market_data - INFO - Using standard stock API for META
+2025-05-04 02:31:56,759 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:56,760 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:56,762 - __main__ - INFO - Chargement des données pour TSLA
+2025-05-04 02:31:56,762 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-04 02:31:56,762 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-04 02:31:56,884 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:56,884 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:56,887 - __main__ - INFO - Chargement des données pour DOT-USD
+2025-05-04 02:31:56,887 - app.services.market_data - INFO - Fetching historical data for DOT-USD from Alpaca
+2025-05-04 02:31:56,887 - root - INFO - Converting crypto symbol format for Alpaca: DOT-USD -> DOT/USD
+2025-05-04 02:31:56,887 - app.services.market_data - INFO - Cryptocurrency detected: DOT-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:31:56,887 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOT/USD
+2025-05-04 02:31:57,255 - app.services.market_data - INFO - Successfully retrieved 180 bars for DOT/USD from Alpaca v1beta3 API
+2025-05-04 02:31:57,256 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:57,256 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:57,259 - __main__ - INFO - Chargement des données pour JPM
+2025-05-04 02:31:57,259 - app.services.market_data - INFO - Fetching historical data for JPM from Alpaca
+2025-05-04 02:31:57,259 - app.services.market_data - INFO - Using standard stock API for JPM
+2025-05-04 02:31:57,387 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:31:57,388 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:31:57,395 - __main__ - INFO - Entraînement du modèle Transformer sur 20 symboles
+2025-05-04 02:31:57,395 - app.strategies.transformer_strategy - INFO - Starting transformer model training
+2025-05-04 02:32:03,994 - app.strategies.transformer_strategy - INFO - Epoch 1/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:04,002 - app.strategies.transformer_strategy - INFO - Model saved to models\transformer\transformer_model.pth
+2025-05-04 02:32:09,528 - app.strategies.transformer_strategy - INFO - Epoch 2/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:14,999 - app.strategies.transformer_strategy - INFO - Epoch 3/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:20,411 - app.strategies.transformer_strategy - INFO - Epoch 4/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:25,681 - app.strategies.transformer_strategy - INFO - Epoch 5/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:31,268 - app.strategies.transformer_strategy - INFO - Epoch 6/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:36,947 - app.strategies.transformer_strategy - INFO - Epoch 7/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:42,428 - app.strategies.transformer_strategy - INFO - Epoch 8/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:48,629 - app.strategies.transformer_strategy - INFO - Epoch 9/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:32:54,941 - app.strategies.transformer_strategy - INFO - Epoch 10/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:33:00,499 - app.strategies.transformer_strategy - INFO - Epoch 11/50 - Train loss: nan, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:33:00,500 - app.strategies.transformer_strategy - INFO - Early stopping after 11 epochs
+2025-05-04 02:33:00,550 - app.strategies.transformer_strategy - INFO - Model loaded from models\transformer\transformer_model.pth
+2025-05-04 02:33:00,557 - app.strategies.transformer_strategy - INFO - Model saved to models\transformer\transformer_model.pth
+2025-05-04 02:33:00,557 - __main__ - INFO - Modèle Transformer sauvegardé dans: models\transformer\multi_asset
+2025-05-04 02:33:00,558 - __main__ - INFO - Entraînement terminé!
+2025-05-04 02:33:00,558 - __main__ - INFO - Modèles LSTM entraînés: 20/20 (100.0%)
+2025-05-04 02:33:00,558 - __main__ - INFO - Modèle Transformer entraîné: Oui
+2025-05-04 02:33:00,562 - __main__ - INFO - Rapport d'entraînement sauvegardé dans reports/training_report_20250504_023300.csv
+2025-05-04 02:33:00,562 - __main__ - INFO - Entraînement réussi! Au moins un modèle a été entraîné avec succès.
+2025-05-04 02:37:05,051 - app.utils.env_loader - INFO - Loading environment variables from C:\Projects\MercurioAI\.env
+2025-05-04 02:37:05,053 - app.utils.env_loader - INFO - Alpaca API credentials loaded successfully
+2025-05-04 02:37:05,053 - app.utils.env_loader - INFO - Polygon API key loaded successfully
+2025-05-04 02:37:10,554 - __main__ - INFO - Ajout de 19 actions populaires par défaut
+2025-05-04 02:37:10,554 - __main__ - INFO - Ajout de 13 cryptomonnaies populaires par défaut
+2025-05-04 02:37:10,554 - __main__ - INFO - Entraînement des modèles pour 32 symboles
+2025-05-04 02:37:10,554 - __main__ - INFO - Premiers symboles: PFE, LINK-USD, AAPL, UNI-USD, MATIC-USD, NFLX, AVGO, DOT-USD, CSCO, AMZN... et 22 autres
+2025-05-04 02:37:10,554 - __main__ - INFO - Période d'entraînement: 90 jours jusqu'à aujourd'hui
+2025-05-04 02:37:10,554 - __main__ - INFO - Entraînement du modèle LSTM pour PFE
+2025-05-04 02:37:10,554 - __main__ - INFO - Entraînement du modèle LSTM pour PFE
+2025-05-04 02:37:10,555 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:10,555 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:10,555 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:10,556 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:10,657 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:10,657 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:10,657 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:10,657 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:10,657 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:10,657 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:10,657 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:10,657 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:10,657 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:10,657 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:10,658 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:10,658 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:10,658 - app.services.market_data - INFO - Fetching historical data for PFE from Alpaca
+2025-05-04 02:37:10,658 - app.services.market_data - INFO - Using standard stock API for PFE
+2025-05-04 02:37:11,077 - __main__ - WARNING - Données insuffisantes pour PFE. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:11,078 - __main__ - INFO - Entraînement du modèle LSTM pour LINK-USD
+2025-05-04 02:37:11,078 - __main__ - INFO - Entraînement du modèle LSTM pour LINK-USD
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:11,078 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:11,078 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:11,078 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:11,078 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:11,078 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:11,078 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:11,079 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:11,079 - app.services.market_data - INFO - Fetching historical data for LINK-USD from Alpaca
+2025-05-04 02:37:11,079 - root - INFO - Converting crypto symbol format for Alpaca: LINK-USD -> LINK/USD
+2025-05-04 02:37:11,079 - app.services.market_data - INFO - Cryptocurrency detected: LINK-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:11,079 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for LINK/USD
+2025-05-04 02:37:11,454 - app.services.market_data - INFO - Successfully retrieved 90 bars for LINK/USD from Alpaca v1beta3 API
+2025-05-04 02:37:17,302 - __main__ - INFO - Modèle LSTM pour LINK-USD sauvegardé dans: models\lstm\link_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:17,303 - __main__ - INFO - Entraînement du modèle LSTM pour AAPL
+2025-05-04 02:37:17,303 - __main__ - INFO - Entraînement du modèle LSTM pour AAPL
+2025-05-04 02:37:17,303 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:17,303 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:17,303 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:17,303 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:17,303 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:17,303 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:17,303 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:17,303 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:17,304 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:17,304 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:17,304 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:17,304 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:17,304 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:17,304 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:17,304 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:17,304 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:17,304 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-04 02:37:17,304 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-04 02:37:17,658 - __main__ - WARNING - Données insuffisantes pour AAPL. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:17,659 - __main__ - INFO - Entraînement du modèle LSTM pour UNI-USD
+2025-05-04 02:37:17,659 - __main__ - INFO - Entraînement du modèle LSTM pour UNI-USD
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:17,659 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:17,659 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:17,659 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:17,659 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:17,659 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:17,659 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:17,659 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:17,660 - app.services.market_data - INFO - Fetching historical data for UNI-USD from Alpaca
+2025-05-04 02:37:17,660 - root - INFO - Converting crypto symbol format for Alpaca: UNI-USD -> UNI/USD
+2025-05-04 02:37:17,660 - app.services.market_data - INFO - Cryptocurrency detected: UNI-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:17,660 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for UNI/USD
+2025-05-04 02:37:18,030 - app.services.market_data - INFO - Successfully retrieved 90 bars for UNI/USD from Alpaca v1beta3 API
+2025-05-04 02:37:23,674 - __main__ - INFO - Modèle LSTM pour UNI-USD sauvegardé dans: models\lstm\uni_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:23,675 - __main__ - INFO - Entraînement du modèle LSTM pour MATIC-USD
+2025-05-04 02:37:23,675 - __main__ - INFO - Entraînement du modèle LSTM pour MATIC-USD
+2025-05-04 02:37:23,675 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:23,676 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:23,676 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:23,676 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:23,676 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:23,677 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:23,677 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:23,677 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:23,677 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:23,677 - app.services.market_data - INFO - Fetching historical data for MATIC-USD from Alpaca
+2025-05-04 02:37:23,677 - root - INFO - Converting crypto symbol format for Alpaca: MATIC-USD -> MATIC/USD
+2025-05-04 02:37:23,677 - app.services.market_data - INFO - Cryptocurrency detected: MATIC-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:23,677 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for MATIC/USD
+2025-05-04 02:37:24,060 - app.services.market_data - WARNING - No data returned for MATIC/USD from Alpaca v1beta3 API
+2025-05-04 02:37:24,061 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:37:24,423 - app.services.market_data - WARNING - Using sample data for MATIC-USD as fallback
+2025-05-04 02:37:24,423 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:37:24,427 - app.services.providers.sample - INFO - Generated sample data for MATIC-USD with 65 data points
+2025-05-04 02:37:24,434 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 41. Returning error.
+2025-05-04 02:37:24,436 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough data or missing 'signal' column for sequence creation (rows=41, sequence_length=60)
+2025-05-04 02:37:24,436 - __main__ - ERROR - Erreur lors de l'entraînement du modèle LSTM pour MATIC-USD: index 0 is out of bounds for axis 0 with size 0
+2025-05-04 02:37:24,436 - __main__ - INFO - Entraînement du modèle LSTM pour NFLX
+2025-05-04 02:37:24,436 - __main__ - INFO - Entraînement du modèle LSTM pour NFLX
+2025-05-04 02:37:24,436 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:24,437 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Fetching historical data for NFLX from Alpaca
+2025-05-04 02:37:24,437 - app.services.market_data - INFO - Using standard stock API for NFLX
+2025-05-04 02:37:24,803 - __main__ - WARNING - Données insuffisantes pour NFLX. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:24,803 - __main__ - INFO - Entraînement du modèle LSTM pour AVGO
+2025-05-04 02:37:24,803 - __main__ - INFO - Entraînement du modèle LSTM pour AVGO
+2025-05-04 02:37:24,803 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:24,803 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:24,803 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:24,804 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:24,804 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:24,804 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:24,804 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:24,804 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:24,804 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:24,805 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:24,805 - app.services.market_data - INFO - Fetching historical data for AVGO from Alpaca
+2025-05-04 02:37:24,805 - app.services.market_data - INFO - Using standard stock API for AVGO
+2025-05-04 02:37:25,174 - __main__ - WARNING - Données insuffisantes pour AVGO. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:25,175 - __main__ - INFO - Entraînement du modèle LSTM pour DOT-USD
+2025-05-04 02:37:25,175 - __main__ - INFO - Entraînement du modèle LSTM pour DOT-USD
+2025-05-04 02:37:25,175 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:25,176 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:25,176 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:25,176 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:25,176 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:25,177 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:25,177 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:25,177 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:25,177 - app.services.market_data - INFO - Fetching historical data for DOT-USD from Alpaca
+2025-05-04 02:37:25,177 - root - INFO - Converting crypto symbol format for Alpaca: DOT-USD -> DOT/USD
+2025-05-04 02:37:25,177 - app.services.market_data - INFO - Cryptocurrency detected: DOT-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:25,177 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOT/USD
+2025-05-04 02:37:25,537 - app.services.market_data - INFO - Successfully retrieved 90 bars for DOT/USD from Alpaca v1beta3 API
+2025-05-04 02:37:31,378 - __main__ - INFO - Modèle LSTM pour DOT-USD sauvegardé dans: models\lstm\dot_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:31,379 - __main__ - INFO - Entraînement du modèle LSTM pour CSCO
+2025-05-04 02:37:31,379 - __main__ - INFO - Entraînement du modèle LSTM pour CSCO
+2025-05-04 02:37:31,379 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:31,379 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:31,379 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:31,379 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:31,379 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:31,379 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:31,379 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:31,379 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:31,380 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:31,380 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:31,380 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:31,380 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:31,380 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:31,380 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:31,380 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:31,380 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:31,380 - app.services.market_data - INFO - Fetching historical data for CSCO from Alpaca
+2025-05-04 02:37:31,380 - app.services.market_data - INFO - Using standard stock API for CSCO
+2025-05-04 02:37:31,777 - __main__ - WARNING - Données insuffisantes pour CSCO. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:31,777 - __main__ - INFO - Entraînement du modèle LSTM pour AMZN
+2025-05-04 02:37:31,777 - __main__ - INFO - Entraînement du modèle LSTM pour AMZN
+2025-05-04 02:37:31,777 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:31,777 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:31,777 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:31,777 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:31,777 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:31,777 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:31,777 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:31,777 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:31,777 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:31,779 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:31,779 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:31,779 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:31,779 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:31,779 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:31,779 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:31,779 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:31,779 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-04 02:37:31,779 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-04 02:37:32,148 - __main__ - WARNING - Données insuffisantes pour AMZN. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:32,148 - __main__ - INFO - Entraînement du modèle LSTM pour PG
+2025-05-04 02:37:32,148 - __main__ - INFO - Entraînement du modèle LSTM pour PG
+2025-05-04 02:37:32,148 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:32,148 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:32,148 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:32,148 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:32,148 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:32,149 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:32,149 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:32,149 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:32,149 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:32,149 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:32,149 - app.services.market_data - INFO - Fetching historical data for PG from Alpaca
+2025-05-04 02:37:32,150 - app.services.market_data - INFO - Using standard stock API for PG
+2025-05-04 02:37:32,512 - __main__ - WARNING - Données insuffisantes pour PG. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:32,513 - __main__ - INFO - Entraînement du modèle LSTM pour HD
+2025-05-04 02:37:32,513 - __main__ - INFO - Entraînement du modèle LSTM pour HD
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:32,513 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:32,513 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:32,513 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:32,513 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:32,514 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:32,514 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:32,514 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:32,514 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:32,514 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:32,514 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:32,514 - app.services.market_data - INFO - Fetching historical data for HD from Alpaca
+2025-05-04 02:37:32,514 - app.services.market_data - INFO - Using standard stock API for HD
+2025-05-04 02:37:32,878 - __main__ - WARNING - Données insuffisantes pour HD. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:32,878 - __main__ - INFO - Entraînement du modèle LSTM pour DOGE-USD
+2025-05-04 02:37:32,878 - __main__ - INFO - Entraînement du modèle LSTM pour DOGE-USD
+2025-05-04 02:37:32,878 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:32,878 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:32,878 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:32,878 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:32,878 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:32,878 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:32,879 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:32,879 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:32,879 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:32,879 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:32,879 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Fetching historical data for DOGE-USD from Alpaca
+2025-05-04 02:37:32,879 - root - INFO - Converting crypto symbol format for Alpaca: DOGE-USD -> DOGE/USD
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Cryptocurrency detected: DOGE-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:32,879 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOGE/USD
+2025-05-04 02:37:33,241 - app.services.market_data - INFO - Successfully retrieved 90 bars for DOGE/USD from Alpaca v1beta3 API
+2025-05-04 02:37:38,908 - __main__ - INFO - Modèle LSTM pour DOGE-USD sauvegardé dans: models\lstm\doge_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:38,910 - __main__ - INFO - Entraînement du modèle LSTM pour UNH
+2025-05-04 02:37:38,910 - __main__ - INFO - Entraînement du modèle LSTM pour UNH
+2025-05-04 02:37:38,910 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:38,910 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:38,910 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:38,910 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:38,910 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:38,910 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:38,910 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:38,910 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:38,910 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:38,911 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:38,911 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:38,911 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:38,911 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:38,911 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:38,911 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:38,911 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:38,911 - app.services.market_data - INFO - Fetching historical data for UNH from Alpaca
+2025-05-04 02:37:38,911 - app.services.market_data - INFO - Using standard stock API for UNH
+2025-05-04 02:37:39,298 - __main__ - WARNING - Données insuffisantes pour UNH. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:39,298 - __main__ - INFO - Entraînement du modèle LSTM pour V
+2025-05-04 02:37:39,298 - __main__ - INFO - Entraînement du modèle LSTM pour V
+2025-05-04 02:37:39,298 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:39,298 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:39,299 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:39,299 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:39,299 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:39,299 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:39,299 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:39,299 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:39,299 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:39,299 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:39,299 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:39,300 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:39,300 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:39,300 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:39,300 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:39,300 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:39,300 - app.services.market_data - INFO - Fetching historical data for V from Alpaca
+2025-05-04 02:37:39,300 - app.services.market_data - INFO - Using standard stock API for V
+2025-05-04 02:37:39,664 - __main__ - WARNING - Données insuffisantes pour V. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:39,664 - __main__ - INFO - Entraînement du modèle LSTM pour XRP-USD
+2025-05-04 02:37:39,664 - __main__ - INFO - Entraînement du modèle LSTM pour XRP-USD
+2025-05-04 02:37:39,665 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:39,665 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:39,665 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:39,665 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:39,665 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:39,665 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:39,665 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:39,665 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:39,666 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:39,666 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:39,666 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:39,666 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:39,666 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:39,666 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:39,666 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:39,666 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:39,666 - app.services.market_data - INFO - Fetching historical data for XRP-USD from Alpaca
+2025-05-04 02:37:39,666 - root - INFO - Converting crypto symbol format for Alpaca: XRP-USD -> XRP/USD
+2025-05-04 02:37:39,666 - app.services.market_data - INFO - Cryptocurrency detected: XRP-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:39,666 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for XRP/USD
+2025-05-04 02:37:40,041 - app.services.market_data - INFO - Successfully retrieved 90 bars for XRP/USD from Alpaca v1beta3 API
+2025-05-04 02:37:44,098 - __main__ - INFO - Modèle LSTM pour XRP-USD sauvegardé dans: models\lstm\xrp_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:44,098 - __main__ - INFO - Entraînement du modèle LSTM pour META
+2025-05-04 02:37:44,098 - __main__ - INFO - Entraînement du modèle LSTM pour META
+2025-05-04 02:37:44,098 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:44,098 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:44,098 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:44,098 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:44,098 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:44,098 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:44,100 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:44,100 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:44,100 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:44,100 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:44,100 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:44,100 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:44,100 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:44,100 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:44,100 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:44,100 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:44,100 - app.services.market_data - INFO - Fetching historical data for META from Alpaca
+2025-05-04 02:37:44,101 - app.services.market_data - INFO - Using standard stock API for META
+2025-05-04 02:37:44,478 - __main__ - WARNING - Données insuffisantes pour META. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:44,478 - __main__ - INFO - Entraînement du modèle LSTM pour LUNA-USD
+2025-05-04 02:37:44,479 - __main__ - INFO - Entraînement du modèle LSTM pour LUNA-USD
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:44,479 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:44,479 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:44,479 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:44,479 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:44,479 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:44,479 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:44,479 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:44,481 - app.services.market_data - INFO - Fetching historical data for LUNA-USD from Alpaca
+2025-05-04 02:37:44,481 - root - INFO - Converting crypto symbol format for Alpaca: LUNA-USD -> LUNA/USD
+2025-05-04 02:37:44,481 - app.services.market_data - INFO - Cryptocurrency detected: LUNA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:44,481 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for LUNA/USD
+2025-05-04 02:37:44,841 - app.services.market_data - WARNING - No data returned for LUNA/USD from Alpaca v1beta3 API
+2025-05-04 02:37:44,841 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:37:45,201 - app.services.market_data - WARNING - Using sample data for LUNA-USD as fallback
+2025-05-04 02:37:45,201 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:37:45,204 - app.services.providers.sample - INFO - Generated sample data for LUNA-USD with 65 data points
+2025-05-04 02:37:45,210 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 41. Returning error.
+2025-05-04 02:37:45,210 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough data or missing 'signal' column for sequence creation (rows=41, sequence_length=60)
+2025-05-04 02:37:45,210 - __main__ - ERROR - Erreur lors de l'entraînement du modèle LSTM pour LUNA-USD: index 0 is out of bounds for axis 0 with size 0
+2025-05-04 02:37:45,210 - __main__ - INFO - Entraînement du modèle LSTM pour SHIB-USD
+2025-05-04 02:37:45,210 - __main__ - INFO - Entraînement du modèle LSTM pour SHIB-USD
+2025-05-04 02:37:45,211 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:45,211 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:45,211 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:45,211 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:45,211 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:45,211 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:45,211 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:45,211 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:45,211 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:45,212 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:45,212 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:45,212 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:45,212 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:45,212 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:45,212 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:45,212 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:45,212 - app.services.market_data - INFO - Fetching historical data for SHIB-USD from Alpaca
+2025-05-04 02:37:45,212 - root - INFO - Converting crypto symbol format for Alpaca: SHIB-USD -> SHIB/USD
+2025-05-04 02:37:45,212 - app.services.market_data - INFO - Cryptocurrency detected: SHIB-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:45,212 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SHIB/USD
+2025-05-04 02:37:45,613 - app.services.market_data - INFO - Successfully retrieved 90 bars for SHIB/USD from Alpaca v1beta3 API
+2025-05-04 02:37:50,131 - __main__ - INFO - Modèle LSTM pour SHIB-USD sauvegardé dans: models\lstm\shib_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:50,131 - __main__ - INFO - Entraînement du modèle LSTM pour ADBE
+2025-05-04 02:37:50,131 - __main__ - INFO - Entraînement du modèle LSTM pour ADBE
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:50,133 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:50,133 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:50,133 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:50,133 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:50,134 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:50,134 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:50,134 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:50,134 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:50,134 - app.services.market_data - INFO - Fetching historical data for ADBE from Alpaca
+2025-05-04 02:37:50,134 - app.services.market_data - INFO - Using standard stock API for ADBE
+2025-05-04 02:37:50,529 - __main__ - WARNING - Données insuffisantes pour ADBE. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:50,529 - __main__ - INFO - Entraînement du modèle LSTM pour TSLA
+2025-05-04 02:37:50,529 - __main__ - INFO - Entraînement du modèle LSTM pour TSLA
+2025-05-04 02:37:50,529 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:50,530 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-04 02:37:50,530 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-04 02:37:50,889 - __main__ - WARNING - Données insuffisantes pour TSLA. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:50,889 - __main__ - INFO - Entraînement du modèle LSTM pour JPM
+2025-05-04 02:37:50,889 - __main__ - INFO - Entraînement du modèle LSTM pour JPM
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:50,889 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:50,889 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:50,889 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:50,889 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:50,891 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:50,891 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:50,891 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:50,891 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:50,891 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:50,891 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:50,891 - app.services.market_data - INFO - Fetching historical data for JPM from Alpaca
+2025-05-04 02:37:50,891 - app.services.market_data - INFO - Using standard stock API for JPM
+2025-05-04 02:37:51,241 - __main__ - WARNING - Données insuffisantes pour JPM. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:37:51,243 - __main__ - INFO - Entraînement du modèle LSTM pour BTC-USD
+2025-05-04 02:37:51,243 - __main__ - INFO - Entraînement du modèle LSTM pour BTC-USD
+2025-05-04 02:37:51,243 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:51,243 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:51,243 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:51,243 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:51,243 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:51,243 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:51,244 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:51,244 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:51,244 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:51,244 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:51,244 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Fetching historical data for BTC-USD from Alpaca
+2025-05-04 02:37:51,244 - root - INFO - Converting crypto symbol format for Alpaca: BTC-USD -> BTC/USD
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Cryptocurrency detected: BTC-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:51,244 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for BTC/USD
+2025-05-04 02:37:51,603 - app.services.market_data - INFO - Successfully retrieved 90 bars for BTC/USD from Alpaca v1beta3 API
+2025-05-04 02:37:56,374 - __main__ - INFO - Modèle LSTM pour BTC-USD sauvegardé dans: models\lstm\btc_usd\lstm_predictor_60_50.h5
+2025-05-04 02:37:56,374 - __main__ - INFO - Entraînement du modèle LSTM pour SOL-USD
+2025-05-04 02:37:56,375 - __main__ - INFO - Entraînement du modèle LSTM pour SOL-USD
+2025-05-04 02:37:56,375 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:56,375 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:56,375 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:56,375 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:56,375 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:56,375 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:56,375 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:56,375 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:56,375 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:37:56,376 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:37:56,376 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:37:56,376 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:37:56,376 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:37:56,376 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:37:56,376 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:37:56,376 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:37:56,376 - app.services.market_data - INFO - Fetching historical data for SOL-USD from Alpaca
+2025-05-04 02:37:56,376 - root - INFO - Converting crypto symbol format for Alpaca: SOL-USD -> SOL/USD
+2025-05-04 02:37:56,376 - app.services.market_data - INFO - Cryptocurrency detected: SOL-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:37:56,376 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SOL/USD
+2025-05-04 02:37:56,747 - app.services.market_data - INFO - Successfully retrieved 90 bars for SOL/USD from Alpaca v1beta3 API
+2025-05-04 02:38:00,915 - __main__ - INFO - Modèle LSTM pour SOL-USD sauvegardé dans: models\lstm\sol_usd\lstm_predictor_60_50.h5
+2025-05-04 02:38:00,916 - __main__ - INFO - Entraînement du modèle LSTM pour AVAX-USD
+2025-05-04 02:38:00,916 - __main__ - INFO - Entraînement du modèle LSTM pour AVAX-USD
+2025-05-04 02:38:00,916 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:00,916 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:00,916 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:00,916 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:00,916 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:00,916 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:00,916 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:00,916 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:00,917 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:00,917 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:00,917 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:00,917 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:00,917 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:00,917 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:00,917 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:00,917 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:00,917 - app.services.market_data - INFO - Fetching historical data for AVAX-USD from Alpaca
+2025-05-04 02:38:00,917 - root - INFO - Converting crypto symbol format for Alpaca: AVAX-USD -> AVAX/USD
+2025-05-04 02:38:00,917 - app.services.market_data - INFO - Cryptocurrency detected: AVAX-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:00,918 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for AVAX/USD
+2025-05-04 02:38:01,308 - app.services.market_data - INFO - Successfully retrieved 90 bars for AVAX/USD from Alpaca v1beta3 API
+2025-05-04 02:38:08,030 - __main__ - INFO - Modèle LSTM pour AVAX-USD sauvegardé dans: models\lstm\avax_usd\lstm_predictor_60_50.h5
+2025-05-04 02:38:08,031 - __main__ - INFO - Entraînement du modèle LSTM pour GOOGL
+2025-05-04 02:38:08,031 - __main__ - INFO - Entraînement du modèle LSTM pour GOOGL
+2025-05-04 02:38:08,031 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:08,031 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:08,031 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:08,031 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:08,031 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:08,031 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:08,032 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:08,032 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:08,032 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:08,032 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:08,032 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:08,032 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:08,032 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:08,032 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:08,032 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:08,032 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:08,032 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-04 02:38:08,033 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-04 02:38:08,409 - __main__ - WARNING - Données insuffisantes pour GOOGL. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:38:08,409 - __main__ - INFO - Entraînement du modèle LSTM pour MSFT
+2025-05-04 02:38:08,410 - __main__ - INFO - Entraînement du modèle LSTM pour MSFT
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:08,410 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:08,410 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-04 02:38:08,412 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-04 02:38:08,771 - __main__ - WARNING - Données insuffisantes pour MSFT. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:38:08,771 - __main__ - INFO - Entraînement du modèle LSTM pour ETH-USD
+2025-05-04 02:38:08,771 - __main__ - INFO - Entraînement du modèle LSTM pour ETH-USD
+2025-05-04 02:38:08,771 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:08,771 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:08,771 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:08,771 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:08,771 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:08,772 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:08,772 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:08,772 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:08,772 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:08,772 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:08,772 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:08,773 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:08,773 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:08,773 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:08,773 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:08,773 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:08,773 - app.services.market_data - INFO - Fetching historical data for ETH-USD from Alpaca
+2025-05-04 02:38:08,773 - root - INFO - Converting crypto symbol format for Alpaca: ETH-USD -> ETH/USD
+2025-05-04 02:38:08,773 - app.services.market_data - INFO - Cryptocurrency detected: ETH-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:08,773 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ETH/USD
+2025-05-04 02:38:09,129 - app.services.market_data - INFO - Successfully retrieved 90 bars for ETH/USD from Alpaca v1beta3 API
+2025-05-04 02:38:15,676 - __main__ - INFO - Modèle LSTM pour ETH-USD sauvegardé dans: models\lstm\eth_usd\lstm_predictor_60_50.h5
+2025-05-04 02:38:15,676 - __main__ - INFO - Entraînement du modèle LSTM pour NVDA
+2025-05-04 02:38:15,677 - __main__ - INFO - Entraînement du modèle LSTM pour NVDA
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:15,677 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:15,677 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:15,677 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:15,677 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:15,678 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:15,678 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:15,678 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:15,678 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:15,678 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:15,678 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:15,678 - app.services.market_data - INFO - Fetching historical data for NVDA from Alpaca
+2025-05-04 02:38:15,678 - app.services.market_data - INFO - Using standard stock API for NVDA
+2025-05-04 02:38:16,043 - __main__ - WARNING - Données insuffisantes pour NVDA. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:38:16,043 - __main__ - INFO - Entraînement du modèle LSTM pour CRM
+2025-05-04 02:38:16,043 - __main__ - INFO - Entraînement du modèle LSTM pour CRM
+2025-05-04 02:38:16,043 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:16,043 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:16,043 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:16,043 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:16,043 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:16,043 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:16,043 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:16,043 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:16,044 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:16,044 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:16,044 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:16,044 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:16,044 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:16,044 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:16,044 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:16,044 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:16,044 - app.services.market_data - INFO - Fetching historical data for CRM from Alpaca
+2025-05-04 02:38:16,044 - app.services.market_data - INFO - Using standard stock API for CRM
+2025-05-04 02:38:16,408 - __main__ - WARNING - Données insuffisantes pour CRM. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:38:16,408 - __main__ - INFO - Entraînement du modèle LSTM pour ADA-USD
+2025-05-04 02:38:16,408 - __main__ - INFO - Entraînement du modèle LSTM pour ADA-USD
+2025-05-04 02:38:16,408 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:16,408 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:16,408 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:16,408 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:16,408 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:16,408 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:16,410 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:16,410 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:16,410 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:16,410 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:16,410 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Fetching historical data for ADA-USD from Alpaca
+2025-05-04 02:38:16,410 - root - INFO - Converting crypto symbol format for Alpaca: ADA-USD -> ADA/USD
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Cryptocurrency detected: ADA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:16,410 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ADA/USD
+2025-05-04 02:38:16,767 - app.services.market_data - WARNING - No data returned for ADA/USD from Alpaca v1beta3 API
+2025-05-04 02:38:16,768 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:38:17,129 - app.services.market_data - WARNING - Using sample data for ADA-USD as fallback
+2025-05-04 02:38:17,129 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:38:17,131 - app.services.providers.sample - INFO - Generated sample data for ADA-USD with 65 data points
+2025-05-04 02:38:17,138 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough rows after preprocessing for sequence_length=60. Data rows: 41. Returning error.
+2025-05-04 02:38:17,138 - app.strategies.lstm_predictor - WARNING - [LSTM] Not enough data or missing 'signal' column for sequence creation (rows=41, sequence_length=60)
+2025-05-04 02:38:17,138 - __main__ - ERROR - Erreur lors de l'entraînement du modèle LSTM pour ADA-USD: index 0 is out of bounds for axis 0 with size 0
+2025-05-04 02:38:17,138 - __main__ - INFO - Entraînement du modèle LSTM pour BAC
+2025-05-04 02:38:17,138 - __main__ - INFO - Entraînement du modèle LSTM pour BAC
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:17,139 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Fetching historical data for BAC from Alpaca
+2025-05-04 02:38:17,139 - app.services.market_data - INFO - Using standard stock API for BAC
+2025-05-04 02:38:17,508 - __main__ - WARNING - Données insuffisantes pour BAC. Au moins 65 points de données sont nécessaires.
+2025-05-04 02:38:17,509 - __main__ - INFO - Entraînement du modèle Transformer sur tous les symboles
+2025-05-04 02:38:17,509 - __main__ - INFO - Entraînement du modèle Transformer sur 32 symboles
+2025-05-04 02:38:17,509 - app.strategies.transformer_strategy - INFO - Initialized TransformerStrategy with 60 sequence length
+2025-05-04 02:38:17,509 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-04 02:38:17,509 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-04 02:38:17,509 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-04 02:38:17,509 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-04 02:38:17,510 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-04 02:38:17,510 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-04 02:38:17,510 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-04 02:38:17,510 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-04 02:38:17,510 - __main__ - INFO - Chargement des données pour PFE
+2025-05-04 02:38:17,510 - app.services.market_data - INFO - Fetching historical data for PFE from Alpaca
+2025-05-04 02:38:17,510 - app.services.market_data - INFO - Using standard stock API for PFE
+2025-05-04 02:38:17,873 - __main__ - WARNING - Données insuffisantes pour PFE. Ignoré.
+2025-05-04 02:38:17,873 - __main__ - INFO - Chargement des données pour LINK-USD
+2025-05-04 02:38:17,873 - app.services.market_data - INFO - Fetching historical data for LINK-USD from Alpaca
+2025-05-04 02:38:17,873 - root - INFO - Converting crypto symbol format for Alpaca: LINK-USD -> LINK/USD
+2025-05-04 02:38:17,873 - app.services.market_data - INFO - Cryptocurrency detected: LINK-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:17,873 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for LINK/USD
+2025-05-04 02:38:18,243 - app.services.market_data - INFO - Successfully retrieved 90 bars for LINK/USD from Alpaca v1beta3 API
+2025-05-04 02:38:18,243 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:18,245 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:18,246 - __main__ - INFO - Chargement des données pour AAPL
+2025-05-04 02:38:18,246 - app.services.market_data - INFO - Fetching historical data for AAPL from Alpaca
+2025-05-04 02:38:18,246 - app.services.market_data - INFO - Using standard stock API for AAPL
+2025-05-04 02:38:18,370 - __main__ - WARNING - Données insuffisantes pour AAPL. Ignoré.
+2025-05-04 02:38:18,370 - __main__ - INFO - Chargement des données pour UNI-USD
+2025-05-04 02:38:18,370 - app.services.market_data - INFO - Fetching historical data for UNI-USD from Alpaca
+2025-05-04 02:38:18,370 - root - INFO - Converting crypto symbol format for Alpaca: UNI-USD -> UNI/USD
+2025-05-04 02:38:18,370 - app.services.market_data - INFO - Cryptocurrency detected: UNI-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:18,370 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for UNI/USD
+2025-05-04 02:38:18,769 - app.services.market_data - INFO - Successfully retrieved 90 bars for UNI/USD from Alpaca v1beta3 API
+2025-05-04 02:38:18,771 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:18,772 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:18,773 - __main__ - INFO - Chargement des données pour MATIC-USD
+2025-05-04 02:38:18,774 - app.services.market_data - INFO - Fetching historical data for MATIC-USD from Alpaca
+2025-05-04 02:38:18,774 - root - INFO - Converting crypto symbol format for Alpaca: MATIC-USD -> MATIC/USD
+2025-05-04 02:38:18,774 - app.services.market_data - INFO - Cryptocurrency detected: MATIC-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:18,774 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for MATIC/USD
+2025-05-04 02:38:19,129 - app.services.market_data - WARNING - No data returned for MATIC/USD from Alpaca v1beta3 API
+2025-05-04 02:38:19,130 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:38:19,251 - app.services.market_data - WARNING - Using sample data for MATIC-USD as fallback
+2025-05-04 02:38:19,251 - app.services.providers.factory - INFO - Initialized provider 'sample'
+2025-05-04 02:38:19,255 - app.services.providers.sample - INFO - Generated sample data for MATIC-USD with 65 data points
+2025-05-04 02:38:19,255 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:19,256 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:19,258 - __main__ - INFO - Chargement des données pour NFLX
+2025-05-04 02:38:19,258 - app.services.market_data - INFO - Fetching historical data for NFLX from Alpaca
+2025-05-04 02:38:19,258 - app.services.market_data - INFO - Using standard stock API for NFLX
+2025-05-04 02:38:19,379 - __main__ - WARNING - Données insuffisantes pour NFLX. Ignoré.
+2025-05-04 02:38:19,379 - __main__ - INFO - Chargement des données pour AVGO
+2025-05-04 02:38:19,379 - app.services.market_data - INFO - Fetching historical data for AVGO from Alpaca
+2025-05-04 02:38:19,379 - app.services.market_data - INFO - Using standard stock API for AVGO
+2025-05-04 02:38:19,506 - __main__ - WARNING - Données insuffisantes pour AVGO. Ignoré.
+2025-05-04 02:38:19,506 - __main__ - INFO - Chargement des données pour DOT-USD
+2025-05-04 02:38:19,508 - app.services.market_data - INFO - Fetching historical data for DOT-USD from Alpaca
+2025-05-04 02:38:19,508 - root - INFO - Converting crypto symbol format for Alpaca: DOT-USD -> DOT/USD
+2025-05-04 02:38:19,508 - app.services.market_data - INFO - Cryptocurrency detected: DOT-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:19,508 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOT/USD
+2025-05-04 02:38:19,877 - app.services.market_data - INFO - Successfully retrieved 90 bars for DOT/USD from Alpaca v1beta3 API
+2025-05-04 02:38:19,878 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:19,879 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:19,881 - __main__ - INFO - Chargement des données pour CSCO
+2025-05-04 02:38:19,881 - app.services.market_data - INFO - Fetching historical data for CSCO from Alpaca
+2025-05-04 02:38:19,881 - app.services.market_data - INFO - Using standard stock API for CSCO
+2025-05-04 02:38:20,006 - __main__ - WARNING - Données insuffisantes pour CSCO. Ignoré.
+2025-05-04 02:38:20,006 - __main__ - INFO - Chargement des données pour AMZN
+2025-05-04 02:38:20,006 - app.services.market_data - INFO - Fetching historical data for AMZN from Alpaca
+2025-05-04 02:38:20,006 - app.services.market_data - INFO - Using standard stock API for AMZN
+2025-05-04 02:38:20,130 - __main__ - WARNING - Données insuffisantes pour AMZN. Ignoré.
+2025-05-04 02:38:20,130 - __main__ - INFO - Chargement des données pour PG
+2025-05-04 02:38:20,130 - app.services.market_data - INFO - Fetching historical data for PG from Alpaca
+2025-05-04 02:38:20,130 - app.services.market_data - INFO - Using standard stock API for PG
+2025-05-04 02:38:20,256 - __main__ - WARNING - Données insuffisantes pour PG. Ignoré.
+2025-05-04 02:38:20,256 - __main__ - INFO - Chargement des données pour HD
+2025-05-04 02:38:20,256 - app.services.market_data - INFO - Fetching historical data for HD from Alpaca
+2025-05-04 02:38:20,256 - app.services.market_data - INFO - Using standard stock API for HD
+2025-05-04 02:38:20,380 - __main__ - WARNING - Données insuffisantes pour HD. Ignoré.
+2025-05-04 02:38:20,380 - __main__ - INFO - Chargement des données pour DOGE-USD
+2025-05-04 02:38:20,380 - app.services.market_data - INFO - Fetching historical data for DOGE-USD from Alpaca
+2025-05-04 02:38:20,380 - root - INFO - Converting crypto symbol format for Alpaca: DOGE-USD -> DOGE/USD
+2025-05-04 02:38:20,380 - app.services.market_data - INFO - Cryptocurrency detected: DOGE-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:20,380 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for DOGE/USD
+2025-05-04 02:38:20,745 - app.services.market_data - INFO - Successfully retrieved 90 bars for DOGE/USD from Alpaca v1beta3 API
+2025-05-04 02:38:20,746 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:20,747 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:20,749 - __main__ - INFO - Chargement des données pour UNH
+2025-05-04 02:38:20,749 - app.services.market_data - INFO - Fetching historical data for UNH from Alpaca
+2025-05-04 02:38:20,749 - app.services.market_data - INFO - Using standard stock API for UNH
+2025-05-04 02:38:20,864 - __main__ - WARNING - Données insuffisantes pour UNH. Ignoré.
+2025-05-04 02:38:20,864 - __main__ - INFO - Chargement des données pour V
+2025-05-04 02:38:20,864 - app.services.market_data - INFO - Fetching historical data for V from Alpaca
+2025-05-04 02:38:20,864 - app.services.market_data - INFO - Using standard stock API for V
+2025-05-04 02:38:20,989 - __main__ - WARNING - Données insuffisantes pour V. Ignoré.
+2025-05-04 02:38:20,989 - __main__ - INFO - Chargement des données pour XRP-USD
+2025-05-04 02:38:20,989 - app.services.market_data - INFO - Fetching historical data for XRP-USD from Alpaca
+2025-05-04 02:38:20,989 - root - INFO - Converting crypto symbol format for Alpaca: XRP-USD -> XRP/USD
+2025-05-04 02:38:20,989 - app.services.market_data - INFO - Cryptocurrency detected: XRP-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:20,989 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for XRP/USD
+2025-05-04 02:38:21,362 - app.services.market_data - INFO - Successfully retrieved 90 bars for XRP/USD from Alpaca v1beta3 API
+2025-05-04 02:38:21,364 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:21,365 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:21,366 - __main__ - INFO - Chargement des données pour META
+2025-05-04 02:38:21,366 - app.services.market_data - INFO - Fetching historical data for META from Alpaca
+2025-05-04 02:38:21,366 - app.services.market_data - INFO - Using standard stock API for META
+2025-05-04 02:38:21,494 - __main__ - WARNING - Données insuffisantes pour META. Ignoré.
+2025-05-04 02:38:21,494 - __main__ - INFO - Chargement des données pour LUNA-USD
+2025-05-04 02:38:21,494 - app.services.market_data - INFO - Fetching historical data for LUNA-USD from Alpaca
+2025-05-04 02:38:21,494 - root - INFO - Converting crypto symbol format for Alpaca: LUNA-USD -> LUNA/USD
+2025-05-04 02:38:21,494 - app.services.market_data - INFO - Cryptocurrency detected: LUNA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:21,494 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for LUNA/USD
+2025-05-04 02:38:21,862 - app.services.market_data - WARNING - No data returned for LUNA/USD from Alpaca v1beta3 API
+2025-05-04 02:38:21,862 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:38:21,980 - app.services.market_data - WARNING - Using sample data for LUNA-USD as fallback
+2025-05-04 02:38:21,984 - app.services.providers.sample - INFO - Generated sample data for LUNA-USD with 65 data points
+2025-05-04 02:38:21,984 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:21,985 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:21,987 - __main__ - INFO - Chargement des données pour SHIB-USD
+2025-05-04 02:38:21,987 - app.services.market_data - INFO - Fetching historical data for SHIB-USD from Alpaca
+2025-05-04 02:38:21,987 - root - INFO - Converting crypto symbol format for Alpaca: SHIB-USD -> SHIB/USD
+2025-05-04 02:38:21,987 - app.services.market_data - INFO - Cryptocurrency detected: SHIB-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:21,987 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SHIB/USD
+2025-05-04 02:38:22,370 - app.services.market_data - INFO - Successfully retrieved 90 bars for SHIB/USD from Alpaca v1beta3 API
+2025-05-04 02:38:22,372 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:22,373 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:22,374 - __main__ - INFO - Chargement des données pour ADBE
+2025-05-04 02:38:22,374 - app.services.market_data - INFO - Fetching historical data for ADBE from Alpaca
+2025-05-04 02:38:22,375 - app.services.market_data - INFO - Using standard stock API for ADBE
+2025-05-04 02:38:22,496 - __main__ - WARNING - Données insuffisantes pour ADBE. Ignoré.
+2025-05-04 02:38:22,496 - __main__ - INFO - Chargement des données pour TSLA
+2025-05-04 02:38:22,496 - app.services.market_data - INFO - Fetching historical data for TSLA from Alpaca
+2025-05-04 02:38:22,496 - app.services.market_data - INFO - Using standard stock API for TSLA
+2025-05-04 02:38:22,618 - __main__ - WARNING - Données insuffisantes pour TSLA. Ignoré.
+2025-05-04 02:38:22,618 - __main__ - INFO - Chargement des données pour JPM
+2025-05-04 02:38:22,618 - app.services.market_data - INFO - Fetching historical data for JPM from Alpaca
+2025-05-04 02:38:22,618 - app.services.market_data - INFO - Using standard stock API for JPM
+2025-05-04 02:38:22,745 - __main__ - WARNING - Données insuffisantes pour JPM. Ignoré.
+2025-05-04 02:38:22,745 - __main__ - INFO - Chargement des données pour BTC-USD
+2025-05-04 02:38:22,745 - app.services.market_data - INFO - Fetching historical data for BTC-USD from Alpaca
+2025-05-04 02:38:22,745 - root - INFO - Converting crypto symbol format for Alpaca: BTC-USD -> BTC/USD
+2025-05-04 02:38:22,745 - app.services.market_data - INFO - Cryptocurrency detected: BTC-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:22,745 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for BTC/USD
+2025-05-04 02:38:23,115 - app.services.market_data - INFO - Successfully retrieved 90 bars for BTC/USD from Alpaca v1beta3 API
+2025-05-04 02:38:23,116 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:23,118 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:23,118 - __main__ - INFO - Chargement des données pour SOL-USD
+2025-05-04 02:38:23,118 - app.services.market_data - INFO - Fetching historical data for SOL-USD from Alpaca
+2025-05-04 02:38:23,120 - root - INFO - Converting crypto symbol format for Alpaca: SOL-USD -> SOL/USD
+2025-05-04 02:38:23,120 - app.services.market_data - INFO - Cryptocurrency detected: SOL-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:23,120 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for SOL/USD
+2025-05-04 02:38:23,499 - app.services.market_data - INFO - Successfully retrieved 90 bars for SOL/USD from Alpaca v1beta3 API
+2025-05-04 02:38:23,499 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:23,501 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:23,502 - __main__ - INFO - Chargement des données pour AVAX-USD
+2025-05-04 02:38:23,502 - app.services.market_data - INFO - Fetching historical data for AVAX-USD from Alpaca
+2025-05-04 02:38:23,502 - root - INFO - Converting crypto symbol format for Alpaca: AVAX-USD -> AVAX/USD
+2025-05-04 02:38:23,503 - app.services.market_data - INFO - Cryptocurrency detected: AVAX-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:23,503 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for AVAX/USD
+2025-05-04 02:38:23,870 - app.services.market_data - INFO - Successfully retrieved 90 bars for AVAX/USD from Alpaca v1beta3 API
+2025-05-04 02:38:23,872 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:23,873 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:23,874 - __main__ - INFO - Chargement des données pour GOOGL
+2025-05-04 02:38:23,875 - app.services.market_data - INFO - Fetching historical data for GOOGL from Alpaca
+2025-05-04 02:38:23,875 - app.services.market_data - INFO - Using standard stock API for GOOGL
+2025-05-04 02:38:23,998 - __main__ - WARNING - Données insuffisantes pour GOOGL. Ignoré.
+2025-05-04 02:38:23,999 - __main__ - INFO - Chargement des données pour MSFT
+2025-05-04 02:38:23,999 - app.services.market_data - INFO - Fetching historical data for MSFT from Alpaca
+2025-05-04 02:38:23,999 - app.services.market_data - INFO - Using standard stock API for MSFT
+2025-05-04 02:38:24,124 - __main__ - WARNING - Données insuffisantes pour MSFT. Ignoré.
+2025-05-04 02:38:24,124 - __main__ - INFO - Chargement des données pour ETH-USD
+2025-05-04 02:38:24,124 - app.services.market_data - INFO - Fetching historical data for ETH-USD from Alpaca
+2025-05-04 02:38:24,124 - root - INFO - Converting crypto symbol format for Alpaca: ETH-USD -> ETH/USD
+2025-05-04 02:38:24,124 - app.services.market_data - INFO - Cryptocurrency detected: ETH-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:24,124 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ETH/USD
+2025-05-04 02:38:24,491 - app.services.market_data - INFO - Successfully retrieved 90 bars for ETH/USD from Alpaca v1beta3 API
+2025-05-04 02:38:24,492 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:24,493 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:24,493 - __main__ - INFO - Chargement des données pour NVDA
+2025-05-04 02:38:24,493 - app.services.market_data - INFO - Fetching historical data for NVDA from Alpaca
+2025-05-04 02:38:24,493 - app.services.market_data - INFO - Using standard stock API for NVDA
+2025-05-04 02:38:24,615 - __main__ - WARNING - Données insuffisantes pour NVDA. Ignoré.
+2025-05-04 02:38:24,615 - __main__ - INFO - Chargement des données pour CRM
+2025-05-04 02:38:24,615 - app.services.market_data - INFO - Fetching historical data for CRM from Alpaca
+2025-05-04 02:38:24,615 - app.services.market_data - INFO - Using standard stock API for CRM
+2025-05-04 02:38:24,736 - __main__ - WARNING - Données insuffisantes pour CRM. Ignoré.
+2025-05-04 02:38:24,737 - __main__ - INFO - Chargement des données pour ADA-USD
+2025-05-04 02:38:24,737 - app.services.market_data - INFO - Fetching historical data for ADA-USD from Alpaca
+2025-05-04 02:38:24,737 - root - INFO - Converting crypto symbol format for Alpaca: ADA-USD -> ADA/USD
+2025-05-04 02:38:24,737 - app.services.market_data - INFO - Cryptocurrency detected: ADA-USD. Using dedicated Alpaca crypto API.
+2025-05-04 02:38:24,737 - app.services.market_data - INFO - Making direct API call to Alpaca crypto endpoint for ADA/USD
+2025-05-04 02:38:25,099 - app.services.market_data - WARNING - No data returned for ADA/USD from Alpaca v1beta3 API
+2025-05-04 02:38:25,100 - app.services.market_data - WARNING - Crypto method 2 failed: expected list, str found
+2025-05-04 02:38:25,220 - app.services.market_data - WARNING - Using sample data for ADA-USD as fallback
+2025-05-04 02:38:25,222 - app.services.providers.sample - INFO - Generated sample data for ADA-USD with 65 data points
+2025-05-04 02:38:25,223 - app.strategies.transformer_strategy - INFO - Adding technical indicators
+2025-05-04 02:38:25,223 - app.strategies.transformer_strategy - INFO - Calculating prediction targets
+2025-05-04 02:38:25,226 - __main__ - INFO - Chargement des données pour BAC
+2025-05-04 02:38:25,226 - app.services.market_data - INFO - Fetching historical data for BAC from Alpaca
+2025-05-04 02:38:25,226 - app.services.market_data - INFO - Using standard stock API for BAC
+2025-05-04 02:38:25,351 - __main__ - WARNING - Données insuffisantes pour BAC. Ignoré.
+2025-05-04 02:38:25,353 - __main__ - INFO - Entraînement du modèle Transformer sur 13 symboles
+2025-05-04 02:38:25,354 - app.strategies.transformer_strategy - INFO - Starting transformer model training
+2025-05-04 02:38:28,978 - app.strategies.transformer_strategy - INFO - Epoch 1/50 - Train loss: -53857.7935, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:28,985 - app.strategies.transformer_strategy - INFO - Model saved to models\transformer\transformer_model.pth
+2025-05-04 02:38:31,101 - app.strategies.transformer_strategy - INFO - Epoch 2/50 - Train loss: -65843.6357, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:32,910 - app.strategies.transformer_strategy - INFO - Epoch 3/50 - Train loss: -83329.8373, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:34,714 - app.strategies.transformer_strategy - INFO - Epoch 4/50 - Train loss: -102930.1591, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:36,534 - app.strategies.transformer_strategy - INFO - Epoch 5/50 - Train loss: -124969.3229, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:38,449 - app.strategies.transformer_strategy - INFO - Epoch 6/50 - Train loss: -151490.4686, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:40,239 - app.strategies.transformer_strategy - INFO - Epoch 7/50 - Train loss: -180023.7734, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:42,049 - app.strategies.transformer_strategy - INFO - Epoch 8/50 - Train loss: -210569.8214, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:43,831 - app.strategies.transformer_strategy - INFO - Epoch 9/50 - Train loss: -260780.1704, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:45,649 - app.strategies.transformer_strategy - INFO - Epoch 10/50 - Train loss: -300900.4753, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:47,452 - app.strategies.transformer_strategy - INFO - Epoch 11/50 - Train loss: -325697.7428, Val loss: 0.0000, Val accuracy: 0.0000
+2025-05-04 02:38:47,452 - app.strategies.transformer_strategy - INFO - Early stopping after 11 epochs
+2025-05-04 02:38:47,489 - app.strategies.transformer_strategy - INFO - Model loaded from models\transformer\transformer_model.pth
+2025-05-04 02:38:47,496 - app.strategies.transformer_strategy - INFO - Model saved to models\transformer\transformer_model.pth
+2025-05-04 02:38:47,496 - __main__ - INFO - Modèle Transformer sauvegardé dans: models\transformer\multi_asset
+2025-05-04 02:38:47,497 - __main__ - INFO - Entraînement terminé!
+2025-05-04 02:38:47,497 - __main__ - INFO - Modèles LSTM entraînés: 10/32 (31.2%)
+2025-05-04 02:38:47,497 - __main__ - INFO - Modèle Transformer entraîné: Oui
+2025-05-04 02:38:47,501 - __main__ - INFO - Rapport d'entraînement sauvegardé dans reports/training_report_20250504_023847.csv
+2025-05-04 02:38:47,501 - __main__ - INFO - Entraînement réussi! Au moins un modèle a été entraîné avec succès.
