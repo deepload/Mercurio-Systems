@@ -604,23 +604,20 @@ class StockDayTrader:
             SP500_STOCKS = CUSTOM_STOCKS
             NASDAQ100_STOCKS = CUSTOM_STOCKS[:10]
     
-    def initialize_mercurio_services(self) -> bool:
-        """Initialiser les services Mercurio AI"""
-        try:
-            # Créer le service de données de marché
-            self.market_data_service = MarketDataService(
-                provider_name="alpaca",
-                #api_key=self.api_key,
-                #api_secret=self.api_secret,
-               # base_url=self.base_url,
-               # data_url=self.data_url,
-               # subscription_level=self.subscription_level
-            )
+    # Option 2: Utiliser la liste personnalisée en mémoire
+    if self.use_custom_symbols and CUSTOM_STOCKS:
+        logger.info(f"Utilisation d'une liste personnalisée de {len(CUSTOM_STOCKS)} symboles")
+        return CUSTOM_STOCKS[:self.max_symbols]
             
-            # Créer le service de trading
-            is_paper = True if os.getenv("ALPACA_MODE", "paper").lower() == "paper" else False
-            self.trading_service = TradingService(
-                is_paper=is_paper
+    # Option 3: Récupérer depuis l'API Alpaca (méthode originale)
+    try:
+        if self.stock_filter == StockFilter.ALL:
+            # Récupérer tous les actifs disponibles
+            assets = self.api.list_assets(status='active', asset_class='us_equity')
+            symbols = [asset.symbol for asset in assets if asset.tradable]
+                api_secret=self.api_secret,
+                base_url=self.base_url,
+                paper=True if os.getenv("ALPACA_MODE", "paper").lower() == "paper" else False
             )
             
             # Initialiser le gestionnaire de stratégies
@@ -739,9 +736,9 @@ class StockDayTrader:
                 
                 logger.info(f"Stratégie {self.strategy_type} initialisée")
             
-            # Les stratégies sont déjà initialisées et stockées dans self.strategies
-            # Le StrategyManager est utilisé pour d'autres fonctionnalités telles que list_strategies, get_strategy_info, etc.
-            logger.info(f"Stratégies initialisées: {list(self.strategies.keys())}")
+            # Enregistrer les stratégies auprès du gestionnaire
+            for strategy_name, strategy in self.strategies.items():
+                self.strategy_manager.register_strategy(strategy_name, strategy)
             
             return True
             
