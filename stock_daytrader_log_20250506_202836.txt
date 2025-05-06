@@ -1,0 +1,88 @@
+2025-05-06 20:28:36,654 - stock_daytrader - INFO - Démarrage du script de day trading. Appuyez sur Ctrl+C pour arrêter proprement.
+2025-05-06 20:28:36,655 - stock_daytrader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-06 20:28:36,655 - stock_daytrader - INFO - Utilisation forcée du niveau d'API Alpaca 3
+2025-05-06 20:28:36,655 - stock_daytrader - INFO - Niveau Premium (3) d'Alpaca activé - Fonctionnalités complètes disponibles
+2025-05-06 20:28:36,655 - stock_daytrader - INFO - StockDayTrader initialisé
+2025-05-06 20:28:36,709 - stock_daytrader - INFO - Démarrage de la session de trading d'actions à 2025-05-06 20:28:36.655925
+2025-05-06 20:28:36,723 - stock_daytrader - INFO - La session se terminera à 2025-05-06 22:00:00
+2025-05-06 20:28:37,118 - stock_daytrader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-06 20:28:37,118 - stock_daytrader - INFO - Valeur initiale du portefeuille: $94064.71
+2025-05-06 20:28:37,118 - stock_daytrader - INFO - Mode trading: ACTIVE
+2025-05-06 20:28:37,914 - stock_daytrader - INFO - Récupéré 20 symboles selon le filtre: active_assets
+2025-05-06 20:28:37,920 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-06 20:28:37,920 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-06 20:28:37,920 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-06 20:28:37,922 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-06 20:28:38,022 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-06 20:28:38,022 - app.services.market_data - INFO - Alpaca subscription level: 3
+2025-05-06 20:28:38,022 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-06 20:28:38,022 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-06 20:28:38,023 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-06 20:28:38,023 - app.services.trading - INFO - Alpaca client initialized successfully (paper: True)
+2025-05-06 20:28:38,023 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-06 20:28:38,023 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-06 20:28:38,024 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-06 20:28:38,024 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-06 20:28:38,024 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-06 20:28:38,024 - app.services.market_data - INFO - Alpaca subscription level: 3
+2025-05-06 20:28:38,024 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-06 20:28:38,024 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-06 20:28:38,024 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-06 20:28:38,024 - app.services.providers.factory - INFO - Registered provider 'sample' with priority 100
+2025-05-06 20:28:38,024 - app.services.providers.factory - INFO - Registered provider 'alpaca' with priority 5
+2025-05-06 20:28:38,025 - app.services.providers.factory - INFO - Alpaca provider registered with highest priority
+2025-05-06 20:28:38,025 - app.services.providers.factory - INFO - Registered provider 'polygon' with priority 10
+2025-05-06 20:28:38,025 - app.services.providers.factory - INFO - Registered provider 'yahoo' with priority 20
+2025-05-06 20:28:38,025 - app.services.market_data - INFO - Alpaca subscription level: 3
+2025-05-06 20:28:38,025 - app.services.market_data - INFO - Alpaca configured for PAPER trading mode
+2025-05-06 20:28:38,025 - app.services.market_data - INFO - Initialized Alpaca client with base_url: https://paper-api.alpaca.markets
+2025-05-06 20:28:38,025 - app.services.market_data - INFO - Legacy Alpaca client initialized successfully
+2025-05-06 20:28:38,026 - stock_daytrader - ERROR - Erreur lors de l'initialisation des services Mercurio: Can't instantiate abstract class MovingAverageMLStrategy with abstract methods backtest, load_data, predict, preprocess_data
+2025-05-06 20:28:38,026 - stock_daytrader - WARNING - Utilisation du mode natif Alpaca (sans services Mercurio)
+2025-05-06 20:28:38,027 - stock_daytrader - INFO - ===== Cycle de trading #1 =====
+2025-05-06 20:28:38,141 - stock_daytrader - INFO - Traitement parallèle de 20 symboles avec 10 threads
+2025-05-06 20:28:38,142 - stock_daytrader - INFO - Traitement de LBRT
+2025-05-06 20:28:38,144 - stock_daytrader - INFO - Traitement de MAGS
+2025-05-06 20:28:38,144 - stock_daytrader - INFO - Traitement de MED
+2025-05-06 20:28:38,146 - stock_daytrader - INFO - Traitement de MRK
+2025-05-06 20:28:38,148 - stock_daytrader - INFO - Traitement de PDI
+2025-05-06 20:28:38,150 - stock_daytrader - INFO - Traitement de PTY
+2025-05-06 20:28:38,150 - stock_daytrader - INFO - Traitement de SCHH
+2025-05-06 20:28:38,152 - stock_daytrader - INFO - Traitement de SPUS
+2025-05-06 20:28:38,154 - stock_daytrader - INFO - Traitement de TEF
+2025-05-06 20:28:38,156 - stock_daytrader - INFO - Traitement de TKR
+2025-05-06 20:28:38,650 - stock_daytrader - INFO - LBRT - Dernier prix: $11.34
+2025-05-06 20:28:38,766 - stock_daytrader - INFO - Traitement de UPS
+2025-05-06 20:28:38,878 - stock_daytrader - INFO - PDI - Dernier prix: $18.65
+2025-05-06 20:28:38,880 - stock_daytrader - INFO - MRK - Dernier prix: $78.78
+2025-05-06 20:28:38,882 - stock_daytrader - INFO - TEF - Dernier prix: $5.12
+2025-05-06 20:28:38,884 - stock_daytrader - INFO - SCHH - Dernier prix: $21.18
+2025-05-06 20:28:38,885 - stock_daytrader - INFO - MAGS - Dernier prix: $47.25
+2025-05-06 20:28:38,889 - stock_daytrader - INFO - PTY - Dernier prix: $13.83
+2025-05-06 20:28:38,891 - stock_daytrader - INFO - SPUS - Dernier prix: $39.19
+2025-05-06 20:28:38,892 - stock_daytrader - INFO - TKR - Dernier prix: $66.47
+2025-05-06 20:28:38,894 - stock_daytrader - INFO - MED - Dernier prix: $12.72
+2025-05-06 20:28:38,996 - stock_daytrader - INFO - Traitement de VTEX
+2025-05-06 20:28:39,009 - stock_daytrader - INFO - Traitement de XPER
+2025-05-06 20:28:39,014 - stock_daytrader - INFO - UPS - Dernier prix: $94.34
+2025-05-06 20:28:39,015 - stock_daytrader - INFO - Traitement de A
+2025-05-06 20:28:39,016 - stock_daytrader - INFO - Traitement de AA
+2025-05-06 20:28:39,016 - stock_daytrader - INFO - Traitement de AAAU
+2025-05-06 20:28:39,017 - stock_daytrader - INFO - Traitement de AACT
+2025-05-06 20:28:39,017 - stock_daytrader - INFO - Traitement de AAL
+2025-05-06 20:28:39,017 - stock_daytrader - INFO - Traitement de IPAR
+2025-05-06 20:28:39,018 - stock_daytrader - INFO - Traitement de ITRG
+2025-05-06 20:28:39,235 - stock_daytrader - INFO - VTEX - Dernier prix: $5.46
+2025-05-06 20:28:39,253 - stock_daytrader - INFO - XPER - Dernier prix: $7.05
+2025-05-06 20:28:39,265 - stock_daytrader - INFO - ITRG - Dernier prix: $1.92
+2025-05-06 20:28:39,269 - stock_daytrader - INFO - AAAU - Dernier prix: $33.75
+2025-05-06 20:28:39,275 - stock_daytrader - INFO - A - Dernier prix: $105.26
+2025-05-06 20:28:39,278 - stock_daytrader - INFO - AAL - Dernier prix: $10.49
+2025-05-06 20:28:39,279 - stock_daytrader - INFO - AACT - Dernier prix: $11.28
+2025-05-06 20:28:39,282 - stock_daytrader - INFO - AA - Dernier prix: $24.80
+2025-05-06 20:28:39,284 - stock_daytrader - INFO - IPAR - Dernier prix: $118.33
+2025-05-06 20:28:39,520 - stock_daytrader - INFO - Valeur actuelle du portefeuille: $94064.71
+2025-05-06 20:28:39,639 - stock_daytrader - INFO - Pas de positions ouvertes
+2025-05-06 20:28:39,640 - stock_daytrader - INFO - Cycle de trading terminé en 1.61 secondes
+2025-05-06 20:28:39,641 - stock_daytrader - INFO - Fin de session dans 91 minutes
+2025-05-06 20:28:39,641 - stock_daytrader - INFO - Attente de 60 secondes avant le prochain cycle
