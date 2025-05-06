@@ -497,6 +497,9 @@ class HFTrader:
     
     async def _run_main_loop(self):
         """Boucle principale async pour le traitement des données"""
+        # Compteur pour l'affichage périodique du solde
+        balance_check_counter = 0
+        
         # Boucle principale
         while running:
             try:
@@ -505,6 +508,26 @@ class HFTrader:
                 
                 # Analyser les symboles pour de nouveaux signaux
                 await self.analyze_symbols()
+                
+                # Afficher périodiquement le solde disponible (toutes les 10 itérations)
+                balance_check_counter += 1
+                if balance_check_counter >= 10:  # Environ toutes les 10 secondes avec l'intervalle par défaut
+                    try:
+                        account_info = self.api.get_account()
+                        buying_power = float(account_info.buying_power)
+                        cash = float(account_info.cash)
+                        equity = float(account_info.equity)
+                        
+                        logger.info("===== INFORMATION DU COMPTE ALPACA =====")
+                        logger.info(f"Solde disponible: ${buying_power:.2f}")
+                        logger.info(f"Liquidités: ${cash:.2f}")
+                        logger.info(f"Valeur totale: ${equity:.2f}")
+                        logger.info("=======================================\n")
+                    except Exception as e:
+                        logger.error(f"Erreur lors de la récupération du solde: {e}")
+                    
+                    # Réinitialiser le compteur
+                    balance_check_counter = 0
                 
                 # Courte pause pour éviter d'utiliser trop de CPU
                 await asyncio.sleep(MARKET_DATA_INTERVAL)
