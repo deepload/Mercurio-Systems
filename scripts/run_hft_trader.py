@@ -25,6 +25,7 @@ import asyncio
 import logging
 import argparse
 import threading
+import math
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
@@ -193,11 +194,20 @@ class HFTrader:
         if use_custom_symbols:
             logger.info("Utilisation de la liste de symboles personnalisée")
             if asset_type == AssetType.CRYPTO:
-                # Utiliser notre liste personnalisée au format sans slash
-                symbols = PERSONALIZED_CRYPTO_LIST_NO_SLASH[:5]  # Limiter à 5 symboles pour éviter surcharge
-                logger.info(f"Sélection de {len(symbols)} symboles de crypto personnalisés")
+                # Utiliser tous les symboles fournis - sans limitation
+                if symbols and len(symbols) > 0:
+                    # Si des symboles ont été spécifiés (par --symbols ou --custom-symbols-file), utiliser ceux-ci
+                    logger.info(f"Utilisation de {len(symbols)} symboles crypto personnalisés")
+                else:
+                    # Sinon, utiliser la liste par défaut complète
+                    symbols = PERSONALIZED_CRYPTO_LIST_NO_SLASH
+                    logger.info(f"Utilisation de la liste complète de {len(symbols)} symboles crypto par défaut")
             else:
-                symbols = ["AAPL", "TSLA", "MSFT", "AMZN", "GOOGL"]
+                # Pour les actions, utiliser tous les symboles spécifiés ou une liste par défaut
+                if not symbols or len(symbols) == 0:
+                    symbols = ["AAPL", "TSLA", "MSFT", "AMZN", "GOOGL"]
+                logger.info(f"Utilisation de {len(symbols)} symboles d'actions")
+
         elif asset_type == AssetType.CRYPTO:
             symbols = DEFAULT_SYMBOLS["CRYPTO"]
         else:
@@ -1043,12 +1053,23 @@ class HFTrader:
                 if symbol not in self.symbols:
                     continue
                     
-                entry_price = position['entry_price']
-                current_price = position['current_price']
-                qty = position['qty']
+                # Récupérer les données de position
+                entry_price = position.get('entry_price', 0)
+                current_price = position.get('current_price', 0)
+                qty = position.get('qty', 0)
+                
+                # Vérifier si les données sont valides pour éviter division par zéro
+                if not entry_price or not current_price or abs(qty) < 1e-8:
+                    logger.debug(f"Position ignorée pour {symbol}: prix ou quantité trop faible/nulle (entry: {entry_price}, current: {current_price}, qty: {qty})")
+                    continue
                 
                 # Calculer le pourcentage de profit/perte
                 if qty > 0:  # Position longue
+                    # Protection contre division par zéro
+                    if entry_price <= 0:
+                        logger.warning(f"Prix d'entrée invalide pour {symbol}: {entry_price}")
+                        continue
+                        
                     pct_change = (current_price / entry_price) - 1
                     
                     # Take profit
@@ -1062,6 +1083,11 @@ class HFTrader:
                         await self.execute_order(symbol, "sell", qty, "Stop Loss")
                         
                 elif qty < 0:  # Position courte (short)
+                    # Protection contre division par zéro
+                    if entry_price <= 0:
+                        logger.warning(f"Prix d'entrée invalide pour {symbol}: {entry_price}")
+                        continue
+                        
                     pct_change = 1 - (current_price / entry_price)
                     
                     # Take profit
@@ -1076,6 +1102,8 @@ class HFTrader:
                         
             except Exception as e:
                 logger.error(f"Erreur lors de la gestion de la position {symbol}: {e}")
+                logger.debug(f"Détails de la position qui a causé l'erreur: {position}")
+                # Continue avec les autres positions même si une erreur se produit
     
     async def execute_signal(self, symbol: str, signal: Dict[str, Any]):
         """Exécuter un signal de trading"""
@@ -1406,11 +1434,54 @@ class HFTrader:
         
     def _round_quantity(self, quantity, symbol):
         """Arrondir la quantité selon les règles du marché"""
-        # Crypto: arrondir à 8 décimales
+        # Protection contre les valeurs négatives ou nulles
+        if quantity <= 0:
+            return 0.0
+            
+        # Crypto: arrondir avec des règles spécifiques
         if self.asset_type == AssetType.CRYPTO:
-            return round(quantity, 8)
+            # Vérifier si la correction de précision est activée
+            if hasattr(self, 'crypto_precision_fix') and self.crypto_precision_fix:
+                # Pour les crypto-monnaies de faible valeur (comme SHIB, DOGE), utiliser plus de précision
+                if "SHIB" in symbol or "PEPE" in symbol:
+                    # Ces tokens ont besoin de beaucoup de décimales à cause de leur faible valeur
+                    precision = 12
+                    # Arrondir vers le bas pour garantir que nous ne dépassons jamais le solde disponible
+                    rounded = math.floor(quantity * 10**precision) / 10**precision
+                    # Si la valeur est trop petite, renvoyer 0
+                    if rounded < 1e-10:
+                        return 0.0
+                    return rounded
+                elif "DOGE" in symbol:
+                    # DOGE a besoin d'une précision légèrement différente
+                    precision = 8
+                    # Arrondir vers le bas pour éviter les erreurs d'insuffisance de solde
+                    return math.floor(quantity * 10**precision) / 10**precision
+                # Pour BTC, ajuster la précision à cause de sa valeur élevée
+                elif "BTC" in symbol:
+                    precision = 8
+                # Pour ETH, SOL, AVAX et autres crypto majeures
+                elif any(token in symbol for token in ["ETH", "SOL", "AVAX", "LINK", "XRP", "DOT", "LTC"]):
+                    precision = 8
+                else:
+                    # Pour les autres cryptos, utiliser une précision par défaut
+                    precision = 8
+                
+                # Arrondir TOUJOURS vers le bas pour éviter les problèmes de solde insuffisant
+                rounded = math.floor(quantity * 10**precision) / 10**precision
+                
+                # Vérifier si la quantité est extrêmement petite
+                if rounded < 1e-8:
+                    return 0.0  # Retourner zéro pour les quantités trop petites
+                    
+                logger.debug(f"Arrondi effectué pour {symbol}: {quantity} -> {rounded} (précision: {precision})")
+                return rounded
+            else:
+                # Comportement par défaut - arrondir vers le bas avec 8 décimales
+                precision = 8
+                return math.floor(quantity * 10**precision) / 10**precision
         else:  # Actions: arrondir selon les règles NYSE/NASDAQ
-            return round(quantity)
+            return math.floor(quantity)  # Arrondir vers le bas pour les actions aussi
     
     def _is_shorting_enabled(self) -> bool:
         """Vérifier si le compte permet le trading à découvert"""
@@ -1645,6 +1716,10 @@ def main():
     # Arguments standards communs avec les autres scripts
     parser.add_argument("--use-custom-symbols", action="store_true", 
                       help="Utiliser la liste personnalisée de symboles au lieu du filtre automatique")
+    parser.add_argument("--custom-symbols-file", type=str, default=None,
+                      help="Chemin vers un fichier contenant la liste des symboles personnalisés (un symbole par ligne)")
+    parser.add_argument("--crypto-precision-fix", action="store_true",
+                      help="Activer la correction de précision pour les crypto-monnaies à faible valeur")
     parser.add_argument("--market-check-interval", type=int, default=1,
                       help="Intervalle en secondes entre les vérifications du marché (default: 1s)")
     parser.add_argument("--fast-ma", type=int, default=5,
@@ -1692,6 +1767,21 @@ def main():
     
     # Gérer les symboles personnalisés 
     symbols = args.symbols
+    
+    # Charger les symboles depuis un fichier si spécifié
+    if args.custom_symbols_file and args.use_custom_symbols:
+        try:
+            with open(args.custom_symbols_file, 'r') as f:
+                file_symbols = [line.strip() for line in f.readlines() if line.strip()]
+                if file_symbols:
+                    symbols = file_symbols
+                    logger.info(f"Symboles chargés depuis {args.custom_symbols_file}: {len(symbols)} symboles")
+                else:
+                    logger.warning(f"Aucun symbole trouvé dans {args.custom_symbols_file}, utilisation des symboles en ligne de commande")
+        except Exception as e:
+            logger.error(f"Erreur lors du chargement des symboles depuis {args.custom_symbols_file}: {e}")
+            logger.info("Utilisation des symboles spécifiés en ligne de commande")
+    
     if not args.use_custom_symbols:
         # Si --use-custom-symbols n'est pas spécifié, utiliser les symboles par défaut
         symbols = None
@@ -1724,6 +1814,10 @@ def main():
         is_paper=is_paper,
         use_custom_symbols=args.use_custom_symbols
     )
+    
+    # Configurer l'option de correction de précision pour les crypto-monnaies
+    if args.crypto_precision_fix:
+        trader.crypto_precision_fix = True
     
     # Configuration supplémentaire du trader basée sur les nouveaux arguments
     if args.fast_ma:
