@@ -331,6 +331,7 @@ class StatisticalArbitrageStrategy(BaseStrategy):
 # Énumération des stratégies disponibles
 class StrategyType(str, Enum):
     MOVING_AVERAGE = "moving_average"  # Stratégie par défaut d'AlpacaCryptoTrader
+    MOVING_AVERAGE_ML = "moving_average_ml"  # Version améliorée avec ML pour optimiser les paramètres
     MOMENTUM = "momentum"
     MEAN_REVERSION = "mean_reversion"
     BREAKOUT = "breakout"
@@ -341,17 +342,159 @@ class StrategyType(str, Enum):
 
 def get_strategy_class(strategy_type: str) -> Optional[type]:
     """Récupère la classe de stratégie en fonction du type spécifié"""
-    # Import la stratégie Transformer uniquement si nécessaire
+    # Import des stratégies avancées uniquement si nécessaires
     if strategy_type.lower() == StrategyType.TRANSFORMER.lower():
-        from app.strategies.transformer_strategy import TransformerStrategy
-        return TransformerStrategy
+        try:
+            from app.strategies.transformer_strategy import TransformerStrategy
+            return TransformerStrategy
+        except ImportError:
+            logger.warning("Stratégie Transformer non disponible, utilisation de la stratégie par défaut")
+            return None
+    
+    # Import de MovingAverageMLStrategy si nécessaire
+    if strategy_type.lower() == StrategyType.MOVING_AVERAGE_ML.lower():
+        try:
+            from app.strategies.moving_average_ml import MovingAverageMLStrategy
+            # Adapter la stratégie pour le trading crypto
+            class CryptoMovingAverageMLStrategy(MovingAverageMLStrategy):
+                """Version adaptée de MovingAverageMLStrategy pour les cryptomonnaies"""
+                def __init__(self, **kwargs):
+                    # Paramètres spécifiques adaptés aux crypto (plus courte période, plus de volatilité)
+                    kwargs.setdefault('short_window_min', 3)  # Fenêtres plus courtes pour les crypto
+                    kwargs.setdefault('short_window_max', 24)
+                    kwargs.setdefault('long_window_min', 20)
+                    kwargs.setdefault('long_window_max', 80)
+                    kwargs.setdefault('optimize_interval', 15)  # Optimisation plus fréquente
+                    kwargs.setdefault('symbol', "BTC/USD")    # Symbole par défaut pour crypto
+                    super().__init__(**kwargs)
+                    self.name = "Moving Average ML (Crypto)"
+                    
+                def train(self, symbol: str = None) -> bool:
+                    """Méthode d'entraînement adaptée pour les cryptos (données 24/7)"""
+                    # Adapter la fenêtre temporelle pour les crypto qui tradent 24/7
+                    return super().train(symbol=symbol)
+                    
+                def analyze(self, data: pd.DataFrame) -> Dict[str, Any]:
+                    """Analyse des données crypto pour générer des signaux"""
+                    # Cette méthode est requise par l'interface BaseStrategy de crypto_trader
+                    if data is None or len(data) < max(self.short_window, self.long_window) + 5:
+                        return {"signal": "neutral", "strength": 0, "reason": "Données insuffisantes"}
+                        
+                    # Générer le signal avec la méthode get_signal de MovingAverageMLStrategy
+                    ml_signal = self.get_signal(self.symbol, data)
+                    
+                    # Convertir le format du signal pour qu'il soit compatible avec crypto_trader
+                    action_mapping = {
+                        "BUY": "buy",
+                        "SELL": "sell",
+                        "HOLD": "neutral"
+                    }
+                    
+                    return {
+                        "signal": action_mapping.get(ml_signal["action"].name, "neutral"),
+                        "strength": float(ml_signal["confidence"]),
+                        "reason": f"ML Signal - Short MA: {ml_signal['params']['short_ma']:.2f}, Long MA: {ml_signal['params']['long_ma']:.2f}"
+                    }
+                
+                def backtest(self, data: pd.DataFrame) -> Dict[str, Any]:
+                    """Méthode de backtesting pour la stratégie"""
+                    # Implémentation simple de backtesting
+                    if data is None or len(data) < 100:
+                        return {"profit": 0, "trades": 0, "win_rate": 0}
+                        
+                    # Préparer les données
+                    df = data.copy()
+                    df['short_ma'] = df['close'].rolling(window=self.short_window).mean()
+                    df['long_ma'] = df['close'].rolling(window=self.long_window).mean()
+                    df = df.dropna()
+                    
+                    # Simuler les signaux
+                    df['signal'] = 0
+                    df.loc[df['short_ma'] > df['long_ma'], 'signal'] = 1  # Achat
+                    df.loc[df['short_ma'] < df['long_ma'], 'signal'] = -1  # Vente
+                    
+                    # Calculer les rendements
+                    df['returns'] = df['close'].pct_change()
+                    df['strategy_returns'] = df['signal'].shift(1) * df['returns']
+                    
+                    # Métriques
+                    cumulative_return = (1 + df['strategy_returns'].fillna(0)).cumprod().iloc[-1] - 1
+                    trades = df['signal'].diff().abs().sum() // 2
+                    win_rate = 0
+                    if trades > 0:
+                        wins = ((df['strategy_returns'] > 0).sum())
+                        win_rate = wins / trades
+                        
+                    return {
+                        "profit": cumulative_return * 100,  # en pourcentage
+                        "trades": int(trades),
+                        "win_rate": win_rate * 100  # en pourcentage
+                    }
+                
+                def predict(self, data: pd.DataFrame) -> float:
+                    """Prédiction de la direction du marché"""
+                    # Utiliser notre modèle pour prédire la direction
+                    if self.ml_model is None or data is None or len(data) < 30:
+                        return 0.0
+                        
+                    try:
+                        # Préparer les données
+                        features_df = self._prepare_features(data)
+                        
+                        # Extraire les caractéristiques pour la prédiction
+                        last_features = features_df.iloc[-1][[                        
+                            'ma_diff', 'ma_diff_pct', 'volatility_ratio',
+                            'trend_5d', 'trend_10d', 'trend_20d', 'volume_ratio',
+                            'return_lag_1', 'return_lag_2', 'return_lag_3', 'return_lag_5'
+                        ]].values.reshape(1, -1)
+                        
+                        # Normaliser
+                        last_features_scaled = self.scaler.transform(last_features)
+                        
+                        # Prédire la probabilité de hausse
+                        probas = self.ml_model.predict_proba(last_features_scaled)[0]
+                        prediction = (probas[1] - 0.5) * 2  # Normaliser entre -1 et 1
+                        
+                        return prediction
+                    except Exception as e:
+                        logger.warning(f"Erreur lors de la prédiction: {e}")
+                        return 0.0
+                
+                def load_data(self, symbol: str, interval: str = '1day', limit: int = 200) -> pd.DataFrame:
+                    """Charger les données pour un symbole"""
+                    # Déléguer au service de données de marché si disponible
+                    if self.market_data_service:
+                        end = datetime.now()
+                        start = end - timedelta(days=limit)  # Utiliser limit comme nombre de jours
+                        
+                        return self.market_data_service.get_historical_data(
+                            symbol=symbol,
+                            interval=interval,
+                            start=start,
+                            end=end
+                        )
+                    return None
+                
+                def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
+                    """Prétraitement des données pour l'analyse"""
+                    # S'assurer que les données existent
+                    if data is None or len(data) < 30:
+                        return None
+                        
+                    # Utiliser notre méthode existante
+                    return self._prepare_features(data)
+            
+            return CryptoMovingAverageMLStrategy
+        except ImportError:
+            logger.warning("Stratégie MovingAverageML non disponible, utilisation de la stratégie par défaut")
+            return None
         
     strategy_map = {
         StrategyType.MOMENTUM: MomentumStrategy,
         StrategyType.MEAN_REVERSION: MeanReversionStrategy,
         StrategyType.BREAKOUT: BreakoutStrategy,
         StrategyType.STATISTICAL_ARBITRAGE: StatisticalArbitrageStrategy,
-        StrategyType.LSTM: LSTMPredictorStrategy,
+        StrategyType.LSTM: LSTMPredictorStrategy, 
         StrategyType.LLM: LLMStrategy
     }
     return strategy_map.get(strategy_type.lower())

@@ -719,24 +719,22 @@ class StockDayTrader:
     def initialize_mercurio_services(self) -> bool:
         """Initialiser les services Mercurio AI"""
         try:
+            # Définir les variables d'environnement pour que les services y accèdent
+            os.environ["ALPACA_SUBSCRIPTION_LEVEL"] = str(self.subscription_level)
+            os.environ["ALPACA_API_KEY"] = self.api_key
+            os.environ["ALPACA_API_SECRET"] = self.api_secret
+            os.environ["ALPACA_BASE_URL"] = self.base_url
+            os.environ["ALPACA_DATA_URL"] = self.data_url
+            
             # Créer le service de données de marché
             self.market_data_service = MarketDataService(
-                provider_name="alpaca",
-                api_key=self.api_key,
-                api_secret=self.api_secret,
-                base_url=self.base_url,
-                data_url=self.data_url,
-                subscription_level=self.subscription_level
+                provider_name="alpaca"
             )
             
             # Créer le service de trading
             is_paper = True if os.getenv("ALPACA_MODE", "paper").lower() == "paper" else False
             self.trading_service = TradingService(
-                is_paper=is_paper,
-                api_key=self.api_key,
-                api_secret=self.api_secret,
-                base_url=self.base_url,
-                subscription_level=self.subscription_level
+                is_paper=is_paper
             )
             
             # Initialiser le gestionnaire de stratégies
@@ -825,13 +823,28 @@ class StockDayTrader:
                         long_window=30
                     )
                 elif self.strategy_type == TradingStrategy.MOVING_AVERAGE_ML:
-                    self.strategies[self.strategy_type] = MovingAverageMLStrategy(
-                        market_data_service=self.market_data_service,
-                        trading_service=self.trading_service,
-                        short_window=5,
-                        long_window=20,
-                        use_ml=True
-                    )
+                    # Vérifier si nous pouvons importer MovingAverageMLStrategy
+                    try:
+                        from app.strategies.moving_average_ml import MovingAverageMLStrategy
+                        self.strategies[self.strategy_type] = MovingAverageMLStrategy(
+                            market_data_service=self.market_data_service,
+                            trading_service=self.trading_service,
+                            short_window_min=5,
+                            short_window_max=30,
+                            long_window_min=30,
+                            long_window_max=100
+                        )
+                    except ImportError:
+                        # Utiliser la stratégie MovingAverage standard comme fallback
+                        logger.warning("Stratégie MovingAverageML non disponible, utilisation de MovingAverage standard")
+                        from app.strategies.moving_average import MovingAverageStrategy
+                        self.strategies[self.strategy_type] = MovingAverageStrategy(
+                            market_data_service=self.market_data_service,
+                            trading_service=self.trading_service,
+                            short_window=10,
+                            long_window=30,
+                            use_ml=True  # Activer l'option ML de base
+                        )
                 elif self.strategy_type == TradingStrategy.LSTM_PREDICTOR:
                     self.strategies[self.strategy_type] = LSTMPredictorStrategy(
                         market_data_service=self.market_data_service,
@@ -1587,7 +1600,7 @@ def main():
     global running, MARKET_CHECK_INTERVAL
     
     parser = argparse.ArgumentParser(description='Script de day trading pour actions')
-    parser.add_argument('--strategy', choices=['moving_average', 'lstm_predictor', 'transformer', 'msi', 'all'],
+    parser.add_argument('--strategy', choices=['moving_average', 'moving_average_ml', 'lstm_predictor', 'transformer', 'msi', 'llm', 'all'],
                         default='moving_average', help='Stratégie à utiliser')
     parser.add_argument('--filter', choices=['active_assets', 'top_volume', 'top_gainers', 'tech_stocks', 'finance_stocks', 'health_stocks'],
                         default='active_assets', help='Filtre pour les actions')
@@ -1665,6 +1678,7 @@ def main():
     # Mapping entre les arguments de ligne de commande et les valeurs de l'enum TradingStrategy
     strategy_mapping = {
         'moving_average': 'MovingAverageStrategy',
+        'moving_average_ml': 'MovingAverageMLStrategy',
         'lstm_predictor': 'LSTMPredictorStrategy',
         'transformer': 'TransformerStrategy',
         'msi': 'MSIStrategy',
