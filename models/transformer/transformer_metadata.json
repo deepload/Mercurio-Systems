@@ -1,1 +1,1 @@
-{"feature_columns": ["open", "high", "low", "close", "volume", "sma_2", "sma_3", "ema_2", "ema_3"], "sequence_length": 60, "prediction_horizon": 5, "signal_threshold": 0.6, "d_model": 64, "nhead": 4, "num_layers": 2}
+{"feature_columns": ["close", "high", "low", "n", "open", "volume", "vw", "sma_2", "sma_3", "ema_2", "ema_3"], "sequence_length": 60, "prediction_horizon": 5, "signal_threshold": 0.6, "d_model": 64, "nhead": 4, "num_layers": 2}
