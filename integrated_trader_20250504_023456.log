@@ -1,4 +1,0 @@
-2025-05-04 02:34:57,186 - app.utils.env_loader - INFO - Loading environment variables from C:\Projects\MercurioAI\.env
-2025-05-04 02:34:57,189 - app.utils.env_loader - INFO - Alpaca API credentials loaded successfully
-2025-05-04 02:34:57,189 - app.utils.env_loader - INFO - Polygon API key loaded successfully
-2025-05-04 02:34:57,448 - integrated_trader - ERROR - Erreur d'importation des modules Mercurio: No module named 'app.services.market_calendar'
