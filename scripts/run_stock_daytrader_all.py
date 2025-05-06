@@ -719,24 +719,22 @@ class StockDayTrader:
     def initialize_mercurio_services(self) -> bool:
         """Initialiser les services Mercurio AI"""
         try:
+            # Définir les variables d'environnement pour que les services y accèdent
+            os.environ["ALPACA_SUBSCRIPTION_LEVEL"] = str(self.subscription_level)
+            os.environ["ALPACA_API_KEY"] = self.api_key
+            os.environ["ALPACA_API_SECRET"] = self.api_secret
+            os.environ["ALPACA_BASE_URL"] = self.base_url
+            os.environ["ALPACA_DATA_URL"] = self.data_url
+            
             # Créer le service de données de marché
             self.market_data_service = MarketDataService(
-                provider_name="alpaca",
-                api_key=self.api_key,
-                api_secret=self.api_secret,
-                base_url=self.base_url,
-                data_url=self.data_url,
-                subscription_level=self.subscription_level
+                provider_name="alpaca"
             )
             
             # Créer le service de trading
             is_paper = True if os.getenv("ALPACA_MODE", "paper").lower() == "paper" else False
             self.trading_service = TradingService(
-                is_paper=is_paper,
-                api_key=self.api_key,
-                api_secret=self.api_secret,
-                base_url=self.base_url,
-                subscription_level=self.subscription_level
+                is_paper=is_paper
             )
             
             # Initialiser le gestionnaire de stratégies
