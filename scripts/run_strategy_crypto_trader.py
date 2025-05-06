@@ -25,6 +25,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Importer le trader de crypto
 from alpaca_crypto_trader import AlpacaCryptoTrader, SessionDuration
 
+# Importer les stratégies avancées
+from app.strategies.lstm_predictor import LSTMPredictorStrategy
+from app.strategies.llm_strategy import LLMStrategy
+
 # Configuration du logger
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("strategy_crypto_trader")
@@ -249,6 +253,8 @@ class StrategyType(str, Enum):
     BREAKOUT = "breakout"
     STATISTICAL_ARBITRAGE = "stat_arb"
     TRANSFORMER = "transformer"  # Stratégie basée sur un modèle Transformer de deep learning
+    LSTM = "lstm"
+    LLM = "llm"  # Stratégie basée sur un modèle LLM de deep learning
 
 def get_strategy_class(strategy_type: str) -> Optional[type]:
     """Récupère la classe de stratégie en fonction du type spécifié"""
@@ -261,7 +267,9 @@ def get_strategy_class(strategy_type: str) -> Optional[type]:
         StrategyType.MOMENTUM: MomentumStrategy,
         StrategyType.MEAN_REVERSION: MeanReversionStrategy,
         StrategyType.BREAKOUT: BreakoutStrategy,
-        StrategyType.STATISTICAL_ARBITRAGE: StatisticalArbitrageStrategy
+        StrategyType.STATISTICAL_ARBITRAGE: StatisticalArbitrageStrategy,
+        StrategyType.LSTM: LSTMPredictorStrategy,
+        StrategyType.LLM: LLMStrategy
     }
     return strategy_map.get(strategy_type.lower())
 
@@ -321,6 +329,30 @@ def main():
     parser.add_argument("--retrain", action="store_true",
                       help="Réentraîner le modèle Transformer même si un modèle entraîné existe déjà")
     
+    # Paramètres spécifiques à la stratégie LSTM
+    parser.add_argument("--lstm-units", type=int, default=50,
+                      help="Nombre d'unités LSTM dans le modèle (default: 50)")
+    parser.add_argument("--lstm-dropout", type=float, default=0.2,
+                      help="Taux de dropout pour le modèle LSTM (default: 0.2)")
+    parser.add_argument("--lstm-epochs", type=int, default=50,
+                      help="Nombre d'époques pour l'entraînement du modèle LSTM (default: 50)")
+    parser.add_argument("--lstm-batch-size", type=int, default=32,
+                      help="Taille de batch pour l'entraînement du modèle LSTM (default: 32)")
+    
+    # Paramètres spécifiques à la stratégie LLM
+    parser.add_argument("--model-name", type=str, default="llama2-7b",
+                      help="Nom du modèle LLM à utiliser (default: llama2-7b)")
+    parser.add_argument("--use-local-model", action="store_true",
+                      help="Utiliser un modèle LLM local au lieu d'une API distante")
+    parser.add_argument("--local-model-path", type=str, default=None,
+                      help="Chemin vers le modèle LLM local (si --use-local-model est activé)")
+    parser.add_argument("--api-key", type=str, default=None,
+                      help="Clé API pour le service LLM distant")
+    parser.add_argument("--sentiment-threshold", type=float, default=0.6,
+                      help="Seuil de sentiment pour la stratégie LLM (default: 0.6)")
+    parser.add_argument("--news-lookback", type=int, default=24,
+                      help="Nombre d'heures de données d'actualités à analyser pour la stratégie LLM (default: 24)")
+    
     args = parser.parse_args()
     
     # Déterminer la durée de session
@@ -362,7 +394,23 @@ def main():
         print(f"  - Signal threshold: {args.signal_threshold}")
         print(f"  - GPU: {'Activé' if args.use_gpu else 'Désactivé'}")
         print(f"  - Réentraînement: {'Oui' if args.retrain else 'Non'}")
-
+    elif args.strategy == StrategyType.LSTM:
+        print(f"LSTM configuration:")
+        print(f"  - Sequence length: {args.sequence_length}")
+        print(f"  - Prediction horizon: {args.prediction_horizon}")
+        print(f"  - LSTM units: {args.lstm_units}")
+        print(f"  - Dropout: {args.lstm_dropout}")
+        print(f"  - Epochs: {args.lstm_epochs}")
+        print(f"  - Batch size: {args.lstm_batch_size}")
+        print(f"  - GPU: {'Activé' if args.use_gpu else 'Désactivé'}")
+    elif args.strategy == StrategyType.LLM:
+        print(f"LLM configuration:")
+        print(f"  - Model name: {args.model_name}")
+        print(f"  - Use local model: {'Oui' if args.use_local_model else 'Non'}")
+        if args.use_local_model and args.local_model_path:
+            print(f"  - Local model path: {args.local_model_path}")
+        print(f"  - Sentiment threshold: {args.sentiment_threshold}")
+        print(f"  - News lookback hours: {args.news_lookback}")
     
     print("=" * 60)
     
@@ -433,6 +481,32 @@ def main():
                 "signal_threshold": args.signal_threshold,
                 "use_gpu": args.use_gpu,
                 "retrain": args.retrain,
+                "position_size": args.position_size,
+                "stop_loss": args.stop_loss,
+                "take_profit": args.take_profit
+            }
+        elif args.strategy == StrategyType.LSTM:
+            strategy_params = {
+                "sequence_length": args.sequence_length,
+                "prediction_horizon": args.prediction_horizon,
+                "lstm_units": args.lstm_units,
+                "dropout_rate": args.lstm_dropout,
+                "epochs": args.lstm_epochs,
+                "batch_size": args.lstm_batch_size,
+                "use_gpu": args.use_gpu,
+                "retrain": args.retrain,
+                "position_size": args.position_size,
+                "stop_loss": args.stop_loss,
+                "take_profit": args.take_profit
+            }
+        elif args.strategy == StrategyType.LLM:
+            strategy_params = {
+                "model_name": args.model_name,
+                "use_local_model": args.use_local_model,
+                "local_model_path": args.local_model_path,
+                "api_key": args.api_key,
+                "sentiment_threshold": args.sentiment_threshold,
+                "news_lookback_hours": args.news_lookback,
                 "position_size": args.position_size,
                 "stop_loss": args.stop_loss,
                 "take_profit": args.take_profit
