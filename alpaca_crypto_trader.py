@@ -213,6 +213,21 @@ class AlpacaCryptoTrader:
                 # Limiter aux 10 premières cryptos pour éviter les limites de taux si pas de liste personnalisée
                 trading_symbols = self.symbols[:10] if (len(self.symbols) > 10 and not self.use_custom_symbols) else self.symbols
                 
+                # Afficher le solde disponible à chaque itération
+                try:
+                    account_info = self.api.get_account()
+                    buying_power = float(account_info.buying_power)
+                    cash = float(account_info.cash)
+                    equity = float(account_info.equity)
+                    
+                    logger.info("\n===== INFORMATION DU COMPTE ALPACA =====")
+                    logger.info(f"Solde disponible: ${buying_power:.2f}")
+                    logger.info(f"Liquidités: ${cash:.2f}")
+                    logger.info(f"Valeur totale: ${equity:.2f}")
+                    logger.info("=======================================\n")
+                except Exception as e:
+                    logger.error(f"Erreur lors de la récupération du solde Alpaca: {e}")
+                
                 # Traiter chaque symbole
                 for symbol in trading_symbols:
                     try:
@@ -232,6 +247,7 @@ class AlpacaCryptoTrader:
             logger.error(f"Erreur dans la boucle de trading: {e}")
         finally:
             logger.info("Boucle de trading terminée")
+    
             
     def process_symbol(self, symbol: str):
         """Traiter un symbole de trading"""

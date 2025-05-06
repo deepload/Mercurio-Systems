@@ -242,6 +242,34 @@ Le niveau d'API Alpaca que vous utilisez peut avoir un impact significatif sur l
 
 > **Note :** Si vous spécifiez un niveau d'API mais que votre abonnement Alpaca n'y donne pas accès, le système reviendra automatiquement au niveau le plus élevé disponible. Par exemple, si vous spécifiez `--api-level 3` mais que vous n'avez qu'un abonnement Standard, le système utilisera le niveau 1.
 
+## Configuration du Trading Haute Fréquence
+
+Pour configurer les scripts existants pour le trading haute fréquence :
+
+1. **Modifier l'intervalle de vérification** - Dans les scripts de trading (run_stock_daytrader_all.py et run_strategy_crypto_trader.py), recherchez la variable `MARKET_CHECK_INTERVAL` et réduisez sa valeur :
+   ```python
+   # Pour le day trading standard (par défaut)
+   MARKET_CHECK_INTERVAL = 60  # 60 secondes
+   
+   # Pour le trading moyennement fréquent
+   MARKET_CHECK_INTERVAL = 5   # 5 secondes
+   
+   # Pour le trading haute fréquence
+   MARKET_CHECK_INTERVAL = 1   # 1 seconde
+   ```
+
+2. **Optimiser les stratégies** - Certaines stratégies fonctionnent mieux avec des données haute fréquence :
+   - MovingAverageML est optimisée pour le HFT avec des fenêtres courtes
+   - Mean Reversion et Momentum peuvent être efficaces en HFT
+   - LSTM et Transformer ne sont généralement pas adaptés au HFT en raison de leur temps d'inférence
+
+3. **Nécessité d'un niveau API élevé** - Le trading haute fréquence nécessite idéalement :
+   - Niveau d'API Alpaca 3 (Premium)
+   - Une connexion internet stable et rapide
+   - Un système avec une puissance de calcul adéquate
+
+> **Note importante :** Alpaca permet jusqu'à 10 000 appels API par minute, ce qui est largement suffisant pour le trading haute fréquence. Cependant, les stratégies doivent être optimisées pour gérer cette fréquence sans générer un nombre excessif de transactions.
+
 ## Dépannage
 
 Si vous rencontrez des erreurs :
