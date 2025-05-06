@@ -1,0 +1,23 @@
+2025-05-06 10:10:57,980 - stock_daytrader - INFO - Démarrage du script de day trading. Appuyez sur Ctrl+C pour arrêter proprement.
+2025-05-06 10:10:57,981 - stock_daytrader - INFO - Rafraîchissement de la liste des symboles via get_all_symbols.py...
+2025-05-06 10:11:37,895 - stock_daytrader - INFO - Liste des symboles rafraîchie avec succès
+2025-05-06 10:11:37,895 - stock_daytrader - INFO - Configuré pour le trading PAPER (simulation)
+2025-05-06 10:11:37,895 - stock_daytrader - ERROR - Erreur lors de la connexion à Alpaca: REST.__init__() got an unexpected keyword argument 'data_url'
+2025-05-06 10:11:37,908 - stock_daytrader - INFO - Utilisation du niveau d'abonnement Alpaca depuis les variables d'environnement: 1
+2025-05-06 10:11:37,908 - stock_daytrader - INFO - Niveau Standard (1) d'Alpaca détecté - Fonctionnalités de base uniquement
+2025-05-06 10:11:37,908 - stock_daytrader - INFO - StockDayTrader initialisé
+2025-05-06 10:11:37,908 - stock_daytrader - INFO - Mode continu activé: le script fonctionnera indéfiniment
+2025-05-06 10:11:37,908 - stock_daytrader - INFO - Démarrage de la session de trading d'actions à 2025-05-06 10:11:37.908975
+2025-05-06 10:11:37,909 - stock_daytrader - INFO - La session se terminera à 2026-05-06 10:11:37.908975
+2025-05-06 10:11:38,277 - stock_daytrader - INFO - Compte Alpaca connecté: d29afe2e-797a-4d61-a8a7-009bd118d255
+2025-05-06 10:11:38,279 - stock_daytrader - INFO - Valeur initiale du portefeuille: $96380.21
+2025-05-06 10:11:38,279 - stock_daytrader - INFO - Mode trading: ACTIVE
+2025-05-06 10:11:39,088 - stock_daytrader - INFO - Récupéré 10 symboles selon le filtre: active_assets
+2025-05-06 10:11:39,094 - stock_daytrader - ERROR - Erreur lors de l'initialisation des services Mercurio: MarketDataService.__init__() got an unexpected keyword argument 'api_key'
+2025-05-06 10:11:39,095 - stock_daytrader - WARNING - Utilisation du mode natif Alpaca (sans services Mercurio)
+2025-05-06 10:11:39,095 - stock_daytrader - INFO - ===== Cycle de trading #1 =====
+2025-05-06 10:11:39,213 - stock_daytrader - INFO - Le marché est fermé. Prochaine ouverture à 2025-05-06 09:30:00
+2025-05-06 10:11:39,225 - stock_daytrader - INFO - ============================================================
+2025-05-06 10:11:39,225 - stock_daytrader - INFO - Début du réentraînement des modèles ML - 2025-05-06 10:11:39.225925
+2025-05-06 10:11:39,225 - stock_daytrader - INFO - Aucune stratégie ML trouvée pour le réentraînement
+2025-05-06 10:11:39,227 - stock_daytrader - INFO - Attente de 30 minutes avant la prochaine vérification

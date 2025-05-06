@@ -1,0 +1,3 @@
+2025-05-06 10:09:38,556 - app.utils.env_loader - INFO - Loading environment variables from C:\Projects\MercurioAI\.env
+2025-05-06 10:09:38,559 - app.utils.env_loader - INFO - Alpaca API credentials loaded successfully
+2025-05-06 10:09:38,559 - app.utils.env_loader - INFO - Polygon API key loaded successfully

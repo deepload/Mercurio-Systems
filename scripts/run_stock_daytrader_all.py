@@ -41,6 +41,88 @@ sys.path.append(project_root)
 import alpaca_trade_api as tradeapi
 from dotenv import load_dotenv
 
+# Fonction pour détecter le niveau d'accès Alpaca
+def detect_alpaca_level(api_key=None, api_secret=None, base_url=None, data_url=None):
+    """
+    Détecte le niveau d'abonnement Alpaca disponible en testant les fonctionnalités
+    
+    Args:
+        api_key: Clé API Alpaca
+        api_secret: Secret API Alpaca
+        base_url: URL de base pour l'API Alpaca
+        data_url: URL des données pour l'API Alpaca
+        
+    Returns:
+        int: Niveau d'abonnement (3 = premium, 2 = standard+, 1 = standard, 0 = non détecté)
+    """
+    if not api_key or not api_secret:
+        # Récupérer les clés d'API depuis les variables d'environnement
+        load_dotenv()
+        # Déterminer le mode (paper ou live)
+        alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+        if alpaca_mode == "live":
+            api_key = os.getenv("ALPACA_LIVE_KEY")
+            api_secret = os.getenv("ALPACA_LIVE_SECRET")
+            base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+        else:  # mode paper par défaut
+            api_key = os.getenv("ALPACA_PAPER_KEY")
+            api_secret = os.getenv("ALPACA_PAPER_SECRET")
+            base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+        
+        data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+    
+    # Initialiser le client API
+    try:
+        api = tradeapi.REST(
+            key_id=api_key,
+            secret_key=api_secret,
+            base_url=base_url,
+            data_url=data_url
+        )
+        
+        logger.info("Test du niveau d'abonnement Alpaca...")
+        
+        # Test niveau 3 (premium) - Accès aux données en temps réel
+        try:
+            # Tester une fonctionnalité spécifique au niveau 3: données en temps réel plus précises
+            end = datetime.now()
+            start = end - timedelta(hours=1)
+            symbol = "AAPL"  # Une action populaire
+            bars = api.get_bars(symbol, tradeapi.TimeFrame.Minute, start.isoformat(), end.isoformat())
+            if len(bars) > 0 and hasattr(bars[0], 'trade_count'):
+                logger.info("✅ Niveau 3 (Premium) détecté - Accès complet aux données temps réel")
+                return 3
+        except Exception as e:
+            logger.debug(f"Test niveau 3 échoué: {str(e)}")
+        
+        # Test niveau 2 - Données historiques étendues
+        try:
+            # Tester des données historiques (disponibles dans les niveaux 2 et 3)
+            end = datetime.now()
+            start = end - timedelta(days=365)  # 1 an de données
+            bars = api.get_bars("AAPL", tradeapi.TimeFrame.Day, start.isoformat(), end.isoformat())
+            if len(bars) > 200:  # Si on a plus de 200 jours, c'est probablement niveau 2+
+                logger.info("✅ Niveau 2 détecté - Accès aux données historiques étendues")
+                return 2
+        except Exception as e:
+            logger.debug(f"Test niveau 2 échoué: {str(e)}")
+        
+        # Test niveau 1 - Fonctionnalités de base
+        try:
+            # Tester les fonctionnalités de base (disponibles dans tous les niveaux)
+            account = api.get_account()
+            logger.info("✅ Niveau 1 détecté - Accès aux fonctionnalités de base")
+            return 1
+        except Exception as e:
+            logger.debug(f"Test niveau 1 échoué: {str(e)}")
+        
+        logger.warning("❌ Aucun niveau d'abonnement détecté - Vérifiez vos identifiants API")
+        return 0
+        
+    except Exception as e:
+        logger.error(f"Erreur lors de la connexion à Alpaca: {str(e)}")
+        return 0
+
 # Importer les services et stratégies de Mercurio AI
 try:
     from app.services.market_data import MarketDataService
@@ -301,6 +383,7 @@ class SessionDuration(Enum):
 class TradingStrategy(str, Enum):
     """Stratégies de trading disponibles"""
     MOVING_AVERAGE = "MovingAverageStrategy"
+    MOVING_AVERAGE_ML = "MovingAverageMLStrategy"
     LSTM_PREDICTOR = "LSTMPredictorStrategy"
     TRANSFORMER = "TransformerStrategy"
     MSI = "MSIStrategy"
@@ -353,7 +436,8 @@ class StockDayTrader:
                  use_custom_symbols: bool = False,
                  auto_retrain: bool = False,
                  retrain_interval: int = 6,
-                 retrain_symbols: int = 10):
+                 retrain_symbols: int = 10,
+                 api_level: int = 0):
         """
         Initialiser le système de daytrading
         
@@ -367,6 +451,10 @@ class StockDayTrader:
             take_profit_pct: Pourcentage de take profit
             use_threads: Utiliser le multithreading pour le traitement des actions
             use_custom_symbols: Utiliser des symboles personnalisés ou les symboles depuis CSV
+            auto_retrain: Activer le réentraînement automatique des modèles
+            retrain_interval: Intervalle de réentraînement en heures
+            retrain_symbols: Nombre de symboles à utiliser pour le réentraînement
+            api_level: Niveau d'API Alpaca à utiliser (0 = auto-détection, 1-3 = niveau spécifique)
         """
         self.session_duration = session_duration
         self.strategy_type = strategy_type
@@ -377,6 +465,10 @@ class StockDayTrader:
         self.take_profit_pct = take_profit_pct
         self.use_threads = use_threads
         self.use_custom_symbols = use_custom_symbols
+        self.auto_retrain = auto_retrain
+        self.retrain_interval = retrain_interval
+        self.retrain_symbols = retrain_symbols
+        self.api_level = api_level
         
         # Déterminer le mode Alpaca (paper ou live)
         alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
@@ -396,9 +488,29 @@ class StockDayTrader:
         # URL des données de marché
         self.data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
         
-        # Niveau d'abonnement Alpaca
-        self.subscription_level = int(os.getenv("ALPACA_SUBSCRIPTION_LEVEL", "1"))
-        logger.info(f"Utilisation du niveau d'abonnement Alpaca: {self.subscription_level}")
+        # Détecter ou définir le niveau d'API Alpaca
+        if self.api_level == 0:
+            # Auto-détection du niveau d'API
+            self.subscription_level = detect_alpaca_level(self.api_key, self.api_secret, self.base_url, self.data_url)
+        else:
+            # Utilisation du niveau d'API forcé par l'utilisateur
+            self.subscription_level = self.api_level
+            logger.info(f"Utilisation forcée du niveau d'API Alpaca {self.subscription_level}")
+            
+        # Si la détection a échoué, essayer de lire depuis les variables d'environnement
+        if self.subscription_level == 0:
+            self.subscription_level = int(os.getenv("ALPACA_SUBSCRIPTION_LEVEL", "1"))
+            logger.info(f"Utilisation du niveau d'abonnement Alpaca depuis les variables d'environnement: {self.subscription_level}")
+        
+        # Log du niveau d'API
+        if self.subscription_level == 3:
+            logger.info("Niveau Premium (3) d'Alpaca activé - Fonctionnalités complètes disponibles")
+        elif self.subscription_level == 2:
+            logger.info("Niveau Standard+ (2) d'Alpaca détecté - Données historiques étendues disponibles")
+        elif self.subscription_level == 1:
+            logger.info("Niveau Standard (1) d'Alpaca détecté - Fonctionnalités de base uniquement")
+        else:
+            logger.warning("Niveau d'API Alpaca non détecté - Utilisation du mode de secours avec données limitées")
         
         # Client API Alpaca
         self.api = None
@@ -609,7 +721,7 @@ class StockDayTrader:
         try:
             # Créer le service de données de marché
             self.market_data_service = MarketDataService(
-                provider="alpaca",
+                provider_name="alpaca",
                 api_key=self.api_key,
                 api_secret=self.api_secret,
                 base_url=self.base_url,
@@ -618,12 +730,13 @@ class StockDayTrader:
             )
             
             # Créer le service de trading
+            is_paper = True if os.getenv("ALPACA_MODE", "paper").lower() == "paper" else False
             self.trading_service = TradingService(
-                provider="alpaca",
+                is_paper=is_paper,
                 api_key=self.api_key,
                 api_secret=self.api_secret,
                 base_url=self.base_url,
-                paper=True if os.getenv("ALPACA_MODE", "paper").lower() == "paper" else False
+                subscription_level=self.subscription_level
             )
             
             # Initialiser le gestionnaire de stratégies
@@ -639,7 +752,7 @@ class StockDayTrader:
                     long_window=30
                 )
                 
-                self.strategies[TradingStrategy.MOVING_AVERAGE_ML] = MovingAverageMLStrategy(
+                self.strategies[TradingStrategy.MOVING_AVERAGE_ML] = MovingAverageStrategy(
                     market_data_service=self.market_data_service,
                     trading_service=self.trading_service,
                     short_window=5,
@@ -742,9 +855,9 @@ class StockDayTrader:
                 
                 logger.info(f"Stratégie {self.strategy_type} initialisée")
             
-            # Enregistrer les stratégies auprès du gestionnaire
-            for strategy_name, strategy in self.strategies.items():
-                self.strategy_manager.register_strategy(strategy_name, strategy)
+            # Les stratégies sont déjà initialisées et stockées dans self.strategies
+            # Le StrategyManager est utilisé pour d'autres fonctionnalités telles que list_strategies, get_strategy_info, etc.
+            logger.info(f"Stratégies initialisées: {list(self.strategies.keys())}")
             
             return True
             
@@ -1502,6 +1615,8 @@ def main():
                         help='Intervalle minimal en heures entre les réentraînements de modèles (default: 6)')
     parser.add_argument('--retrain-symbols', type=int, default=10,
                         help='Nombre de symboles à utiliser pour le réentraînement des modèles (default: 10)')
+    parser.add_argument('--api-level', type=int, choices=[1, 2, 3], default=0,
+                        help='Niveau d\'API Alpaca à utiliser (1=basique, 2=standard+, 3=premium). Par défaut: auto-détection)')
     
     args = parser.parse_args()
     
@@ -1547,8 +1662,21 @@ def main():
         
     # Définir les paramètres du trader
     
+    # Mapping entre les arguments de ligne de commande et les valeurs de l'enum TradingStrategy
+    strategy_mapping = {
+        'moving_average': 'MovingAverageStrategy',
+        'lstm_predictor': 'LSTMPredictorStrategy',
+        'transformer': 'TransformerStrategy',
+        'msi': 'MSIStrategy',
+        'llm': 'LLMStrategy',
+        'all': 'ALL'
+    }
+    
     # Conversion de l'argument de stratégie en majuscules si c'est 'all'
-    strategy_arg = args.strategy.upper() if args.strategy.lower() == 'all' else args.strategy
+    if args.strategy.lower() == 'all':
+        strategy_arg = 'ALL'
+    else:
+        strategy_arg = strategy_mapping.get(args.strategy, args.strategy)
     
     trader = StockDayTrader(
         strategy_type=TradingStrategy(strategy_arg),
@@ -1562,7 +1690,8 @@ def main():
         use_custom_symbols=args.use_custom_symbols,
         auto_retrain=args.auto_retrain,
         retrain_interval=args.retrain_interval,
-        retrain_symbols=args.retrain_symbols
+        retrain_symbols=args.retrain_symbols,
+        api_level=args.api_level
     )
     
     # Démarrer le trader
