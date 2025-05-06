@@ -823,13 +823,28 @@ class StockDayTrader:
                         long_window=30
                     )
                 elif self.strategy_type == TradingStrategy.MOVING_AVERAGE_ML:
-                    self.strategies[self.strategy_type] = MovingAverageMLStrategy(
-                        market_data_service=self.market_data_service,
-                        trading_service=self.trading_service,
-                        short_window=5,
-                        long_window=20,
-                        use_ml=True
-                    )
+                    # Vérifier si nous pouvons importer MovingAverageMLStrategy
+                    try:
+                        from app.strategies.moving_average_ml import MovingAverageMLStrategy
+                        self.strategies[self.strategy_type] = MovingAverageMLStrategy(
+                            market_data_service=self.market_data_service,
+                            trading_service=self.trading_service,
+                            short_window_min=5,
+                            short_window_max=30,
+                            long_window_min=30,
+                            long_window_max=100
+                        )
+                    except ImportError:
+                        # Utiliser la stratégie MovingAverage standard comme fallback
+                        logger.warning("Stratégie MovingAverageML non disponible, utilisation de MovingAverage standard")
+                        from app.strategies.moving_average import MovingAverageStrategy
+                        self.strategies[self.strategy_type] = MovingAverageStrategy(
+                            market_data_service=self.market_data_service,
+                            trading_service=self.trading_service,
+                            short_window=10,
+                            long_window=30,
+                            use_ml=True  # Activer l'option ML de base
+                        )
                 elif self.strategy_type == TradingStrategy.LSTM_PREDICTOR:
                     self.strategies[self.strategy_type] = LSTMPredictorStrategy(
                         market_data_service=self.market_data_service,
@@ -1585,7 +1600,7 @@ def main():
     global running, MARKET_CHECK_INTERVAL
     
     parser = argparse.ArgumentParser(description='Script de day trading pour actions')
-    parser.add_argument('--strategy', choices=['moving_average', 'lstm_predictor', 'transformer', 'msi', 'all'],
+    parser.add_argument('--strategy', choices=['moving_average', 'moving_average_ml', 'lstm_predictor', 'transformer', 'msi', 'llm', 'all'],
                         default='moving_average', help='Stratégie à utiliser')
     parser.add_argument('--filter', choices=['active_assets', 'top_volume', 'top_gainers', 'tech_stocks', 'finance_stocks', 'health_stocks'],
                         default='active_assets', help='Filtre pour les actions')
@@ -1663,6 +1678,7 @@ def main():
     # Mapping entre les arguments de ligne de commande et les valeurs de l'enum TradingStrategy
     strategy_mapping = {
         'moving_average': 'MovingAverageStrategy',
+        'moving_average_ml': 'MovingAverageMLStrategy',
         'lstm_predictor': 'LSTMPredictorStrategy',
         'transformer': 'TransformerStrategy',
         'msi': 'MSIStrategy',
