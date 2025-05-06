@@ -485,6 +485,34 @@ Pour les crypto-monnaies à petite valeur ou avec des problèmes de précision, 
 python scripts/run_hft_trader.py --strategy moving_average --asset-type crypto --use-custom-symbols --symbols BTCUSD ETHUSD --crypto-precision-fix
 ```
 
+### Messages "solde insuffisant" malgré un solde important
+
+Si vous rencontrez des messages d'erreur du type :
+```
+WARNING - Annulation de l'ordre pour SOLUSD en raison de solde insuffisant
+WARNING - Position trop petite ou nulle pour SOLUSD: 3.89e-07, impossible de vendre
+```
+malgré un solde total élevé, il s'agit probablement de "dust positions" (micro-positions).
+
+#### Explication du problème :
+1. **Micro-positions ("dust")** : Ce sont des fractions extrêmement petites de crypto-monnaies (par exemple 0.000000389 SOL) qui restent après des transactions ou des arrondis.
+2. **Seuil minimal** : Le trader HFT considère qu'une position inférieure à 0.000001 (1e-6) est trop petite pour être négociée.
+3. **Causes courantes** :
+   - Résultats d'arrondissement lors de transactions précédentes
+   - Frais de transaction qui ont réduit légèrement une position
+   - Erreurs d'arrondissement dans les calculs de quantité
+
+#### Solution temporaire :
+```bash
+python scripts/run_hft_trader.py --strategy moving_average --asset-type crypto --ignore-dust-positions --dust-threshold 1e-8
+```
+
+Les paramètres optionnels :
+- `--ignore-dust-positions` : Ignore automatiquement les positions inférieures au seuil 
+- `--dust-threshold` : Définit le seuil en-dessous duquel une position est considérée comme "dust" (valeur par défaut : 1e-6)
+
+Ces messages n'affectent pas le fonctionnement global du trader et peuvent être ignorés si vous voyez que votre solde total est correct.
+
 ## Bonnes pratiques
 
 1. **Commencez toujours en mode paper trading** pour tester vos stratégies.
