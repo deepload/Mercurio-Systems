@@ -18,6 +18,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from enum import Enum, auto
 from typing import Dict, List, Any, Optional, Union, Tuple
+from dotenv import load_dotenv
 
 # Ajouter le répertoire parent au path pour pouvoir importer les modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -28,6 +29,88 @@ from alpaca_crypto_trader import AlpacaCryptoTrader, SessionDuration
 # Importer les stratégies avancées
 from app.strategies.lstm_predictor import LSTMPredictorStrategy
 from app.strategies.llm_strategy import LLMStrategy
+
+# Fonction pour détecter le niveau d'accès Alpaca
+def detect_alpaca_level(api_key=None, api_secret=None, base_url=None, data_url=None):
+    """
+    Détecte le niveau d'abonnement Alpaca disponible en testant les fonctionnalités
+    
+    Args:
+        api_key: Clé API Alpaca
+        api_secret: Secret API Alpaca
+        base_url: URL de base pour l'API Alpaca
+        data_url: URL des données pour l'API Alpaca
+        
+    Returns:
+        int: Niveau d'abonnement (3 = premium, 2 = standard+, 1 = standard, 0 = non détecté)
+    """
+    if not api_key or not api_secret:
+        # Récupérer les clés d'API depuis les variables d'environnement
+        load_dotenv()
+        # Déterminer le mode (paper ou live)
+        alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+        if alpaca_mode == "live":
+            api_key = os.getenv("ALPACA_LIVE_KEY")
+            api_secret = os.getenv("ALPACA_LIVE_SECRET")
+            base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+        else:  # mode paper par défaut
+            api_key = os.getenv("ALPACA_PAPER_KEY")
+            api_secret = os.getenv("ALPACA_PAPER_SECRET")
+            base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+        
+        data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+    
+    # Initialiser le client API
+    try:
+        api = tradeapi.REST(
+            key_id=api_key,
+            secret_key=api_secret,
+            base_url=base_url,
+            data_url=data_url
+        )
+        
+        logger.info("Test du niveau d'abonnement Alpaca...")
+        
+        # Test niveau 3 (premium) - Accès aux données en temps réel
+        try:
+            # Tester une fonctionnalité spécifique au niveau 3: données en temps réel plus précises
+            end = datetime.now()
+            start = end - timedelta(minutes=15)
+            symbol = "BTC/USD"  # Une paire crypto populaire
+            bars = api.get_crypto_bars(symbol, '1Min', start.isoformat(), end.isoformat())
+            if len(bars) > 0 and hasattr(bars[0], 'trade_count'):
+                logger.info("✅ Niveau 3 (Premium) détecté - Accès complet aux données temps réel")
+                return 3
+        except Exception as e:
+            logger.debug(f"Test niveau 3 échoué: {str(e)}")
+        
+        # Test niveau 2 - Données historiques étendues
+        try:
+            # Tester des données historiques (disponibles dans les niveaux 2 et 3)
+            end = datetime.now()
+            start = end - timedelta(days=30)  # 30 jours de données
+            bars = api.get_crypto_bars('BTC/USD', '1Day', start.isoformat(), end.isoformat())
+            if len(bars) > 20:  # Si on a plus de 20 jours, c'est probablement niveau 2+
+                logger.info("✅ Niveau 2 détecté - Accès aux données historiques étendues")
+                return 2
+        except Exception as e:
+            logger.debug(f"Test niveau 2 échoué: {str(e)}")
+        
+        # Test niveau 1 - Fonctionnalités de base
+        try:
+            # Tester les fonctionnalités de base (disponibles dans tous les niveaux)
+            account = api.get_account()
+            logger.info("✅ Niveau 1 détecté - Accès aux fonctionnalités de base")
+            return 1
+        except Exception as e:
+            logger.debug(f"Test niveau 1 échoué: {str(e)}")
+        
+        logger.warning("❌ Aucun niveau d'abonnement détecté - Vérifiez vos identifiants API")
+        return 0
+        
+    except Exception as e:
+        logger.error(f"Erreur lors de la connexion à Alpaca: {str(e)}")
+        return 0
 
 # Configuration du logger
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
@@ -288,6 +371,8 @@ def main():
     parser.add_argument("--duration", type=str, choices=["1h", "4h", "8h", "night"], 
                       default="night",
                       help="Durée de la session (1h, 4h, 8h ou night pour 9h)")
+    parser.add_argument("--api-level", type=int, choices=[1, 2, 3], default=0,
+                      help="Niveau d'API Alpaca à utiliser (1=basique, 2=standard+, 3=premium). Par défaut: auto-détection)")
     parser.add_argument("--position-size", type=float, default=0.02,
                       help="Taille de position en pourcentage du portefeuille (default: 0.02 = 2%)")
     parser.add_argument("--stop-loss", type=float, default=0.03,
@@ -363,6 +448,11 @@ def main():
         "night": SessionDuration.NIGHT_RUN
     }.get(args.duration, SessionDuration.NIGHT_RUN)
     
+    # Détecter ou utiliser le niveau d'API spécifié
+    api_level = args.api_level
+    if api_level == 0:  # Auto-détection
+        api_level = detect_alpaca_level()
+    
     print("=" * 60)
     print(f"DÉMARRAGE DU TRADER CRYPTO AVEC STRATÉGIE - {datetime.now()}")
     print("=" * 60)
@@ -371,6 +461,7 @@ def main():
     print(f"Position size: {args.position_size * 100}%")
     print(f"Stop-loss: {args.stop_loss * 100}%")
     print(f"Take-profit: {args.take_profit * 100}%")
+    print(f"Niveau d'API Alpaca: {api_level if api_level > 0 else 'Non détecté - utilisation du niveau 1'}")
     
     if args.strategy == StrategyType.MOVING_AVERAGE:
         print(f"MA rapide: {args.fast_ma} minutes")
@@ -414,7 +505,7 @@ def main():
     
     print("=" * 60)
     
-    # Si la stratégie est moving_average, utiliser AlpacaCryptoTrader
+    # Si la stratégie est moving_average, utiliser AlpacaCryptoTrader directement
     if args.strategy == StrategyType.MOVING_AVERAGE:
         # Créer le trader avec la durée de session spécifiée
         trader = AlpacaCryptoTrader(session_duration=session_duration)
@@ -426,11 +517,17 @@ def main():
         trader.fast_ma_period = args.fast_ma
         trader.slow_ma_period = args.slow_ma
         
+        # Configurer le niveau d'API
+        if api_level > 0:
+            print(f"Configuration du niveau d'API Alpaca: {api_level}")
+            trader.subscription_level = api_level
+        
         # Utiliser la liste personnalisée de symboles
         trader.custom_symbols = PERSONALIZED_CRYPTO_LIST
         trader.use_custom_symbols = args.use_custom_symbols
         
-        # Démarrer le trader
+        # Démarrer le trader avec la stratégie par défaut
+        print(f"Démarrage du trader avec la stratégie de moyenne mobile")
         trader.start()
     else:
         # Pour les autres stratégies, utiliser une version simplifiée
@@ -519,6 +616,11 @@ def main():
         
         # Créer le trader avec la durée de session spécifiée
         trader = AlpacaCryptoTrader(session_duration=session_duration)
+        
+        # Configurer le niveau d'API
+        if api_level > 0:
+            print(f"Configuration du niveau d'API Alpaca: {api_level}")
+            trader.subscription_level = api_level
         
         # Configurer les paramètres
         trader.position_size_pct = args.position_size
