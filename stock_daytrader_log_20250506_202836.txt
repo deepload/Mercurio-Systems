@@ -86,3 +86,50 @@
 2025-05-06 20:28:39,640 - stock_daytrader - INFO - Cycle de trading terminé en 1.61 secondes
 2025-05-06 20:28:39,641 - stock_daytrader - INFO - Fin de session dans 91 minutes
 2025-05-06 20:28:39,641 - stock_daytrader - INFO - Attente de 60 secondes avant le prochain cycle
+2025-05-06 20:29:39,643 - stock_daytrader - INFO - ===== Cycle de trading #2 =====
+2025-05-06 20:29:39,762 - stock_daytrader - INFO - Traitement parallèle de 20 symboles avec 10 threads
+2025-05-06 20:29:39,763 - stock_daytrader - INFO - Traitement de LBRT
+2025-05-06 20:29:39,764 - stock_daytrader - INFO - Traitement de MAGS
+2025-05-06 20:29:39,765 - stock_daytrader - INFO - Traitement de MED
+2025-05-06 20:29:39,766 - stock_daytrader - INFO - Traitement de MRK
+2025-05-06 20:29:39,769 - stock_daytrader - INFO - Traitement de PDI
+2025-05-06 20:29:39,769 - stock_daytrader - INFO - Traitement de PTY
+2025-05-06 20:29:39,770 - stock_daytrader - INFO - Traitement de SCHH
+2025-05-06 20:29:39,772 - stock_daytrader - INFO - Traitement de SPUS
+2025-05-06 20:29:39,774 - stock_daytrader - INFO - Traitement de TEF
+2025-05-06 20:29:39,775 - stock_daytrader - INFO - Traitement de TKR
+2025-05-06 20:29:40,003 - stock_daytrader - INFO - LBRT - Dernier prix: $11.34
+2025-05-06 20:29:40,018 - stock_daytrader - INFO - MAGS - Dernier prix: $47.29
+2025-05-06 20:29:40,023 - stock_daytrader - INFO - TEF - Dernier prix: $5.12
+2025-05-06 20:29:40,025 - stock_daytrader - INFO - MRK - Dernier prix: $78.84
+2025-05-06 20:29:40,027 - stock_daytrader - INFO - MED - Dernier prix: $12.72
+2025-05-06 20:29:40,033 - stock_daytrader - INFO - TKR - Dernier prix: $66.53
+2025-05-06 20:29:40,034 - stock_daytrader - INFO - PDI - Dernier prix: $18.67
+2025-05-06 20:29:40,035 - stock_daytrader - INFO - PTY - Dernier prix: $13.85
+2025-05-06 20:29:40,036 - stock_daytrader - INFO - SPUS - Dernier prix: $39.22
+2025-05-06 20:29:40,037 - stock_daytrader - INFO - SCHH - Dernier prix: $21.18
+2025-05-06 20:29:40,124 - stock_daytrader - INFO - Traitement de UPS
+2025-05-06 20:29:40,140 - stock_daytrader - INFO - Traitement de VTEX
+2025-05-06 20:29:40,150 - stock_daytrader - INFO - Traitement de XPER
+2025-05-06 20:29:40,150 - stock_daytrader - INFO - Traitement de A
+2025-05-06 20:29:40,152 - stock_daytrader - INFO - Traitement de AA
+2025-05-06 20:29:40,155 - stock_daytrader - INFO - Traitement de AAAU
+2025-05-06 20:29:40,157 - stock_daytrader - INFO - Traitement de AACT
+2025-05-06 20:29:40,157 - stock_daytrader - INFO - Traitement de AAL
+2025-05-06 20:29:40,157 - stock_daytrader - INFO - Traitement de IPAR
+2025-05-06 20:29:40,159 - stock_daytrader - INFO - Traitement de ITRG
+2025-05-06 20:29:40,361 - stock_daytrader - INFO - UPS - Dernier prix: $94.33
+2025-05-06 20:29:40,381 - stock_daytrader - INFO - VTEX - Dernier prix: $5.46
+2025-05-06 20:29:40,398 - stock_daytrader - INFO - A - Dernier prix: $105.22
+2025-05-06 20:29:40,406 - stock_daytrader - INFO - AAAU - Dernier prix: $33.75
+2025-05-06 20:29:40,410 - stock_daytrader - INFO - AAL - Dernier prix: $10.51
+2025-05-06 20:29:40,412 - stock_daytrader - INFO - AACT - Dernier prix: $11.28
+2025-05-06 20:29:40,412 - stock_daytrader - INFO - AA - Dernier prix: $24.80
+2025-05-06 20:29:40,413 - stock_daytrader - INFO - IPAR - Dernier prix: $118.33
+2025-05-06 20:29:40,414 - stock_daytrader - INFO - XPER - Dernier prix: $7.05
+2025-05-06 20:29:40,415 - stock_daytrader - INFO - ITRG - Dernier prix: $1.92
+2025-05-06 20:29:40,657 - stock_daytrader - INFO - Valeur actuelle du portefeuille: $94064.71
+2025-05-06 20:29:40,772 - stock_daytrader - INFO - Pas de positions ouvertes
+2025-05-06 20:29:40,772 - stock_daytrader - INFO - Cycle de trading terminé en 1.13 secondes
+2025-05-06 20:29:40,772 - stock_daytrader - INFO - Fin de session dans 90 minutes
+2025-05-06 20:29:40,772 - stock_daytrader - INFO - Attente de 60 secondes avant le prochain cycle
