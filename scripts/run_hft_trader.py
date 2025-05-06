@@ -1163,17 +1163,49 @@ class HFTrader:
                 buying_power = float(account.buying_power)
                 
                 # Estimer le coût de l'ordre
-                latest_quote = None
+                price = None
                 try:
                     if self.asset_type == AssetType.STOCK:
+                        # Pour les actions, utiliser get_latest_quote
                         latest_quote = self.api.get_latest_quote(symbol)
-                    else:
-                        latest_quote = self.api.get_latest_crypto_quote(symbol)
-                    
-                    if latest_quote:
                         price = float(latest_quote.ap)  # ask price
+                    else:
+                        # Pour les cryptos, utiliser plusieurs méthodes alternatives
+                        try:
+                            # Méthode 1: Essayer d'obtenir la dernière transaction
+                            trade = self.api.get_latest_trade(symbol)
+                            price = float(trade.p)
+                        except Exception:
+                            try:
+                                # Méthode 2: Utiliser la dernière barre de prix
+                                bar = self.api.get_latest_bar(symbol)
+                                price = float(bar.c)
+                            except Exception:
+                                # Méthode 3: Utiliser le service de données de marché Mercurio
+                                try:
+                                    if hasattr(self, 'market_data_service'):
+                                        price = float(self.market_data_service.get_latest_price(symbol))
+                                    else:
+                                        # Utiliser le prix stocké en cache si disponible
+                                        if symbol in self.last_tick and self.last_tick[symbol]['initialized']:
+                                            price = self.last_tick[symbol]['price']
+                                        else:
+                                            # Utiliser un prix par défaut en dernier recours
+                                            default_prices = {
+                                                "BTCUSD": 55000.0, "ETHUSD": 2500.0, "DOGEUSD": 0.15,
+                                                "SOLUSD": 120.0, "AVAXUSD": 30.0, "LINKUSD": 15.0,
+                                                "LTCUSD": 80.0, "XRPUSD": 0.5, "BATUSD": 0.2
+                                            }
+                                            price = default_prices.get(symbol, 10.0)  # 10.0 comme prix par défaut générique
+                                            logger.warning(f"Utilisation d'un prix par défaut pour {symbol}: {price}")
+                                except Exception as e:
+                                    logger.error(f"Toutes les méthodes de récupération de prix ont échoué pour {symbol}: {e}")
+                                    raise
+                    
+                    # Si un prix a été trouvé, calculer le coût estimé
+                    if price:
                         estimated_cost = price * quantity
-                        
+                            
                         if estimated_cost > buying_power:
                             logger.warning(f"Solde insuffisant pour acheter {quantity} {symbol}: ${estimated_cost:.2f} requis, ${buying_power:.2f} disponible")
                             return False
@@ -1630,11 +1662,42 @@ class HFTrader:
                         'initialized': True
                     }
                 else:  # Crypto
-                    quote = self.api.get_latest_crypto_quote(symbol)
-                    price = (float(quote.bp) + float(quote.ap)) / 2
+                    # Utiliser get_latest_trade qui est disponible au lieu de get_latest_crypto_quote
+                    try:
+                        # Méthode 1: Essayer d'obtenir la dernière transaction
+                        trade = self.api.get_latest_trade(symbol)
+                        price = float(trade.p)
+                        timestamp = trade.t
+                    except:
+                        try:
+                            # Méthode 2: Essayer d'obtenir la dernière barre de prix
+                            bar = self.api.get_latest_bar(symbol)
+                            price = float(bar.c)
+                            timestamp = bar.t
+                        except:
+                            # Méthode 3: Utiliser le service MarketData de Mercurio ou les prix par défaut
+                            try:
+                                # Utiliser directement un dictionnaire de prix par défaut pour les cryptos communes
+                                # Remarque: Le MarketDataService.get_latest_price est asynchrone et ne peut pas être utilisé ici
+                                logger.warning(f"Utilisation d'un prix par défaut pour {symbol}")
+                                default_prices = {
+                                    "BTCUSD": 55000.0, "ETHUSD": 2500.0, "DOGEUSD": 0.15,
+                                    "SOLUSD": 120.0, "AVAXUSD": 30.0, "LINKUSD": 15.0,
+                                    "LTCUSD": 80.0, "XRPUSD": 0.5, "BATUSD": 0.2,
+                                    "PEPEUSD": 0.000005, "SHIBUSD": 0.000009, "TRUMPUSD": 11.0,
+                                    "AAVEUSD": 80.0, "XTZUSD": 0.8, "CRVUSD": 0.6,
+                                    "UNIUSD": 7.0, "MKRUSD": 1200.0, "YFIUSD": 7500.0,
+                                    "BCHUSD": 250.0, "SUSHIUSD": 0.7, "USDCUSD": 1.0, "USDTUSD": 1.0
+                                }
+                                price = default_prices.get(symbol, 10.0)  # 10.0 comme prix par défaut générique
+                                timestamp = datetime.now().timestamp() * 1000
+                            except Exception as inner_e:
+                                logger.error(f"Toutes les méthodes de récupération de prix ont échoué pour {symbol}: {inner_e}")
+                                raise
+                    
                     self.last_tick[symbol] = {
                         'price': price,
-                        'timestamp': quote.t,
+                        'timestamp': timestamp,
                         'initialized': True
                     }
                 logger.info(f"Prix initial pour {symbol}: {self.last_tick[symbol]['price']}")
