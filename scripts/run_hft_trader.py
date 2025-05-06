@@ -546,9 +546,6 @@ class HFTrader:
                 logger.error(f"Erreur dans la boucle principale: {e}")
                 await asyncio.sleep(1)  # Pause en cas d'erreur
         
-        # Nettoyage lors de la fermeture
-        logger.info("Arrêt du trader HF, nettoyage...")
-        await self.cleanup()
     
     async def load_historical_data(self):
         """Précharger des données historiques pour initialiser les stratégies"""
@@ -559,81 +556,162 @@ class HFTrader:
         
         for symbol in self.symbols:
             try:
-                if self.asset_type == AssetType.STOCK:
-                    bars = self.api.get_bars(
-                        symbol, 
-                        tradeapi.TimeFrame.Minute, 
-                        start.strftime('%Y-%m-%dT%H:%M:%SZ'),
-                        now.strftime('%Y-%m-%dT%H:%M:%SZ'),
-                        limit=MAX_HISTORICAL_BARS
-                    ).df
-                else:  # Crypto
+                # Utiliser le MarketDataService de Mercurio qui gère correctement les API Alpaca
+                # Ce service dispose notamment d'une méthode spéciale v1beta3 pour les crypto
+                if hasattr(self, 'market_data_service'):
                     try:
-                        # Essayons d'abord avec l'API standard
-                        bars = self.api.get_crypto_bars(
-                            symbol,
-                            tradeapi.TimeFrame.Minute,
-                            start=start.strftime('%Y-%m-%dT%H:%M:%SZ'),
-                            end=now.strftime('%Y-%m-%dT%H:%M:%SZ'),
-                            limit=MAX_HISTORICAL_BARS
-                        ).df
-                    except Exception as e:
-                        logger.warning(f"Erreur avec l'API standard pour {symbol}: {e}")
-                        # Fallback vers l'API standard avec un autre format
-                        try:
-                            # Tenter avec la méthode get_barset (pour les versions API antérieures)
-                            barset = self.api.get_barset(
-                                symbols=[symbol], 
-                                timeframe='1Min', 
-                                limit=MAX_HISTORICAL_BARS
-                            )
-                            
-                            if symbol in barset and len(barset[symbol]) > 0:
-                                # Convertir en DataFrame
-                                data = []
-                                for bar in barset[symbol]:
-                                    data.append({
-                                        'timestamp': bar.t,
-                                        'open': bar.o,
-                                        'high': bar.h,
-                                        'low': bar.l,
-                                        'close': bar.c,
-                                        'volume': bar.v
-                                    })
-                                bars = pd.DataFrame(data)
+                        # Format de date attendu par get_historical_data
+                        if self.asset_type == AssetType.STOCK:
+                            # Pour les actions, utiliser le timeframe 1 minute
+                            # Vérifier si get_historical_data est une coroutine ou une méthode normale
+                            if asyncio.iscoroutinefunction(self.market_data_service.get_historical_data):
+                                # Si c'est une coroutine, l'appeler directement avec await
+                                df = await self.market_data_service.get_historical_data(symbol, start, now, "1Min")
                             else:
-                                # Créer un DataFrame vide
-                                logger.warning(f"Aucune donnée historique disponible pour {symbol}")
-                                bars = pd.DataFrame(columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-                                
-                        except Exception as e2:
-                            logger.warning(f"Aucune donnée historique disponible pour {symbol}")
-                            # Créer un DataFrame vide
-                            bars = pd.DataFrame(columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-                        else:
-                            # Créer un DataFrame vide
-                            bars = pd.DataFrame(columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-                
-                # Contrôler la structure de données retournée
-                if len(bars) > 0:
-                    bars = bars.reset_index()
-                    # Convertir en dict pour compatibilité avec notre structure
-                    for _, bar in bars.iterrows():
-                        bar_dict = {
-                            'timestamp': pd.Timestamp(bar['timestamp']).to_pydatetime(),
-                            'open': bar['open'],
-                            'high': bar['high'],
-                            'low': bar['low'],
-                            'close': bar['close'],
-                            'volume': bar['volume']
-                        }
-                        self.price_data[symbol].append(bar_dict)
+                                # Sinon, utiliser to_thread pour les méthodes synchrones
+                                df = await asyncio.to_thread(self.market_data_service.get_historical_data, 
+                                                            symbol, start, now, "1Min")
+                        else:  # Pour les crypto
+                            # Pour les crypto, utiliser le timeframe 1 minute 
+                            # Vérifier si get_historical_data est une coroutine ou une méthode normale
+                            if asyncio.iscoroutinefunction(self.market_data_service.get_historical_data):
+                                # Si c'est une coroutine, l'appeler directement avec await
+                                df = await self.market_data_service.get_historical_data(symbol, start, now, "1Min")
+                            else:
+                                # Sinon, utiliser to_thread pour les méthodes synchrones
+                                df = await asyncio.to_thread(self.market_data_service.get_historical_data, 
+                                                            symbol, start, now, "1Min")
                         
-                    logger.info(f"Chargé {len(bars)} barres historiques pour {symbol}")
+                        # Vérifier si des données ont été retournées
+                        if len(df) > 0:
+                            # Convertir le dataframe pour le format attendu
+                            # Assurez-vous que timestamp est présent et est l'index
+                            if df.index.name == 'timestamp' or 'timestamp' in df.index.names:
+                                # Reset l'index pour avoir timestamp comme colonne
+                                df = df.reset_index()
+                            
+                            # Convertir en dict pour compatibilité avec notre structure
+                            for idx, row in df.iterrows():
+                                bar_dict = {
+                                    'timestamp': pd.Timestamp(row['timestamp']).to_pydatetime() if 'timestamp' in row else now,
+                                    'open': row['open'] if 'open' in row else row.get('o', 0),
+                                    'high': row['high'] if 'high' in row else row.get('h', 0),
+                                    'low': row['low'] if 'low' in row else row.get('l', 0),
+                                    'close': row['close'] if 'close' in row else row.get('c', 0),
+                                    'volume': row['volume'] if 'volume' in row else row.get('v', 0)
+                                }
+                                self.price_data[symbol].append(bar_dict)
+                            
+                            logger.info(f"Chargé {len(df)} barres historiques pour {symbol} via MarketDataService")
+                        else:
+                            # Si aucune donnée n'est disponible, essayer de récupérer au moins le dernier prix
+                            logger.warning(f"Données historiques non disponibles pour {symbol}, tentative de récupération du dernier prix")
+                            try:
+                                price = self.market_data_service.get_latest_price(symbol)
+                                if price:
+                                    # Créer une entrée avec le dernier prix connu
+                                    bar_dict = {
+                                        'timestamp': now,
+                                        'open': price,
+                                        'high': price,
+                                        'low': price,
+                                        'close': price,
+                                        'volume': 0
+                                    }
+                                    self.price_data[symbol].append(bar_dict)
+                                    logger.info(f"Utilisé le dernier prix disponible pour {symbol}: {price}")
+                                else:
+                                    logger.warning(f"Aucune donnée historique disponible pour {symbol}")
+                            except Exception as e:
+                                logger.warning(f"Aucune donnée historique disponible pour {symbol}: {e}")
+                    except Exception as e:
+                        logger.warning(f"Erreur lors de l'utilisation du MarketDataService pour {symbol}: {e}")
                 else:
-                    logger.warning(f"Aucune donnée historique disponible pour {symbol}")
+                    # Fallback à l'ancien code si market_data_service n'est pas disponible
+                    logger.warning(f"MarketDataService non disponible, utilisation de l'API directe pour {symbol}")
+                    try:
+                        if self.asset_type == AssetType.STOCK:
+                            # Récupérer les données historiques pour les actions
+                            bars = self.api.get_bars(
+                                symbol, 
+                                tradeapi.TimeFrame.Minute, 
+                                start.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                                now.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                                limit=MAX_HISTORICAL_BARS
+                            ).df
+                            
+                            if len(bars) > 0:
+                                # Convertir en dict pour compatibilité avec notre structure
+                                bars = bars.reset_index()
+                                for _, bar in bars.iterrows():
+                                    bar_dict = {
+                                        'timestamp': pd.Timestamp(bar['timestamp']).to_pydatetime(),
+                                        'open': bar['open'],
+                                        'high': bar['high'],
+                                        'low': bar['low'],
+                                        'close': bar['close'],
+                                        'volume': bar['volume']
+                                    }
+                                    self.price_data[symbol].append(bar_dict)
+                                logger.info(f"Chargé {len(bars)} barres historiques pour {symbol}")
+                            else:
+                                logger.warning(f"Aucune donnée historique disponible pour {symbol}")
+                        else:  # Récupérer les données historiques pour les cryptos
+                            # Essayer d'obtenir au moins le dernier prix avec les méthodes disponibles
+                            try:
+                                # Essayer d'obtenir la dernière barre
+                                latest_bar = self.api.get_latest_bar(symbol)
+                                bar_dict = {
+                                    'timestamp': latest_bar.t,
+                                    'open': latest_bar.o,
+                                    'high': latest_bar.h,
+                                    'low': latest_bar.l,
+                                    'close': latest_bar.c,
+                                    'volume': latest_bar.v
+                                }
+                                self.price_data[symbol].append(bar_dict)
+                                logger.info(f"Utilisé la dernière barre disponible pour {symbol}")
+                            except Exception:
+                                try:
+                                    # Essayer d'obtenir la dernière transaction
+                                    latest_trade = self.api.get_latest_trade(symbol)
+                                    bar_dict = {
+                                        'timestamp': latest_trade.t,
+                                        'open': latest_trade.p,
+                                        'high': latest_trade.p,
+                                        'low': latest_trade.p,
+                                        'close': latest_trade.p,
+                                        'volume': latest_trade.s
+                                    }
+                                    self.price_data[symbol].append(bar_dict)
+                                    logger.info(f"Utilisé la dernière transaction disponible pour {symbol}")
+                                except Exception:
+                                    # En dernier recours, utiliser des prix par défaut
+                                    default_prices = {
+                                        "BTCUSD": 55000.0, "ETHUSD": 2500.0, "DOGEUSD": 0.15,
+                                        "SOLUSD": 120.0, "AVAXUSD": 30.0, "LINKUSD": 15.0,
+                                        "LTCUSD": 80.0, "XRPUSD": 0.5, "BATUSD": 0.2,
+                                        "PEPEUSD": 0.000005, "SHIBUSD": 0.000009, "TRUMPUSD": 11.0,
+                                        "AAVEUSD": 80.0, "XTZUSD": 0.8, "CRVUSD": 0.6,
+                                        "UNIUSD": 7.0, "MKRUSD": 1200.0, "YFIUSD": 7500.0,
+                                        "BCHUSD": 250.0, "SUSHIUSD": 0.7, "USDCUSD": 1.0, "USDTUSD": 1.0
+                                    }
+                                    price = default_prices.get(symbol, 10.0)  # 10.0 comme prix par défaut générique
+                                    bar_dict = {
+                                        'timestamp': now,
+                                        'open': price,
+                                        'high': price,
+                                        'low': price,
+                                        'close': price,
+                                        'volume': 0
+                                    }
+                                    self.price_data[symbol].append(bar_dict)
+                                    logger.warning(f"Utilisation d'un prix par défaut pour {symbol}: {price}")
+                    except Exception as e:
+                        logger.warning(f"Erreur lors du chargement des données directes pour {symbol}: {e}")
             except Exception as e:
                 logger.error(f"Erreur lors du chargement des données historiques pour {symbol}: {e}")
+
     
     # ----- Handlers WebSocket -----
     
@@ -1654,6 +1732,22 @@ class HFTrader:
         """Charge les données initiales pour chaque symbole"""
         for symbol in self.symbols:
             try:
+                # D'abord, vérifier si nous avons déjà des données historiques chargées
+                if symbol in self.price_data and self.price_data[symbol] and len(self.price_data[symbol]) > 0:
+                    # Utiliser la dernière barre des données historiques
+                    last_bar = self.price_data[symbol][-1]
+                    price = float(last_bar['close'])
+                    timestamp = last_bar['timestamp']
+                    logger.info(f"Utilisation des données historiques pour le prix initial de {symbol}")
+                    self.last_tick[symbol] = {
+                        'price': price,
+                        'timestamp': timestamp,
+                        'initialized': True
+                    }
+                    logger.info(f"Prix initial pour {symbol}: {price}")
+                    continue
+                
+                # Si nous n'avons pas de données historiques, essayer l'API Alpaca
                 if self.asset_type == AssetType.STOCK:
                     bar = self.api.get_latest_bar(symbol)
                     self.last_tick[symbol] = {
@@ -1662,38 +1756,70 @@ class HFTrader:
                         'initialized': True
                     }
                 else:  # Crypto
-                    # Utiliser get_latest_trade qui est disponible au lieu de get_latest_crypto_quote
+                    # Essayer d'abord le MarketDataService pour la cohérence
                     try:
-                        # Méthode 1: Essayer d'obtenir la dernière transaction
-                        trade = self.api.get_latest_trade(symbol)
-                        price = float(trade.p)
-                        timestamp = trade.t
-                    except:
+                        # Utiliser le MarketDataService pour obtenir les dernières données
+                        latest_data = self.market_data_service.get_latest_price(symbol)
+                        if latest_data is not None:
+                            price = float(latest_data)
+                            timestamp = datetime.now()
+                            logger.info(f"Prix initial pour {symbol} obtenu via MarketDataService: {price}")
+                        else:
+                            raise Exception("Pas de données disponibles via MarketDataService")
+                    except Exception as e:
                         try:
-                            # Méthode 2: Essayer d'obtenir la dernière barre de prix
-                            bar = self.api.get_latest_bar(symbol)
-                            price = float(bar.c)
-                            timestamp = bar.t
-                        except:
-                            # Méthode 3: Utiliser le service MarketData de Mercurio ou les prix par défaut
+                            # Utiliser get_latest_trade qui est disponible au lieu de get_latest_crypto_quote
+                            trade = self.api.get_latest_trade(symbol)
+                            price = float(trade.p)
+                            timestamp = trade.t
+                        except Exception as e1:
                             try:
-                                # Utiliser directement un dictionnaire de prix par défaut pour les cryptos communes
-                                # Remarque: Le MarketDataService.get_latest_price est asynchrone et ne peut pas être utilisé ici
-                                logger.warning(f"Utilisation d'un prix par défaut pour {symbol}")
+                                # Si get_latest_trade échoue, essayer get_latest_bar
+                                bar = self.api.get_latest_bar(symbol)
+                                price = float(bar.c)  # Utiliser le prix de clôture
+                                timestamp = bar.t
+                            except Exception as e2:
+                                logger.warning(f"Impossible d'obtenir le dernier prix pour {symbol}: {e2}")
+                                # Utiliser un prix par défaut pour les cryptos courantes
                                 default_prices = {
-                                    "BTCUSD": 55000.0, "ETHUSD": 2500.0, "DOGEUSD": 0.15,
-                                    "SOLUSD": 120.0, "AVAXUSD": 30.0, "LINKUSD": 15.0,
-                                    "LTCUSD": 80.0, "XRPUSD": 0.5, "BATUSD": 0.2,
-                                    "PEPEUSD": 0.000005, "SHIBUSD": 0.000009, "TRUMPUSD": 11.0,
-                                    "AAVEUSD": 80.0, "XTZUSD": 0.8, "CRVUSD": 0.6,
-                                    "UNIUSD": 7.0, "MKRUSD": 1200.0, "YFIUSD": 7500.0,
-                                    "BCHUSD": 250.0, "SUSHIUSD": 0.7, "USDCUSD": 1.0, "USDTUSD": 1.0
+                                    'BTCUSD': 55000.0,
+                                    'ETHUSD': 2500.0,
+                                    'SOLUSD': 120.0,
+                                    'AVAXUSD': 30.0,
+                                    'LTCUSD': 80.0,
+                                    'LINKUSD': 15.0,
+                                    'AAVEUSD': 80.0,
+                                    'UNIUSD': 7.0,
+                                    'DOTUSD': 10.0,
+                                    'BCHUSDT': 10.0,
+                                    'ETHUSDT': 10.0,
+                                    'BTCUSDT': 10.0,
+                                    'LINKUSDT': 10.0,
+                                    'LTCUSDT': 10.0,
+                                    'AAVEUSDT': 10.0,
+                                    'UNIUSDT': 10.0,
+                                    'DOGEUSDT': 10.0,
+                                    'SUSHIUSDT': 10.0,
+                                    'YFIUSDT': 10.0,
+                                    'DOGEUSD': 0.15,
+                                    'USDCUSD': 1.0,
+                                    'USDTUSD': 1.0,
+                                    'GRTUSD': 10.0,
+                                    'CRVUSD': 0.6,
+                                    'BATUSD': 0.2,
+                                    'XRPUSD': 0.5,
+                                    'XTZUSD': 0.8,
+                                    'SHIBUSD': 9e-6,
+                                    'PEPEUSD': 5e-6,
+                                    'BCHUSD': 250.0,
+                                    'MKRUSD': 1200.0,
+                                    'YFIUSD': 7500.0,
+                                    'SUSHIUSD': 0.7,
+                                    'TRUMPUSD': 11.0,
                                 }
-                                price = default_prices.get(symbol, 10.0)  # 10.0 comme prix par défaut générique
-                                timestamp = datetime.now().timestamp() * 1000
-                            except Exception as inner_e:
-                                logger.error(f"Toutes les méthodes de récupération de prix ont échoué pour {symbol}: {inner_e}")
-                                raise
+                                logger.warning(f"Utilisation d'un prix par défaut pour {symbol}")
+                                price = default_prices.get(symbol, 10.0)  # Valeur par défaut si le symbole n'est pas dans la liste
+                                timestamp = datetime.now()
                     
                     self.last_tick[symbol] = {
                         'price': price,
