@@ -49,6 +49,10 @@ class MarketDataService:
         self.active_provider_name = provider_name
         self._active_provider = None
         
+        # Vérifier le niveau d'abonnement Alpaca (1=Basic, 2=Pro, 3=AlgoTrader Plus)
+        self.subscription_level = int(os.getenv("ALPACA_SUBSCRIPTION_LEVEL", "1"))
+        logger.info(f"Alpaca subscription level: {self.subscription_level}")
+        
         # Initialize Alpaca client with support for both paper and live trading
         # Déterminer le mode Alpaca (paper ou live)
         alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
@@ -233,45 +237,17 @@ class MarketDataService:
                 if is_crypto:
                     logger.info(f"Cryptocurrency detected: {symbol}. Using dedicated Alpaca crypto API.")
                     
-                    # D'après la documentation Alpaca, les crypto utilisent un endpoint spécifique
+                    # Utiliser exclusivement l'API crypto v1beta3 pour les cryptomonnaies
                     # https://docs.alpaca.markets/docs/crypto-trading
-                    success = False
-                    crypto_methods = [
-                        # 1. API crypto v1beta3 (format recommandé dans la doc)
-                        lambda: self._get_crypto_data_v1beta3(alpaca_symbol, start_str, end_str, alpaca_timeframe),
+                    try:
+                        data = self._get_crypto_data_v1beta3(alpaca_symbol, start_str, end_str, alpaca_timeframe)
                         
-                        # 2. Méthode SDK avec get_crypto_bars (si disponible)
-                        lambda: self.alpaca_client.get_crypto_bars(
-                            alpaca_symbol, alpaca_timeframe, start=start_str, end=end_str
-                        ).df,
-                        
-                        # 3. Méthode générique get_bars comme dernier recours
-                        lambda: self.alpaca_client.get_bars(
-                            alpaca_symbol.replace("/", ""), alpaca_timeframe, start=start_str, end=end_str
-                        ).df
-                    ]
-                    
-                    # Essayer chaque méthode en séquence jusqu'à ce qu'une fonctionne
-                    for i, method in enumerate(crypto_methods):
-                        try:
-                            if i == 0:  # Pour la méthode API directe
-                                data = method()
-                                if data is not None and not data.empty:
-                                    success = True
-                                    break
-                            else:  # Pour les méthodes SDK
-                                data = method()
-                                success = True
-                                break
-                        except Exception as e:
-                            error_msg = str(e)[:100]
-                            logger.warning(f"Crypto method {i+1} failed: {error_msg}")
-                            if "403" in error_msg or "Forbidden" in error_msg:
-                                logger.warning("Access denied (403). Your plan may not include crypto data.")
-                    
-                    # Si aucune méthode n'a fonctionné, lever une exception claire
-                    if not success:
-                        raise ValueError(f"Could not get crypto data for {symbol} from Alpaca. Your plan may not include crypto data.")
+                        if data is None or data.empty:
+                            logger.error(f"Failed to get crypto data for {symbol} through the v1beta3 crypto API.")
+                            raise ValueError(f"Failed to get crypto data for {symbol} through the v1beta3 crypto API.")
+                    except Exception as e:
+                        logger.error(f"Direct crypto API call failed for {symbol}: {str(e)[:200]}")
+                        raise ValueError(f"Failed to get crypto data for {symbol}. Error: {str(e)[:200]}")
                 else:
                     # Pour les actions, utiliser l'API stock standard (plus simple)
                     logger.info(f"Using standard stock API for {symbol}")
@@ -296,9 +272,14 @@ class MarketDataService:
                     logger.error(f"Alpaca response content: {e.response.text}")
                 traceback.print_exc()
         
-        # Fallback to sample data if API calls fail
-        logger.warning(f"Using sample data for {symbol} as fallback")
-        return await self._generate_sample_data(symbol, start_date, end_date, timeframe)
+        # Si on a un abonnement premium, ne pas utiliser les données de repli
+        if self.subscription_level >= 3:
+            logger.error(f"Failed to get data for {symbol} despite premium subscription level {self.subscription_level}. Check API access and symbol validity.")
+            return pd.DataFrame()  # Renvoie un DataFrame vide au lieu de données de repli
+        else:
+            # Fallback to sample data if API calls fail
+            logger.warning(f"Using sample data for {symbol} as fallback")
+            return await self._generate_sample_data(symbol, start_date, end_date, timeframe)
     
     async def get_latest_price(self, symbol: str, provider_name: Optional[str] = None) -> float:
         """

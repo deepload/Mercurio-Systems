@@ -50,6 +50,88 @@ try:
 except ImportError:
     TradingService = None
 from app.strategies.base import BaseStrategy
+
+# Fonction pour détecter le niveau d'accès Alpaca
+def detect_alpaca_level(api_key=None, api_secret=None, base_url=None, data_url=None):
+    """
+    Détecte le niveau d'abonnement Alpaca disponible en testant les fonctionnalités
+    
+    Args:
+        api_key: Clé API Alpaca
+        api_secret: Secret API Alpaca
+        base_url: URL de base pour l'API Alpaca
+        data_url: URL des données pour l'API Alpaca
+        
+    Returns:
+        int: Niveau d'abonnement (3 = premium, 2 = standard+, 1 = standard, 0 = non détecté)
+    """
+    if not api_key or not api_secret:
+        # Récupérer les clés d'API depuis les variables d'environnement
+        load_dotenv()
+        # Déterminer le mode (paper ou live)
+        alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+        if alpaca_mode == "live":
+            api_key = os.getenv("ALPACA_LIVE_KEY")
+            api_secret = os.getenv("ALPACA_LIVE_SECRET")
+            base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+        else:  # mode paper par défaut
+            api_key = os.getenv("ALPACA_PAPER_KEY")
+            api_secret = os.getenv("ALPACA_PAPER_SECRET")
+            base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+        
+        data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+    
+    # Initialiser le client API
+    try:
+        api = tradeapi.REST(
+            key_id=api_key,
+            secret_key=api_secret,
+            base_url=base_url,
+            data_url=data_url
+        )
+        
+        logger.info("Test du niveau d'abonnement Alpaca...")
+        
+        # Test niveau 3 (premium) - Accès aux données en temps réel
+        try:
+            # Tester une fonctionnalité spécifique au niveau 3: données en temps réel plus précises
+            end = datetime.now()
+            start = end - timedelta(minutes=15)
+            symbol = "BTC/USD"  # Une paire crypto populaire
+            bars = api.get_crypto_bars(symbol, '1Min', start=start.isoformat(), end=end.isoformat())
+            if len(bars) > 0:
+                logger.info("✅ Niveau 3 (Premium) détecté - Accès complet aux données temps réel")
+                return 3
+        except Exception as e:
+            logger.debug(f"Test niveau 3 échoué: {str(e)}")
+        
+        # Test niveau 2 - Données historiques étendues
+        try:
+            # Tester des données historiques (disponibles dans les niveaux 2 et 3)
+            end = datetime.now()
+            start = end - timedelta(days=30)  # 30 jours de données
+            bars = api.get_crypto_bars('BTC/USD', '1Day', start=start.isoformat(), end=end.isoformat())
+            if len(bars) > 20:  # Si on a plus de 20 jours, c'est probablement niveau 2+
+                logger.info("✅ Niveau 2 détecté - Accès aux données historiques étendues")
+                return 2
+        except Exception as e:
+            logger.debug(f"Test niveau 2 échoué: {str(e)}")
+        
+        # Test niveau 1 - Fonctionnalités de base
+        try:
+            account = api.get_account()
+            if account and account.status == 'ACTIVE':
+                logger.info("✅ Niveau 1 détecté - Accès aux fonctionnalités de base")
+                return 1
+        except Exception as e:
+            logger.debug(f"Test niveau 1 échoué: {str(e)}")
+        
+        # Si tous les tests échouent
+        logger.warning("❌ Aucun niveau d'API détecté, vérifiez vos clés API")
+        return 0
+    except Exception as e:
+        logger.error(f"Erreur lors de la détection du niveau d'API: {e}")
+        return 0
 try:
     from app.strategies.moving_average_ml import MovingAverageMLStrategy
     
@@ -135,6 +217,14 @@ PERSONALIZED_CRYPTO_LIST_NO_SLASH = [
 # Nombre de barres historiques à garder en mémoire
 MAX_HISTORICAL_BARS = 100  
 MAX_TRADE_FREQUENCY = 5  # Secondes minimales entre deux trades pour un même symbole
+
+# Seuils pour éviter les dust positions
+MIN_POSITION_VALUE_USD = 10.0  # Valeur minimale en USD pour une position
+MIN_POSITION_SIZE = {  # Tailles minimales spécifiques par crypto
+    "BTCUSD": 0.0001,  # ~5-6 USD minimum
+    "ETHUSD": 0.005,   # ~10-15 USD minimum
+    "DEFAULT": 0.01    # Valeur par défaut pour autres cryptos
+}
 DEFAULT_SYMBOLS = {
     "STOCK": ["AAPL", "AMZN", "MSFT", "GOOGL", "TSLA"], 
     "CRYPTO": ["BTCUSD", "ETHUSD", "SOLUSD"]
@@ -181,13 +271,13 @@ class HFTrader:
         data_url: str = None,
         strategy_type: StrategyType = StrategyType.MOVING_AVERAGE,
         asset_type: AssetType = AssetType.STOCK,
-        position_size_pct: float = 0.01,  # 1% du portfolio par position
-        stop_loss_pct: float = 0.002,     # 0.2% stop loss
-        take_profit_pct: float = 0.005,   # 0.5% take profit
-        api_level: int = 3,               # Par défaut, niveau premium pour HFT
-        max_positions: int = 5,           # Max 5 positions simultanées
-        is_paper: bool = True,            # Paper trading par défaut
-        use_custom_symbols: bool = False  # Utiliser les symboles personnalisés
+        position_size_pct: float = 0.02,   # 2% du portefeuille par position par défaut
+        stop_loss_pct: float = 0.01,       # Stop loss à 1% par défaut
+        take_profit_pct: float = 0.05,     # Take profit à 5% par défaut
+        api_level: int = 0,                # Niveau d'API Alpaca (0=auto-detect, 1-3=niveau spécifique)
+        max_positions: int = 5,            # Max 5 positions simultanées
+        is_paper: bool = True,             # Paper trading par défaut
+        use_custom_symbols: bool = False   # Utiliser les symboles personnalisés
     ):
         """Initialiser le trader HF"""
         # Utiliser les symboles personnalisés si demandé
@@ -238,22 +328,28 @@ class HFTrader:
         # Chargement des variables d'environnement
         load_dotenv()
         
-        # Déterminer le mode Alpaca et les clés d'API
+        # Déterminer le mode Alpaca (paper ou live)
         alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
-        self.is_paper = is_paper or alpaca_mode == "paper"
         
-        if self.is_paper:
-            self.api_key = api_key or os.getenv("ALPACA_PAPER_KEY")
-            self.api_secret = api_secret or os.getenv("ALPACA_PAPER_SECRET")
-            self.base_url = base_url or os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
-        else:
-            self.api_key = api_key or os.getenv("ALPACA_LIVE_KEY")
-            self.api_secret = api_secret or os.getenv("ALPACA_LIVE_SECRET")
-            self.base_url = base_url or os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
-        
-        self.data_url = data_url or os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
-        
-        # Initialiser l'API Alpaca
+        # Configuration selon le mode
+        if alpaca_mode == "live":
+            self.api_key = os.getenv("ALPACA_LIVE_KEY")
+            self.api_secret = os.getenv("ALPACA_LIVE_SECRET")
+            self.base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+            self.data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+            self.is_paper = False
+        else:  # mode paper par défaut
+            self.api_key = os.getenv("ALPACA_PAPER_KEY")
+            self.api_secret = os.getenv("ALPACA_PAPER_SECRET")
+            self.base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+            self.data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+            self.is_paper = True
+            
+        # Pour les crypto, configurer l'asset class dans l'environnement
+        if self.asset_type == AssetType.CRYPTO:
+            logger.info("Configuration pour le trading de crypto")
+            os.environ["ALPACA_ASSET_CLASS"] = "crypto"   # Initialiser l'API Alpaca
+        # Initialisation de l'API REST Alpaca sans le paramètre data_url
         self.api = tradeapi.REST(
             key_id=self.api_key,
             secret_key=self.api_secret,
@@ -299,23 +395,98 @@ class HFTrader:
         self.initialize_strategy()
     
     def _initialize_services(self):
-        """Initialiser les services mercurio et API Alpaca"""
+        """Initialiser les services mercurio et API Alpaca avec détection automatique du niveau d'API"""
         try:
-            # Initialiser l'API Alpaca REST
-            self.api = tradeapi.REST(
-                key_id=self.api_key,
-                secret_key=self.api_secret,
-                base_url=self.base_url
-            )
+            # Initialiser les services marchande et API Alpaca avec détection automatique du niveau d'API
+            if not self.api_key or not self.api_secret:
+                # Charger les variables d'environnement
+                load_dotenv()
+                
+                alpaca_level = int(os.getenv("ALPACA_SUBSCRIPTION_LEVEL", "1"))
+                self.api_level = self.api_level or alpaca_level
+                
+                # Déterminer le mode (paper ou live)
+                alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+                
+                if alpaca_mode == "live":
+                    self.api_key = os.getenv("ALPACA_LIVE_KEY")
+                    self.api_secret = os.getenv("ALPACA_LIVE_SECRET")
+                    self.base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+                else:  # mode paper par défaut
+                    self.api_key = os.getenv("ALPACA_PAPER_KEY")
+                    self.api_secret = os.getenv("ALPACA_PAPER_SECRET")
+                    self.base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+                
+                self.data_url = os.getenv("ALPACA_DATA_URL", "https://data.alpaca.markets")
+                
+                logger.info(f"Niveau d'API Alpaca configuré manuellement: {self.api_level}")
+            else:
+                # Détecter automatiquement le niveau d'abonnement Alpaca
+                if self.api_level is None:
+                    self.api_level = detect_alpaca_level(
+                        api_key=self.api_key,
+                        api_secret=self.api_secret,
+                        base_url=self.base_url,
+                        data_url=self.data_url
+                    )
+                    logger.info(f"Niveau d'API Alpaca détecté: {self.api_level}")
+            
+            # Configuration directe de l'API Alpaca selon la version supportée
+            try:
+                # Première méthode: API sans data_url (compatible avec versions plus récentes)
+                self.api = tradeapi.REST(
+                    key_id=self.api_key,
+                    secret_key=self.api_secret,
+                    base_url=self.base_url
+                )
+                
+                # Configuration manuelle de data_url si possible
+                if hasattr(self.api, 'data_url'):
+                    self.api.data_url = self.data_url
+                    logger.info(f"Configuration manuelle de data_url: {self.data_url}")
+            except Exception as e:
+                # Fallback: Méthode plus ancienne qui peut supporter data_url directement
+                logger.warning(f"Erreur lors de l'initialisation standard: {e}, tentative de méthode alternative")
+                try:
+                    self.api = tradeapi.REST(
+                        key_id=self.api_key,
+                        secret_key=self.api_secret,
+                        base_url=self.base_url,
+                        api_version='v2'
+                    )
+                    logger.info("API Alpaca initialisée avec succès (méthode alternative)")
+                except Exception as e2:
+                    logger.error(f"Erreur critique lors de l'initialisation de l'API Alpaca: {e2}")
+                    raise
             
             # Définir les variables d'environnement pour les services Mercurio
             os.environ["ALPACA_KEY_ID"] = self.api_key
             os.environ["ALPACA_SECRET_KEY"] = self.api_secret
             os.environ["ALPACA_BASE_URL"] = self.base_url
             os.environ["ALPACA_DATA_URL"] = self.data_url
+            os.environ["ALPACA_SUBSCRIPTION_LEVEL"] = str(self.api_level)
+            os.environ["ALPACA_IS_PAPER"] = str(self.is_paper).lower()
             
-            # Créer le service de données de marché
-            self.market_data_service = MarketDataService(provider_name="alpaca")
+            # Initialiser les services Mercurio
+            # Vérifier si MarketDataService existe et est correctement importé
+            if MarketDataService is not None:
+                self.market_data_service = MarketDataService()
+                logger.info("Service de données de marché initialisé avec succès")
+            else:
+                logger.warning("MarketDataService n'est pas disponible, utilisation de l'API Alpaca directement")
+                self.market_data_service = None
+            
+            # Configuration spéciale pour le trading de crypto si nécessaire
+            if self.asset_type == AssetType.CRYPTO:
+                logger.info("Configuration du service de données pour les cryptomonnaies")
+                
+                if self.api_level >= 3:
+                    logger.info("Niveau Premium (3+) détecté. Utilisation des fonctionnalités crypto avancées")
+                    # Formats des symboles pour API crypto - standardiser en format avec slash
+                    self.symbols = [self._ensure_symbol_format(s) for s in self.symbols]
+                    logger.warning("Niveau Basic (1) détecté. Accès limité aux données crypto.")
+                    # Ajuster les paramètres pour éviter les limites de taux
+                    self.market_check_interval = max(self.market_check_interval, 5)  # Minimum 5 secondes
             
             # Créer le service de trading si disponible
             if TradingService is not None:
@@ -323,7 +494,7 @@ class HFTrader:
                 logger.info(f"Service de trading initialisé en mode {'paper' if self.is_paper else 'live'}")
             else:
                 self.trading_service = None
-                logger.warning("Service de trading non disponible")
+                logger.info("Service de trading non disponible")
             
             logger.info("Services Mercurio initialisés avec succès")
             return True
@@ -554,6 +725,15 @@ class HFTrader:
         now = datetime.now()
         start = now - timedelta(minutes=MAX_HISTORICAL_BARS)  # Dernier jour
         
+        # Déterminer le timeframe en fonction du niveau API
+        timeframe = "1Min"  # Par défaut pour la haute fréquence
+        
+        # Pour les API premium (niveau 3), on peut utiliser une résolution plus fine
+        if self.api_level >= 3 and self.asset_type == AssetType.CRYPTO:
+            # Optimiser pour le trading haute fréquence
+            timeframe = "1Min"  # Ou même secondes si disponible
+            logger.info(f"Utilisation du timeframe {timeframe} pour le niveau API premium {self.api_level}")
+        
         for symbol in self.symbols:
             try:
                 # Utiliser le MarketDataService de Mercurio qui gère correctement les API Alpaca
@@ -568,19 +748,24 @@ class HFTrader:
                                 # Si c'est une coroutine, l'appeler directement avec await
                                 df = await self.market_data_service.get_historical_data(symbol, start, now, "1Min")
                             else:
-                                # Sinon, utiliser to_thread pour les méthodes synchrones
                                 df = await asyncio.to_thread(self.market_data_service.get_historical_data, 
-                                                            symbol, start, now, "1Min")
+                                                          symbol, start, now, "1Min")
                         else:  # Pour les crypto
-                            # Pour les crypto, utiliser le timeframe 1 minute 
-                            # Vérifier si get_historical_data est une coroutine ou une méthode normale
+                            # Format correct du symbole pour l'API crypto
+                            crypto_symbol = symbol
+                            if "/" not in crypto_symbol and "-" in crypto_symbol:
+                                # Convertir format avec tiret en format avec slash (ex: BTC-USD -> BTC/USD)
+                                crypto_symbol = crypto_symbol.replace("-", "/")
+                                logger.info(f"Conversion du format du symbole pour API crypto: {symbol} -> {crypto_symbol}")
+                            
+                            # Optimisation spécifique pour le niveau d'API détecté
+                            logger.info(f"Utilisation de l'API crypto pour {crypto_symbol} (niveau {self.api_level})")
+                            
                             if asyncio.iscoroutinefunction(self.market_data_service.get_historical_data):
-                                # Si c'est une coroutine, l'appeler directement avec await
-                                df = await self.market_data_service.get_historical_data(symbol, start, now, "1Min")
+                                df = await self.market_data_service.get_historical_data(crypto_symbol, start, now, timeframe)
                             else:
-                                # Sinon, utiliser to_thread pour les méthodes synchrones
                                 df = await asyncio.to_thread(self.market_data_service.get_historical_data, 
-                                                            symbol, start, now, "1Min")
+                                                          crypto_symbol, start, now, timeframe)
                         
                         # Vérifier si des données ont été retournées
                         if len(df) > 0:
@@ -604,10 +789,82 @@ class HFTrader:
                             
                             logger.info(f"Chargé {len(df)} barres historiques pour {symbol} via MarketDataService")
                         else:
-                            # Si aucune donnée n'est disponible, essayer de récupérer au moins le dernier prix
+                            # Si aucune donnée n'est disponible et qu'on est en mode premium,
+                            # essayer une approche alternative pour les cryptos
+                            if self.asset_type == AssetType.CRYPTO and self.api_level >= 3:
+                                logger.warning(f"Données historiques non disponibles pour {symbol} malgré l'accès premium")
+                                
+                                # Pour les niveaux premium, essayer d'appeler directement l'API Alpaca crypto
+                                try:
+                                    logger.info(f"Tentative d'appel direct à l'API crypto pour {symbol}")
+                                    
+                                    # Formater le symbole correctement pour l'API crypto
+                                    crypto_symbol = self._ensure_symbol_format(symbol)
+                                    logger.info(f"Utilisation du symbole formaté: {crypto_symbol} pour l'appel direct API")
+                                    
+                                    # Utiliser notre méthode d'appel direct à l'API crypto
+                                    crypto_data = self._direct_crypto_api_call(symbol, timeframe, limit=MAX_HISTORICAL_BARS)
+                                    
+                                    if crypto_data and 'bars' in crypto_data:
+                                        bars_data = crypto_data['bars']
+                                        # Vérifier si les données sont présentes sous le symbole formaté
+                                        available_symbols = list(bars_data.keys())
+                                        logger.info(f"Symboles disponibles dans la réponse: {available_symbols}")
+                                        
+                                        if crypto_symbol in bars_data and len(bars_data[crypto_symbol]) > 0:
+                                            # Traiter les données récupérées directement
+                                            for bar in bars_data[crypto_symbol]:
+                                                bar_dict = {
+                                                    'timestamp': pd.Timestamp(bar['t']).to_pydatetime(),
+                                                    'open': float(bar['o']),
+                                                    'high': float(bar['h']),
+                                                    'low': float(bar['l']),
+                                                    'close': float(bar['c']),
+                                                    'volume': float(bar['v'])
+                                                }
+                                                self.price_data[symbol].append(bar_dict)
+                                            
+                                            logger.info(f"Récupéré {len(bars_data[crypto_symbol])} barres via API crypto directe pour {symbol}")
+                                            continue  # Continuer à la prochaine itération de boucle
+                                        else:
+                                            # Essayer de trouver une correspondance dans les symboles disponibles
+                                            found_match = False
+                                            for avail_symbol in available_symbols:
+                                                # Comparer sans slashes, tirets, etc.
+                                                if (symbol.replace('/', '').replace('-', '') in avail_symbol.replace('/', '').replace('-', '') or
+                                                    avail_symbol.replace('/', '').replace('-', '') in symbol.replace('/', '').replace('-', '')):
+                                                    logger.info(f"Symbole correspondant trouvé: {avail_symbol}")
+                                                    
+                                                    # Traiter les données pour ce symbole
+                                                    for bar in bars_data[avail_symbol]:
+                                                        bar_dict = {
+                                                            'timestamp': pd.Timestamp(bar['t']).to_pydatetime(),
+                                                            'open': float(bar['o']),
+                                                            'high': float(bar['h']),
+                                                            'low': float(bar['l']),
+                                                            'close': float(bar['c']),
+                                                            'volume': float(bar['v'])
+                                                        }
+                                                        self.price_data[symbol].append(bar_dict)
+                                                    
+                                                    logger.info(f"Récupéré {len(bars_data[avail_symbol])} barres via symbole correspondant pour {symbol}")
+                                                    found_match = True
+                                                    break
+                                            
+                                            if found_match:
+                                                continue  # Continuer à la prochaine itération de boucle
+                                except Exception as e:
+                                    logger.error(f"Échec de l'appel direct à l'API crypto: {str(e)[:100]}")
+                            
+                            # Si tout échoue, essayer de récupérer au moins le dernier prix
                             logger.warning(f"Données historiques non disponibles pour {symbol}, tentative de récupération du dernier prix")
                             try:
-                                price = self.market_data_service.get_latest_price(symbol)
+                                # Vérifier si la méthode est une coroutine
+                                if asyncio.iscoroutinefunction(self.market_data_service.get_latest_price):
+                                    price = await self.market_data_service.get_latest_price(symbol)
+                                else:
+                                    price = await asyncio.to_thread(self.market_data_service.get_latest_price, symbol)
+                                    
                                 if price:
                                     # Créer une entrée avec le dernier prix connu
                                     bar_dict = {
@@ -659,7 +916,35 @@ class HFTrader:
                         else:  # Récupérer les données historiques pour les cryptos
                             # Essayer d'obtenir au moins le dernier prix avec les méthodes disponibles
                             try:
-                                # Essayer d'obtenir la dernière barre
+                                # Pour les cryptos, essayer différentes méthodes API
+                                if self.asset_type == AssetType.CRYPTO:
+                                    # Essayer avec l'API crypto spécifique si disponible
+                                    if hasattr(self.api, 'get_crypto_bars'):
+                                        bars = self.api.get_crypto_bars(
+                                            symbol, 
+                                            tradeapi.TimeFrame.Minute, 
+                                            start.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                                            now.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                                            limit=MAX_HISTORICAL_BARS
+                                        ).df
+                                        
+                                        if len(bars) > 0:
+                                            # Process the bars
+                                            bars = bars.reset_index()
+                                            for _, bar in bars.iterrows():
+                                                bar_dict = {
+                                                    'timestamp': pd.Timestamp(bar['timestamp']).to_pydatetime(),
+                                                    'open': bar['open'],
+                                                    'high': bar['high'],
+                                                    'low': bar['low'],
+                                                    'close': bar['close'],
+                                                    'volume': bar['volume']
+                                                }
+                                                self.price_data[symbol].append(bar_dict)
+                                            logger.info(f"Chargé {len(bars)} barres historiques crypto pour {symbol}")
+                                            continue
+                                        
+                                # Essayer d'obtenir la dernière barre (fallback)
                                 latest_bar = self.api.get_latest_bar(symbol)
                                 bar_dict = {
                                     'timestamp': latest_bar.t,
@@ -671,10 +956,15 @@ class HFTrader:
                                 }
                                 self.price_data[symbol].append(bar_dict)
                                 logger.info(f"Utilisé la dernière barre disponible pour {symbol}")
-                            except Exception:
+                            except Exception as bar_error:
+                                logger.debug(f"Échec récupération barre pour {symbol}: {bar_error}")
                                 try:
                                     # Essayer d'obtenir la dernière transaction
-                                    latest_trade = self.api.get_latest_trade(symbol)
+                                    if self.asset_type == AssetType.CRYPTO and hasattr(self.api, 'get_latest_crypto_trade'):
+                                        latest_trade = self.api.get_latest_crypto_trade(symbol) 
+                                    else:
+                                        latest_trade = self.api.get_latest_trade(symbol)
+                                        
                                     bar_dict = {
                                         'timestamp': latest_trade.t,
                                         'open': latest_trade.p,
@@ -1297,10 +1587,26 @@ class HFTrader:
                     position = self.api.get_position(symbol)
                     available_qty = float(position.qty)
                     
-                    # Vérifier si la quantité est trop petite ou nulle
-                    if available_qty <= 0.000001:
-                        logger.warning(f"Position trop petite ou nulle pour {symbol}: {available_qty}, impossible de vendre")
-                        return False
+                    # Vérifier si la position est une "dust position" (trop petite pour être traitée)
+                    current_price = float(position.current_price)
+                    position_value = abs(available_qty * current_price)
+                    
+                    if self.asset_type == AssetType.CRYPTO:
+                        # Seuil minimal spécifique au symbole ou valeur par défaut
+                        min_size = MIN_POSITION_SIZE.get(symbol, MIN_POSITION_SIZE["DEFAULT"])
+                        
+                        if abs(available_qty) < min_size:
+                            logger.warning(f"Position trop petite pour {symbol}: {available_qty} < {min_size} (minimum requis)")
+                            return False
+                            
+                        if position_value < MIN_POSITION_VALUE_USD:
+                            logger.warning(f"Valeur de position trop faible pour {symbol}: ${position_value:.2f} < ${MIN_POSITION_VALUE_USD} (minimum requis)")
+                            return False
+                    else:
+                        # Pour les actions, on garde le seuil minimal très bas
+                        if available_qty <= 0.000001:
+                            logger.warning(f"Position trop petite ou nulle pour {symbol}: {available_qty}, impossible de vendre")
+                            return False
                     
                     if available_qty < quantity:
                         # Différence trop faible, arrondir
@@ -1332,6 +1638,36 @@ class HFTrader:
                 logger.info(f"[BACKTEST MODE] Ordre simulé: {side} {quantity} {symbol} ({reason})")
                 return None
                 
+            # Pour les crypto, vérifier et ajuster la quantité pour éviter les dust positions
+            if self.asset_type == AssetType.CRYPTO:
+                # S'assurer que la quantité est supérieure au seuil minimal
+                min_size = MIN_POSITION_SIZE.get(symbol, MIN_POSITION_SIZE["DEFAULT"])
+                
+                # Si la quantité est inférieure au minimum, l'augmenter
+                if side.lower() == "buy" and quantity < min_size:
+                    logger.info(f"Ajustement de la quantité pour {symbol}: {quantity} -> {min_size} (minimum requis)")
+                    quantity = min_size
+                
+                # Vérifier si la valeur estimative est suffisante
+                try:
+                    # Estimer la valeur de l'ordre
+                    price = None
+                    if hasattr(self, 'last_tick') and symbol in self.last_tick and self.last_tick[symbol]:
+                        price = self.last_tick[symbol].get('price')
+                    elif hasattr(self, 'price_data') and symbol in self.price_data and self.price_data[symbol]:
+                        last_bar = self.price_data[symbol][-1]
+                        price = last_bar.get('close')
+                    
+                    if price and price > 0:
+                        estimated_value = price * quantity
+                        if estimated_value < MIN_POSITION_VALUE_USD:
+                            # Recalculer la quantité minimale pour atteindre MIN_POSITION_VALUE_USD
+                            adjusted_quantity = MIN_POSITION_VALUE_USD / price
+                            logger.info(f"Valeur trop faible pour {symbol} (${estimated_value:.2f}). Ajustement de la quantité: {quantity} -> {adjusted_quantity:.8f}")
+                            quantity = adjusted_quantity
+                except Exception as e:
+                    logger.warning(f"Impossible d'estimer la valeur de l'ordre pour {symbol}: {e}")
+            
             # Vérifier le solde avant de passer l'ordre
             if not await self._check_balance(symbol, side, quantity):
                 logger.warning(f"Annulation de l'ordre pour {symbol} en raison de solde insuffisant")
@@ -1542,12 +1878,116 @@ class HFTrader:
         except Exception as e:
             logger.error(f"Erreur lors de la génération du rapport final: {e}")
         
+    def _direct_crypto_api_call(self, symbol, timeframe="1Min", limit=100):
+        """Effectue un appel direct à l'API Alpaca crypto pour récupérer des données historiques"""
+        try:
+            # Construction de l'URL pour l'API crypto (endpoint v1beta3)
+            base_url = "https://data.alpaca.markets"
+            api_version = "v1beta3"
+            
+            # Pour les barres historiques
+            if timeframe:
+                endpoint = f"{base_url}/{api_version}/crypto/us/bars"
+                
+                # Pour l'API v1beta3, les symboles doivent être au format BTC/USD
+                formatted_symbol = self._ensure_symbol_format(symbol)
+                if "/" not in formatted_symbol and formatted_symbol.endswith("USD"):
+                    # Conversion forcée au format correct
+                    base = formatted_symbol[:-3]
+                    formatted_symbol = f"{base}/USD"
+                
+                # Préparer les paramètres - utiliser UTC pour la compatibilité
+                from datetime import timezone
+                now = datetime.now(timezone.utc)
+                start_time = (now - timedelta(minutes=limit)).isoformat()
+                end_time = now.isoformat()
+                
+                params = {
+                    "symbols": formatted_symbol,
+                    "timeframe": timeframe,
+                    "start": start_time,
+                    "end": end_time,
+                    "limit": limit
+                }
+                
+                logger.info(f"Appel API crypto pour {formatted_symbol} avec URL: {endpoint}?symbols={formatted_symbol}")
+            else:
+                # Pour les derniers prix (latest)
+                endpoint = f"{base_url}/{api_version}/crypto/us/latest/bars"
+                params = {"symbols": symbol}
+                logger.info(f"Appel API crypto pour dernier prix: {endpoint}?symbols={symbol}")
+            
+            # Configurer les entêtes avec l'authentification
+            headers = {
+                "APCA-API-KEY-ID": self.api_key,
+                "APCA-API-SECRET-KEY": self.api_secret
+            }
+            
+            # Effectuer la requête
+            import requests
+            response = requests.get(endpoint, params=params, headers=headers)
+            
+            # Vérifier si la réponse est valide
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Vérifier la structure des données
+                if 'bars' in data and formatted_symbol in data['bars']:
+                    logger.info(f"Données crypto reçues avec succès pour {symbol} ({len(data['bars'][formatted_symbol])} barres)")
+                    return data
+                else:
+                    logger.error(f"Structure de données inattendue: {data.keys() if isinstance(data, dict) else 'non dictionnaire'}")
+                    return None
+            else:
+                # Log l'erreur
+                logger.error(f"Erreur API Alpaca: {response.status_code} / {response.text}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Échec de l'appel direct à l'API crypto: {str(e)}")
+            return None
+    
+    def _ensure_symbol_format(self, symbol):
+        """Standardise le format des symboles crypto (BTC/USD ou BTCUSD selon le contexte)"""
+        if self.asset_type != AssetType.CRYPTO:
+            return symbol  # Ne rien faire pour les symboles non-crypto
+            
+        # Pour l'API crypto d'Alpaca niveau 3 (premium), on utilise le format avec slash (BTC/USD)
+        if self.api_level >= 3:
+            if "/" not in symbol:
+                # Conversion BTCUSD -> BTC/USD
+                if symbol.endswith("USD"):
+                    base = symbol[:-3]
+                    quote = "USD"
+                    formatted_symbol = f"{base}/{quote}"
+                    logger.debug(f"Conversion du format de symbole: {symbol} -> {formatted_symbol}")
+                    return formatted_symbol
+                else:
+                    # Autre format inconnu, laisser tel quel
+                    return symbol
+            else:
+                # Déjà au format avec slash
+                return symbol
+        else:
+            # Pour les autres niveaux d'API, utiliser le format sans slash (BTCUSD)
+            if "/" in symbol:
+                # Conversion BTC/USD -> BTCUSD
+                formatted_symbol = symbol.replace("/", "")
+                logger.debug(f"Conversion du format de symbole: {symbol} -> {formatted_symbol}")
+                return formatted_symbol
+            else:
+                # Déjà au format sans slash
+                return symbol
+
     def _round_quantity(self, quantity, symbol):
         """Arrondir la quantité selon les règles du marché"""
         # Protection contre les valeurs négatives ou nulles
         if quantity <= 0:
             return 0.0
             
+        # Valeurs par défaut pour les cryptos usuelles
+        precision = 8  # Précision par défaut pour les crypto
+        min_size = MIN_POSITION_SIZE.get(symbol.replace("/", ""), 0.0001)  # Minimum par défaut       
         # Crypto: arrondir avec des règles spécifiques
         if self.asset_type == AssetType.CRYPTO:
             # Vérifier si la correction de précision est activée
@@ -1758,28 +2198,152 @@ class HFTrader:
                 else:  # Crypto
                     # Essayer d'abord le MarketDataService pour la cohérence
                     try:
-                        # Utiliser le MarketDataService pour obtenir les dernières données
-                        latest_data = self.market_data_service.get_latest_price(symbol)
-                        if latest_data is not None:
-                            price = float(latest_data)
-                            timestamp = datetime.now()
-                            logger.info(f"Prix initial pour {symbol} obtenu via MarketDataService: {price}")
-                        else:
-                            raise Exception("Pas de données disponibles via MarketDataService")
+                        # Vérifier si le market_data_service est correctement initialisé
+                        if not self.market_data_service:
+                            raise Exception("MarketDataService non initialisé")
+                        
+                        # Déterminer le bon format de symbole selon le niveau d'API
+                        api_symbol = self._ensure_symbol_format(symbol)
+                        
+                        # Méthode 1: Essayer d'obtenir une citation en direct sans utiliser le MarketDataService asynchrone
+                        # Cette approche fonctionne pour les versions récentes de l'API Alpaca
+                        quote_price = None
+                        # Pour l'API niveau 3, on peut essayer d'utiliser les méthodes crypto spécifiques
+                        try:
+                            # Essayer les différentes méthodes disponibles dans l'API Alpaca pour les crypto
+                            if self.api_level >= 3:
+                                # Format sans slash pour les méthodes natives de l'API
+                                no_slash_symbol = api_symbol.replace('/', '')
+                                
+                                if hasattr(self.api, 'get_crypto_latest_trade'):
+                                    # Méthode get_crypto_latest_trade (plus récente)
+                                    trade = self.api.get_crypto_latest_trade(no_slash_symbol)
+                                    quote_price = float(trade.p)
+                                    timestamp = trade.t
+                                    logger.info(f"Prix initial pour {symbol} obtenu via get_crypto_latest_trade: {quote_price}")
+                                elif hasattr(self.api, 'get_crypto_latest_quote'):
+                                    # Méthode get_crypto_latest_quote (alternative)
+                                    quote = self.api.get_crypto_latest_quote(no_slash_symbol)
+                                    quote_price = float(quote.ap)  # ask price
+                                    timestamp = quote.t
+                                    logger.info(f"Prix initial pour {symbol} obtenu via get_crypto_latest_quote: {quote_price}")
+                                elif hasattr(self.api, 'get_latest_crypto_quote'):
+                                    # Méthode get_latest_crypto_quote (ancienne version)
+                                    quote = self.api.get_latest_crypto_quote(no_slash_symbol)
+                                    quote_price = float(quote.ap)
+                                    timestamp = quote.t
+                                    logger.info(f"Prix initial pour {symbol} obtenu via get_latest_crypto_quote: {quote_price}")
+                            
+                            if quote_price is not None:
+                                price = quote_price
+                            else:
+                                raise Exception("Aucune méthode de citation crypto disponible")
+                                
+                        except Exception as quote_error:
+                            logger.warning(f"Erreur lors de la récupération de citation crypto: {quote_error}")
+                            raise  # Propager l'erreur pour essayer la méthode suivante
                     except Exception as e:
                         try:
-                            # Utiliser get_latest_trade qui est disponible au lieu de get_latest_crypto_quote
-                            trade = self.api.get_latest_trade(symbol)
-                            price = float(trade.p)
-                            timestamp = trade.t
+                            # Utiliser l'API crypto spécifique pour obtenir les prix
+                            # Note: Alpaca a une API spécifique pour les crypto qui utilise /crypto/ au lieu de /stocks/
+                            crypto_bar = None
+                            
+                            # Essayer les méthodes spécifiques aux crypto d'abord
+                            if hasattr(self.api, 'get_crypto_latest_bar'):
+                                crypto_bar = self.api.get_crypto_latest_bar(symbol)
+                            elif hasattr(self.api, 'get_latest_crypto_bar'):
+                                crypto_bar = self.api.get_latest_crypto_bar(symbol)
+                            
+                            if crypto_bar:
+                                price = float(crypto_bar.c)
+                                timestamp = crypto_bar.t
+                                logger.info(f"Prix initial pour {symbol} obtenu via API Crypto Alpaca: {price}")
+                            else:
+                                # Fallback sur la méthode générique mais avec le bon endpoint
+                                # Construire l'URL correcte pour l'API crypto d'Alpaca
+                                data_url = "https://data.alpaca.markets"
+                            
+                            # Pour l'API crypto Alpaca, utiliser le bon endpoint selon le format du symbole
+                            # 1. Préparer le symbole selon son format
+                            if "/" in symbol:
+                                # Format avec slash (BTC/USD) - bon pour v1beta3
+                                symbol_with_slash = symbol
+                                symbol_no_slash = symbol.replace("/", "")
+                            else:
+                                # Format sans slash (BTCUSD) - convertir pour v1beta3
+                                symbol_no_slash = symbol
+                                # Supposons que le format est [BASE]USD
+                                if symbol.endswith("USD"):
+                                    symbol_base = symbol[:-3]  # supprimer "USD"
+                                    symbol_with_slash = f"{symbol_base}/USD"
+                                else:
+                                    # Gardons-le tel quel si format inconnu
+                                    symbol_with_slash = symbol
+                            
+                            # 2. Construire l'URL selon le niveau d'API
+                            if self.api_level >= 3:
+                                # Niveau premium: API v1beta3 avec format symbol/quote
+                                request_url = f"{data_url}/v1beta3/crypto/us/latest/bars?symbols={symbol_with_slash}"
+                                logger.info(f"Utilisation de l'API premium v1beta3 pour {symbol_with_slash}")
+                            else:
+                                # Niveaux standard: API v2 avec format sans slash
+                                request_url = f"{data_url}/v2/crypto/{symbol_no_slash}/bars/latest"
+                                logger.info(f"Utilisation de l'API standard v2 pour {symbol_no_slash}")
+                            
+                            logger.info(f"Utilisation de l'URL: {request_url} pour obtenir le prix de {symbol}")
+                            
+                            # Effectuer la requête avec l'authentification Alpaca
+                            headers = {
+                                'APCA-API-KEY-ID': self.api_key,
+                                'APCA-API-SECRET-KEY': self.api_secret
+                            }
+                            
+                            import requests
+                            response = requests.get(request_url, headers=headers)
+                            response.raise_for_status()  # Raise exception si erreur HTTP
+                            json_data = response.json()
+                            
+                            # Traiter la réponse en fonction du format attendu selon l'API utilisée
+                            if self.api_level >= 3 and "/v1beta3/" in request_url:
+                                # Format de réponse pour v1beta3: {"bars": {"BTC/USD": [{...}, ...]}}
+                                if 'bars' in json_data and symbol_with_slash in json_data['bars']:
+                                    bars_data = json_data['bars'][symbol_with_slash]
+                                    if bars_data and len(bars_data) > 0:
+                                        latest_bar = bars_data[-1]  # Prendre la barre la plus récente
+                                        price = float(latest_bar['c'])
+                                        timestamp = datetime.strptime(latest_bar['t'].split('.')[0], '%Y-%m-%dT%H:%M:%S')
+                                        logger.info(f"Prix initial pour {symbol} (v1beta3): {price}")
+                                    else:
+                                        raise Exception(f"Aucune donnée de barre pour {symbol_with_slash}")
+                                else:
+                                    raise Exception(f"Format de réponse inattendu: {json_data}")
+                            else:
+                                # Format de réponse pour v2/crypto/{symbol}/bars/latest: 
+                                # Soit {'bar': {...}} ou {'bars': [...]}
+                                if 'bar' in json_data:
+                                    # Format single bar
+                                    bar_data = json_data['bar']
+                                    price = float(bar_data['c'])
+                                    timestamp = datetime.strptime(bar_data['t'], '%Y-%m-%dT%H:%M:%SZ')
+                                elif 'bars' in json_data and len(json_data['bars']) > 0:
+                                    # Format multiple bars array
+                                    latest_bar = json_data['bars'][-1]
+                                    price = float(latest_bar['c'])
+                                    timestamp = datetime.strptime(latest_bar['t'], '%Y-%m-%dT%H:%M:%SZ')
+                                else:
+                                    raise Exception(f"Format de réponse inattendu: {json_data}")
+                                
+                                logger.info(f"Prix initial pour {symbol} obtenu via API REST Crypto: {price}")
                         except Exception as e1:
                             try:
-                                # Si get_latest_trade échoue, essayer get_latest_bar
-                                bar = self.api.get_latest_bar(symbol)
-                                price = float(bar.c)  # Utiliser le prix de clôture
-                                timestamp = bar.t
+                                # Si les appels spécifiques aux crypto échouent, essayer les appels génériques
+                                # Cet appel utilise probablement l'endpoint /stocks/ qui peut échouer pour les crypto
+                                trade = self.api.get_latest_trade(symbol)
+                                price = float(trade.p)
+                                timestamp = trade.t
+                                logger.warning(f"Utilisation de l'API actions pour la crypto {symbol}: prix={price}")
                             except Exception as e2:
-                                logger.warning(f"Impossible d'obtenir le dernier prix pour {symbol}: {e2}")
+                                logger.warning(f"Impossible d'obtenir le dernier prix pour {symbol}: {e1} / {e2}")
                                 # Utiliser un prix par défaut pour les cryptos courantes
                                 default_prices = {
                                     'BTCUSD': 55000.0,
@@ -1963,7 +2527,19 @@ def main():
             with open(args.custom_symbols_file, 'r') as f:
                 file_symbols = [line.strip() for line in f.readlines() if line.strip()]
                 if file_symbols:
-                    symbols = file_symbols
+                    # S'assurer que tous les symboles sont au format avec slash (BTC/USD)
+                    processed_symbols = []
+                    for symbol in file_symbols:
+                        if "/" not in symbol and symbol.endswith("USD"):
+                            # Convertir BTCUSD en BTC/USD
+                            symbol_base = symbol[:-3]  # Supprimer "USD"
+                            processed_symbol = f"{symbol_base}/USD"
+                            logger.info(f"Conversion du symbole: {symbol} -> {processed_symbol}")
+                            processed_symbols.append(processed_symbol)
+                        else:
+                            processed_symbols.append(symbol)
+                    
+                    symbols = processed_symbols
                     logger.info(f"Symboles chargés depuis {args.custom_symbols_file}: {len(symbols)} symboles")
                 else:
                     logger.warning(f"Aucun symbole trouvé dans {args.custom_symbols_file}, utilisation des symboles en ligne de commande")
