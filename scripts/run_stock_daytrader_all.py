@@ -301,6 +301,7 @@ class SessionDuration(Enum):
 class TradingStrategy(str, Enum):
     """Stratégies de trading disponibles"""
     MOVING_AVERAGE = "MovingAverageStrategy"
+    MOVING_AVERAGE_ML = "MovingAverageMLStrategy"
     LSTM_PREDICTOR = "LSTMPredictorStrategy"
     TRANSFORMER = "TransformerStrategy"
     MSI = "MSIStrategy"
@@ -636,7 +637,7 @@ class StockDayTrader:
                     long_window=30
                 )
                 
-                self.strategies[TradingStrategy.MOVING_AVERAGE_ML] = MovingAverageMLStrategy(
+                self.strategies[TradingStrategy.MOVING_AVERAGE_ML] = MovingAverageStrategy(
                     market_data_service=self.market_data_service,
                     trading_service=self.trading_service,
                     short_window=5,
