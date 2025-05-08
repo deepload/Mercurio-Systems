@@ -67,7 +67,15 @@ class IronCondorStrategy(BaseOptionsStrategy):
             roll_when_dte: Number of days remaining before expiration to roll the position
             use_technical_filters: Use technical filters for entry
         """
-        super().__init__(underlying_symbol, account_size, max_position_size, **kwargs)
+        # Initialize base strategy with proper parameters
+        name = f"Iron Condor on {underlying_symbol}"
+        description = f"Iron Condor strategy for {underlying_symbol} with short put delta {short_put_delta} and short call delta {short_call_delta}"
+        super().__init__(name=name, description=description)
+        
+        # Store strategy-specific parameters
+        self.underlying_symbol = underlying_symbol
+        self.account_size = account_size
+        self.max_position_size = max_position_size
         
         self.max_days_to_expiry = max_days_to_expiry
         self.min_days_to_expiry = min_days_to_expiry

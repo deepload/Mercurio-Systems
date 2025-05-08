@@ -14,41 +14,60 @@ Usage:
 import os
 import sys
 import asyncio
-import argparse
 import logging
+import sys
+import threading
+import concurrent.futures
+from dotenv import load_dotenv
 from datetime import datetime, timedelta
+from argparse import ArgumentParser
 from typing import List, Dict, Any
 
 # Add project root to path
 project_root = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.insert(0, project_root)
 
+# Charger les variables d'environnement
+load_dotenv()
+
+# Obtenir la liste de symboles personnalisés depuis .env ou utiliser une liste par défaut
+default_crypto_list = "BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,ADA/USD,XRP/USD,LUNA/USD,DOGE/USD,MATIC/USD,LINK/USD,LTC/USD,UNI/USD,ALGO/USD,ATOM/USD,FIL/USD,AAVE/USD,MKR/USD,COMP/USD,SNX/USD,BAT/USD,YFI/USD,CRV/USD,GRT/USD,UMA/USD,ZRX/USD"
+custom_crypto_list_str = os.getenv("PERSONALIZED_CRYPTO_LIST", default_crypto_list)
+PERSONALIZED_CRYPTO_OPTIONS_LIST = [s.strip() for s in custom_crypto_list_str.split(',')]
+
 from app.services.market_data import MarketDataService
 from app.services.options_service import OptionsService
-from app.services.trading_service import TradingService
-from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+from app.services.trading import TradingService
 from app.strategies.options.long_call import LongCallStrategy
 from app.strategies.options.long_put import LongPutStrategy
 from app.strategies.options.iron_condor import IronCondorStrategy
 from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
-from app.utils.logger_config import setup_logging
+from app.utils.logging import setup_logging
 
 
 # Configure logging
-setup_logging(log_level=logging.INFO)
+log_level = logging.INFO
+logging.basicConfig(
+    level=log_level,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        # Console handler
+        logging.StreamHandler(sys.stdout),
+    ]
+)
 logger = logging.getLogger(__name__)
 
 
 def parse_arguments():
-    """Parse command line arguments for the crypto options trader."""
-    parser = argparse.ArgumentParser(description='Run crypto options trading strategy')
+    """Parse command line arguments."""
+    parser = ArgumentParser(description='Run crypto options trading strategy')
     
     parser.add_argument('--strategy', type=str, required=True,
                         choices=['LONG_CALL', 'LONG_PUT', 'IRON_CONDOR', 'BUTTERFLY', 'MIXED'],
-                        help='Options strategy to use')
-                        
-    parser.add_argument('--symbols', type=str, nargs='+', required=True,
-                        help='Crypto symbols to trade options for (e.g., BTC ETH)')
+                        help='Options trading strategy to employ')
+    
+    parser.add_argument('--symbols', type=str, nargs='+', required=False,
+                        help='Crypto symbols to trade options on (e.g., BTC ETH)')
                         
     parser.add_argument('--capital', type=float, default=50000.0,
                         help='Total capital to allocate for crypto options trading')
@@ -71,14 +90,20 @@ def parse_arguments():
     parser.add_argument('--stop-loss', type=float, default=0.5,
                         help='Stop loss as percentage of option premium (0.5 = 50%)')
                         
-    parser.add_argument('--volatility-threshold', type=float, default=0.8,
+    parser.add_argument('--volatility-threshold', type=float, default=0.05,
                         help='Minimum implied volatility to enter a trade')
                         
     parser.add_argument('--paper-trading', action='store_true',
                         help='Use paper trading mode instead of live trading')
                         
-    parser.add_argument('--duration', type=int, default=1,
-                        help='Trading duration in days')
+    parser.add_argument('--use-threads', action='store_true',
+                        help='Process symbols using multiple threads for faster execution')
+                        
+    parser.add_argument('--use-custom-symbols', '--use_custom_symbols', action='store_true',
+                        help='Use symbols as provided without adding USD suffix')
+                        
+    parser.add_argument('--duration', type=str, default='1d',
+                        help='Trading duration: format as 1d (1 day), 5h (5 hours), 30m (30 minutes)')
                         
     return parser.parse_args()
 
@@ -96,32 +121,43 @@ def get_strategy_class(strategy_name: str):
 
 
 def format_crypto_symbol(symbol: str) -> str:
-    """Format crypto symbol for API compatibility."""
-    # Check if symbol already has USD suffix
-    if symbol.endswith('USD'):
-        return symbol
-    # Add USD suffix if needed
-    return f"{symbol}USD"
+    """Format crypto symbol for Alpaca API.
+    
+    Converts symbols like 'BTC' to 'BTC/USD' format which is required by Alpaca for crypto
+    """
+    # Remove any USD suffix if present
+    symbol = symbol.upper().replace('USD', '')
+    return f"{symbol}/USD"
 
 
 async def run_crypto_options_trader(args):
     """Run crypto options trader with the provided arguments."""
     logger.info(f"Starting crypto options trader with strategy: {args.strategy}")
     
-    # Format crypto symbols
-    crypto_symbols = [format_crypto_symbol(symbol) for symbol in args.symbols]
+    # Add custom symbols support
+    if args.use_custom_symbols:
+        crypto_symbols = PERSONALIZED_CRYPTO_OPTIONS_LIST
+        logger.info(f"Utilisation de la liste personnalisée de {len(crypto_symbols)} cryptomonnaies depuis .env")
+    else:
+        if not args.symbols:
+            logger.error("Erreur: Vous devez spécifier des symboles avec --symbols ou utiliser --use-custom-symbols")
+            return
+        crypto_symbols = [format_crypto_symbol(symbol) for symbol in args.symbols]
     logger.info(f"Trading on crypto symbols: {crypto_symbols}")
     
-    # Initialize services
-    broker = AlpacaAdapter(is_paper=args.paper_trading)
-    await broker.connect()
-    
+    # Initialize services in the correct order
     market_data_service = MarketDataService()
-    options_service = OptionsService(broker)
-    trading_service = TradingService(broker, is_paper=args.paper_trading)
+    
+    # Forcer l'utilisation des données réelles pour les crypto en utilisant le même niveau d'abonnement
+    # que dans run_strategy_crypto_trader.py
+    market_data_service.subscription_level = 3
+    
+    # Initialiser le service de trading
+    trading_service = TradingService(is_paper=args.paper_trading)  # Ceci gère déjà la création du client Alpaca
+    options_service = OptionsService(trading_service, market_data_service)
     
     # Get account information
-    account = await broker.get_account()
+    account = await trading_service.get_account_info()
     account_value = float(account.get('equity', args.capital))
     logger.info(f"Account value: ${account_value:.2f}")
     
@@ -150,100 +186,237 @@ async def run_crypto_options_trader(args):
                 position_size = args.allocation_per_trade * allocation * 3
                 strategy = strategy_class(
                     underlying_symbol=symbol,
+                    account_size=account_value,
                     max_position_size=position_size,
-                    days_to_expiration=args.days_to_expiry,
+                    min_implied_volatility=0.3,  # Higher values for crypto
+                    max_implied_volatility=2.0,  # Crypto can have high volatility
+                    max_days_to_expiry=args.days_to_expiry,
+                    min_days_to_expiry=max(1, args.days_to_expiry // 2),
+                    target_delta=args.delta_target,
+                    delta_range=0.15,
                     profit_target_pct=args.profit_target,
-                    stop_loss_pct=args.stop_loss
+                    stop_loss_pct=args.stop_loss,
+                    roll_when_dte=5,  # Roll positions with 5 days to expiry
+                    use_technical_filters=True
                 )
-                strategy.broker_adapter = broker
+                # Connect strategy to our services
+                strategy.trading_service = trading_service
                 strategy.options_service = options_service
+                # Initialiser le broker pour permettre l'exécution des ordres
+                strategy.broker = trading_service
                 strategies.append(strategy)
     else:
         # Use single requested strategy
         for symbol in crypto_symbols:
             strategy = strategy_class(
                 underlying_symbol=symbol,
+                account_size=account_value,
                 max_position_size=args.allocation_per_trade,
-                days_to_expiration=args.days_to_expiry,
+                min_implied_volatility=0.3,  # Higher values for crypto
+                max_implied_volatility=2.0,  # Crypto can have high volatility
+                max_days_to_expiry=args.days_to_expiry,
+                min_days_to_expiry=max(1, args.days_to_expiry // 2),
+                target_delta=args.delta_target,
+                delta_range=0.15,
                 profit_target_pct=args.profit_target,
-                stop_loss_pct=args.stop_loss
+                stop_loss_pct=args.stop_loss,
+                roll_when_dte=5,  # Roll positions with 5 days to expiry
+                use_technical_filters=True
             )
-            strategy.broker_adapter = broker
+            # Connect strategy to our services
+            strategy.trading_service = trading_service
             strategy.options_service = options_service
+            # Initialiser le broker pour permettre l'exécution des ordres
+            strategy.broker = trading_service
             strategies.append(strategy)
     
+    # Parse duration string to timedelta
+    duration_str = args.duration.lower()
+    if duration_str.endswith('d'):
+        # Days format (e.g., '1d')
+        days = float(duration_str[:-1])
+        duration = timedelta(days=days)
+    elif duration_str.endswith('h'):
+        # Hours format (e.g., '5h')
+        hours = float(duration_str[:-1])
+        duration = timedelta(hours=hours)
+    elif duration_str.endswith('m'):
+        # Minutes format (e.g., '30m')
+        minutes = float(duration_str[:-1])
+        duration = timedelta(minutes=minutes)
+    else:
+        # Default to days if no unit specified
+        try:
+            days = float(duration_str)
+            duration = timedelta(days=days)
+        except ValueError:
+            logger.error(f"Durée non reconnue: {duration_str}. Utilisation de la durée par défaut de 1 jour.")
+            duration = timedelta(days=1)
+    
     # Run trading loop
-    end_time = datetime.now() + timedelta(days=args.duration)
+    end_time = datetime.now() + duration
     position_count = 0
     
     logger.info(f"Trading will run until: {end_time}")
     
-    try:
-        while datetime.now() < end_time and position_count < args.max_positions:
-            for strategy in strategies:
-                symbol = strategy.underlying_symbol
-                
-                # Skip if we've reached max positions
+    # Function to process a single strategy/symbol
+    async def process_strategy(strategy, position_lock):
+        nonlocal position_count, end_time
+        symbol = strategy.underlying_symbol
+        
+        while datetime.now() < end_time:
+            # Skip if we've reached max positions
+            with position_lock:
                 if position_count >= args.max_positions:
-                    break
+                    await asyncio.sleep(60)  # Wait and check again later
+                    continue
+            
+            # Get market data for crypto
+            end_date = datetime.now()
+            start_date = end_date - timedelta(days=30)  # 30 days of historical data
+            
+            try:
+                # Format correct pour l'API Alpaca - gardons le format BTC/USD car le MarketDataService s'attend à ce format
+                # et fera la conversion appropriée en interne
+                market_data = await market_data_service.get_historical_data(
+                    symbol=symbol,
+                    start_date=start_date,
+                    end_date=end_date,
+                    timeframe="1h"  # Use hourly data for crypto due to higher volatility
+                )
                 
-                # Get market data for crypto
-                end_date = datetime.now()
-                start_date = end_date - timedelta(days=30)  # 30 days of historical data
+                # Add volatility metric for crypto (not included in raw data)
+                if not market_data.empty and len(market_data) > 20:
+                    market_data['returns'] = market_data['close'].pct_change()
+                    market_data['volatility'] = market_data['returns'].rolling(window=20).std() * np.sqrt(24)  # Annualized from hourly data
                 
-                try:
-                    # For crypto, we might need specific handling in the market data service
-                    market_data = await market_data_service.get_historical_data(
-                        symbol=symbol,
-                        start_date=start_date,
-                        end_date=end_date,
-                        timeframe="1h"  # Use hourly data for crypto due to higher volatility
-                    )
+                # Only enter trades if volatility meets minimum threshold
+                # Lower threshold for demo mode to allow more trades with sample data
+                volatility_threshold = args.volatility_threshold * 0.5 if 'sample' in str(market_data_service) else args.volatility_threshold
+                
+                if (market_data.empty or 
+                    'volatility' not in market_data.columns or 
+                    market_data['volatility'].iloc[-1] < volatility_threshold):
+                    logger.info(f"Skipping {symbol} due to insufficient volatility")
+                    await asyncio.sleep(300)  # Check again in 5 minutes
+                    continue
+                
+                # Check for entry conditions
+                if await strategy.should_enter(market_data):
+                    logger.info(f"Entry signal detected for {symbol} using {strategy.__class__.__name__}")
                     
-                    # Add volatility metric for crypto (not included in raw data)
-                    if not market_data.empty and len(market_data) > 20:
-                        market_data['returns'] = market_data['close'].pct_change()
-                        market_data['volatility'] = market_data['returns'].rolling(window=20).std() * np.sqrt(24)  # Annualized from hourly data
+                    # Execute entry
+                    entry_result = await strategy.execute_entry()
                     
-                    # Only enter trades if volatility meets minimum threshold
-                    if (market_data.empty or 
-                        'volatility' not in market_data.columns or 
-                        market_data['volatility'].iloc[-1] < args.volatility_threshold):
-                        logger.info(f"Skipping {symbol} due to insufficient volatility")
-                        continue
-                    
-                    # Check for entry conditions
-                    if await strategy.should_enter(market_data):
-                        logger.info(f"Entry signal detected for {symbol} using {strategy.__class__.__name__}")
-                        
-                        # Execute entry
-                        entry_result = await strategy.execute_entry()
-                        
-                        if entry_result.get('success', False):
-                            logger.info(f"Entry executed: {entry_result}")
+                    if entry_result.get('success', False):
+                        logger.info(f"Entry executed: {entry_result}")
+                        with position_lock:
                             position_count += 1
-                        else:
-                            logger.warning(f"Entry failed: {entry_result.get('error', 'Unknown error')}")
-                    
-                    # Check for exit conditions on existing positions
-                    if hasattr(strategy, 'open_positions') and strategy.open_positions:
-                        if await strategy.should_exit("dummy_position_id", market_data):
-                            logger.info(f"Exit signal detected for {symbol}")
-                            
-                            # Execute exit
-                            exit_result = await strategy.execute_exit("dummy_position_id")
-                            
-                            if exit_result.get('success', False):
-                                logger.info(f"Exit executed: {exit_result}")
-                                position_count -= 1
-                            else:
-                                logger.warning(f"Exit failed: {exit_result.get('error', 'Unknown error')}")
+                    else:
+                        logger.warning(f"Entry failed: {entry_result.get('error', 'Unknown error')}")
                 
-                except Exception as e:
-                    logger.error(f"Error processing {symbol}: {str(e)}")
+                # Check for exit conditions if we have a position
+                # Use the appropriate method signature based on the strategy implementation
+                if hasattr(strategy, 'open_positions') and strategy.open_positions:
+                    if await strategy.should_exit("dummy_position_id", market_data):
+                        logger.info(f"Exit signal detected for {symbol}")
+                        
+                        # Execute exit
+                        exit_result = await strategy.execute_exit("dummy_position_id")
+                        
+                        if exit_result.get('success', False):
+                            logger.info(f"Exit executed: {exit_result}")
+                            with position_lock:
+                                position_count -= 1
+                    else:
+                        logger.warning(f"Exit failed: {exit_result.get('error', 'Unknown error')}")
+            
+            except Exception as e:
+                logger.error(f"Error processing {symbol}: {str(e)}")
             
             # Sleep before next iteration
             await asyncio.sleep(300)  # Check every 5 minutes for crypto
+    
+    # Run trading loop using threads or sequential processing
+    position_lock = threading.Lock()
+    
+    try:
+        # Use multithreading if requested
+        if args.use_threads:
+            logger.info(f"Using threaded processing for {len(strategies)} symbols")
+            # Create and run tasks for each strategy
+            tasks = [asyncio.create_task(process_strategy(strategy, position_lock)) for strategy in strategies]
+            # Wait for all tasks to complete or until the end time
+            await asyncio.gather(*tasks, return_exceptions=True)
+        else:
+            # Sequential processing (original behavior)
+            logger.info(f"Using sequential processing for {len(strategies)} symbols")
+            while datetime.now() < end_time and position_count < args.max_positions:
+                for strategy in strategies:
+                    symbol = strategy.underlying_symbol
+                    
+                    # Skip if we've reached max positions
+                    if position_count >= args.max_positions:
+                        break
+                    
+                    # Get market data for crypto
+                    end_date = datetime.now()
+                    start_date = end_date - timedelta(days=30)  # 30 days of historical data
+                    
+                    try:
+                        # For crypto, we might need specific handling in the market data service
+                        market_data = await market_data_service.get_historical_data(
+                            symbol=symbol,
+                            start_date=start_date,
+                            end_date=end_date,
+                            timeframe="1h"  # Use hourly data for crypto due to higher volatility
+                        )
+                        
+                        # Add volatility metric for crypto (not included in raw data)
+                        if not market_data.empty and len(market_data) > 20:
+                            market_data['returns'] = market_data['close'].pct_change()
+                            market_data['volatility'] = market_data['returns'].rolling(window=20).std() * np.sqrt(24)  # Annualized from hourly data
+                        
+                        # Only enter trades if volatility meets minimum threshold
+                        if (market_data.empty or 
+                            'volatility' not in market_data.columns or 
+                            market_data['volatility'].iloc[-1] < args.volatility_threshold):
+                            logger.info(f"Skipping {symbol} due to insufficient volatility")
+                            continue
+                        
+                        # Check for entry conditions
+                        if await strategy.should_enter(market_data):
+                            logger.info(f"Entry signal detected for {symbol} using {strategy.__class__.__name__}")
+                            
+                            # Execute entry
+                            entry_result = await strategy.execute_entry()
+                            
+                            if entry_result.get('success', False):
+                                logger.info(f"Entry executed: {entry_result}")
+                                position_count += 1
+                            else:
+                                logger.warning(f"Entry failed: {entry_result.get('error', 'Unknown error')}")
+                        
+                        # Check for exit conditions if we have a position
+                        # Use the appropriate method signature based on the strategy implementation
+                        if hasattr(strategy, 'open_positions') and strategy.open_positions:
+                            if await strategy.should_exit("dummy_position_id", market_data):
+                                logger.info(f"Exit signal detected for {symbol}")
+                                
+                                # Execute exit
+                                exit_result = await strategy.execute_exit("dummy_position_id")
+                                
+                                if exit_result.get('success', False):
+                                    logger.info(f"Exit executed: {exit_result}")
+                                    position_count -= 1
+                                else:
+                                    logger.warning(f"Exit failed: {exit_result.get('error', 'Unknown error')}")
+                    
+                    except Exception as e:
+                        logger.error(f"Error processing {symbol}: {str(e)}")
+                
+                # Sleep before next iteration
+                await asyncio.sleep(300)  # Check every 5 minutes for crypto
     
     except KeyboardInterrupt:
         logger.info("Trading interrupted by user")

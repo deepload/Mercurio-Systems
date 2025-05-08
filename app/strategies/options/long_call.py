@@ -59,7 +59,15 @@ class LongCallStrategy(BaseOptionsStrategy):
             roll_when_dte: Number of days remaining before expiration to roll the position
             use_technical_filters: Use technical filters for entry
         """
-        super().__init__(underlying_symbol, account_size, max_position_size, **kwargs)
+        # Initialize base strategy with proper parameters
+        name = f"Long Call on {underlying_symbol}"
+        description = f"Long Call strategy for {underlying_symbol} with delta {target_delta}"
+        super().__init__(name=name, description=description)
+        
+        # Store strategy-specific parameters
+        self.underlying_symbol = underlying_symbol
+        self.account_size = account_size
+        self.max_position_size = max_position_size
         
         self.min_implied_volatility = min_implied_volatility
         self.max_implied_volatility = max_implied_volatility

@@ -198,16 +198,11 @@ logger = logging.getLogger("hft_trader")
 MARKET_DATA_INTERVAL = 1  # secondes
 BACKTEST_INTERVAL = 0.1  # secondes
 
-# Liste personnalisée de cryptos à trader (format avec slash)
-PERSONALIZED_CRYPTO_LIST = [
-    "AAVE/USD", "AAVE/USDT", "AVAX/USD", "BAT/USD", "BCH/USD", 
-    "BCH/USDT", "BTC/USD", "BTC/USDT", "CRV/USD", "DOGE/USD", 
-    "DOGE/USDT", "DOT/USD", "ETH/USD", "ETH/USDT", "GRT/USD", 
-    "LINK/USD", "LINK/USDT", "LTC/USD", "LTC/USDT", "MKR/USD", 
-    "PEPE/USD", "SHIB/USD", "SOL/USD", "SUSHI/USD", "SUSHI/USDT", 
-    "TRUMP/USD", "UNI/USD", "UNI/USDT", "USDC/USD", "USDT/USD", 
-    "XRP/USD", "XTZ/USD", "YFI/USD", "YFI/USDT"
-]
+# Charger la liste personnalisée de cryptos depuis le fichier .env
+# Assurez-vous que la variable PERSONALIZED_CRYPTO_LIST est définie dans le fichier .env
+default_crypto_list = "BTC/USD,ETH/USD,SOL/USD"
+custom_crypto_list_str = os.getenv("PERSONALIZED_CRYPTO_LIST", default_crypto_list)
+PERSONALIZED_CRYPTO_LIST = [s.strip() for s in custom_crypto_list_str.split(',')]
 
 # Version sans slash pour l'API HFT
 PERSONALIZED_CRYPTO_LIST_NO_SLASH = [
