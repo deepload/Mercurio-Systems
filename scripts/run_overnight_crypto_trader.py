@@ -11,6 +11,7 @@ import sys
 import os
 import argparse
 from datetime import datetime
+from dotenv import load_dotenv
 
 # Ajouter le répertoire parent au path pour pouvoir importer le trader
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -18,43 +19,13 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 # Importer le trader de crypto
 from alpaca_crypto_trader import AlpacaCryptoTrader, SessionDuration
 
-# Liste personnalisée de cryptos à trader
-PERSONALIZED_CRYPTO_LIST = [
-    "AAVE/USD",
-    "AAVE/USDT",
-    "AVAX/USD",
-    "BAT/USD",
-    "BCH/USD",
-    "BCH/USDT",
-    "BTC/USD",
-    "BTC/USDT",
-    "CRV/USD",
-    "DOGE/USD",
-    "DOGE/USDT",
-    "DOT/USD",
-    "ETH/USD",
-    "ETH/USDT",
-    "GRT/USD",
-    "LINK/USD",
-    "LINK/USDT",
-    "LTC/USD",
-    "LTC/USDT",
-    "MKR/USD",
-    "PEPE/USD",
-    "SHIB/USD",
-    "SOL/USD",
-    "SUSHI/USD",
-    "SUSHI/USDT",
-    "TRUMP/USD",
-    "UNI/USD",
-    "UNI/USDT",
-    "USDC/USD",
-    "USDT/USD",
-    "XRP/USD",
-    "XTZ/USD",
-    "YFI/USD",
-    "YFI/USDT"
-]
+# Charger les variables d'environnement
+load_dotenv()
+
+# Obtenir la liste personnalisée de cryptos depuis .env
+default_crypto_list = "BTC/USD,ETH/USD,SOL/USD"
+custom_crypto_list_str = os.getenv("PERSONALIZED_CRYPTO_LIST", default_crypto_list)
+PERSONALIZED_CRYPTO_LIST = [s.strip() for s in custom_crypto_list_str.split(',')]
 
 def main():
     """Point d'entrée principal"""

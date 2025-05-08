@@ -1,0 +1,28 @@
+{
+  "strategy": "COVERED_CALL",
+  "start_time": "2025-05-07T16:44:27.884371",
+  "end_time": "2025-05-08T16:44:27.884371",
+  "symbols_count": 49,
+  "positions_opened": 24,
+  "settings": {
+    "strategy": "COVERED_CALL",
+    "symbols": null,
+    "filter": "top_volume",
+    "max_symbols": 50,
+    "capital": 100000.0,
+    "allocation_per_trade": 0.02,
+    "delta_target": 0.3,
+    "profit_target": 0.5,
+    "stop_loss": 0.5,
+    "technical_filter": false,
+    "paper_trading": true,
+    "duration": 1,
+    "use_threads": true,
+    "max_threads": 10,
+    "use_custom_symbols": true,
+    "custom_symbols_file": "C:\\Projects\\MercurioAI\\data\\custom_symbols_50.txt",
+    "log_trades": false,
+    "output_dir": "outputs"
+  },
+  "trades": []
+}

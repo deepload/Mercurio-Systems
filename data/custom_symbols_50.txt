@@ -1,0 +1,72 @@
+# Custom list of 50 high-volume stocks for options trading
+# These stocks have good liquidity and options availability
+# Last updated: 2023
+
+# Technology
+AAPL    # Apple Inc.
+MSFT    # Microsoft Corporation
+NVDA    # NVIDIA Corporation
+AMD     # Advanced Micro Devices, Inc.
+GOOGL   # Alphabet Inc. (Google)
+META    # Meta Platforms, Inc. (Facebook)
+AMZN    # Amazon.com, Inc.
+TSLA    # Tesla, Inc.
+INTC    # Intel Corporation
+CRM     # Salesforce, Inc.
+ORCL    # Oracle Corporation
+IBM     # International Business Machines Corporation
+
+# Finance
+JPM     # JPMorgan Chase & Co.
+BAC     # Bank of America Corporation
+WFC     # Wells Fargo & Company
+GS      # The Goldman Sachs Group, Inc.
+MS      # Morgan Stanley
+C       # Citigroup Inc.
+BLK     # BlackRock, Inc.
+
+# Healthcare
+PFE     # Pfizer Inc.
+JNJ     # Johnson & Johnson
+UNH     # UnitedHealth Group Incorporated
+ABBV    # AbbVie Inc.
+MRK     # Merck & Co., Inc.
+MDT     # Medtronic plc
+
+# Communication Services
+T       # AT&T Inc.
+VZ      # Verizon Communications Inc.
+DIS     # The Walt Disney Company
+NFLX    # Netflix, Inc.
+
+# Consumer Discretionary
+NKE     # NIKE, Inc.
+SBUX    # Starbucks Corporation
+MCD     # McDonald's Corporation
+HD      # The Home Depot, Inc.
+AMZN    # Amazon.com, Inc.
+
+# Energy
+XOM     # Exxon Mobil Corporation
+CVX     # Chevron Corporation
+COP     # ConocoPhillips
+
+# Industrials
+BA      # The Boeing Company
+GE      # General Electric Company
+CAT     # Caterpillar Inc.
+UPS     # United Parcel Service, Inc.
+
+# Materials
+FCX     # Freeport-McMoRan Inc.
+
+# Consumer Staples
+WMT     # Walmart Inc.
+PG      # The Procter & Gamble Company
+KO      # The Coca-Cola Company
+PEP     # PepsiCo, Inc.
+
+# ETFs
+SPY     # SPDR S&P 500 ETF Trust
+QQQ     # Invesco QQQ Trust
+IWM     # iShares Russell 2000 ETF
