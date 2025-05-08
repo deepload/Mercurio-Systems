@@ -87,6 +87,9 @@ def parse_arguments():
     parser.add_argument('--duration', type=int, default=1,
                         help='Trading duration in days')
                         
+    parser.add_argument('--hours', type=int, default=None,
+                        help='Trading duration in hours (overrides --duration if specified)')
+                        
     parser.add_argument('--use-threads', action='store_true',
                         help='Use threading for parallel processing of symbols')
                         
@@ -175,7 +178,7 @@ def get_thread_services():
         config = {
             'mode': 'paper',  # 'paper' ou 'live'
             'subscription_level': 1,  # Niveau d'abonnement Alpaca
-            'options_trading': False  # Options trading non activé par défaut
+            'options_trading': True  # Activer le trading d'options
         }
         broker = AlpacaAdapter(config)  # Configuration pour paper trading
         # Ne pas utiliser asyncio.run(), on doit utiliser le broker comme s'il était déjà connecté
@@ -339,7 +342,9 @@ async def run_high_volume_options_trader(args):
     
     # Initialize services
     broker_config = {
-        "mode": "paper" if args.paper_trading else "live"
+        "mode": "paper" if args.paper_trading else "live",
+        "subscription_level": 1,  # Niveau d'abonnement Alpaca
+        "options_trading": True  # Activer le trading d'options
     }
     broker = AlpacaAdapter(config=broker_config)
     await broker.connect()
@@ -373,7 +378,12 @@ async def run_high_volume_options_trader(args):
     logger.info(f"Trading on {len(symbols)} symbols: {symbols[:5]}... (and {len(symbols)-5} more)")
     
     # Run trading loop
-    end_time = datetime.now() + timedelta(days=args.duration)
+    if args.hours is not None:
+        end_time = datetime.now() + timedelta(hours=args.hours)
+        logger.info(f"Trading will run for {args.hours} hours until: {end_time}")
+    else:
+        end_time = datetime.now() + timedelta(days=args.duration)
+        logger.info(f"Trading will run for {args.duration} days until: {end_time}")
     active_positions = {}  # Dict to track active positions
     trade_results = []  # List to track all trades
     lock = threading.Lock()  # Lock for thread synchronization
@@ -431,8 +441,14 @@ async def run_high_volume_options_trader(args):
                 with open(trades_file, 'w') as f:
                     json.dump(trade_results, f, indent=2)
             
-            # Log current positions
+            # Log current positions and account value
+            account_info = await broker.get_account_info()
+            current_equity = float(account_info.get('equity', 0))
+            buying_power = float(account_info.get('buying_power', 0))
+            cash = float(account_info.get('cash', 0))
+            
             logger.info(f"Active positions: {len(active_positions)}/{args.max_symbols}")
+            logger.info(f"Account equity: ${current_equity:.2f} | Buying power: ${buying_power:.2f} | Cash: ${cash:.2f}")
             
             # Calculate loop duration and sleep for the remainder of a minute
             loop_duration = time.time() - start_loop

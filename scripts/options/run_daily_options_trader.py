@@ -33,6 +33,7 @@ from app.strategies.options.long_call import LongCallStrategy
 from app.strategies.options.long_put import LongPutStrategy
 from app.strategies.options.iron_condor import IronCondorStrategy
 from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.strategies.options.strategy_adapter import OptionsStrategyAdapter
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -107,25 +108,19 @@ async def run_options_trader(args):
     await broker.connect()
     
     market_data_service = MarketDataService()
-    options_service = OptionsService(broker)
-    trading_service = TradingService(is_paper=args.paper_trading)
+    trading_service = TradingService(broker)
+    options_service = OptionsService(trading_service, market_data_service)
     
     # Get account information
     account = await broker.get_account_info()
     account_value = float(account.get('equity', args.capital))
     logger.info(f"Account value: ${account_value:.2f}")
     
-    # Create strategy instances
-    strategy_class = get_strategy_class(args.strategy)
-    
-    if not strategy_class and args.strategy != 'MIXED':
-        logger.error(f"Unknown strategy: {args.strategy}")
-        return
-    
+    # Créer les instances de stratégie en utilisant l'adaptateur
     strategies = []
     
     if args.strategy == 'MIXED':
-        # Create a mix of different strategies for diversification
+        # Créer un mix de différentes stratégies pour la diversification
         strategy_allocation = {
             'COVERED_CALL': 0.3,
             'CASH_SECURED_PUT': 0.3,
@@ -134,33 +129,49 @@ async def run_options_trader(args):
         }
         
         for strategy_name, allocation in strategy_allocation.items():
-            strategy_class = get_strategy_class(strategy_name)
             for symbol in args.symbols:
-                # Adjust allocation based on strategy weight
+                # Ajuster l'allocation basée sur le poids de la stratégie
                 position_size = args.allocation_per_trade * allocation * 3
-                strategy = strategy_class(
-                    underlying_symbol=symbol,
-                    max_position_size=position_size,
+                
+                try:
+                    strategy = OptionsStrategyAdapter.create_strategy(
+                        strategy_name=strategy_name,
+                        symbol=symbol,
+                        market_data_service=market_data_service,
+                        trading_service=trading_service,
+                        options_service=options_service,
+                        account_size=account_value,
+                        max_position_size=position_size,
+                        days_to_expiration=args.days_to_expiry,
+                        delta_target=args.delta_target,
+                        profit_target_pct=args.profit_target,
+                        stop_loss_pct=args.stop_loss
+                    )
+                    strategies.append(strategy)
+                    logger.info(f"Stratégie {strategy_name} initialisée pour {symbol}")
+                except Exception as e:
+                    logger.error(f"Erreur lors de l'initialisation de la stratégie {strategy_name} pour {symbol}: {e}")
+    else:
+        # Utiliser une seule stratégie demandée
+        for symbol in args.symbols:
+            try:
+                strategy = OptionsStrategyAdapter.create_strategy(
+                    strategy_name=args.strategy,
+                    symbol=symbol,
+                    market_data_service=market_data_service,
+                    trading_service=trading_service,
+                    options_service=options_service,
+                    account_size=account_value,
+                    max_position_size=args.allocation_per_trade,
                     days_to_expiration=args.days_to_expiry,
+                    delta_target=args.delta_target,
                     profit_target_pct=args.profit_target,
                     stop_loss_pct=args.stop_loss
                 )
-                strategy.broker_adapter = broker
-                strategy.options_service = options_service
                 strategies.append(strategy)
-    else:
-        # Use single requested strategy
-        for symbol in args.symbols:
-            strategy = strategy_class(
-                underlying_symbol=symbol,
-                max_position_size=args.allocation_per_trade,
-                days_to_expiration=args.days_to_expiry,
-                profit_target_pct=args.profit_target,
-                stop_loss_pct=args.stop_loss
-            )
-            strategy.broker_adapter = broker
-            strategy.options_service = options_service
-            strategies.append(strategy)
+                logger.info(f"Stratégie {args.strategy} initialisée pour {symbol}")
+            except Exception as e:
+                logger.error(f"Erreur lors de l'initialisation de la stratégie {args.strategy} pour {symbol}: {e}")
     
     # Run trading loop
     end_time = datetime.now() + timedelta(days=args.duration)
@@ -171,7 +182,16 @@ async def run_options_trader(args):
     try:
         while datetime.now() < end_time and position_count < args.max_positions:
             for strategy in strategies:
-                symbol = strategy.underlying_symbol
+                # Accès sécurisé au symbole sous-jacent
+                symbol = getattr(strategy, 'underlying_symbol', None)
+                if symbol is None and hasattr(strategy, 'symbol'):
+                    symbol = strategy.symbol
+                elif symbol is None and hasattr(strategy, 'ticker'):
+                    symbol = strategy.ticker
+                    
+                if not symbol:
+                    logger.warning(f"Impossible de déterminer le symbole pour une stratégie, ignorée")
+                    continue
                 
                 # Skip if we've reached max positions
                 if position_count >= args.max_positions:
@@ -230,7 +250,7 @@ async def run_options_trader(args):
     finally:
         # Close all positions at the end
         logger.info("Closing any remaining positions...")
-        await trading_service.close_all_positions()
+        await broker.close_all_positions()
         
         # Print trading summary
         # In a real implementation, we'd track trades and calculate performance metrics

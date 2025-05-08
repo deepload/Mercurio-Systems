@@ -45,13 +45,15 @@ class OptionsService:
         
         logger.info("Options trading service initialized")
     
-    async def get_available_options(self, symbol: str, expiration_date: Optional[str] = None) -> List[Dict[str, Any]]:
+    async def get_available_options(self, symbol: str, expiration_date: Optional[str] = None, option_type: Optional[str] = None, expiry_range: Optional[Tuple[str, str]] = None) -> List[Dict[str, Any]]:
         """
         Get available options contracts for a given symbol.
         
         Args:
             symbol: The underlying asset symbol (e.g., 'AAPL')
             expiration_date: Optional specific expiration date (YYYY-MM-DD)
+            option_type: Optional type of options to filter ("call" or "put")
+            expiry_range: Optional tuple of (min_date, max_date) in YYYY-MM-DD format
             
         Returns:
             List of available options contracts
@@ -65,15 +67,33 @@ class OptionsService:
             # This represents AAPL options expiring on June 16, 2023 with a strike price of $165.00
             
             # If no expiration date is provided, get the nearest available date
-            if not expiration_date:
-                # Get the next 4 Friday expirations (typical option expiration day)
+            # Gérer la plage d'expiration si fournie
+            if expiry_range and len(expiry_range) == 2:
+                min_date, max_date = expiry_range
+                # Convertir en objets date si fournis comme chaînes
+                if isinstance(min_date, str):
+                    min_date = datetime.strptime(min_date, "%Y-%m-%d").date()
+                if isinstance(max_date, str):
+                    max_date = datetime.strptime(max_date, "%Y-%m-%d").date()
+                
+                # Trouver toutes les expirations disponibles dans cette plage
+                today = datetime.now().date()
+                expirations = []
+                
+                # Chercher les expirations dans la plage spécifiée
+                for i in range(60):  # Regarder 60 jours à l'avance
+                    date = today + timedelta(days=i)
+                    if date >= min_date and date <= max_date and date.weekday() == 4:  # Vendredi
+                        expirations.append(date.strftime("%Y-%m-%d"))
+            elif not expiration_date:
+                # Obtenir les 4 prochaines expirations de vendredi (jour typique d'expiration d'options)
                 today = datetime.now()
                 expirations = []
                 
-                # Look ahead 60 days to find expirations
+                # Regarder 60 jours à l'avance pour trouver les expirations
                 for i in range(60):
                     date = today + timedelta(days=i)
-                    # Friday is weekday 4
+                    # Vendredi est le jour 4 de la semaine
                     if date.weekday() == 4:
                         expirations.append(date.strftime("%Y-%m-%d"))
                         if len(expirations) >= 4:
@@ -127,6 +147,10 @@ class OptionsService:
                         "implied_volatility": contract.implied_volatility
                     })
                 
+                # Filter options by type if specified
+                if option_type:
+                    options = [option for option in options if option["option_type"].lower() == option_type.lower()]
+                
                 return options
                 
             except AttributeError:
@@ -141,34 +165,62 @@ class OptionsService:
                 logger.warning("Options API not fully implemented - check Alpaca API documentation")
                 
                 # Return mock data for now to allow for development
-                return [
-                    {
-                        "symbol": f"{symbol}_{expiry}_C_00100000",
-                        "underlying": symbol,
-                        "strike": 100.0,
-                        "option_type": "call",
-                        "expiration": expiration_date,
-                        "last_price": 5.65,
-                        "bid": 5.60,
-                        "ask": 5.70,
-                        "volume": 1245,
-                        "open_interest": 4325,
-                        "implied_volatility": 0.35
-                    },
-                    {
-                        "symbol": f"{symbol}_{expiry}_P_00100000",
-                        "underlying": symbol,
-                        "strike": 100.0,
-                        "option_type": "put",
-                        "expiration": expiration_date,
-                        "last_price": 4.30,
-                        "bid": 4.25,
-                        "ask": 4.35,
-                        "volume": 980,
-                        "open_interest": 3210,
-                        "implied_volatility": 0.38
-                    }
-                ]
+                options_list = []
+                
+                # Get current price
+                current_price = await self.market_data.get_latest_price(symbol)
+                
+                # Generate options at various strike prices around current price
+                strike_range = [0.7, 0.8, 0.9, 0.95, 1.0, 1.05, 1.1, 1.2, 1.3]
+                
+                for expiry in expirations:
+                    for strike_mult in strike_range:
+                        strike_price = round(current_price * strike_mult, 2)
+                        
+                        # Generate call option
+                        call_option = {
+                            "symbol": f"{symbol}_{expiry}_C_{strike_price}",
+                            "underlying": symbol,
+                            "expiration": expiry,
+                            "strike": strike_price,
+                            "option_type": "call",
+                            "bid": round(max(0.01, (current_price - strike_price) * 0.8 + 0.5), 2),
+                            "ask": round(max(0.01, (current_price - strike_price) * 0.8 + 0.7), 2),
+                            "implied_volatility": 0.3,
+                            "delta": max(0.01, min(0.99, 1 - (strike_price / current_price))),
+                            "gamma": 0.01,
+                            "theta": -0.01,
+                            "vega": 0.05
+                        }
+                        
+                        # Generate put option
+                        put_option = {
+                            "symbol": f"{symbol}_{expiry}_P_{strike_price}",
+                            "underlying": symbol,
+                            "expiration": expiry,
+                            "strike": strike_price,
+                            "option_type": "put",
+                            "bid": round(max(0.01, (strike_price - current_price) * 0.8 + 0.5), 2),
+                            "ask": round(max(0.01, (strike_price - current_price) * 0.8 + 0.7), 2),
+                            "implied_volatility": 0.3,
+                            "delta": -max(0.01, min(0.99, 1 - (current_price / strike_price))),
+                            "gamma": 0.01,
+                            "theta": -0.01,
+                            "vega": 0.05
+                        }
+                        
+                        # Ajouter les options selon le type demandé
+                        if option_type:
+                            if option_type.lower() == "call":
+                                options_list.append(call_option)
+                            elif option_type.lower() == "put":
+                                options_list.append(put_option)
+                        else:
+                            # Si aucun type n'est spécifié, ajouter les deux
+                            options_list.append(call_option)
+                            options_list.append(put_option)
+                
+                return options_list
                 
         except Exception as e:
             logger.error(f"Error fetching options chain: {e}")

@@ -98,6 +98,8 @@ Plusieurs scripts spécialisés sont maintenant disponibles pour le trading d'op
    # Définir des objectifs de profit et stop-loss personnalisés
    python -m scripts.options.run_daily_options_trader --strategy IRON_CONDOR --symbols SPY QQQ --capital 100000 --profit-target 0.3 --stop-loss 0.7 --days-to-expiry 14
    ```
+   
+   > **Note**: Pour une liste exhaustive de plus de 50 exemples détaillés, consultez le fichier `docs/options_examples.md`.
 
 2. **Trading d'options basé sur le ML**
 
