@@ -21,6 +21,68 @@ Le système de trading d'options s'intègre parfaitement à l'architecture exist
 ### Diagramme de flux
 
 ```
+┌───────────────┐    ┌────────────────┐    ┌──────────────────┐
+│ Stratégies ML │───▶│ Options Strategy│───▶│ Options Service  │
+│ existantes    │    │                │    │                  │
+└───────────────┘    └────────────────┘    └──────────────────┘
+                             │                      │
+                             ▼                      ▼
+                     ┌────────────────┐    ┌──────────────────┐
+                     │ Market Data    │    │ Execution via    │
+                     │ Service        │    │ Alpaca API       │
+                     └────────────────┘    └──────────────────┘
+```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 
@@ -156,6 +218,57 @@ asyncio.run(sentiment_based_options())
                      └────────────────┘    └──────────────────┘
 ```
 
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
+
 ## Backtesting des Stratégies d'Options
 
 Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
@@ -284,6 +397,57 @@ asyncio.run(sentiment_based_options())
 Les paramètres de trading d'options sont configurables via le fichier `config/daytrader_config.json` dans la section `stock.options_trading` :
 
 ```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 
@@ -430,6 +594,57 @@ asyncio.run(sentiment_based_options())
   "strict_position_sizing": true
 }
 ```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 
@@ -710,6 +925,57 @@ Outil complet pour tester toutes les stratégies d'options, validant leur initia
 
 ```
 
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
+
 ## Backtesting des Stratégies d'Options
 
 Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
@@ -855,6 +1121,57 @@ class OptionsService:
         # Suggère des stratégies d'options basées sur les prédictions de prix
 ```
 
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
+
 ## Backtesting des Stratégies d'Options
 
 Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
@@ -981,6 +1298,57 @@ asyncio.run(sentiment_based_options())
 ### OptionsStrategy
 
 ```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 
@@ -1117,6 +1485,57 @@ class OptionsStrategy(Strategy):
     async def optimize(self, symbol: str, historical_data: List[Dict[str, Any]], timeframe: TimeFrame = TimeFrame.DAY) -> Dict[str, Any]:
         # Optimise les paramètres de la stratégie d'options
 ```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 
@@ -1274,6 +1693,57 @@ Ces fonctions permettent une analyse sophistiquée des options et facilitent l'�
 
 ```
 
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
+
 ## Backtesting des Stratégies d'Options
 
 Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
@@ -1411,6 +1881,57 @@ options_service = OptionsService(
 )
 ```
 
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
+
 ## Backtesting des Stratégies d'Options
 
 Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
@@ -1537,6 +2058,57 @@ asyncio.run(sentiment_based_options())
 ### Création d'une stratégie d'options basée sur une stratégie existante
 
 ```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 
@@ -1682,6 +2254,57 @@ if signal.get("action") != TradeAction.HOLD:
         strategy_name=options_strategy.name
     )
 ```
+
+## Trading d'Options sur Crypto-monnaies
+
+Mercurio AI comprend une fonctionnalité spécifique pour le trading d'options sur crypto-monnaies via l'API Alpaca. Le script `scripts/options/run_crypto_options_trader.py` permet d'exécuter diverses stratégies d'options sur un large éventail de crypto-monnaies.
+
+### Fonctionnalités principales
+
+- Trading d'options sur les principales crypto-monnaies (BTC, ETH, SOL, etc.)
+- Utilisation des vraies données Alpaca (pas de simulation)
+- Stratégies multiples : Long Call, Long Put, Iron Condor, Butterfly Spread
+- Mode "MIXED" combinant plusieurs stratégies pour la diversification
+- Trading en mode paper ou live
+- Utilisation d'une liste personnalisée de crypto disponibles dans le fichier `.env`
+- Exécution parallèle avec l'option `--use-threads`
+
+### Exemples d'utilisation
+
+```bash
+# Stratégie unique avec des symboles spécifiques
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000 --paper-trading --duration 2h
+
+# Utilisation de la liste personnalisée de crypto en mode MIXED
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+
+# Ajustement du seuil de volatilité pour augmenter les opportunités de trading
+python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+```
+
+### Configuration des crypto-monnaies
+
+Pour définir votre liste personnalisée de crypto-monnaies, ajoutez-les dans votre fichier `.env` :
+
+```
+# Liste personnalisée des crypto-monnaies disponibles sur Alpaca
+PERSONALIZED_CRYPTO_LIST=BTC/USD,ETH/USD,SOL/USD,DOT/USD,AVAX/USD,XRP/USD,DOGE/USD,LINK/USD,LTC/USD,AAVE/USD,BCH/USD,UNI/USD,BAT/USD,CRV/USD,SHIB/USD,BTC/USDT,ETH/USDT,BCH/USDT,AAVE/USDT
+```
+
+**Note importante** : Assurez-vous d'utiliser le format correct avec slashs (`BTC/USD`) et non `BTCUSD`, car l'API Alpaca nécessite ce format pour les crypto-monnaies.
+
+### Paramètres de configuration
+
+- `--strategy` : La stratégie à utiliser (LONG_CALL, LONG_PUT, IRON_CONDOR, BUTTERFLY, MIXED)
+- `--symbols` : Liste des symboles crypto à trader (non requis si `--use-custom-symbols` est utilisé)
+- `--use-custom-symbols` : Utilise la liste personnalisée dans le fichier `.env`
+- `--capital` : Montant de capital à utiliser pour le trading
+- `--duration` : Durée d'exécution du script (format : 1h, 30m, 1d)
+- `--paper-trading` : Utilise le mode paper trading (pas de vrais ordres)
+- `--use-threads` : Exécute le trading avec plusieurs threads en parallèle
+- `--volatility-threshold` : Seuil de volatilité minimum pour entrer dans une position (par défaut : 0.05)
+- `--days-to-expiry` : Nombre de jours avant l'expiration des options
+- `--delta-target` : Delta cible pour la sélection des options (par défaut : 0.4)
 
 ## Backtesting des Stratégies d'Options
 

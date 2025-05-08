@@ -83,23 +83,111 @@ Ce script teste toutes les stratégies d'options pour :
 Plusieurs scripts spécialisés sont maintenant disponibles pour le trading d'options :
 
 1. **Trading quotidien d'options**
+
+   Le script `run_daily_options_trader.py` permet d'exécuter des stratégies d'options quotidiennes sur les actions.
+   
+   **Exemples d'utilisation :**
+   
    ```bash
+   # Stratégie de base avec des symboles spécifiques
    python -m scripts.options.run_daily_options_trader --strategy COVERED_CALL --symbols AAPL MSFT --capital 100000
+   
+   # Personnalisation des paramètres de stratégie
+   python -m scripts.options.run_daily_options_trader --strategy LONG_CALL --symbols AAPL MSFT GOOG --capital 100000 --allocation-per-trade 0.03 --days-to-expiry 45 --paper-trading
+   
+   # Définir des objectifs de profit et stop-loss personnalisés
+   python -m scripts.options.run_daily_options_trader --strategy IRON_CONDOR --symbols SPY QQQ --capital 100000 --profit-target 0.3 --stop-loss 0.7 --days-to-expiry 14
    ```
 
 2. **Trading d'options basé sur le ML**
+
+   Le script `run_ml_options_trader.py` permet de combiner les modèles de machine learning avec des stratégies d'options.
+   
+   **Exemples d'utilisation :**
+   
    ```bash
-   python -m scripts.options.run_ml_options_trader --ml-strategy LSTM --options-strategy COVERED_CALL --symbols AAPL MSFT
+   # Utilisation du modèle LSTM pour COVERED_CALL
+   python -m scripts.options.run_ml_options_trader --ml-strategy LSTM --options-strategy COVERED_CALL --symbols AAPL MSFT --capital 100000
+   
+   # Mode AUTO pour sélection automatique de la stratégie basée sur les signaux ML
+   python -m scripts.options.run_ml_options_trader --ml-strategy TRANSFORMER --options-strategy AUTO --symbols AAPL MSFT GOOG --capital 100000 --confidence-threshold 0.7
+   
+   # Utilisation de l'analyse de sentiment LLM pour les décisions d'options
+   python -m scripts.options.run_ml_options_trader --ml-strategy LLM --options-strategy AUTO --symbols TSLA AAPL MSFT --capital 100000 --paper-trading
+   
+   # Analyse multi-source pour plus de précision
+   python -m scripts.options.run_ml_options_trader --ml-strategy MSI --options-strategy AUTO --symbols AAPL MSFT GOOG --capital 100000 --confidence-threshold 0.75
    ```
 
 3. **Trading d'options à haut volume**
+
+   Le script `run_high_volume_options_trader.py` permet de trader des options sur un grand nombre de symboles simultanément (jusqu'à 50).
+   
+   **Exemples d'utilisation :**
+   
    ```bash
-   python -m scripts.options.run_high_volume_options_trader --strategy COVERED_CALL --max-symbols 50 --use-threads --use-custom-symbols
+   # Trading sur les actions les plus volumineuses (jusqu'à 50)
+   python -m scripts.options.run_high_volume_options_trader --strategy COVERED_CALL --max-symbols 50 --use-threads --capital 100000
+   
+   # Utilisation d'une liste personnalisée de symboles
+   python -m scripts.options.run_high_volume_options_trader --strategy CASH_SECURED_PUT --use-custom-symbols --capital 100000 --use-threads --paper-trading
+   
+   # Sélection du top 20 des actions les plus volatiles
+   python -m scripts.options.run_high_volume_options_trader --strategy IRON_CONDOR --filter most_volatile --max-symbols 20 --capital 100000 --technical-filter --use-threads
+   
+   # Utilisation du filtrage technique et limitation des allocations
+   python -m scripts.options.run_high_volume_options_trader --strategy COVERED_CALL --filter top_gainers --max-symbols 30 --allocation-per-trade 0.02 --technical-filter --use-threads
    ```
 
 4. **Trading d'options sur crypto**
+
+   Le script `run_crypto_options_trader.py` permet de trader des options sur crypto-monnaies en utilisant les stratégies suivantes :
+   
+   - Stratégie unique: LONG_CALL, LONG_PUT, IRON_CONDOR, ou BUTTERFLY 
+   - Stratégie combinée: MIXED (combine automatiquement plusieurs stratégies)
+   
+   **Exemples d'utilisation :**
+   
    ```bash
-   python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000
+   # Utilisation de base avec des symbôles spécifiques
+   python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH SOL --capital 50000 --paper-trading
+   
+   # Utilisation de la liste personnalisée des crypto-monnaies dans .env
+   python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --use-custom-symbols --capital 50000 --paper-trading
+   
+   # Combinaison de plusieurs stratégies avec MIXED
+   python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --capital 50000 --paper-trading --use-threads
+   
+   # Ajustement du seuil de volatilité pour permettre plus d'entrées
+   python -m scripts.options.run_crypto_options_trader --strategy MIXED --use-custom-symbols --volatility-threshold 0.02 --capital 50000 --paper-trading
+   
+   # Trading en mode live (attention: vérifiez votre compte d'abord)
+   python -m scripts.options.run_crypto_options_trader --strategy MIXED --symbols BTC ETH --capital 50000
+   
+   # Durée personnalisée (format: 1h, 30m, 1d)
+   python -m scripts.options.run_crypto_options_trader --strategy LONG_PUT --symbols BTC ETH --capital 50000 --duration 2h
+   ```
+   
+   **Important** : Ce script utilise maintenant les vraies données d'Alpaca pour les crypto disponibles.
+
+5. **Test des stratégies d'options**
+
+   Le script `test_options_strategies.py` permet de tester toutes les stratégies d'options pour s'assurer de leur bon fonctionnement.
+   
+   **Exemples d'utilisation :**
+   
+   ```bash
+   # Tester toutes les stratégies d'options
+   python -m scripts.options.test_options_strategies --test-all
+   
+   # Tester une stratégie spécifique
+   python -m scripts.options.test_options_strategies --strategy COVERED_CALL
+   
+   # Test ciblé sur les conditions d'entrée/sortie
+   python -m scripts.options.test_options_strategies --strategy LONG_CALL --test-entry-exit
+   
+   # Test complet d'une seule stratégie
+   python -m scripts.options.test_options_strategies --strategy IRON_CONDOR --test-initialization --test-entry-exit --test-execution --test-risk-management --test-edge-cases
    ```
 
 ## Personnalisation
