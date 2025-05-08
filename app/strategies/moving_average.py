@@ -413,6 +413,111 @@ class MovingAverageStrategy(BaseStrategy):
         self.params.update(model_data['params'])
         self.is_trained = True
         self.use_ml = True
+        
+    def get_signal(self, symbol: str, data: pd.DataFrame) -> Dict[str, Any]:
+        """
+        Generate a trading signal for the HFTrader.
+        
+        This method analyzes price data and generates a trading signal based on
+        the moving average crossover strategy.
+        
+        Args:
+            symbol: The trading symbol (e.g., 'BTC/USD')
+            data: DataFrame containing price data with at least 'close' column
+            
+        Returns:
+            Dictionary containing action, confidence, and reason
+        """
+        # Ensure data is properly preprocessed
+        if len(data) < max(self.short_window, self.long_window):
+            logger.warning(f"Insufficient data for signal generation: {len(data)} rows")
+            return {"action": TradeAction.HOLD, "confidence": 0, "reason": "Insufficient data"}
+            
+        # Preprocess data to calculate moving averages if they don't exist
+        if 'short_ma' not in data.columns or 'long_ma' not in data.columns:
+            # Since this is now a synchronous method, we can't use await
+            # Instead we'll calculate the moving averages directly
+            # Calculate short and long moving averages
+            short_win = min(self.short_window, max(2, len(data)//2))
+            long_win = min(self.long_window, max(short_win+1, len(data)-1))
+            data['short_ma'] = data['close'].rolling(window=short_win, min_periods=1).mean()
+            data['long_ma'] = data['close'].rolling(window=long_win, min_periods=1).mean()
+            
+        if data.empty or 'short_ma' not in data.columns or 'long_ma' not in data.columns:
+            logger.warning("Failed to calculate moving averages")
+            return {"action": TradeAction.HOLD, "confidence": 0, "reason": "Preprocessing failed"}
+        
+        # Get the last row for signal generation
+        last_row = data.iloc[-1]
+        
+        # Calculate signal based on moving average crossover
+        action = TradeAction.HOLD
+        confidence = 0.5  # Default confidence
+        reason = ""
+        
+        # Moving Average Crossover logic
+        if len(data) >= 2:
+            prev_row = data.iloc[-2]
+            
+            # Check for upward crossover (buy signal)
+            if (prev_row['short_ma'] <= prev_row['long_ma']) and (last_row['short_ma'] > last_row['long_ma']):
+                action = TradeAction.BUY
+                # Calculate confidence based on the strength of the crossover
+                crossover_strength = (last_row['short_ma'] - last_row['long_ma']) / last_row['long_ma']
+                confidence = min(0.5 + abs(crossover_strength) * 100, 0.9)  # Scale confidence, cap at 0.9
+                reason = f"Moving Average Crossover (Buy): short_ma crossed above long_ma (strength: {crossover_strength:.4f})"
+            
+            # Check for downward crossover (sell signal)
+            elif (prev_row['short_ma'] >= prev_row['long_ma']) and (last_row['short_ma'] < last_row['long_ma']):
+                action = TradeAction.SELL
+                # Calculate confidence based on the strength of the crossover
+                crossover_strength = (last_row['long_ma'] - last_row['short_ma']) / last_row['long_ma']
+                confidence = min(0.5 + abs(crossover_strength) * 100, 0.9)  # Scale confidence, cap at 0.9
+                reason = f"Moving Average Crossover (Sell): short_ma crossed below long_ma (strength: {crossover_strength:.4f})"
+            
+            # No crossover, but check trend strength for potential signals
+            else:
+                ma_difference = (last_row['short_ma'] - last_row['long_ma']) / last_row['long_ma']
+                
+                # Strong uptrend
+                if ma_difference > 0.02:  # 2% difference
+                    action = TradeAction.BUY
+                    confidence = min(0.5 + abs(ma_difference) * 20, 0.8)  # Lower max confidence for trend continuation
+                    reason = f"Strong Uptrend: short_ma {ma_difference:.2%} above long_ma"
+                
+                # Strong downtrend
+                elif ma_difference < -0.02:  # -2% difference
+                    action = TradeAction.SELL
+                    confidence = min(0.5 + abs(ma_difference) * 20, 0.8)  # Lower max confidence for trend continuation
+                    reason = f"Strong Downtrend: short_ma {abs(ma_difference):.2%} below long_ma"
+                
+                # No strong signal
+                else:
+                    reason = f"No clear signal: MA Difference: {ma_difference:.2%}"
+        else:
+            reason = "Insufficient historical data for crossover detection"
+        
+        # Enhance signal with ML if available
+        if self.use_ml and self.model is not None:
+            try:
+                # Since we're in a synchronous context, we can't use await directly
+                # For now, we'll skip the ML enhancement and just use the classic signal
+                # In a real implementation, you'd want to make predict() synchronous as well
+                # or use another approach to handle the coroutine
+                logger.info(f"ML enhancement skipped in sync get_signal for {symbol}")
+                
+                # Note: If you need to use predict() and it must be async, one option would be:
+                # - Update the HFTrader to await this method properly
+                # - Or implement a synchronous version of predict() specifically for get_signal
+            except Exception as e:
+                logger.warning(f"Failed to get ML prediction: {e}")
+                # Continue with classic signal
+        
+        return {
+            "action": action,
+            "confidence": confidence,
+            "reason": reason
+        }
 
 
 # Backtrader strategy for backtesting with the backtrader library

@@ -1,6 +1,11 @@
 {
-  "strategy_type": "moving_average_ml",
-  "params": {},
+  "strategy_type": "stat_arb",
+  "params": {
+    "volatility_lookback": 10,
+    "position_size": 0.02,
+    "stop_loss": 0.03,
+    "take_profit": 0.06
+  },
   "symbols": [
     "AAVE/USD",
     "AAVE/USDT",

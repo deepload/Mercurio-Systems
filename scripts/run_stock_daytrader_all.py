@@ -36,6 +36,17 @@ import numpy as np
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(project_root)
 
+# Importer le gestionnaire de taux API
+try:
+    from scripts.api_rate_manager import rate_limited
+    USE_RATE_MANAGER = True
+    logging.getLogger("stock_daytrader").info("Gestionnaire de taux API chargé avec succès")
+except ImportError:
+    # Fonction de repli si le module n'est pas disponible
+    def rate_limited(f):
+        return f
+    USE_RATE_MANAGER = False
+    logging.getLogger("stock_daytrader").warning("Gestionnaire de taux API non disponible, risque de limites de taux")
 
 # API Alpaca
 import alpaca_trade_api as tradeapi
@@ -437,7 +448,8 @@ class StockDayTrader:
                  auto_retrain: bool = False,
                  retrain_interval: int = 6,
                  retrain_symbols: int = 10,
-                 api_level: int = 0):
+                 api_level: int = 0,
+                 cycle_interval: int = 0):
         """
         Initialiser le système de daytrading
         
@@ -542,6 +554,47 @@ class StockDayTrader:
         
         logger.info("StockDayTrader initialisé")
         
+    # Méthodes API rate-limited pour Alpaca
+    @rate_limited
+    def get_asset(self, symbol):
+        """Version rate-limited de api.get_asset"""
+        return self.api.get_asset(symbol)
+    
+    @rate_limited
+    def get_bars(self, symbol, timeframe, start, end):
+        """Version rate-limited de api.get_bars"""
+        return self.api.get_bars(symbol, timeframe, start, end)
+    
+    @rate_limited
+    def get_position(self, symbol):
+        """Version rate-limited de api.get_position"""
+        return self.api.get_position(symbol)
+    
+    @rate_limited
+    def get_account(self):
+        """Version rate-limited de api.get_account"""
+        return self.api.get_account()
+    
+    @rate_limited
+    def list_positions(self):
+        """Version rate-limited de api.list_positions"""
+        return self.api.list_positions()
+    
+    @rate_limited
+    def submit_order(self, **kwargs):
+        """Version rate-limited de api.submit_order"""
+        return self.api.submit_order(**kwargs)
+    
+    @rate_limited
+    def list_assets(self, **kwargs):
+        """Version rate-limited de api.list_assets"""
+        return self.api.list_assets(**kwargs)
+    
+    @rate_limited
+    def get_clock(self):
+        """Version rate-limited de api.get_clock"""
+        return self.api.get_clock()
+    
     def initialize(self):
         """Initialiser les services et charger la configuration"""
         try:
@@ -554,7 +607,7 @@ class StockDayTrader:
             )
             
             # Vérifier que le client est correctement initialisé
-            account = self.api.get_account()
+            account = self.get_account()
             if account:
                 self.portfolio_value = float(account.portfolio_value)
                 self.initial_portfolio_value = self.portfolio_value
@@ -641,12 +694,12 @@ class StockDayTrader:
         try:
             if self.stock_filter == StockFilter.ALL:
                 # Récupérer tous les actifs disponibles
-                assets = self.api.list_assets(status='active', asset_class='us_equity')
+                assets = self.list_assets(status='active', asset_class='us_equity')
                 symbols = [asset.symbol for asset in assets if asset.tradable]
                 
             elif self.stock_filter == StockFilter.ACTIVE_ASSETS:
                 # Récupérer les actifs les plus actifs en terme de volume
-                assets = self.api.list_assets(status='active', asset_class='us_equity')
+                assets = self.list_assets(status='active', asset_class='us_equity')
                 symbols = [asset.symbol for asset in assets if asset.tradable]
                 
                 # Trier par volume (simuler - en réalité, on utiliserait les données de volume)
@@ -656,13 +709,13 @@ class StockDayTrader:
             elif self.stock_filter == StockFilter.TOP_VOLUME:
                 # Récupérer les actifs avec le plus gros volume
                 # Dans un système réel, on devrait faire une requête spécifique pour cela
-                assets = self.api.list_assets(status='active', asset_class='us_equity')
+                assets = self.list_assets(status='active', asset_class='us_equity')
                 symbols = [asset.symbol for asset in assets if asset.tradable]
                 symbols = symbols[:min(50, len(symbols))]
                 
             elif self.stock_filter == StockFilter.TOP_GAINERS:
                 # Simuler les top gainers pour la démo
-                assets = self.api.list_assets(status='active', asset_class='us_equity')
+                assets = self.list_assets(status='active', asset_class='us_equity')
                 symbols = [asset.symbol for asset in assets if asset.tradable]
                 symbols = symbols[:min(30, len(symbols))]
                 
@@ -1107,23 +1160,32 @@ class StockDayTrader:
         finally:
             setattr(self, 'is_retraining', False)
     
-    def calculate_wait_time(self, cycle_duration: float) -> int:
-        """Calculer le temps d'attente entre les cycles"""
-        # Temps d'attente de base selon le type de stratégie
-        base_wait_time = 60  # 1 minute par défaut
+    def calculate_wait_time(self, cycle_duration=0):
+        """Calculer le temps d'attente entre les cycles de trading"""
+        # Vérifier si un intervalle de cycle fixe est défini
+        if hasattr(self, 'cycle_interval') and self.cycle_interval > 0:
+            logger.info(f"Utilisation d'un intervalle fixe de {self.cycle_interval} secondes entre les cycles")
+            return self.cycle_interval
+            
+        # Si aucun intervalle fixe défini, calcul automatique basé sur la charge de travail
+        logger.info("Calcul automatique du temps d'attente en fonction du nombre de symboles et de la stratégie")
         
-        if self.strategy_type in [TradingStrategy.MOVING_AVERAGE, TradingStrategy.MOVING_AVERAGE_ML]:
-            base_wait_time = 60  # Les stratégies de moyenne mobile sont plus rapides
-        elif self.strategy_type in [TradingStrategy.LSTM_PREDICTOR, TradingStrategy.TRANSFORMER]:
-            base_wait_time = 300  # Les stratégies ML sont plus lentes et nécessitent moins de mises à jour
-        elif self.strategy_type == TradingStrategy.MSI:
-            base_wait_time = 180  # La stratégie MSI est de fréquence moyenne
-        elif self.strategy_type == TradingStrategy.ALL:
-            base_wait_time = 120  # Compromis pour toutes les stratégies
+        # Temps d'attente de base (en secondes)
+        base_wait_time = 30
         
-        # Ajuster en fonction du nombre d'actions (plus d'actions = plus de temps entre les cycles)
+        # Ajuster en fonction du nombre de symboles
         if len(self.symbols) > 20:
             base_wait_time *= 1.5
+        if len(self.symbols) > 50:
+            base_wait_time *= 1.5
+            
+        # Ajuster en fonction de la stratégie (les stratégies ML sont plus lentes)
+        if self.strategy_type in [TradingStrategy.LSTM_PREDICTOR, TradingStrategy.TRANSFORMER, TradingStrategy.MSI, TradingStrategy.LLM]:
+            base_wait_time *= 1.5
+            
+        # Pour les stratégies multiples, augmenter encore le temps d'attente
+        if self.strategy_type == TradingStrategy.ALL:
+            base_wait_time *= 2
         
         # S'assurer que le temps d'attente n'est pas inférieur au temps nécessaire pour exécuter le cycle
         # Ajouter un tampon de 10 secondes
@@ -1160,7 +1222,7 @@ class StockDayTrader:
         try:
             # Vérifier l'état du trading pour ce symbole
             try:
-                asset = self.api.get_asset(symbol)
+                asset = self.get_asset(symbol)
                 if not asset.tradable:
                     logger.warning(f"{symbol} n'est pas tradable, ignoré")
                     return
@@ -1172,7 +1234,7 @@ class StockDayTrader:
             try:
                 end = datetime.now()
                 start = end - timedelta(days=30)  # Historique de 30 jours
-                bars = self.api.get_bars(symbol, '1D', start.strftime('%Y-%m-%d'), end.strftime('%Y-%m-%d')).df
+                bars = self.get_bars(symbol, '1D', start.strftime('%Y-%m-%d'), end.strftime('%Y-%m-%d')).df
                 
                 if bars.empty:
                     logger.warning(f"Pas de données disponibles pour {symbol}")
@@ -1187,7 +1249,7 @@ class StockDayTrader:
             # Vérifier si nous avons déjà une position sur ce symbole
             position = None
             try:
-                position = self.api.get_position(symbol)
+                position = self.get_position(symbol)
                 logger.info(f"Position existante pour {symbol}: {float(position.qty)} actions @ ${float(position.avg_entry_price):.2f}")
             except Exception:
                 # Pas de position existante
@@ -1616,6 +1678,8 @@ def main():
                     default='market_hours', help='Type de session de trading')
     parser.add_argument('--market-check-interval', type=int, default=30,
                     help='Intervalle en minutes pour vérifier l\'état du marché (en mode continuous)')
+    parser.add_argument('--cycle-interval', type=int, default=0,
+                    help='Intervalle en secondes entre les cycles de trading (0 = automatique)')
     parser.add_argument('--use-threads', action='store_true',
                         help='Utiliser le multithreading pour le traitement des symboles')
     parser.add_argument('--use-custom-symbols', action='store_true',
@@ -1705,7 +1769,8 @@ def main():
         auto_retrain=args.auto_retrain,
         retrain_interval=args.retrain_interval,
         retrain_symbols=args.retrain_symbols,
-        api_level=args.api_level
+        api_level=args.api_level,
+        cycle_interval=args.cycle_interval
     )
     
     # Démarrer le trader

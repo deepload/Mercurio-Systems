@@ -6,11 +6,13 @@ external data providers with a pluggable provider system.
 """
 import os
 import logging
+import json
 from typing import Dict, Any, List, Optional, Union
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import asyncio
+import requests
 
 # For Alpaca API (legacy support)
 import alpaca_trade_api as tradeapi
@@ -48,6 +50,10 @@ class MarketDataService:
         # Set active provider based on preference or availability
         self.active_provider_name = provider_name
         self._active_provider = None
+        
+        # Vérifier le niveau d'abonnement Alpaca (1=Basic, 2=Pro, 3=AlgoTrader Plus)
+        self.subscription_level = int(os.getenv("ALPACA_SUBSCRIPTION_LEVEL", "1"))
+        logger.info(f"Alpaca subscription level: {self.subscription_level}")
         
         # Initialize Alpaca client with support for both paper and live trading
         # Déterminer le mode Alpaca (paper ou live)
@@ -219,59 +225,59 @@ class MarketDataService:
                     # Use RFC3339 for intraday bars
                     start_str = start_date.isoformat() + "Z"
                     end_str = end_date.isoformat() + "Z"
-                # Convertir le format du symbole pour les cryptos si nécessaire
+                # Détecter si c'est une crypto (format BTC-USD ou BTC/USD)
+                is_crypto = "-USD" in symbol or "/USD" in symbol
                 alpaca_symbol = symbol
-                is_crypto = "-USD" in symbol
                 
                 if is_crypto:
-                    # Format correct pour l'API crypto d'Alpaca: BTC/USD (avec slash)
-                    alpaca_symbol = symbol.replace("-USD", "/USD")
-                    logging.info(f"Converting crypto symbol format for Alpaca: {symbol} -> {alpaca_symbol}")
-                
-                # Utiliser l'endpoint approprié selon qu'il s'agit d'une crypto ou d'une action
-                # Pour les cryptos, utiliser l'API spécifique d'Alpaca selon la documentation officielle
-                if is_crypto:
-                    logger.info(f"Cryptocurrency detected: {symbol}. Using dedicated Alpaca crypto API.")
+                    # S'assurer que le format est correct pour l'API crypto d'Alpaca: BTC/USD (avec slash)
+                    if "-USD" in symbol:
+                        alpaca_symbol = symbol.replace("-USD", "/USD")
+                        logging.info(f"Converting crypto symbol format for Alpaca: {symbol} -> {alpaca_symbol}")
+                    elif "/USD" in symbol:
+                        alpaca_symbol = symbol  # Déjà au bon format
                     
-                    # D'après la documentation Alpaca, les crypto utilisent un endpoint spécifique
+                    logger.info(f"Cryptocurrency detected: {symbol}. Using dedicated v1beta3 crypto API directly.")
+                    
+                    # Utiliser EXCLUSIVEMENT l'API crypto v1beta3 pour les cryptomonnaies
                     # https://docs.alpaca.markets/docs/crypto-trading
-                    success = False
-                    crypto_methods = [
-                        # 1. API crypto v1beta3 (format recommandé dans la doc)
-                        lambda: self._get_crypto_data_v1beta3(alpaca_symbol, start_str, end_str, alpaca_timeframe),
+                    try:
+                        data = self._get_crypto_data_v1beta3(alpaca_symbol, start_str, end_str, alpaca_timeframe)
                         
-                        # 2. Méthode SDK avec get_crypto_bars (si disponible)
-                        lambda: self.alpaca_client.get_crypto_bars(
-                            alpaca_symbol, alpaca_timeframe, start=start_str, end=end_str
-                        ).df,
+                        if data is None or data.empty:
+                            warning_msg = f"Warning: No data retrieved for {symbol} through the v1beta3 crypto API. Will attempt fallback methods."
+                            logger.warning(warning_msg)
+                    
+                            # Tenter d'utiliser l'API standard comme dernière tentative
+                            try:
+                                logger.info(f"Attempting fallback with standard API for {symbol}")
+                                data = self.alpaca_client.get_bars(
+                                    alpaca_symbol, 
+                                    alpaca_timeframe,
+                                    start=start_str,
+                                    end=end_str
+                                ).df
                         
-                        # 3. Méthode générique get_bars comme dernier recours
-                        lambda: self.alpaca_client.get_bars(
-                            alpaca_symbol.replace("/", ""), alpaca_timeframe, start=start_str, end=end_str
-                        ).df
-                    ]
-                    
-                    # Essayer chaque méthode en séquence jusqu'à ce qu'une fonctionne
-                    for i, method in enumerate(crypto_methods):
-                        try:
-                            if i == 0:  # Pour la méthode API directe
-                                data = method()
-                                if data is not None and not data.empty:
-                                    success = True
-                                    break
-                            else:  # Pour les méthodes SDK
-                                data = method()
-                                success = True
-                                break
-                        except Exception as e:
-                            error_msg = str(e)[:100]
-                            logger.warning(f"Crypto method {i+1} failed: {error_msg}")
-                            if "403" in error_msg or "Forbidden" in error_msg:
-                                logger.warning("Access denied (403). Your plan may not include crypto data.")
-                    
-                    # Si aucune méthode n'a fonctionné, lever une exception claire
-                    if not success:
-                        raise ValueError(f"Could not get crypto data for {symbol} from Alpaca. Your plan may not include crypto data.")
+                                if not data.empty:
+                                    logger.info(f"Successfully retrieved data via standard API for {symbol}")
+                                    # Rename columns to lowercase
+                                    data.columns = [col.lower() for col in data.columns]
+                                    return data
+                            except Exception as e_fallback:
+                                logger.warning(f"Fallback attempt also failed for {symbol}: {str(e_fallback)[:200]}")
+                                # Continue to next fallback method or return empty DataFrame
+                        else:
+                            # On a bien les données, retourner immédiatement
+                            return data
+                    except Exception as e:
+                        error_msg = f"Direct crypto API call failed for {symbol}: {str(e)[:200]}"
+                        logger.error(error_msg)
+                        
+                        # Vérifier spécifiquement les erreurs d'autorisation
+                        if "403" in str(e) or "Forbidden" in str(e):
+                            logger.error(f"Access denied (403). Your Alpaca plan likely does not include crypto data access for {symbol}.")
+                            
+                        raise ValueError(f"Failed to get crypto data for {symbol}. Error: {str(e)[:200]}")
                 else:
                     # Pour les actions, utiliser l'API stock standard (plus simple)
                     logger.info(f"Using standard stock API for {symbol}")
@@ -296,9 +302,14 @@ class MarketDataService:
                     logger.error(f"Alpaca response content: {e.response.text}")
                 traceback.print_exc()
         
-        # Fallback to sample data if API calls fail
-        logger.warning(f"Using sample data for {symbol} as fallback")
-        return await self._generate_sample_data(symbol, start_date, end_date, timeframe)
+        # Si on a un abonnement premium, ne pas utiliser les données de repli
+        if self.subscription_level >= 3:
+            logger.error(f"Failed to get data for {symbol} despite premium subscription level {self.subscription_level}. Check API access and symbol validity.")
+            return pd.DataFrame()  # Renvoie un DataFrame vide au lieu de données de repli
+        else:
+            # Fallback to sample data if API calls fail
+            logger.warning(f"Using sample data for {symbol} as fallback")
+            return await self._generate_sample_data(symbol, start_date, end_date, timeframe)
     
     async def get_latest_price(self, symbol: str, provider_name: Optional[str] = None) -> float:
         """
@@ -467,95 +478,282 @@ class MarketDataService:
             return ["BTC-USD", "ETH-USD", "XRP-USD", "LTC-USD", "DOGE-USD"]
         else:
             return ["AAPL", "MSFT", "AMZN", "GOOGL", "META"]
-    
     # Méthode pour appeler directement l'API crypto d'Alpaca selon la documentation officielle
     def _get_crypto_data_v1beta3(self, symbol: str, start_str: str, end_str: str, timeframe: str) -> pd.DataFrame:
         """
-        Appelle directement l'API Crypto d'Alpaca en v1beta3 selon la documentation officielle
-        https://docs.alpaca.markets/docs/crypto-trading
+        Appelle directement l'API Crypto d'Alpaca en v1beta3 en utilisant exactement la même approche 
+        que celle qui fonctionne dans le script HFT.
         
         Args:
             symbol: Le symbole crypto au format BTC/USD
-            start_str: Date de début au format string
-            end_str: Date de fin au format string
-            timeframe: Intervalle de temps (1Day, 1Hour, etc.)
+            start_str: Date de début au format string (ISO 8601)
+            end_str: Date de fin au format string (ISO 8601)
+            timeframe: Intervalle de temps (1Day, 1Hour, 1Min, etc.)
             
         Returns:
-            DataFrame avec les données crypto ou None en cas d'échec
+            DataFrame avec les données crypto ou DataFrame vide en cas d'échec
         """
-        import requests
+        # Utilisation de la méthode qui fonctionne dans le HFT Trader
+        logger.info(f"Making direct API call to Alpaca crypto endpoint for {symbol}")
+        
+        # Construction de l'URL exactement comme dans le HFT Trader
+        endpoint = "https://data.alpaca.markets/v1beta3/crypto/us/bars"
+        
+        # Adapter le timeframe au format de l'API v1beta3 si nécessaire
+        v1beta3_timeframe = timeframe
+        if timeframe == "1Day":
+            v1beta3_timeframe = "1D"
+        elif timeframe == "1Hour":
+            v1beta3_timeframe = "1H"
+        
+        # S'assurer que le symbole est au format correct (BTC/USD)
+        formatted_symbol = self._ensure_symbol_format(symbol)
+        
+        # Paramètres de la requête - comme dans le HFT Trader qui fonctionne
+        params = {
+            "symbols": formatted_symbol,
+            "timeframe": v1beta3_timeframe
+        }
+        
+        # Ajout des paramètres optionnels
+        if start_str:
+            params["start"] = start_str
+        if end_str:
+            params["end"] = end_str
+        if self.subscription_level >= 3:  # Pour les abonnements premium, demander plus de données
+            params["limit"] = 1000
+        
+        # En-têtes d'authentification
+        headers = {
+            "APCA-API-KEY-ID": self.alpaca_key,
+            "APCA-API-SECRET-KEY": self.alpaca_secret
+        }
         
         try:
-            # Format de l'URL selon la documentation
-            # https://data.alpaca.markets/v1beta3/crypto/us/bars
-            base_url = "https://data.alpaca.markets/v1beta3/crypto/us/bars"
+            # Appel API direct sans passer par la bibliothèque
+            import requests
+            response = requests.get(endpoint, params=params, headers=headers)
             
-            # Adapter le timeframe au format de l'API v1beta3
-            v1beta3_timeframe = timeframe
-            if timeframe == "1Day":
-                v1beta3_timeframe = "1D"
-            elif timeframe == "1Hour":
-                v1beta3_timeframe = "1H"
-            
-            # Paramètres de la requête
-            params = {
-                "symbols": symbol,
-                "timeframe": v1beta3_timeframe,
-                "start": start_str,
-                "end": end_str,
-                "limit": 1000
-            }
-            
-            # En-têtes avec authentification
-            headers = {
-                "APCA-API-KEY-ID": self.alpaca_key,
-                "APCA-API-SECRET-KEY": self.alpaca_secret
-            }
-            
-            # Exécuter la requête
-            logger.info(f"Making direct API call to Alpaca crypto endpoint for {symbol}")
-            response = requests.get(base_url, params=params, headers=headers)
-            
-            # Vérifier le statut de la réponse
             if response.status_code == 200:
                 data = response.json()
                 
-                # Vérifier que nous avons des données pour ce symbole
-                if data and "bars" in data and symbol in data["bars"] and len(data["bars"][symbol]) > 0:
-                    # Convertir les données en DataFrame
-                    bars = data["bars"][symbol]
-                    df = pd.DataFrame(bars)
+                # Gérer toutes les structures possibles de réponse de l'API Alpaca
+                # Logger les clés disponibles pour débogage
+                logger.debug(f"API response keys: {list(data.keys())}")
+                
+                # Cas 1: Réponse avec structure standard (le plus commun)
+                bars_data = None
+                
+                if 'bars' in data:
+                    # 1.1: Structure standard avec le symbole comme clé
+                    if isinstance(data['bars'], dict):
+                        if formatted_symbol in data['bars'] and data['bars'][formatted_symbol]:
+                            logger.info(f"Standard response structure for {formatted_symbol}")
+                            bars_data = data['bars'][formatted_symbol]
+                        # 1.2: Structure dictionnaire mais sans notre symbole exact
+                        elif data['bars']:  # Le dictionnaire contient d'autres données
+                            # Vérifier si une version modifiée du symbole est présente
+                            available_symbols = list(data['bars'].keys())
+                            logger.debug(f"Available symbols in response: {available_symbols}")
+                            
+                            # Essayer de trouver des correspondances partielles
+                            for available_symbol in available_symbols:
+                                if formatted_symbol.replace('/', '') in available_symbol or \
+                                   available_symbol in formatted_symbol or \
+                                   formatted_symbol in available_symbol:
+                                    logger.info(f"Found partial match: {available_symbol} for requested {formatted_symbol}")
+                                    bars_data = data['bars'][available_symbol]
+                                    break
                     
-                    # Renommer et formater les colonnes pour correspondre au format attendu
-                    df.rename(columns={
-                        "t": "timestamp",
-                        "o": "open",
-                        "h": "high",
-                        "l": "low",
-                        "c": "close",
-                        "v": "volume"
-                    }, inplace=True)
+                    # 1.3: Structure où 'bars' est une liste directe
+                    elif isinstance(data['bars'], list) and len(data['bars']) > 0:
+                        logger.info(f"Direct list structure detected for {formatted_symbol}")
+                        bars_data = data['bars']
+                
+                # Cas 2: Réponse avec pagination (cas comme MATIC/USD)
+                elif 'next_page_token' in data and 'bars' in data:
+                    logger.info(f"Pagination structure detected for {formatted_symbol}")
+                    # Pour ce cas, 'bars' peut être une liste directe ou un dictionnaire
+                    if isinstance(data['bars'], list) and len(data['bars']) > 0:
+                        logger.info(f"Paginated list structure detected for {formatted_symbol}")
+                        bars_data = data['bars']
+                    elif isinstance(data['bars'], dict) and len(data['bars']) > 0:
+                        # 2.1: Dictionnaire avec notre symbole
+                        if formatted_symbol in data['bars']:
+                            bars_data = data['bars'][formatted_symbol]
+                        # 2.2: Dictionnaire avec une version modifiée du symbole
+                        else:
+                            available_symbols = list(data['bars'].keys())
+                            for available_symbol in available_symbols:
+                                if formatted_symbol.replace('/', '') in available_symbol or \
+                                   available_symbol in formatted_symbol or \
+                                   formatted_symbol in available_symbol:
+                                    logger.info(f"Found partial match in pagination: {available_symbol}")
+                                    bars_data = data['bars'][available_symbol]
+                                    break
+                    elif isinstance(data['bars'], list) and len(data['bars']) > 0:
+                        bars_data = data['bars']
+                
+                # Cas 3: Réponse avec structure alternative (parfois rencontrée)
+                elif 'data' in data and isinstance(data['data'], list) and len(data['data']) > 0:
+                    logger.info(f"Alternative data structure detected for {formatted_symbol}")
+                    bars_data = data['data']
+                
+                # Si nous avons extrait des données, convertissons-les en DataFrame
+                if bars_data:
+                    # Créer un DataFrame à partir des données extraites
+                    df = pd.DataFrame(bars_data)
                     
-                    # Convertir la colonne timestamp en datetime
-                    df["timestamp"] = pd.to_datetime(df["timestamp"])
-                    df.set_index("timestamp", inplace=True)
-                    
-                    logger.info(f"Successfully retrieved {len(df)} bars for {symbol} from Alpaca v1beta3 API")
-                    return df
+                    # Vérifier que les colonnes nécessaires sont présentes
+                    required_columns = ['t', 'o', 'h', 'l', 'c', 'v']
+                    if all(col in df.columns for col in required_columns):
+                        # Conversion de la colonne timestamp en datetime
+                        df['timestamp'] = pd.to_datetime(df['t'])
+                        df = df.set_index('timestamp')
+                        
+                        # Renommer les colonnes pour correspondre au format attendu
+                        column_mapping = {
+                            'o': 'open',
+                            'h': 'high',
+                            'l': 'low',
+                            'c': 'close',
+                            'v': 'volume'
+                        }
+                        
+                        # Ajouter les colonnes optionnelles si elles sont présentes
+                        if 'n' in df.columns:
+                            column_mapping['n'] = 'trade_count'
+                        if 'vw' in df.columns:
+                            column_mapping['vw'] = 'vwap'
+                            
+                        df = df.rename(columns=column_mapping)
+                        
+                        logger.info(f"Successfully retrieved {len(df)} bars for {formatted_symbol}")
+                        return df
+                    else:
+                        missing = [col for col in required_columns if col not in df.columns]
+                        logger.warning(f"Missing required columns for {formatted_symbol}: {missing}")
+                        logger.debug(f"Available columns: {df.columns.tolist()}")
                 else:
-                    logger.warning(f"No data returned for {symbol} from Alpaca v1beta3 API")
-                    return pd.DataFrame()
+                    # Aucune donnée trouvée dans la réponse
+                    logger.warning(f"No valid data structure found for {formatted_symbol}")
+                    logger.debug(f"Response structure: {json.dumps(data)[:500]}...")
+                    
+                # Si on est arrivé ici, c'est qu'aucune donnée n'a été trouvée ou qu'elle est mal formée
+                available_symbols = list(data.get('bars', {}).keys()) if isinstance(data.get('bars', {}), dict) else []
+                logger.warning(f"No data returned for {formatted_symbol}. Available symbols: {available_symbols}")
+                logger.warning(f"No data returned for {formatted_symbol} from Alpaca v1beta3 API")
             else:
-                error_msg = f"API error: {response.status_code} {response.text[:100]}"
-                logger.warning(error_msg)
-                # Vérifier spécifiquement les erreurs d'autorisation
-                if response.status_code == 403:
-                    logger.warning("Received 403 Forbidden. Your Alpaca plan likely does not include crypto data access.")
-                return pd.DataFrame()
+                logger.warning(f"API request failed with status code {response.status_code}: {response.text}")
                 
         except Exception as e:
-            logger.warning(f"Error in direct API call to Alpaca: {str(e)[:200]}")
-            return pd.DataFrame()
+            logger.error(f"Error in direct API call for {formatted_symbol}: {str(e)}")
+        
+        # Si nous arrivons ici, cela signifie que l'API v1beta3 a échoué, essayons les méthodes de fallback
+        logger.warning(f"Warning: No data retrieved for {formatted_symbol} through the v1beta3 crypto API. Will attempt fallback methods.")
+        
+        # Tentative de récupération des données via l'API standard (peut ne pas fonctionner pour toutes les cryptos)
+        try:
+            logger.info(f"Attempting fallback with standard API for {formatted_symbol}")
+            # Extraction des parties du symbole (par exemple BTC/USD -> BTC et USD)
+            parts = formatted_symbol.split('/')
+            if len(parts) == 2:
+                ticker = parts[0]
+                currency = parts[1]
+                
+                # Construction du endpoint pour l'API standard
+                url = f"https://data.alpaca.markets/v2/stocks/{ticker}/{currency}/bars"
+                
+                # Paramètres de la requête
+                params = {
+                    'timeframe': timeframe,
+                    'adjustment': 'raw',
+                    'start': start_str,
+                    'end': end_str
+                }
+                
+                response = requests.get(url, params=params, headers=headers)
+                if response.status_code == 200:
+                    data = response.json()
+                    if 'bars' in data and data['bars']:
+                        bars_data = data['bars']
+                        df = pd.DataFrame(bars_data)
+                        df['timestamp'] = pd.to_datetime(df['t'])
+                        df = df.set_index('timestamp')
+                        
+                        # Renommer les colonnes selon le format attendu
+                        df = df.rename(columns={
+                            'o': 'open',
+                            'h': 'high',
+                            'l': 'low',
+                            'c': 'close',
+                            'v': 'volume',
+                            'n': 'trade_count',
+                            'vw': 'vwap'
+                        })
+                        
+                        return df
+                    else:
+                        logger.warning(f"No data in response for {formatted_symbol}")
+                else:
+                    logger.warning(f"Fallback attempt also failed for {formatted_symbol}: {response.status_code} {response.reason} for url: {response.url}")
+            else:
+                logger.warning(f"Invalid symbol format: {formatted_symbol}, cannot extract ticker and currency")
+        except Exception as e:
+            logger.error(f"Error in fallback attempt for {formatted_symbol}: {str(e)}")
+        
+        logger.error(f"Failed to get data for {formatted_symbol} despite premium subscription level {self.subscription_level}. Check API access and symbol validity.")
+        return pd.DataFrame()
+
+    def _ensure_symbol_format(self, symbol: str) -> str:
+        """Assure que le symbole est dans le bon format pour l'API v1beta3.
+        Cette méthode est utilisée par HFTrader et réussit à formater correctement."""
+        if not symbol:
+            return ""
+        
+        # Si le symbole est déjà au format BTC/USD, le retourner tel quel
+        if "/" in symbol:
+            return symbol
+        
+        # Si c'est au format BTCUSD, convertir en BTC/USD
+        if symbol.endswith("USD"):
+            base = symbol[:-3]
+            return f"{base}/USD"
+        
+        # Sinon, retourner le symbole original
+        return symbol
+
+    def _ensure_crypto_symbol_format(self, symbol):
+        """
+        Standardise le format des symboles crypto pour l'API v1beta3 (format BTC/USD)
+        """
+        # Pour l'API crypto v1beta3, on utilise toujours le format avec slash (BTC/USD)
+        if "/" not in symbol:
+            # Cas 1: Format BTCUSD -> BTC/USD
+            if symbol.endswith("USD"):
+                base = symbol[:-3]
+                formatted_symbol = f"{base}/USD"
+                logger.debug(f"Standardized crypto symbol format: {symbol} -> {formatted_symbol}")
+                return formatted_symbol
+            # Cas 2: Format BTC-USD -> BTC/USD
+            elif "-USD" in symbol:
+                formatted_symbol = symbol.replace("-USD", "/USD")
+                logger.debug(f"Standardized crypto symbol format: {symbol} -> {formatted_symbol}")
+                return formatted_symbol
+            # Autres cas inconnus - essayer quand même d'extraire la base
+            elif "USD" in symbol:
+                idx = symbol.index("USD")
+                base = symbol[:idx]
+                formatted_symbol = f"{base}/USD"
+                logger.debug(f"Attempted to standardize unknown format: {symbol} -> {formatted_symbol}")
+                return formatted_symbol
+            else:
+                # Format inconnu, on laisse tel quel avec avertissement
+                logger.warning(f"Unknown crypto symbol format: {symbol}, keeping as is")
+                return symbol
+        else:
+            # Déjà au format attendu avec slash
+            return symbol
     
     # Legacy method for backward compatibility - delegates to sample provider
     async def _generate_sample_data(
