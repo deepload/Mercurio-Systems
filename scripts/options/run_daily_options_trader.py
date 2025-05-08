@@ -25,7 +25,7 @@ sys.path.insert(0, project_root)
 
 from app.services.market_data import MarketDataService
 from app.services.options_service import OptionsService
-from app.services.trading_service import TradingService
+from app.services.trading import TradingService
 from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
 from app.strategies.options.covered_call import CoveredCallStrategy
 from app.strategies.options.cash_secured_put import CashSecuredPutStrategy
@@ -33,11 +33,8 @@ from app.strategies.options.long_call import LongCallStrategy
 from app.strategies.options.long_put import LongPutStrategy
 from app.strategies.options.iron_condor import IronCondorStrategy
 from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
-from app.utils.logger_config import setup_logging
-
-
 # Configure logging
-setup_logging(log_level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
@@ -102,16 +99,19 @@ async def run_options_trader(args):
     logger.info(f"Starting options trader with strategy: {args.strategy}")
     logger.info(f"Trading on symbols: {args.symbols}")
     
-    # Initialize services
-    broker = AlpacaAdapter(is_paper=args.paper_trading)
+    # Initialize Alpaca services
+    broker_config = {
+        "mode": "paper" if args.paper_trading else "live"
+    }
+    broker = AlpacaAdapter(config=broker_config)
     await broker.connect()
     
     market_data_service = MarketDataService()
     options_service = OptionsService(broker)
-    trading_service = TradingService(broker, is_paper=args.paper_trading)
+    trading_service = TradingService(is_paper=args.paper_trading)
     
     # Get account information
-    account = await broker.get_account()
+    account = await broker.get_account_info()
     account_value = float(account.get('equity', args.capital))
     logger.info(f"Account value: ${account_value:.2f}")
     

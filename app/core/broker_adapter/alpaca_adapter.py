@@ -100,11 +100,11 @@ class AlpacaAdapter(BrokerAdapter):
         """
         try:
             # Initialiser le client REST API
+            # Initialiser le client REST API sans data_url qui n'est pas supporté dans cette version
             self.api = REST(
                 key_id=self.api_key,
                 secret_key=self.api_secret,
                 base_url=self.base_url,
-                data_url=self.data_url,
                 api_version='v2'
             )
             

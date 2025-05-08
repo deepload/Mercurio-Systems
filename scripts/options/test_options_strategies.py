@@ -36,14 +36,12 @@ from app.strategies.options.long_call import LongCallStrategy
 from app.strategies.options.long_put import LongPutStrategy
 from app.strategies.options.iron_condor import IronCondorStrategy
 from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
-from app.utils.logger_config import setup_logging
 from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
 from app.utils.math_utils import black_scholes_call, black_scholes_put
 
 # Configure logging
-setup_logging(log_level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
 
 def parse_arguments():
     """Parse command line arguments for the options strategy tester."""
