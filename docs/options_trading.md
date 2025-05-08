@@ -9,7 +9,7 @@
 
 ## Introduction
 
-Ce document décrit les fonctionnalités de trading d'options implémentées dans la plateforme Mercurio AI. Le module de trading d'options permet d'exploiter l'abonnement Alpaca AlgoTrader Plus avec Options Trading Level 1 pour exécuter des stratégies de trading d'options basées sur les signaux générés par les autres stratégies du système.
+Ce document décrit les fonctionnalités avancées de trading d'options implémentées dans la plateforme Mercurio AI. Le module de trading d'options permet d'exploiter l'abonnement Alpaca AlgoTrader Plus avec Options Trading Levels 1-3 pour exécuter diverses stratégies de trading d'options, des plus simples aux plus complexes. Ces stratégies peuvent être utilisées seules ou en combinaison avec les modèles de machine learning intégrés pour optimiser les performances.
 
 ## Architecture
 
@@ -20,6 +20,129 @@ Le système de trading d'options s'intègre parfaitement à l'architecture exist
 
 ### Diagramme de flux
 
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```
 ┌───────────────┐    ┌────────────────┐    ┌──────────────────┐
 │ Stratégies ML │───▶│ Options Strategy│───▶│ Options Service  │
@@ -33,10 +156,256 @@ Le système de trading d'options s'intègre parfaitement à l'architecture exist
                      └────────────────┘    └──────────────────┘
 ```
 
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
+```
+
 ## Configuration
 
 Les paramètres de trading d'options sont configurables via le fichier `config/daytrader_config.json` dans la section `stock.options_trading` :
 
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```json
 "options_trading": {
   "enabled": true,
@@ -62,6 +431,129 @@ Les paramètres de trading d'options sont configurables via le fichier `config/d
 }
 ```
 
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
+```
+
 ### Paramètres de configuration
 
 | Paramètre | Description | Valeurs possibles |
@@ -80,9 +572,11 @@ Les paramètres de trading d'options sont configurables via le fichier `config/d
 
 ## Stratégies d'options disponibles
 
-Les stratégies suivantes sont disponibles pour le trading d'options de niveau 1 :
+Mercurio AI prend désormais en charge un large éventail de stratégies d'options, des stratégies simples de niveau 1 aux stratégies avancées de niveau 3 :
 
-### Long Call
+### Stratégies de Niveau 1
+
+#### Long Call
 
 **Description** : Achat d'une option d'achat, donnant le droit d'acheter l'actif sous-jacent à un prix déterminé.
 
@@ -92,7 +586,7 @@ Les stratégies suivantes sont disponibles pour le trading d'options de niveau 1
 
 **Gain potentiel** : Théoriquement illimité à mesure que le prix de l'actif sous-jacent augmente.
 
-### Long Put
+#### Long Put
 
 **Description** : Achat d'une option de vente, donnant le droit de vendre l'actif sous-jacent à un prix déterminé.
 
@@ -102,7 +596,7 @@ Les stratégies suivantes sont disponibles pour le trading d'options de niveau 1
 
 **Gain potentiel** : Limité au prix d'exercice moins la prime payée (si le prix tombe à zéro).
 
-### Cash-Secured Put
+#### Cash-Secured Put
 
 **Description** : Vente d'une option de vente avec suffisamment de liquidités pour acheter l'actif sous-jacent si l'option est exercée.
 
@@ -112,7 +606,7 @@ Les stratégies suivantes sont disponibles pour le trading d'options de niveau 1
 
 **Gain potentiel** : Limité au montant de la prime reçue.
 
-### Covered Call
+#### Covered Call
 
 **Description** : Vente d'une option d'achat tout en détenant l'actif sous-jacent.
 
@@ -122,10 +616,221 @@ Les stratégies suivantes sont disponibles pour le trading d'options de niveau 1
 
 **Gain potentiel** : Limité au montant de la prime reçue plus l'appréciation potentielle jusqu'au prix d'exercice.
 
+### Stratégies de Niveau 2
+
+#### Iron Condor
+
+**Description** : Combinaison de quatre options différentes (vente d'un spread call et vente d'un spread put) pour créer une fourchette de prix où le trader peut réaliser un profit.
+
+**Utilisation** : Lorsque vous anticipez une faible volatilité et un marché stagnant dans une fourchette définie.
+
+**Risque** : Limité à la différence entre les prix d'exercice des options achetées et vendues, moins la prime nette reçue.
+
+**Gain potentiel** : Limité au montant de la prime nette reçue.
+
+#### Butterfly Spread
+
+**Description** : Combinaison de trois prix d'exercice différents avec quatre contrats d'options pour créer une position qui profite lorsque le prix de l'actif sous-jacent reste proche du prix d'exercice central.
+
+**Utilisation** : Lorsque vous anticipez que le prix de l'actif sous-jacent restera stable près d'un niveau cible.
+
+**Risque** : Limité au coût initial de la stratégie (primes nettes payées).
+
+**Gain potentiel** : Maximal lorsque le prix de l'actif est exactement au prix d'exercice central à l'expiration.
+
+### Stratégies Avancées (Niveau 3)
+
+#### Straddle/Strangle
+
+**Description** : Achat simultané d'options d'achat et de vente au même prix d'exercice (straddle) ou à des prix d'exercice différents (strangle).
+
+**Utilisation** : Lorsque vous anticipez une forte volatilité mais êtes incertain de la direction du mouvement.
+
+**Risque** : Limité aux primes totales payées pour les deux options.
+
+**Gain potentiel** : Théoriquement illimité si le prix du sous-jacent bouge significativement dans l'une ou l'autre direction.
+
+#### Calendar Spread
+
+**Description** : Combinaison d'options avec le même prix d'exercice mais des dates d'expiration différentes.
+
+**Utilisation** : Pour profiter de la différence de décroissance temporelle entre les options à court et à long terme.
+
+**Risque** : Limité au coût initial de la stratégie.
+
+**Gain potentiel** : Maximal lorsque le prix du sous-jacent est proche du prix d'exercice à l'expiration de l'option à court terme.
+
+## Nouveaux Scripts pour le Trading d'Options
+
+Mercurio AI inclut désormais plusieurs scripts spécialisés pour différentes approches du trading d'options :
+
+### 1. Trading d'Options Quotidien
+
+```bash
+python -m scripts.options.run_daily_options_trader --strategy COVERED_CALL --symbols AAPL MSFT --capital 100000
+```
+
+Ce script exécute des stratégies d'options sur une base quotidienne, en surveillant les opportunités pendant les heures de marché et en ajustant les positions selon les conditions du marché.
+
+### 2. Trading d'Options Basé sur le ML
+
+```bash
+python -m scripts.options.run_ml_options_trader --ml-strategy LSTM --options-strategy COVERED_CALL --symbols AAPL MSFT --capital 100000
+```
+
+Ce script combine les capacités de prédiction des modèles ML (LSTM, Transformer, LLM, MSI) avec des stratégies d'options pour des décisions de trading plus précises.
+
+### 3. Trading d'Options à Haut Volume
+
+```bash
+python -m scripts.options.run_high_volume_options_trader --strategy COVERED_CALL --max-symbols 50 --use-threads --use-custom-symbols
+```
+
+Optimisé pour trader jusqu'à 50 symboles simultanément avec une exécution parallèle pour une performance maximale.
+
+### 4. Trading d'Options sur Crypto
+
+```bash
+python -m scripts.options.run_crypto_options_trader --strategy LONG_CALL --symbols BTC ETH --capital 50000
+```
+
+Spécialement conçu pour les spécificités du trading d'options sur cryptomonnaies, avec des paramètres adaptés à leur volatilité plus élevée.
+
+### 5. Test des Stratégies d'Options
+
+```bash
+python -m scripts.options.test_options_strategies --test-all
+```
+
+Outil complet pour tester toutes les stratégies d'options, validant leur initialisation, conditions d'entrée/sortie, exécution, et gestion des risques.
+
 ## API des services d'options
 
 ### OptionsService
 
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```python
 class OptionsService:
     def __init__(self, trading_service: TradingService, market_data_service: MarketDataService):
@@ -150,8 +855,254 @@ class OptionsService:
         # Suggère des stratégies d'options basées sur les prédictions de prix
 ```
 
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
+```
+
 ### OptionsStrategy
 
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```python
 class OptionsStrategy(Strategy):
     def __init__(self, options_service: OptionsService, base_strategy_name: str, risk_profile: str = "moderate", max_days_to_expiry: int = 45, preferred_option_types: List[str] = None):
@@ -167,10 +1118,283 @@ class OptionsStrategy(Strategy):
         # Optimise les paramètres de la stratégie d'options
 ```
 
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
+```
+
+## Outils Mathématiques pour les Options
+
+Mercurio AI inclut désormais un module d'utilitaires mathématiques complet pour la tarification des options et le calcul des sensibilités (Grecs) :
+
+```python
+from app.utils.math_utils import (
+    black_scholes_call, black_scholes_put,
+    calculate_implied_volatility,
+    calculate_delta, calculate_gamma, calculate_theta, calculate_vega
+)
+
+# Exemple de tarification d'option
+prix_call = black_scholes_call(
+    S=100,         # Prix actuel du sous-jacent
+    K=105,         # Prix d'exercice
+    t=30/365,      # Temps jusqu'à l'expiration (en années)
+    r=0.03,        # Taux d'intérêt sans risque
+    sigma=0.2      # Volatilité implicite
+)
+
+# Calcul des Grecs
+delta = calculate_delta(S=100, K=105, t=30/365, r=0.03, sigma=0.2, option_type='call')
+vega = calculate_vega(S=100, K=105, t=30/365, r=0.03, sigma=0.2)
+```
+
+Ces fonctions permettent une analyse sophistiquée des options et facilitent l'évaluation précise des opportunités de trading.
+
 ## Exemples d'utilisation
 
 ### Initialisation du service d'options
 
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```python
 from app.services.trading import TradingService
 from app.services.market_data import MarketDataService
@@ -187,8 +1411,253 @@ options_service = OptionsService(
 )
 ```
 
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
+```
+
 ### Création d'une stratégie d'options basée sur une stratégie existante
 
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```python
 from app.strategies.options_strategy import OptionsStrategy
 
@@ -212,6 +1681,129 @@ if signal.get("action") != TradeAction.HOLD:
         quantity=1,
         strategy_name=options_strategy.name
     )
+```
+
+## Backtesting des Stratégies d'Options
+
+Mercurio AI propose un service de backtesting spécifique pour les stratégies d'options :
+
+```python
+from app.services.options_backtester import OptionsBacktester
+from app.strategies.options.covered_call import CoveredCallStrategy
+import asyncio
+
+async def backtest_covered_call():
+    # Initialiser le backtester
+    backtester = OptionsBacktester()
+    
+    # Configurer les paramètres de stratégie
+    strategy_params = {
+        "max_position_size": 0.05,
+        "days_to_expiration": 30,
+        "profit_target_pct": 0.5,
+        "stop_loss_pct": 0.5
+    }
+    
+    # Exécuter le backtest
+    results = await backtester.run_backtest(
+        strategy_class=CoveredCallStrategy,
+        symbols=["AAPL", "MSFT"],
+        strategy_params=strategy_params,
+        timeframe="1d",
+        report_name="covered_call_backtest"
+    )
+    
+    print(f"Rendement total: {results['total_return']:.2f}%")
+    print(f"Ratio de Sharpe: {results['sharpe_ratio']:.2f}")
+
+# Exécuter le backtest
+asyncio.run(backtest_covered_call())
+```
+
+## Trading d'Options Multi-Stratégies
+
+Pour des approches plus sophistiquées, Mercurio AI permet d'exécuter plusieurs stratégies d'options simultanément :
+
+```python
+from app.services.options_service import OptionsService
+from app.strategies.options.iron_condor import IronCondorStrategy
+from app.strategies.options.butterfly_spread import ButterflySpreadStrategy
+from app.services.trading_service import TradingService
+from app.core.broker_adapter.alpaca_adapter import AlpacaAdapter
+import asyncio
+
+async def run_multi_strategy():
+    # Initialiser les services
+    broker = AlpacaAdapter(is_paper=True)
+    await broker.connect()
+    
+    trading_service = TradingService(broker, is_paper=True)
+    options_service = OptionsService(broker)
+    
+    # Créer les stratégies
+    iron_condor = IronCondorStrategy(
+        underlying_symbol="SPY",
+        max_position_size=0.05,
+        days_to_expiration=45
+    )
+    iron_condor.broker_adapter = broker
+    iron_condor.options_service = options_service
+    
+    butterfly = ButterflySpreadStrategy(
+        underlying_symbol="QQQ",
+        max_position_size=0.03,
+        days_to_expiration=30
+    )
+    butterfly.broker_adapter = broker
+    butterfly.options_service = options_service
+    
+    # Exécuter les stratégies
+    strategies = [iron_condor, butterfly]
+    
+    for strategy in strategies:
+        should_enter = await strategy.should_enter(None)  # Normalement, vous passeriez des données de marché ici
+        
+        if should_enter:
+            result = await strategy.execute_entry()
+            print(f"Entrée pour {strategy.__class__.__name__}: {result}")
+
+# Exécuter les stratégies
+asyncio.run(run_multi_strategy())
+```
+
+## Intégration avec l'Analyse de Sentiment
+
+Mercurio AI peut maintenant intégrer l'analyse de sentiment pour améliorer les décisions de trading d'options :
+
+```python
+from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.options.long_call import LongCallStrategy
+import asyncio
+
+async def sentiment_based_options():
+    # Initialiser la stratégie LLM pour l'analyse de sentiment
+    llm_strategy = LLMStrategy()
+    
+    # Analyser le sentiment pour un symbole
+    sentiment_data = await llm_strategy.analyze_sentiment("AAPL")
+    
+    # Déterminer la stratégie d'options basée sur le sentiment
+    if sentiment_data['sentiment_score'] > 0.7:  # Sentiment très positif
+        strategy = LongCallStrategy(
+            underlying_symbol="AAPL",
+            max_position_size=0.05,
+            days_to_expiration=30
+        )
+        print("Sentiment très positif - Utilisation de Long Call Strategy")
+    elif sentiment_data['sentiment_score'] < 0.3:  # Sentiment négatif
+        # Utiliser une stratégie adaptée au sentiment négatif
+        print("Sentiment négatif - Utilisation de Long Put Strategy")
+    else:
+        # Sentiment neutre
+        print("Sentiment neutre - Utilisation de Iron Condor Strategy")
+
+# Exécuter l'analyse
+asyncio.run(sentiment_based_options())
 ```
 
 ## Bonnes pratiques et considérations de risque
