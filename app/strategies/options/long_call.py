@@ -670,20 +670,21 @@ class LongCallStrategy(BaseOptionsStrategy):
             bool: True if conditions are met, False otherwise
         """
         try:
-            # Check account balance
-            account_info = await self.broker.get_account()
-            if not account_info or not account_info.get("buying_power"):
+            # Check account balance - no await since get_account() is not async
+            account = self.broker.get_account()
+            if not account:
                 logger.warning("Unable to retrieve account information")
                 return False
                 
-            buying_power = float(account_info.get("buying_power", 0))
+            # Access account properties directly without using get()
+            buying_power = float(account.buying_power) if hasattr(account, 'buying_power') else 0
             
             if buying_power < 2000:  # Minimum required for Long Call
                 logger.warning(f"Insufficient buying power for Long Call strategy: {buying_power}")
                 return False
                 
             # Check if options trading is enabled
-            if not self.broker.enable_options:
+            if hasattr(self.broker, 'enable_options') and not self.broker.enable_options:
                 logger.warning("Options trading is not enabled")
                 return False
                 

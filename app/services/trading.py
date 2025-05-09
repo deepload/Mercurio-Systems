@@ -7,7 +7,7 @@ using Alpaca as the broker.
 import os
 import logging
 from typing import Dict, Any, List, Optional, Tuple
-from datetime import datetime
+from datetime import datetime, timedelta
 import asyncio
 
 # For Alpaca API
@@ -61,6 +61,12 @@ class TradingService:
         
         # Initialize market data service for price information
         self.market_data = MarketDataService()
+        
+        # Options trading support flag - default to True for options strategies
+        self.enable_options = True
+        
+        # Add broker attribute for compatibility with options strategies
+        self.broker = self
     
     async def check_market_status(self) -> Dict[str, Any]:
         """
@@ -85,6 +91,23 @@ class TradingService:
             logger.error(f"Error checking market status: {e}")
             return {"is_open": False, "error": str(e)}
     
+    def get_account(self):
+        """
+        Get the raw account object for options strategies.
+        This is a non-async version for compatibility with options strategies.
+        
+        Returns:
+            Alpaca account object
+        """
+        if not self.alpaca_client:
+            raise Exception("Alpaca client not initialized")
+        
+        try:
+            return self.alpaca_client.get_account()
+        except Exception as e:
+            logger.error(f"Error getting account: {e}")
+            raise
+            
     async def get_account_info(self) -> Dict[str, Any]:
         """
         Get current account information.
@@ -238,6 +261,96 @@ class TradingService:
         except Exception as e:
             logger.error(f"Error executing trade: {e}")
             return {"status": "error", "message": str(e)}
+    
+    async def get_option_chain(self, symbol: str, option_type: str, expiration_date: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get the option chain for a specific symbol, expiration date, and option type.
+        
+        Args:
+            symbol: The underlying asset symbol
+            expiration_date: The expiration date in YYYY-MM-DD format
+            option_type: The option type ("call" or "put")
+            
+        Returns:
+            List of option contracts
+        """
+        try:
+            # If expiration_date is not provided, generate a default one
+            if expiration_date is None:
+                # Use a default expiration 30 days from now
+                today = datetime.now().date()
+                # Find the next Friday that is at least 30 days out
+                expiry_date = today + timedelta(days=30)
+                while expiry_date.weekday() != 4:  # Friday is weekday 4
+                    expiry_date += timedelta(days=1)
+                expiration_date = expiry_date.strftime("%Y-%m-%d")
+                
+            logger.info(f"Getting {option_type} option chain for {symbol} with expiration {expiration_date}")
+            
+            # For crypto options, we need to implement a simulated chain since
+            # Alpaca does not currently support crypto options
+            current_price = await self.market_data.get_latest_price(symbol)
+            if not current_price or current_price <= 0:
+                logger.error(f"Unable to get current price for {symbol}")
+                return []
+            
+            # Generate a synthetic options chain with strikes around current price
+            strike_multipliers = [0.7, 0.8, 0.9, 0.95, 1.0, 1.05, 1.1, 1.2, 1.3]
+            options = []
+            
+            # Cryptocurrency prices can vary widely, so adjust strikes accordingly
+            if current_price >= 1000:  # For high-value crypto like BTC
+                strike_step = 500
+            elif current_price >= 100:  # For medium-value crypto like ETH
+                strike_step = 50
+            else:  # For lower-value crypto
+                strike_step = 5
+            
+            # Create synthetic option contracts
+            for i, mult in enumerate(strike_multipliers):
+                strike = round(current_price * mult / strike_step) * strike_step
+                
+                # Calculate synthetic Greeks and prices based on strike and current price
+                if option_type.lower() == "call":
+                    delta = max(0.01, min(0.99, 1 - (strike / current_price)))
+                    option_value = max(0.01, current_price - strike)
+                else:  # put
+                    delta = max(-0.99, min(-0.01, -(strike / current_price)))
+                    option_value = max(0.01, strike - current_price)
+                
+                # Add some spread to simulate bid/ask
+                bid = max(0.01, option_value * 0.95)
+                ask = option_value * 1.05
+                
+                # Create a simple synthetic IV
+                iv = 0.3 + (abs(1 - (strike / current_price)) * 0.2)  # Higher IV for further OTM options
+                
+                # Create contract object
+                contract = {
+                    "symbol": f"{symbol.replace('/', '')}_{expiration_date}_{option_type[0].upper()}_{strike}",
+                    "underlying": symbol,
+                    "strike": strike,
+                    "expiry_date": expiration_date,
+                    "option_type": option_type.lower(),
+                    "bid": round(bid, 2),
+                    "ask": round(ask, 2),
+                    "last": round((bid + ask) / 2, 2),
+                    "delta": delta,
+                    "gamma": 0.01,
+                    "theta": -0.01,
+                    "vega": 0.05,
+                    "implied_volatility": iv,
+                    "volume": 100,
+                    "open_interest": 500
+                }
+                
+                options.append(contract)
+            
+            return options
+            
+        except Exception as e:
+            logger.error(f"Error getting option chain: {e}")
+            return []
     
     async def get_order_status(self, order_id: str) -> Dict[str, Any]:
         """
