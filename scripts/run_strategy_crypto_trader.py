@@ -19,6 +19,7 @@ from datetime import datetime, timedelta
 from enum import Enum, auto
 from typing import Dict, List, Any, Optional, Union, Tuple
 from dotenv import load_dotenv
+import alpaca_trade_api as tradeapi
 
 # Ajouter le répertoire parent au path pour pouvoir importer les modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
