@@ -6,7 +6,7 @@ Provides market data through Alpaca's API.
 import os
 import logging
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 
 import alpaca_trade_api as tradeapi
@@ -259,11 +259,10 @@ class AlpacaProvider(MarketDataProvider):
                 if response.status_code == 403:
                     logger.warning("AlpacaProvider: Received 403 Forbidden. Your Alpaca plan likely does not include crypto data access.")
                 return pd.DataFrame()
-                
         except Exception as e:
             logger.warning(f"AlpacaProvider: Error in direct API call to Alpaca: {str(e)[:200]}")
             return pd.DataFrame()
-    
+
     async def get_latest_price(self, symbol: str) -> float:
         """
         Get the latest price for a symbol.
@@ -277,26 +276,56 @@ class AlpacaProvider(MarketDataProvider):
         if not self.client:
             logger.warning("AlpacaProvider: Client not initialized, cannot fetch latest price")
             return 0.0
-        
+
         try:
             # Check if it's a crypto symbol
             if '/' in symbol:
-                # For crypto, use a different endpoint
-                last_quote = self.client.get_latest_crypto_quote(symbol)
-                if last_quote and hasattr(last_quote, 'ap'):
-                    return float(last_quote.ap)  # ask price
+                # For crypto, use the crypto bars endpoint to get the latest price
+                # Get the most recent bar
+                timeframe = '1Min'
+                try:
+                    # Try using get_historical_data which is already implemented for crypto
+                    end = datetime.now()
+                    start = end - timedelta(minutes=10)
+                    # Use the existing method that works with crypto
+                    bars = await self.get_historical_data(symbol, start, end, timeframe)
+                    if bars is not None and not bars.empty:
+                        return float(bars['close'].iloc[-1])
+
+                    # If we couldn't get historical data, try alternative methods
+                    if hasattr(self, 'crypto_client') and self.crypto_client:
+                        try:
+                            crypto_bars = self.crypto_client.get_crypto_bars(symbol, timeframe, limit=1).df
+                            if not crypto_bars.empty:
+                                return float(crypto_bars['close'].iloc[-1])
+                        except Exception as crypto_client_e:
+                            logger.debug(f"Error using crypto_client for {symbol}: {str(crypto_client_e)}")
+                except Exception as hist_e:
+                    logger.error(f"AlpacaProvider: Error fetching crypto historical data for {symbol}: {str(hist_e)}")
+
+                # Final fallback - try to get price from trade data if available
+                try:
+                    if hasattr(self.client, 'get_latest_crypto_trade'):
+                        last_trade = self.client.get_latest_crypto_trade(symbol)
+                        if last_trade and hasattr(last_trade, 'p'):
+                            return float(last_trade.p)
+                except Exception as trade_e:
+                    logger.debug(f"Error getting latest crypto trade for {symbol}: {str(trade_e)}")
+
+                # If we got here, we couldn't get a price
+                logger.warning(f"Could not fetch latest price for crypto {symbol}, returning 0")
                 return 0.0
-            
+
             # For stocks, use the last trade
             last_trade = self.client.get_latest_trade(symbol)
             if last_trade and hasattr(last_trade, 'p'):
                 return float(last_trade.p)  # price
             return 0.0
-            
+
         except Exception as e:
             logger.error(f"AlpacaProvider: Error fetching latest price for {symbol}: {str(e)}")
             return 0.0
-    
+
     async def get_market_symbols(self, market_type: str = "stock") -> List[str]:
         """
         Get a list of available market symbols.

@@ -90,7 +90,7 @@ def parse_arguments():
     parser.add_argument('--stop-loss', type=float, default=0.5,
                         help='Stop loss as percentage of option premium (0.5 = 50%)')
                         
-    parser.add_argument('--volatility-threshold', type=float, default=0.05,
+    parser.add_argument('--volatility-threshold', type=float, default=0.01,
                         help='Minimum implied volatility to enter a trade')
                         
     parser.add_argument('--paper-trading', action='store_true',
@@ -339,13 +339,109 @@ async def run_crypto_options_trader(args):
     
     # Run trading loop using threads or sequential processing
     position_lock = threading.Lock()
+    log_lock = threading.Lock()
+    # Use a container for shared variables to avoid nonlocal declarations
+    shared_state = {'position_count': 0}
+    
+    # Wrap the logger to ensure thread-safe logging
+    def safe_log(level, message):
+        with log_lock:
+            if level == 'info':
+                logger.info(message)
+            elif level == 'warning':
+                logger.warning(message)
+            elif level == 'error':
+                logger.error(message)
+            elif level == 'debug':
+                logger.debug(message)
+    
+    # Modify process_strategy to use the thread-safe logger
+    async def process_strategy_safe(strategy, position_lock, shared_state):
+        symbol = strategy.underlying_symbol
+        safe_log('info', f"Starting processing for {symbol} with {strategy.__class__.__name__}")
+        
+        while datetime.now() < end_time:
+            try:
+                # Skip if we've reached max positions
+                with position_lock:
+                    if shared_state['position_count'] >= args.max_positions:
+                        safe_log('info', f"Max positions reached, skipping {symbol}")
+                        await asyncio.sleep(300)  # Check again in 5 minutes
+                        continue
+                
+                # Get market data for crypto
+                end_date = datetime.now()
+                start_date = end_date - timedelta(days=30)  # 30 days of historical data
+                
+                # For crypto, we might need specific handling in the market data service
+                market_data = await market_data_service.get_historical_data(
+                    symbol=symbol,
+                    start_date=start_date,
+                    end_date=end_date,
+                    timeframe="1h"  # Use hourly data for crypto due to higher volatility
+                )
+                
+                # Add volatility metric for crypto (not included in raw data)
+                if not market_data.empty and len(market_data) > 20:
+                    market_data['returns'] = market_data['close'].pct_change()
+                    market_data['volatility'] = market_data['returns'].rolling(window=20).std() * np.sqrt(24)  # Annualized from hourly data
+                
+                # Only enter trades if volatility meets minimum threshold
+                if (market_data.empty or 
+                    'volatility' not in market_data.columns or 
+                    market_data['volatility'].iloc[-1] < args.volatility_threshold):
+                    safe_log('info', f"Skipping {symbol} due to insufficient volatility")
+                    await asyncio.sleep(300)  # Check again in 5 minutes
+                    continue
+                
+                # Check for entry conditions
+                try:
+                    should_enter = await strategy.should_enter(market_data)
+                    if should_enter:
+                        safe_log('info', f"Entry signal detected for {symbol} using {strategy.__class__.__name__}")
+                        
+                        # Execute entry
+                        entry_result = await strategy.execute_entry()
+                        
+                        if entry_result.get('success', False):
+                            safe_log('info', f"Entry executed for {symbol}: {entry_result}")
+                            with position_lock:
+                                shared_state['position_count'] += 1
+                        else:
+                            safe_log('warning', f"Entry failed for {symbol}: {entry_result.get('error', 'Unknown error')}")
+                except Exception as strat_e:
+                    safe_log('error', f"Error in strategy execution for {symbol}: {str(strat_e)}")
+                
+                # Check for exit conditions if we have a position
+                if hasattr(strategy, 'open_positions') and strategy.open_positions:
+                    try:
+                        if await strategy.should_exit("dummy_position_id", market_data):
+                            safe_log('info', f"Exit signal detected for {symbol}")
+                            
+                            # Execute exit
+                            exit_result = await strategy.execute_exit("dummy_position_id")
+                            
+                            if exit_result.get('success', False):
+                                safe_log('info', f"Exit executed for {symbol}: {exit_result}")
+                                with position_lock:
+                                    shared_state['position_count'] -= 1
+                            else:
+                                safe_log('warning', f"Exit failed for {symbol}: {exit_result.get('error', 'Unknown error')}")
+                    except Exception as exit_e:
+                        safe_log('error', f"Error in exit execution for {symbol}: {str(exit_e)}")
+            
+            except Exception as e:
+                safe_log('error', f"Error processing {symbol}: {str(e)}")
+            
+            # Sleep before next iteration
+            await asyncio.sleep(300)  # Check every 5 minutes for crypto
     
     try:
         # Use multithreading if requested
         if args.use_threads:
-            logger.info(f"Using threaded processing for {len(strategies)} symbols")
-            # Create and run tasks for each strategy
-            tasks = [asyncio.create_task(process_strategy(strategy, position_lock)) for strategy in strategies]
+            safe_log('info', f"Using threaded processing for {len(strategies)} symbols")
+            # Create and run tasks for each strategy with improved error handling
+            tasks = [asyncio.create_task(process_strategy_safe(strategy, position_lock, shared_state)) for strategy in strategies]
             # Wait for all tasks to complete or until the end time
             await asyncio.gather(*tasks, return_exceptions=True)
         else:
