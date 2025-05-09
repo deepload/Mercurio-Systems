@@ -19,6 +19,7 @@ from datetime import datetime, timedelta
 from enum import Enum, auto
 from typing import Dict, List, Any, Optional, Union, Tuple
 from dotenv import load_dotenv
+import alpaca_trade_api as tradeapi
 
 # Ajouter le répertoire parent au path pour pouvoir importer les modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -511,9 +512,9 @@ def main():
     parser.add_argument("--strategy", type=str, choices=[s.value for s in StrategyType], 
                       default=StrategyType.MOVING_AVERAGE.value,
                       help="Stratégie de trading à utiliser")
-    parser.add_argument("--duration", type=str, choices=["1h", "4h", "8h", "night"], 
+    parser.add_argument("--duration", type=str, 
                       default="night",
-                      help="Durée de la session (1h, 4h, 8h ou night pour 9h)")
+                      help="Durée de la session (1h, 4h, 8h, night pour 9h, ou X'h' où X est un nombre d'heures)")
     parser.add_argument("--api-level", type=int, choices=[1, 2, 3], default=0,
                       help="Niveau d'API Alpaca à utiliser (1=basique, 2=standard+, 3=premium). Par défaut: auto-détection)")
     parser.add_argument("--position-size", type=float, default=0.02,
@@ -584,12 +585,32 @@ def main():
     args = parser.parse_args()
     
     # Déterminer la durée de session
-    session_duration = {
+    duration_map = {
         "1h": SessionDuration.ONE_HOUR,
         "4h": SessionDuration.FOUR_HOURS,
         "8h": SessionDuration.EIGHT_HOURS,
         "night": SessionDuration.NIGHT_RUN
-    }.get(args.duration, SessionDuration.NIGHT_RUN)
+    }
+    
+    # Vérifier si c'est une durée personnalisée (format: Xh)
+    custom_duration = None
+    if args.duration not in duration_map:
+        # Vérifier le format (nombre + 'h')
+        if args.duration.endswith('h'):
+            try:
+                # Extraire le nombre d'heures et convertir en secondes
+                hours = int(args.duration[:-1])
+                custom_duration = hours * 3600
+                print(f"Durée personnalisée: {hours} heures ({custom_duration} secondes)")
+            except ValueError:
+                print(f"Format de durée invalide: {args.duration}, utilisation de la durée par défaut 'night'")
+                args.duration = "night"
+    
+    # Obtenir la durée de session
+    if custom_duration:
+        session_duration = SessionDuration.CUSTOM
+    else:
+        session_duration = duration_map.get(args.duration, SessionDuration.NIGHT_RUN)
     
     # Détecter ou utiliser le niveau d'API spécifié
     api_level = args.api_level
@@ -671,7 +692,10 @@ def main():
         
         # Démarrer le trader avec la stratégie par défaut
         print(f"Démarrage du trader avec la stratégie de moyenne mobile")
-        trader.start()
+        if custom_duration:
+            trader.start(custom_duration)
+        else:
+            trader.start()
     else:
         # Pour les autres stratégies, utiliser une version simplifiée
         # qui fonctionne avec AlpacaCryptoTrader en adaptant les signaux
@@ -791,7 +815,10 @@ def main():
         
         # Démarrer le trader avec la stratégie par défaut adaptée
         print(f"Démarrage du trader avec adaptation pour la stratégie {strategy_type}")
-        trader.start()
+        if custom_duration:
+            trader.start(custom_duration)
+        else:
+            trader.start()
     
     print("=" * 60)
     print("SESSION DE TRADING TERMINÉE")

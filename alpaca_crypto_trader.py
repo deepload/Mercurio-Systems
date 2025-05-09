@@ -105,8 +105,14 @@ class AlpacaCryptoTrader:
         self.stop_loss_pct = 0.03  # 3% de stop loss
         self.take_profit_pct = 0.06  # 6% de prise de profit
         
+        # Paramètres pour le trailing stop-loss
+        self.use_trailing_stop = True  # Activer le trailing stop-loss par défaut
+        self.trailing_stop_pct = 0.02  # 2% de trailing stop-loss (distance en pourcentage)
+        self.trailing_stop_activation_pct = 0.015  # Activer le trailing stop après 1.5% de gain
+        
         # Suivi de l'état
         self.positions = {}
+        self.highest_prices = {}  # Pour suivre le prix le plus élevé atteint par chaque position
         self.portfolio_value = 0.0
         self.initial_portfolio_value = 0.0
         self.session_start_time = None
@@ -125,6 +131,10 @@ class AlpacaCryptoTrader:
                 base_url=self.base_url,
                 api_version='v2'
             )
+            logger.info("API Alpaca initialisée avec succès")
+            
+            # Réinitialiser le dictionnaire des prix les plus élevés
+            self.highest_prices = {}
             
             # Vérifier que le client est correctement initialisé
             account = self.api.get_account()
@@ -176,8 +186,8 @@ class AlpacaCryptoTrader:
                 
         except Exception as e:
             logger.error(f"Erreur d'initialisation: {e}")
-            return False
-            
+            raise
+        
     def start(self, duration_seconds: Optional[int] = None):
         """Démarrer la session de trading crypto"""
         self.session_start_time = datetime.now()
@@ -325,18 +335,42 @@ class AlpacaCryptoTrader:
                 elif sell_signal and position:
                     self.execute_sell(symbol, current_price, position)
                 
-                # Vérifier le stop loss et le take profit
+                # Vérifier le stop loss, take profit et trailing stop
                 if position:
                     entry_price = float(position.avg_entry_price)
                     if entry_price > 0:
                         pnl_pct = (current_price - entry_price) / entry_price
                         
+                        # Stop loss normal
                         if pnl_pct <= -self.stop_loss_pct:
                             logger.info(f"{symbol} a atteint le stop loss à {pnl_pct:.2%}")
                             self.execute_sell(symbol, current_price, position)
+                        # Take profit normal
                         elif pnl_pct >= self.take_profit_pct:
                             logger.info(f"{symbol} a atteint le take profit à {pnl_pct:.2%}")
                             self.execute_sell(symbol, current_price, position)
+                        # Gestion du trailing stop
+                        elif self.use_trailing_stop:
+                            # Mettre à jour le prix le plus élevé pour ce symbole si nécessaire
+                            if symbol not in self.highest_prices:
+                                self.highest_prices[symbol] = entry_price
+                                 
+                            # Mettre à jour le prix le plus élevé si le prix actuel est plus élevé
+                            if current_price > self.highest_prices[symbol]:
+                                self.highest_prices[symbol] = current_price
+                                highest_pnl_pct = (self.highest_prices[symbol] - entry_price) / entry_price
+                                logger.debug(f"{symbol} - Nouveau prix max: ${self.highest_prices[symbol]:.4f} (+{highest_pnl_pct:.2%})")
+                            
+                            # Vérifier si le trailing stop est activé (on a dépassé le seuil d'activation)
+                            highest_pnl_pct = (self.highest_prices[symbol] - entry_price) / entry_price
+                            if highest_pnl_pct >= self.trailing_stop_activation_pct:
+                                # Calculer la distance en pourcentage depuis le plus haut
+                                drop_from_high_pct = (self.highest_prices[symbol] - current_price) / self.highest_prices[symbol]
+                                
+                                # Si on a chuté plus que le pourcentage de trailing stop depuis le plus haut
+                                if drop_from_high_pct >= self.trailing_stop_pct:
+                                    logger.info(f"{symbol} a déclenché le trailing stop: -{drop_from_high_pct:.2%} depuis le plus haut de ${self.highest_prices[symbol]:.4f}")
+                                    self.execute_sell(symbol, current_price, position)
             
         except Exception as e:
             logger.error(f"Erreur de traitement de {symbol}: {e}")
@@ -344,38 +378,49 @@ class AlpacaCryptoTrader:
     def execute_buy(self, symbol: str, price: float):
         """Exécuter un ordre d'achat"""
         try:
-            # Calculer la taille de la position
-            position_value = self.portfolio_value * self.position_size_pct
-            qty = position_value / price
+            # Obtenir le cash disponible
+            account = self.api.get_account()
+            cash = float(account.cash)
             
-            logger.info(f"SIGNAL D'ACHAT: {symbol} à ${price:.4f}, qté: {qty:.6f}")
+            # Calculer la taille de l'ordre
+            order_value = cash * self.position_size_pct
+            order_qty = order_value / price
             
-            # Arrondir la quantité à 6 décimales
-            qty = round(qty, 6)
+            # Noter que les quantités peuvent être fractionnelles pour les cryptos
+            # Arrondir à 6 décimales pour éviter les erreurs de précision
+            order_qty = round(order_qty, 6)
             
-            # Placer un ordre au marché
-            order = self.api.submit_order(
-                symbol=symbol,
-                qty=qty,
-                side='buy',
-                type='market',
-                time_in_force='gtc'
-            )
-            
-            if order:
-                logger.info(f"Ordre d'achat placé pour {symbol}: {order.id}")
+            if order_qty > 0:
+                logger.info(f"Achat de {order_qty:.6f} {symbol} @ ${price:.4f} (valeur: ${order_value:.2f})")
+                
+                # Exécuter l'ordre
+                self.api.submit_order(
+                    symbol=symbol,
+                    qty=order_qty,
+                    side='buy',
+                    type='market',
+                    time_in_force='gtc'
+                )
+                
+                # Initialiser le tracking du prix le plus élevé pour ce symbole (trailing stop)
+                self.highest_prices[symbol] = price
+                
+                # Enregistrer la transaction dans l'historique
+                if not hasattr(self, 'trade_history'):
+                    self.trade_history = []
+                    
                 self.trade_history.append({
-                    'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     'symbol': symbol,
-                    'action': 'achat',
-                    'quantity': qty,
-                    'price': price
+                    'action': 'BUY',
+                    'quantity': order_qty,
+                    'price': price,
+                    'value': order_value
                 })
             else:
-                logger.error(f"Échec du placement de l'ordre d'achat pour {symbol}")
-                
+                logger.warning(f"Ordre non exécuté pour {symbol}: taille d'ordre insuffisante")
         except Exception as e:
-            logger.error(f"Erreur d'exécution d'achat pour {symbol}: {e}")
+            logger.error(f"Erreur lors de l'achat de {symbol}: {e}")
     
     def execute_sell(self, symbol: str, price: float, position):
         """Exécuter un ordre de vente"""
@@ -553,6 +598,12 @@ def main():
                         help="Durée personnalisée en secondes si --duration=custom")
     parser.add_argument("--log-level", type=str, choices=["DEBUG", "INFO", "WARNING", "ERROR"], 
                         default="INFO", help="Niveau de journalisation")
+    parser.add_argument("--no-trailing-stop", action="store_true",
+                        help="Désactiver le trailing stop-loss")
+    parser.add_argument("--trailing-stop-pct", type=float, default=0.02,
+                        help="Pourcentage de trailing stop-loss (default: 0.02 soit 2%)")
+    parser.add_argument("--trailing-activation-pct", type=float, default=0.015,
+                        help="Pourcentage de gain avant activation du trailing stop (default: 0.015 soit 1.5%)")
                         
     args = parser.parse_args()
     
@@ -572,6 +623,15 @@ def main():
     
     # Créer le trader
     trader = AlpacaCryptoTrader(session_duration=session_duration)
+    
+    # Configurer les options de trailing stop
+    if args.no_trailing_stop:
+        trader.use_trailing_stop = False
+    else:
+        trader.use_trailing_stop = True
+        trader.trailing_stop_pct = args.trailing_stop_pct
+        trader.trailing_stop_activation_pct = args.trailing_activation_pct
+        logger.info(f"Trailing stop activé: {args.trailing_stop_pct*100}% de baisse depuis le plus haut, après {args.trailing_activation_pct*100}% de gain")
     
     # Enregistrer les gestionnaires de signaux pour une fermeture propre
     def signal_handler(sig, frame):
