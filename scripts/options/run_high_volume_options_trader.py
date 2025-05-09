@@ -84,6 +84,9 @@ def parse_arguments():
     parser.add_argument('--paper-trading', action='store_true',
                         help='Use paper trading mode instead of live trading')
                         
+    parser.add_argument('--api-level', type=int, default=1,
+                        help='Alpaca API subscription level (1, 2, or 3)')
+                        
     parser.add_argument('--duration', type=int, default=1,
                         help='Trading duration in days')
                         
@@ -177,7 +180,7 @@ def get_thread_services():
         # Initialiser l'adaptateur avec la configuration de paper trading
         config = {
             'mode': 'paper',  # 'paper' ou 'live'
-            'subscription_level': 1,  # Niveau d'abonnement Alpaca
+            'subscription_level': args.api_level,  # Niveau d'abonnement Alpaca configuré par l'utilisateur
             'options_trading': True  # Activer le trading d'options
         }
         broker = AlpacaAdapter(config)  # Configuration pour paper trading
@@ -343,7 +346,7 @@ async def run_high_volume_options_trader(args):
     # Initialize services
     broker_config = {
         "mode": "paper" if args.paper_trading else "live",
-        "subscription_level": 1,  # Niveau d'abonnement Alpaca
+        "subscription_level": args.api_level,  # Niveau d'abonnement Alpaca configuré par l'utilisateur
         "options_trading": True  # Activer le trading d'options
     }
     broker = AlpacaAdapter(config=broker_config)
