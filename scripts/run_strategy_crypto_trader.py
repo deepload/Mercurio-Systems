@@ -1219,15 +1219,31 @@ def liquidate_positions():
             logger.error(f"Script de liquidation introuvable: {liquidation_script}")
             return
         
-        # Exécuter le script de liquidation avec confirmation automatique
+        # Exécuter le script de liquidation avec les options --force et --yes pour assurer la liquidation
+        # --force : essaie des méthodes alternatives pour les positions problématiques comme les cryptos
+        # --yes : saute la confirmation manuelle
+        # --crypto-only : nous sommes dans le trader crypto, donc cibler uniquement les cryptos
         import subprocess
-        subprocess.run([sys.executable, liquidation_script], 
-                       input=b'y\n',  # Envoyer 'y' pour confirmer automatiquement
-                       check=True)
+        cmd = [sys.executable, liquidation_script, "--force", "--yes", "--crypto-only"]
+        logger.info(f"Commande: {' '.join(cmd)}")
         
-        logger.info("Liquidation des positions terminée avec succès")
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        # Vérifier si la commande a réussi
+        if result.returncode == 0:
+            logger.info("Liquidation des positions terminée avec succès")
+            if result.stdout:
+                # Afficher les détails importants (uniquement les lignes de log importantes)
+                for line in result.stdout.splitlines():
+                    if "INFO" in line and ("liquid" in line.lower() or "position" in line.lower() or "error" in line.lower()):
+                        logger.info(f"Détail: {line.strip()}")
+        else:
+            logger.error(f"Erreur pendant la liquidation. Code: {result.returncode}")
+            logger.error(f"Détails: {result.stderr}")
+        
     except Exception as e:
         logger.error(f"Erreur lors de la liquidation des positions: {e}")
+        logger.error(f"Type d'erreur: {type(e).__name__}")
 
 # Fonction pour générer un rapport final et nettoyer
 def cleanup_resources():
