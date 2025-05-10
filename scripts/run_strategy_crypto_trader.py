@@ -20,6 +20,8 @@ from enum import Enum, auto
 from typing import Dict, List, Any, Optional, Union, Tuple
 from dotenv import load_dotenv
 import alpaca_trade_api as tradeapi
+import signal
+import atexit
 
 # Ajouter le répertoire parent au path pour pouvoir importer les modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -117,6 +119,37 @@ def detect_alpaca_level(api_key=None, api_secret=None, base_url=None, data_url=N
 # Configuration du logger
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("strategy_crypto_trader")
+
+# Importation de l'utilitaire d'arrêt propre
+try:
+    from scripts.graceful_exit import is_running, register_thread, register_cleanup, register_liquidation_handler
+    logger.info("Utilitaire d'arrêt propre chargé avec succès")
+    USE_GRACEFUL_EXIT = True
+except ImportError:
+    # Fonction de repli si le module n'est pas disponible
+    logger.warning("Utilitaire d'arrêt propre non disponible, utilisation du mécanisme standard")
+    USE_GRACEFUL_EXIT = False
+    # Variables globales pour la gestion des signaux
+    running = True
+    
+    def is_running():
+        global running
+        return running
+        
+    def register_thread(thread):
+        pass
+        
+    def register_cleanup(callback):
+        pass
+        
+    def register_liquidation_handler(callback):
+        pass
+        
+    # Gestionnaire de signal traditionnel
+    def signal_handler(sig, frame):
+        global running
+        logger.info("Signal d'arrêt reçu, arrêt en cours...")
+        running = False
 
 # Liste personnalisée de cryptos à trader
 def load_crypto_symbols_from_file(file_path):
@@ -1153,6 +1186,10 @@ def main():
         trader.custom_symbols = PERSONALIZED_CRYPTO_LIST
         trader.use_custom_symbols = args.use_custom_symbols or args.symbols_file or args.use_env_symbols or args.symbols
         
+        # Stocker l'instance du trader dans la variable globale pour l'arrêt propre
+        global trader_instance
+        trader_instance = trader
+        
         # Démarrer le trader avec la stratégie par défaut adaptée
         print(f"Démarrage du trader avec adaptation pour la stratégie {strategy_type}")
         if custom_duration:
@@ -1166,5 +1203,71 @@ def main():
     print("Un rapport détaillé a été généré dans le dossier courant")
     print("=" * 60)
 
+# Variable globale pour stocker l'instance du trader
+trader_instance = None
+
+# Fonction pour liquider toutes les positions
+def liquidate_positions():
+    """Liquider toutes les positions ouvertes"""
+    logger.info("Exécution du script de liquidation des positions...")
+    try:
+        # Chemin vers le script de liquidation
+        liquidation_script = os.path.join(os.path.dirname(__file__), "liquidate_all_positions.py")
+        
+        # Vérifier que le script existe
+        if not os.path.exists(liquidation_script):
+            logger.error(f"Script de liquidation introuvable: {liquidation_script}")
+            return
+        
+        # Exécuter le script de liquidation avec confirmation automatique
+        import subprocess
+        subprocess.run([sys.executable, liquidation_script], 
+                       input=b'y\n',  # Envoyer 'y' pour confirmer automatiquement
+                       check=True)
+        
+        logger.info("Liquidation des positions terminée avec succès")
+    except Exception as e:
+        logger.error(f"Erreur lors de la liquidation des positions: {e}")
+
+# Fonction pour générer un rapport final et nettoyer
+def cleanup_resources():
+    """Nettoyer les ressources et générer le rapport final avant de quitter"""
+    global trader_instance
+    
+    logger.info("Nettoyage des ressources et finalisation du rapport...")
+    
+    # Arrêter proprement le trader s'il a été initialisé
+    if trader_instance is not None:
+        try:
+            logger.info("Arrêt propre du trader...")
+            trader_instance.stop()
+        except Exception as e:
+            logger.error(f"Erreur lors de l'arrêt du trader: {e}")
+    
+    logger.info("Rapport généré et ressources nettoyées")
+
+def run_crypto_trader():
+    """Fonction principale pour exécuter le trader de crypto"""
+    # Enregistrement des fonctions de nettoyage pour l'utilitaire d'arrêt propre
+    if USE_GRACEFUL_EXIT:
+        register_cleanup(cleanup_resources)
+        register_liquidation_handler(liquidate_positions)
+    else:
+        # Enregistrement du gestionnaire de signal pour un arrêt propre (solution de secours)
+        signal.signal(signal.SIGINT, signal_handler)
+        signal.signal(signal.SIGTERM, signal_handler)
+    
+    try:
+        success = main()
+        return success
+    except KeyboardInterrupt:
+        logger.info("Interruption utilisateur détectée, arrêt propre...")
+        return False
+    finally:
+        if not USE_GRACEFUL_EXIT:
+            # Exécuter le nettoyage manuellement si l'utilitaire d'arrêt propre n'est pas disponible
+            cleanup_resources()
+        logger.info("Session terminée proprement")
+
 if __name__ == "__main__":
-    main()
+    run_crypto_trader()
