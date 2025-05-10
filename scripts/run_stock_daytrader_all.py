@@ -327,29 +327,126 @@ except ImportError as e:
             Returns:
                 bool: True si l'entraînement a réussi
             """
-            logger.info(f"Entraînement simulé de la stratégie LLM sur {symbol} avec {len(data)} points de données")
-            
             try:
-                # Simuler un entraînement simple pour le LLM
-                if len(data) >= 30:
-                    # Calculer quelques indicateurs techniques de base
-                    data['sma_5'] = data['close'].rolling(window=5).mean()
-                    data['sma_20'] = data['close'].rolling(window=20).mean()
-                    
-                    # Simuler l'analyse de texte et sentiment pour LLM
-                    data['llm_sentiment'] = 0.5 + 0.05 * np.random.randn(len(data))
-                    
-                    # Simuler l'entraînement (juste attendre un peu)
-                    time.sleep(1)  # Simuler le temps d'entraînement
-                    
-                    logger.info(f"Entraînement réussi pour {symbol} - Stratégie LLM mise à jour")
-                    return True
-                else:
-                    logger.warning(f"Données insuffisantes pour entraîner la stratégie LLM sur {symbol}")
-                    return False
+                logger.info(f"Entraînement simulé de la stratégie LLM sur {symbol if symbol else 'tous les symboles'}")
+                time.sleep(1)  # Simuler un entraînement
+                return True
             except Exception as e:
-                logger.error(f"Erreur lors de l'entraînement de la stratégie LLM sur {symbol}: {e}")
+                logger.error(f"Erreur lors de l'entraînement LLM: {e}")
                 return False
+            
+        def analyze(self, data, symbol):
+            """
+            Analyse des données pour générer des signaux de trading
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole à analyser
+                
+            Returns:
+                dict: Résultat de l'analyse avec signaux de trading
+            """
+            try:
+                # Logique d'analyse de repli très simplifiée
+                if len(data) < 2:
+                    return {"action": "hold", "confidence": 0.5}
+                    
+                last_close = data['close'].iloc[-1]
+                prev_close = data['close'].iloc[-2]
+                
+                if last_close > prev_close * 1.02:  # Hausse de 2%
+                    return {"action": "buy", "confidence": 0.7, "reason": "Hausse significative détectée"}
+                elif last_close < prev_close * 0.98:  # Baisse de 2%
+                    return {"action": "sell", "confidence": 0.7, "reason": "Baisse significative détectée"}
+                else:
+                    return {"action": "hold", "confidence": 0.6, "reason": "Pas de mouvement significatif"}
+                    
+            except Exception as e:
+                logger.error(f"Erreur d'analyse LLM pour {symbol}: {e}")
+                return {"action": "hold", "confidence": 0.5, "reason": "Erreur d'analyse"}
+
+    class FallbackLLMStrategyV2(BaseStrategy):
+        def __init__(self, market_data_service=None, trading_service=None, sentiment_weight=0.5, min_confidence=0.6, news_lookback=24):
+            super().__init__(market_data_service, trading_service)
+            self.sentiment_weight = sentiment_weight
+            self.min_confidence = min_confidence
+            self.news_lookback = news_lookback
+            logger.info(f"Stratégie LLMStrategyV2 de repli initialisée avec sentiment_weight={sentiment_weight}, min_confidence={min_confidence}, news_lookback={news_lookback}h")
+        
+        def train(self, data, symbol=None):
+            """
+            Méthode d'entraînement simplifiée pour la stratégie LLMStrategyV2 de repli
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole sur lequel entraîner le modèle
+                
+            Returns:
+                bool: True si l'entraînement a réussi
+            """
+            try:
+                logger.info(f"Entraînement de la stratégie LLMStrategyV2 sur {symbol if symbol else 'tous les symboles'}")
+                time.sleep(1)  # Simuler un entraînement
+                return True
+            except Exception as e:
+                logger.error(f"Erreur lors de l'entraînement LLMStrategyV2: {e}")
+                return False
+                
+        def analyze(self, data, symbol):
+            """
+            Analyse des données pour générer des signaux de trading, intégrant l'analyse de sentiment
+            
+            Args:
+                data: DataFrame contenant les données historiques
+                symbol: Symbole à analyser
+                
+            Returns:
+                dict: Résultat de l'analyse avec signaux de trading
+            """
+            try:
+                # Simuler une analyse technique
+                if len(data) < 2:
+                    return {"action": "hold", "confidence": 0.5}
+                    
+                last_close = data['close'].iloc[-1]
+                prev_close = data['close'].iloc[-2]
+                
+                # Analyse technique simplifiée
+                if last_close > prev_close * 1.01:  # Hausse de 1%
+                    tech_signal = {"action": "buy", "confidence": 0.65}
+                elif last_close < prev_close * 0.99:  # Baisse de 1%
+                    tech_signal = {"action": "sell", "confidence": 0.65}
+                else:
+                    tech_signal = {"action": "hold", "confidence": 0.55}
+                
+                # Simuler une analyse de sentiment
+                # Dans une vraie implémentation, cela appellerait EnhancedWebSentimentAgent
+                sentiment_values = {"buy": 0.7, "hold": 0.5, "sell": 0.3}  # Valeur entre 0 et 1, où 1 est très positif
+                sentiment_signal = {"sentiment": sentiment_values[tech_signal["action"]], "confidence": 0.7}
+                
+                # Combiner les signaux avec le poids de sentiment configuré
+                tech_weight = 1.0 - self.sentiment_weight
+                combined_action = tech_signal["action"]
+                combined_confidence = (tech_signal["confidence"] * tech_weight) + (sentiment_signal["confidence"] * self.sentiment_weight)
+                
+                # Filtrer les signaux de faible confiance
+                if combined_confidence < self.min_confidence:
+                    combined_action = "hold"
+                    reason = f"Confiance insuffisante ({combined_confidence:.2f} < {self.min_confidence})"                
+                else:
+                    reason = f"Signal technique ({tech_signal['action']}, {tech_signal['confidence']:.2f}) + sentiment ({sentiment_signal['sentiment']:.2f})"
+                
+                return {
+                    "action": combined_action, 
+                    "confidence": combined_confidence,
+                    "reason": reason,
+                    "tech_signal": tech_signal,
+                    "sentiment_signal": sentiment_signal
+                }
+                    
+            except Exception as e:
+                logger.error(f"Erreur d'analyse LLMStrategyV2 pour {symbol}: {e}")
+                return {"action": "hold", "confidence": 0.5, "reason": "Erreur d'analyse"}
     
     # Remplacer les classes manquantes par nos versions de repli
     MarketDataService = FallbackMarketDataService
@@ -1678,8 +1775,9 @@ def main():
     global running, MARKET_CHECK_INTERVAL
     
     parser = argparse.ArgumentParser(description='Script de day trading pour actions')
-    parser.add_argument('--strategy', choices=['moving_average', 'moving_average_ml', 'lstm_predictor', 'transformer', 'msi', 'llm', 'all'],
-                        default='moving_average', help='Stratégie à utiliser')
+    parser.add_argument('--strategy', type=str, default='llm',
+                      choices=['moving_average', 'moving_average_ml', 'lstm_predictor', 'transformer', 'msi', 'llm', 'llm_v2', 'all'],
+                        help='Stratégie à utiliser')
     parser.add_argument('--filter', choices=['active_assets', 'top_volume', 'top_gainers', 'tech_stocks', 'finance_stocks', 'health_stocks'],
                         default='active_assets', help='Filtre pour les actions')
     parser.add_argument('--max-symbols', type=int, default=10,
@@ -1710,6 +1808,14 @@ def main():
                         help='Nombre de symboles à utiliser pour le réentraînement des modèles (default: 10)')
     parser.add_argument('--api-level', type=int, choices=[1, 2, 3], default=0,
                         help='Niveau d\'API Alpaca à utiliser (1=basique, 2=standard+, 3=premium). Par défaut: auto-détection)')
+    
+    # Arguments spécifiques à LLMStrategyV2
+    parser.add_argument('--sentiment-weight', type=float, default=0.5,
+                        help='Poids de l\'analyse de sentiment (0-1) pour LLMStrategyV2 (default: 0.5)')
+    parser.add_argument('--min-confidence', type=float, default=0.6,
+                        help='Confiance minimale requise pour les signaux de trading LLMStrategyV2 (default: 0.6)')
+    parser.add_argument('--news-lookback', type=int, default=24,
+                        help='Période de temps (heures) pour l\'analyse des actualités pour LLMStrategyV2 (default: 24)')
     
     args = parser.parse_args()
     
@@ -1763,6 +1869,7 @@ def main():
         'transformer': 'TransformerStrategy',
         'msi': 'MSIStrategy',
         'llm': 'LLMStrategy',
+        'llm_v2': 'LLMStrategyV2',
         'all': 'ALL'
     }
     
@@ -1772,6 +1879,18 @@ def main():
     else:
         strategy_arg = strategy_mapping.get(args.strategy, args.strategy)
     
+    # Stocker les paramètres spécifiques à LLMStrategyV2 dans une variable globale
+    global LLM_V2_PARAMS
+    LLM_V2_PARAMS = {}
+    
+    if args.strategy == 'llm_v2':
+        LLM_V2_PARAMS["sentiment_weight"] = args.sentiment_weight
+        LLM_V2_PARAMS["min_confidence"] = args.min_confidence
+        LLM_V2_PARAMS["news_lookback"] = args.news_lookback
+        logger.info(f"Utilisation de LLMStrategyV2 avec sentiment_weight={args.sentiment_weight}, "
+                  f"min_confidence={args.min_confidence}, news_lookback={args.news_lookback}h")
+    
+    # Configuration du trader sans les paramètres spécifiques à la stratégie
     trader = StockDayTrader(
         strategy_type=TradingStrategy(strategy_arg),
         stock_filter=StockFilter(args.filter),
