@@ -145,6 +145,7 @@ try:
     from app.strategies.transformer_strategy import TransformerStrategy
     from app.strategies.msi_strategy import MultiSourceIntelligenceStrategy as MSIStrategy
     from app.strategies.llm_strategy import LLMStrategy
+    from app.strategies.llm_strategy_v2 import LLMStrategyV2
 except ImportError as e:
     print(f"Erreur d'importation des modules Mercurio: {e}")
     print("Utilisation des services de base uniquement")
@@ -399,6 +400,7 @@ class TradingStrategy(str, Enum):
     TRANSFORMER = "TransformerStrategy"
     MSI = "MSIStrategy"
     LLM = "LLMStrategy"
+    LLM_V2 = "LLMStrategyV2"
     ALL = "ALL"  # Utiliser toutes les stratégies
 
 class StockFilter(str, Enum):
@@ -857,6 +859,20 @@ class StockDayTrader:
                 try:
                     from app.strategies.llm_strategy import LLMStrategy
                     self.strategies[self.strategy_type] = LLMStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+                except ImportError:
+                    # Utiliser la classe de repli si le module n'est pas disponible
+                    self.strategies[self.strategy_type] = FallbackLLMStrategy(
+                        market_data_service=self.market_data_service,
+                        trading_service=self.trading_service
+                    )
+            elif self.strategy_type == TradingStrategy.LLM_V2:
+                # Vérifier si nous pouvons importer LLMStrategyV2
+                try:
+                    from app.strategies.llm_strategy_v2 import LLMStrategyV2
+                    self.strategies[self.strategy_type] = LLMStrategyV2(
                         market_data_service=self.market_data_service,
                         trading_service=self.trading_service
                     )

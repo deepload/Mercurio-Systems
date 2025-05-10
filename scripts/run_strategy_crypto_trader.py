@@ -30,6 +30,7 @@ from alpaca_crypto_trader import AlpacaCryptoTrader, SessionDuration
 # Importer les stratégies avancées
 from app.strategies.lstm_predictor import LSTMPredictorStrategy
 from app.strategies.llm_strategy import LLMStrategy
+from app.strategies.llm_strategy_v2 import LLMStrategyV2
 
 # Fonction pour détecter le niveau d'accès Alpaca
 def detect_alpaca_level(api_key=None, api_secret=None, base_url=None, data_url=None):
@@ -66,8 +67,8 @@ def detect_alpaca_level(api_key=None, api_secret=None, base_url=None, data_url=N
         api = tradeapi.REST(
             key_id=api_key,
             secret_key=api_secret,
-            base_url=base_url,
-            data_url=data_url
+            base_url=base_url
+            # Removed data_url as it's not supported in newer versions
         )
         
         logger.info("Test du niveau d'abonnement Alpaca...")
@@ -374,6 +375,7 @@ class StrategyType(str, Enum):
     TRANSFORMER = "transformer"  # Stratégie basée sur un modèle Transformer de deep learning
     LSTM = "lstm"
     LLM = "llm"  # Stratégie basée sur un modèle LLM de deep learning
+    LLM_V2 = "llm_v2"  # Stratégie avancée LLM combinant analyse technique et sentiment
 
 def get_strategy_class(strategy_type: str) -> Optional[type]:
     """Récupère la classe de stratégie en fonction du type spécifié"""
@@ -384,6 +386,15 @@ def get_strategy_class(strategy_type: str) -> Optional[type]:
             return TransformerStrategy
         except ImportError:
             logger.warning("Stratégie Transformer non disponible, utilisation de la stratégie par défaut")
+            return None
+    
+    # Nouvelle stratégie LLM_V2
+    if strategy_type.lower() == StrategyType.LLM_V2.lower():
+        try:
+            from app.strategies.llm_strategy_v2 import LLMStrategyV2
+            return LLMStrategyV2
+        except ImportError:
+            logger.warning("Stratégie LLM_V2 non disponible, utilisation de la stratégie par défaut")
             return None
     
     # Import de MovingAverageMLStrategy si nécessaire
@@ -979,47 +990,68 @@ def main():
     # Détecter le niveau d'accès Alpaca
     api_level = detect_alpaca_level()
     
-    # Traiter la durée de session
+    # Déterminer la durée de session
     session_duration = None
     custom_duration = None
     
     try:
         if args.duration.lower() == "continuous":
-            session_duration = SessionDuration.CONTINUOUS
+            # Pour le mode continu, utiliser CUSTOM avec une grande valeur (7 jours)
+            session_duration = SessionDuration.CUSTOM
+            custom_duration = 7 * 24 * 60 * 60  # 7 jours en secondes
         elif args.duration.lower() == "day":
-            session_duration = SessionDuration.DAY
+            # Vérifier si DAY existe, sinon utiliser ONE_HOUR * 8
+            if hasattr(SessionDuration, "DAY"):
+                session_duration = SessionDuration.DAY
+            else:
+                session_duration = SessionDuration.CUSTOM
+                custom_duration = 8 * 60 * 60  # 8 heures par défaut
         elif args.duration.lower() == "night":
-            session_duration = SessionDuration.NIGHT
+            # Vérifier si NIGHT existe, sinon utiliser ONE_HOUR * 12
+            if hasattr(SessionDuration, "NIGHT_RUN"):
+                session_duration = SessionDuration.NIGHT_RUN
+            else:
+                session_duration = SessionDuration.CUSTOM
+                custom_duration = 12 * 60 * 60  # 12 heures par défaut
         elif args.duration.lower() == "weekend":
-            session_duration = SessionDuration.WEEKEND
+            # Vérifier si WEEKEND existe, sinon utiliser ONE_HOUR * 48
+            if hasattr(SessionDuration, "WEEKEND"):
+                session_duration = SessionDuration.WEEKEND
+            else:
+                session_duration = SessionDuration.CUSTOM
+                custom_duration = 48 * 60 * 60  # 48 heures par défaut
         else:
             # Essayer de parser la durée (ex: 4h, 2d)
             if args.duration.endswith('h'):
                 hours = int(args.duration[:-1])
                 custom_duration = hours * 60 * 60  # Convertir en secondes
+                session_duration = SessionDuration.CUSTOM
             elif args.duration.endswith('d'):
                 days = int(args.duration[:-1])
                 custom_duration = days * 24 * 60 * 60  # Convertir en secondes
+                session_duration = SessionDuration.CUSTOM
             elif args.duration.endswith('m'):
                 minutes = int(args.duration[:-1])
                 custom_duration = minutes * 60  # Convertir en secondes
+                session_duration = SessionDuration.CUSTOM
             else:
                 try:
                     # Essayer de parser comme un nombre d'heures
                     hours = int(args.duration)
                     custom_duration = hours * 60 * 60  # Convertir en secondes
+                    session_duration = SessionDuration.CUSTOM
                 except ValueError:
-                    print(f"Durée non reconnue: {args.duration}, utilisation du mode continu")
-                    session_duration = SessionDuration.CONTINUOUS
+                    print(f"Durée non reconnue: {args.duration}, utilisation du mode par défaut")
+                    session_duration = SessionDuration.ONE_HOUR
     except Exception as e:
-        print(f"Erreur lors du parsing de la durée: {e}, utilisation du mode continu")
-        session_duration = SessionDuration.CONTINUOUS
+        print(f"Erreur lors du parsing de la durée: {e}, utilisation du mode par défaut")
+        session_duration = SessionDuration.ONE_HOUR
     
     if custom_duration:
         print(f"Durée de session personnalisée: {custom_duration} secondes")
     else:
         print(f"Mode de session: {session_duration.name}")
-    
+
     # Récupérer la classe de stratégie (convertir en majuscules pour correspondre à l'énumération)
     strategy_upper = args.strategy.upper()
     strategy_class = get_strategy_class(strategy_upper)

@@ -18,6 +18,7 @@ These scripts have been tested and verified to work with the paper trading mode.
 ## Advanced Strategy Examples
 
 - [LLM Strategy Test](llm_strategy_test.py) - Testing LLM-based trading strategies
+- [LLMStrategyV2 Test](llm_strategy_v2_test.py) - Testing enhanced LLM strategies with sentiment analysis
 - [Transformer Strategy Test](transformer_strategy_test.py) - Testing transformer-based trading strategies
 - [MSI Strategy Test](msi_strategy_test.py) - Testing Multi-Source Intelligence strategies
 

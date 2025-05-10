@@ -91,6 +91,7 @@ class TradingStrategy(str, Enum):
     TRANSFORMER = "TransformerStrategy"
     MSI = "MSIStrategy"
     LLM = "LLMStrategy"
+    LLM_V2 = "LLMStrategyV2"
     ALL = "ALL"  # Utiliser toutes les stratégies
 
 def is_market_open():

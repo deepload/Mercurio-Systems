@@ -102,7 +102,7 @@ Ces scripts permettent d'exécuter différentes stratégies de trading.
 **Fonction** : Exécute le trading de cryptomonnaies avec une sélection de stratégies différentes et configurations personnalisables.
 
 **Paramètres** :
-- `--strategy <nom>` : Stratégie à utiliser (options: `moving_average`, `momentum`, `mean_reversion`, `breakout`, `statistical_arbitrage`, `transformer`)
+- `--strategy <nom>` : Stratégie à utiliser (options: `moving_average`, `momentum`, `mean_reversion`, `breakout`, `statistical_arbitrage`, `transformer`, `llm`, `llm_v2`)
 - `--duration <durée>` : Durée de la session de trading (options: `1h`, `4h`, `8h`, `night`)
 - `--position-size <taille>` : Taille de position en pourcentage du portefeuille (défaut: 0.02 = 2%)
 - `--stop-loss <pourcentage>` : Stop loss en pourcentage (défaut: 0.03 = 3%)
@@ -126,6 +126,25 @@ Ces scripts permettent d'exécuter différentes stratégies de trading.
 - `--use-gpu` : Utiliser le GPU pour l'entraînement et l'inférence (si disponible)
 - `--retrain` : Réentraîner le modèle Transformer même si un modèle entraîné existe déjà
 
+**Paramètres spécifiques à la stratégie LLM** :
+- `--model-name <nom>` : Nom du modèle LLM à utiliser (défaut: "mistralai/Mixtral-8x7B-Instruct-v0.1")
+- `--use-local-model` : Utiliser un modèle local plutôt qu'une API
+- `--local-model-path <chemin>` : Chemin vers le modèle local (si --use-local-model est activé)
+- `--api-key <clé>` : Clé API pour le modèle LLM (non nécessaire en mode démo)
+- `--sentiment-threshold <seuil>` : Seuil de sentiment pour générer un signal (défaut: 0.7)
+- `--news-lookback <heures>` : Nombre d'heures de données d'actualités à analyser (défaut: 24)
+
+**Paramètres spécifiques à la stratégie LLM_V2** :
+- `--model-name <nom>` : Nom du modèle LLM principal à utiliser (défaut: "mistralai/Mixtral-8x7B-Instruct-v0.1")
+- `--sentiment-model-name <nom>` : Nom du modèle LLM pour l'analyse de sentiment (optionnel)
+- `--use-local-model` : Utiliser un modèle local plutôt qu'une API
+- `--local-model-path <chemin>` : Chemin vers le modèle local (si --use-local-model est activé)
+- `--api-key <clé>` : Clé API pour le modèle LLM (peut être "demo_mode" pour les tests)
+- `--use-web-sentiment` : Activer l'analyse de sentiment web (défaut: True)
+- `--sentiment-weight <poids>` : Poids donné à l'analyse de sentiment (0 à 1, défaut: 0.5)
+- `--min-confidence <seuil>` : Seuil de confiance minimal pour générer un signal (défaut: 0.65)
+- `--news-lookback <heures>` : Nombre d'heures de données d'actualités à analyser (défaut: 24)
+
 **Utilisation** :
 ```bash
 # Trading avec la stratégie de momentum
@@ -145,6 +164,18 @@ python scripts/run_strategy_crypto_trader.py --strategy transformer --sequence-l
 
 # Trading avec Transformer personnalisé pour marchés volatils (risque accru)
 python scripts/run_strategy_crypto_trader.py --strategy transformer --duration night --sequence-length 120 --d-model 128 --nhead 8 --num-layers 3 --signal-threshold 0.6 --position-size 0.015 --stop-loss 0.02 --take-profit 0.05 --use-gpu
+
+# Trading avec la stratégie LLM de base pour analyse de sentiment
+python scripts/run_strategy_crypto_trader.py --strategy llm --news-lookback 48 --sentiment-threshold 0.6 --position-size 0.02
+
+# Trading avec LLMStrategyV2 en mode démo (pas besoin de clé API)
+python scripts/run_strategy_crypto_trader.py --strategy llm_v2 --api-key demo_mode --sentiment-weight 0.5
+
+# Trading avec LLMStrategyV2 optimisé pour crypto volatiles
+python scripts/run_strategy_crypto_trader.py --strategy llm_v2 --sentiment-weight 0.7 --min-confidence 0.75 --position-size 0.01 --stop-loss 0.025 --take-profit 0.05
+
+# Trading avec LLMStrategyV2 utilisant un modèle local pour les tests
+python scripts/run_strategy_crypto_trader.py --strategy llm_v2 --use-local-model --local-model-path models/llama-2-7b
 ```
 
 **Description** : Ce script permet de lancer un trader de cryptomonnaies avec différentes stratégies de trading (moving average, momentum, mean reversion, breakout, statistical arbitrage). Il offre des options détaillées pour configurer chaque stratégie ainsi que les durées de session. Le script prend en charge le paper trading via Alpaca et peut utiliser une liste personnalisée de paires de cryptomonnaies.
