@@ -426,8 +426,8 @@ class LSTMPredictorStrategy(BaseStrategy):
         
         os.makedirs(path, exist_ok=True)
         
-        # Save Keras model
-        model_path = os.path.join(path, f"lstm_predictor_{self.sequence_length}_{self.lstm_units}.h5")
+        # Save Keras model using the new recommended format
+        model_path = os.path.join(path, f"lstm_predictor_{self.sequence_length}_{self.lstm_units}.keras")
         self.model.save(model_path)
         
         # Save scaler and parameters
@@ -451,17 +451,41 @@ class LSTMPredictorStrategy(BaseStrategy):
             path: Path to the saved model
         """
         # Load Keras model
-        self.model = load_model(path)
+        try:
+            self.model = load_model(path)
+            logger.info(f"Modèle chargé depuis {path}")
+        except Exception as e:
+            logger.error(f"Erreur lors du chargement du modèle depuis {path}: {e}")
+            raise
         
-        # Load scaler and parameters
-        scaler_path = path.replace('.h5', '_scaler.pkl')
-        with open(scaler_path, 'rb') as f:
-            model_data = pickle.load(f)
+        # Déterminer le chemin du fichier scaler en fonction de l'extension du modèle
+        if path.endswith('.h5'):
+            scaler_path = path.replace('.h5', '_scaler.pkl')
+        elif path.endswith('.keras'):
+            scaler_path = path.replace('.keras', '_scaler.pkl')
+        else:
+            # Essayons de deviner en supprimant l'extension
+            base_path = os.path.splitext(path)[0]
+            scaler_path = f"{base_path}_scaler.pkl"
         
-        self.scaler = model_data['scaler']
-        self.sequence_length = model_data['sequence_length']
-        self.prediction_horizon = model_data['prediction_horizon']
-        self.lstm_units = model_data['lstm_units']
-        self.params.update(model_data['params'])
+        if not os.path.exists(scaler_path):
+            logger.warning(f"Fichier scaler introuvable: {scaler_path}. Tentative avec le nom de base.")
+            base_path = os.path.join(os.path.dirname(path), os.path.basename(path).split('_')[0])
+            scaler_path = f"{base_path}_scaler.pkl"
         
-        self.is_trained = True
+        logger.info(f"Chargement du scaler depuis {scaler_path}")
+        try:
+            with open(scaler_path, 'rb') as f:
+                model_data = pickle.load(f)
+            
+            self.scaler = model_data['scaler']
+            self.sequence_length = model_data['sequence_length']
+            self.prediction_horizon = model_data['prediction_horizon']
+            self.lstm_units = model_data['lstm_units']
+            self.params.update(model_data['params'])
+            
+            self.is_trained = True
+            logger.info(f"Paramètres chargés: seq_len={self.sequence_length}, lstm_units={self.lstm_units}")
+        except Exception as e:
+            logger.error(f"Erreur lors du chargement des paramètres depuis {scaler_path}: {e}")
+            raise

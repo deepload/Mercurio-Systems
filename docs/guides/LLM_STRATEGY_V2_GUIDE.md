@@ -66,7 +66,7 @@ python scripts/run_strategy_crypto_trader.py --strategy llm_v2 \
   --use-env-symbols
 ```
 
-Cette commande utilise le modèle Mixtral avec un poids élevé pour l'analyse de sentiment (0.8), un seuil de confiance de 0.7, et analyse les actualités des 48 dernières heures. La stratégie s'exécutera pendant 24 heures et utilisera les symboles définis dans le fichier .env.
+Cette commande utilise le modèle Mixtral avec un poids élevé pour l'analyse de sentiment (0.8), un seuil de confiance de 0.7, et analyse les actualités des 48 dernières heures. La stratégie s'exécutera pendant 24 heures et utilisera les symboles définis dans le fichier .env. Notez que le paramètre `--duration` définit uniquement la durée d'exécution du script et n'affecte pas les calculs de probabilité ou la confiance dans les décisions de trading.
 
 ### Support pour Trading d'Actions
 
@@ -92,6 +92,7 @@ python scripts/run_stock_daytrader_all.py --strategy llm_v2 \
 | `min_confidence` | Seuil minimal de confiance pour les signaux | `0.65` |
 | `technical_indicators` | Liste d'indicateurs techniques | `["macd", "rsi", "ema", "bollinger"]` |
 | `news_lookback_hours` | Heures d'actualités à analyser | `24` |
+| `duration` | Durée d'exécution du script (ex: 1h, 4h, 8h, 24h, continuous) | `"continuous"` |
 
 ## EnhancedWebSentimentAgent
 
@@ -197,3 +198,4 @@ python scripts/backtest_strategy.py --strategy llm_v2 --sentiment-weight 0.6 --t
 - Lors de l'exécution en mode live, assurez-vous d'avoir suffisamment de fonds disponibles dans votre compte
 - L'option `--use-env-symbols` permet d'utiliser les symboles définis dans le fichier .env
 - Pour des mises à jour régulières sur les performances de trading, vérifiez les logs et le terminal
+- Le paramètre `--duration` contrôle uniquement la durée d'exécution du script de trading (combien de temps le programme tournera avant de s'arrêter automatiquement) et n'affecte pas les calculs de probabilité ou les décisions de trading de l'algorithme

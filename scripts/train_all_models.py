@@ -5,10 +5,26 @@ MercurioAI - Train All Models
 Ce script permet d'entraîner tous les modèles d'IA utilisés par MercurioAI
 en une seule commande. Il entraîne automatiquement les modèles LSTM et 
 Transformer sur les actifs spécifiés ou sur une liste d'actifs populaires.
+Le script peut également utiliser tous les symboles générés par get_all_symbols.py.
 
-Exemple d'utilisation:
+Exemples d'utilisation:
+    # Utilisation basique avec des symboles par défaut
     python scripts/train_all_models.py --days 90 --top_assets 20
+    
+    # Spécifier des symboles directement
     python scripts/train_all_models.py --symbols BTC-USD,ETH-USD,AAPL,MSFT,TSLA
+    
+    # Utiliser tous les symboles récupérés par get_all_symbols.py (limité à 100)
+    python scripts/train_all_models.py --all_symbols --max_symbols 100 --epochs 10
+    
+    # Sélection aléatoire d'un sous-ensemble de symboles
+    python scripts/train_all_models.py --all_symbols --max_symbols 500 --random_select
+    
+    # Traitement par lots pour les grandes listes de symboles
+    python scripts/train_all_models.py --all_symbols --batch_mode --batch_size 50
+    
+    # Activer automatiquement le mode batch pour les grandes listes
+    python scripts/train_all_models.py --all_symbols --auto_batch
 """
 
 import os
@@ -276,31 +292,80 @@ async def train_all_models(symbols: List[str], lookback_days: int = 180,
     
     return results
 
-async def load_symbols_from_csv(file_path):
-    """Charge une liste de symboles à partir d'un fichier CSV
+async def load_symbols_from_csv(file_path, max_symbols=None, random_select=False):
+    """
+    Charge une liste de symboles à partir d'un fichier CSV
     
     Args:
         file_path: Chemin vers le fichier CSV
+        max_symbols: Nombre maximum de symboles à charger (None pour tous)
+        random_select: Si True, sélectionne aléatoirement les symboles au lieu des premiers
         
     Returns:
         Liste des symboles
     """
     try:
+        # Vérifier que le fichier existe
         if not os.path.exists(file_path):
-            logger.error(f"Le fichier {file_path} n'existe pas")
+            logger.error(f"Fichier {file_path} introuvable")
             return []
-            
+        
+        # Charger le CSV
         df = pd.read_csv(file_path)
+        
+        # Extraire la colonne des symboles
         if 'symbol' not in df.columns:
-            logger.error(f"Le fichier {file_path} ne contient pas de colonne 'symbol'")
+            logger.error(f"Colonne 'symbol' introuvable dans {file_path}")
             return []
+        
+        all_symbols = df['symbol'].tolist()
+        total_symbols = len(all_symbols)
+        
+        # Appliquer la limitation si nécessaire
+        if max_symbols is not None and max_symbols < total_symbols:
+            if random_select:
+                import random
+                symbols = random.sample(all_symbols, max_symbols)
+                logger.info(f"Sélection aléatoire de {max_symbols} symboles parmi {total_symbols} depuis {file_path}")
+            else:
+                symbols = all_symbols[:max_symbols]
+                logger.info(f"Sélection des {max_symbols} premiers symboles parmi {total_symbols} depuis {file_path}")
+        else:
+            symbols = all_symbols
+            logger.info(f"Chargé {len(symbols)} symboles depuis {file_path}")
             
-        symbols = df['symbol'].tolist()
-        logger.info(f"Chargement de {len(symbols)} symboles depuis {file_path}")
         return symbols
     except Exception as e:
         logger.error(f"Erreur lors du chargement des symboles depuis {file_path}: {e}")
         return []
+
+async def find_latest_symbols_files():
+    """
+    Recherche les fichiers CSV les plus récents générés par get_all_symbols.py
+    
+    Returns:
+        Tuple (fichier stocks, fichier crypto)
+    """
+    data_dir = Path("data")
+    
+    # Vérifier que le répertoire existe
+    if not data_dir.exists() or not data_dir.is_dir():
+        logger.warning(f"Répertoire de données {data_dir} introuvable")
+        return None, None
+    
+    # Rechercher les fichiers correspondants
+    stock_files = sorted(data_dir.glob("all_stocks_*.csv"), reverse=True)
+    crypto_files = sorted(data_dir.glob("all_crypto_*.csv"), reverse=True)
+    
+    stock_file = stock_files[0] if stock_files else None
+    crypto_file = crypto_files[0] if crypto_files else None
+    
+    if stock_file:
+        logger.info(f"Fichier de symboles d'actions le plus récent: {stock_file}")
+    if crypto_file:
+        logger.info(f"Fichier de symboles de crypto le plus récent: {crypto_file}")
+        
+    return stock_file, crypto_file
 
 async def main():
     """Fonction principale"""
@@ -330,41 +395,65 @@ async def main():
                        help="Mode batch: traite les symboles par lots pour les grandes listes")
     parser.add_argument("--batch_size", type=int, default=20,
                        help="Taille des lots en mode batch (défaut: 20 symboles par lot)")
+    parser.add_argument("--all_symbols", action='store_true',
+                       help="Utiliser tous les symboles disponibles dans les fichiers générés par get_all_symbols.py")
+    parser.add_argument("--random_select", action='store_true',
+                       help="Sélectionner aléatoirement les symboles plutôt que les premiers de la liste")
+    parser.add_argument("--auto_batch", action='store_true',
+                       help="Active automatiquement le mode batch pour les grandes listes de symboles")
     
     args = parser.parse_args()
     
     # Déterminer la liste des symboles à utiliser
     symbols = []
     
-    # Chargement à partir de fichiers personnalisés
-    if args.custom_stocks_file:
-        custom_stocks = await load_symbols_from_csv(args.custom_stocks_file)
-        symbols.extend(custom_stocks)
-        logger.info(f"Ajout de {len(custom_stocks)} actions depuis le fichier personnalisé")
+    # Option --all_symbols : utiliser les fichiers générés par get_all_symbols.py
+    if args.all_symbols:
+        logger.info("Recherche des fichiers de symboles les plus récents...")
+        stock_file, crypto_file = await find_latest_symbols_files()
         
-    if args.custom_crypto_file:
-        custom_crypto = await load_symbols_from_csv(args.custom_crypto_file)
-        symbols.extend(custom_crypto)
-        logger.info(f"Ajout de {len(custom_crypto)} cryptomonnaies depuis le fichier personnalisé")
-    
-    # Si des symboles sont spécifiés directement
-    if args.symbols:
-        direct_symbols = args.symbols.split(',')
-        symbols.extend(direct_symbols)
-        logger.info(f"Ajout de {len(direct_symbols)} symboles spécifiés directement")
-    
-    # Si aucun symbole n'a été spécifié via les options ci-dessus
-    if not symbols:
-        # Utiliser les actifs populaires
-        if args.include_stocks or not (args.include_stocks or args.include_crypto):
-            stock_symbols = DEFAULT_STOCKS[:args.top_assets] if args.top_assets > 0 else DEFAULT_STOCKS
-            symbols.extend(stock_symbols)
-            logger.info(f"Ajout de {len(stock_symbols)} actions populaires par défaut")
+        if stock_file:
+            max_stock_symbols = args.max_symbols if args.max_symbols > 0 else None
+            custom_stocks = await load_symbols_from_csv(stock_file, max_stock_symbols, args.random_select)
+            symbols.extend(custom_stocks)
+            logger.info(f"Ajout de {len(custom_stocks)} actions depuis {stock_file}")
             
-        if args.include_crypto or not (args.include_stocks or args.include_crypto):
-            crypto_symbols = DEFAULT_CRYPTO[:args.top_assets] if args.top_assets > 0 else DEFAULT_CRYPTO
-            symbols.extend(crypto_symbols)
-            logger.info(f"Ajout de {len(crypto_symbols)} cryptomonnaies populaires par défaut")
+        if crypto_file:
+            # Pour les crypto, on limite à un nombre plus petit par défaut, sauf si spécifié autrement
+            max_crypto_symbols = min(50, args.max_symbols) if args.max_symbols > 0 else 50
+            custom_crypto = await load_symbols_from_csv(crypto_file, max_crypto_symbols, args.random_select)
+            symbols.extend(custom_crypto)
+            logger.info(f"Ajout de {len(custom_crypto)} cryptomonnaies depuis {crypto_file}")
+    else:
+        # Chargement à partir de fichiers personnalisés
+        if args.custom_stocks_file:
+            custom_stocks = await load_symbols_from_csv(args.custom_stocks_file, args.max_symbols, args.random_select)
+            symbols.extend(custom_stocks)
+            logger.info(f"Ajout de {len(custom_stocks)} actions depuis le fichier personnalisé")
+            
+        if args.custom_crypto_file:
+            custom_crypto = await load_symbols_from_csv(args.custom_crypto_file, args.max_symbols, args.random_select)
+            symbols.extend(custom_crypto)
+            logger.info(f"Ajout de {len(custom_crypto)} cryptomonnaies depuis le fichier personnalisé")
+        
+        # Si des symboles sont spécifiés directement
+        if args.symbols:
+            direct_symbols = args.symbols.split(',')
+            symbols.extend(direct_symbols)
+            logger.info(f"Ajout de {len(direct_symbols)} symboles spécifiés directement")
+        
+        # Si aucun symbole n'a été spécifié via les options ci-dessus
+        if not symbols:
+            # Utiliser les actifs populaires
+            if args.include_stocks or not (args.include_stocks or args.include_crypto):
+                stock_symbols = DEFAULT_STOCKS[:args.top_assets] if args.top_assets > 0 else DEFAULT_STOCKS
+                symbols.extend(stock_symbols)
+                logger.info(f"Ajout de {len(stock_symbols)} actions populaires par défaut")
+                
+            if args.include_crypto or not (args.include_stocks or args.include_crypto):
+                crypto_symbols = DEFAULT_CRYPTO[:args.top_assets] if args.top_assets > 0 else DEFAULT_CRYPTO
+                symbols.extend(crypto_symbols)
+                logger.info(f"Ajout de {len(crypto_symbols)} cryptomonnaies populaires par défaut")
     
     # Éliminer les doublons
     symbols = list(set(symbols))
@@ -408,8 +497,11 @@ async def main():
         'use_gpu': args.use_gpu
     }
     
+    # Déterminer si le mode batch doit être utilisé
+    use_batch_mode = args.batch_mode or (args.auto_batch and len(symbols) > args.batch_size)
+    
     # Si le mode batch est activé et qu'il y a beaucoup de symboles
-    if args.batch_mode and len(symbols) > args.batch_size:
+    if use_batch_mode and len(symbols) > args.batch_size:
         logger.info(f"Mode batch activé: traitement par lots de {args.batch_size} symboles")
         
         all_results = {'lstm_models': {}, 'transformer_model': None}
