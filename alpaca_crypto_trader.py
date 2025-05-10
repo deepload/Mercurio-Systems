@@ -234,6 +234,27 @@ class AlpacaCryptoTrader:
                     logger.info(f"Solde disponible: ${buying_power:.2f}")
                     logger.info(f"Liquidités: ${cash:.2f}")
                     logger.info(f"Valeur totale: ${equity:.2f}")
+                    
+                    # Afficher les positions ouvertes
+                    try:
+                        positions = self.api.list_positions()
+                        if positions:
+                            logger.info("\n----- POSITIONS OUVERTES -----")
+                            for position in positions:
+                                symbol = position.symbol
+                                qty = float(position.qty)
+                                current_price = float(position.current_price)
+                                market_value = float(position.market_value)
+                                entry_price = float(position.avg_entry_price)
+                                profit_loss = float(position.unrealized_pl)
+                                profit_loss_pct = float(position.unrealized_plpc) * 100
+                                logger.info(f"{symbol}: {qty} @ ${entry_price:.2f} | Prix actuel: ${current_price:.2f} | Valeur: ${market_value:.2f} | P/L: ${profit_loss:.2f} ({profit_loss_pct:.2f}%)")
+                            logger.info("--------------------------")
+                        else:
+                            logger.info("Pas de positions ouvertes")
+                    except Exception as e:
+                        logger.error(f"Erreur lors de la récupération des positions: {e}")
+                    
                     logger.info("=======================================\n")
                 except Exception as e:
                     logger.error(f"Erreur lors de la récupération du solde Alpaca: {e}")
