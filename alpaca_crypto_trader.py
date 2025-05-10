@@ -118,6 +118,7 @@ class AlpacaCryptoTrader:
         self.session_start_time = None
         self.session_end_time = None
         self.trade_history = []  # Pour enregistrer l'historique des transactions
+        self.running = True  # Variable pour contrôler l'exécution
         
         logger.info("AlpacaCryptoTrader initialisé")
         
@@ -188,6 +189,51 @@ class AlpacaCryptoTrader:
             logger.error(f"Erreur d'initialisation: {e}")
             raise
         
+    def stop(self):
+        """Arrêter proprement le trader"""
+        self.running = False
+        logger.info("Arrêt du trader demandé, finalisation des opérations en cours...")
+        
+        # Générer un rapport final si nécessaire
+        try:
+            self.generate_final_report()
+        except Exception as e:
+            logger.error(f"Erreur lors de la génération du rapport final: {e}")
+        
+        logger.info("Trader arrêté avec succès")
+        
+    def generate_final_report(self):
+        """Générer un rapport final sur les performances"""
+        logger.info("=" * 60)
+        logger.info("RAPPORT FINAL DE TRADING")
+        logger.info("=" * 60)
+        
+        # Afficher les positions actuelles
+        try:
+            positions = self.api.list_positions()
+            if positions:
+                logger.info(f"Positions ouvertes: {len(positions)}")
+                for pos in positions:
+                    market_value = float(pos.market_value) if hasattr(pos, 'market_value') else 0
+                    unrealized_pl = float(pos.unrealized_pl) if hasattr(pos, 'unrealized_pl') else 0
+                    logger.info(f"  {pos.symbol}: {pos.qty} @ {pos.avg_entry_price} - PnL: ${unrealized_pl:.2f}")
+            else:
+                logger.info("Aucune position ouverte")
+        except Exception as e:
+            logger.warning(f"Impossible de récupérer les positions: {e}")
+            
+        # Récupérer la valeur du portefeuille
+        try:
+            account = self.api.get_account()
+            logger.info(f"Valeur du portefeuille: ${float(account.portfolio_value):.2f}")
+            logger.info(f"Espèces disponibles: ${float(account.cash):.2f}")
+        except Exception as e:
+            logger.warning(f"Impossible de récupérer les informations du compte: {e}")
+        
+        logger.info("=" * 60)
+        logger.info("FIN DU RAPPORT")
+        logger.info("=" * 60)
+    
     def start(self, duration_seconds: Optional[int] = None):
         """Démarrer la session de trading crypto"""
         self.session_start_time = datetime.now()
