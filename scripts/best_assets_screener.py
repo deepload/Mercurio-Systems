@@ -78,7 +78,7 @@ DEFAULT_CRYPTO = [
 class AssetEvaluator:
     """Classe pour évaluer les actifs en utilisant différentes stratégies"""
 
-    def __init__(self, lookback_days: int = 30, prediction_days: int = 15):
+    def __init__(self, lookback_days: int = 120, prediction_days: int = 15):
         """Initialise l'évaluateur d'actifs
         
         Args:
@@ -626,8 +626,8 @@ async def main():
                        help="Nombre d'actions à inclure dans le rapport final (défaut: 50)")
     parser.add_argument("--top_crypto", type=int, default=100,
                        help="Nombre de cryptomonnaies à inclure dans le rapport final (défaut: 100)")
-    parser.add_argument("--lookback", type=int, default=30,
-                       help="Nombre de jours d'historique à analyser (défaut: 30)")
+    parser.add_argument("--lookback", type=int, default=120,
+                       help="Nombre de jours d'historique à analyser (défaut: 120)")
     parser.add_argument("--stocks", type=str, default="",
                        help="Liste d'actions personnalisée séparée par des virgules (si vide, utilise la liste par défaut)")
     parser.add_argument("--crypto", type=str, default="",

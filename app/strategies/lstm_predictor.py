@@ -156,7 +156,9 @@ class LSTMPredictorStrategy(BaseStrategy):
         if len(data) < self.sequence_length + 1:
             logger.warning(f"[LSTM] Not enough rows after preprocessing for sequence_length={self.sequence_length}. Data rows: {len(data)}. Returning error.")
             # Return a special DataFrame with an error marker for the script to pick up
-            data['__lstm_error__'] = f"Not enough data after preprocessing (rows={len(data)}, needed={self.sequence_length+1})"
+            # Utilisation de .loc pour éviter le SettingWithCopyWarning
+            data = data.copy()  # Créer une copie explicite
+            data.loc[:, '__lstm_error__'] = f"Not enough data after preprocessing (rows={len(data)}, needed={self.sequence_length+1})"
             return data
         
         return data
