@@ -849,9 +849,18 @@ class TransformerStrategy(BaseStrategy):
         return results
     
     def _save_model(self) -> None:
-        """Save model to disk"""
-        model_path = self.model_dir / 'transformer_model.pth'
-        torch.save(self.model.state_dict(), model_path)
+        """Save model to disk using recommended formats"""
+        # Créer les répertoires si nécessaire
+        os.makedirs(self.model_dir, exist_ok=True)
+        
+        # Sauvegarder le modèle complet au lieu de juste les états du dictionnaire
+        # C'est l'approche recommandée dans PyTorch 2.0+
+        model_path = self.model_dir / 'transformer_model.pt'
+        torch.save(self.model, model_path)
+        
+        # Sauvegarder également les états du dictionnaire pour la rétrocompatibilité
+        weights_path = self.model_dir / 'transformer_model.pth'
+        torch.save(self.model.state_dict(), weights_path)
         
         # Save scaler and feature columns
         metadata = {
@@ -861,7 +870,9 @@ class TransformerStrategy(BaseStrategy):
             'signal_threshold': self.signal_threshold,
             'd_model': self.d_model,
             'nhead': self.nhead,
-            'num_layers': self.num_layers
+            'num_layers': self.num_layers,
+            'model_version': '2.0',  # Ajouter une version pour la compatibilité future
+            'saved_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         
         with open(self.model_dir / 'transformer_metadata.json', 'w') as f:
@@ -870,47 +881,78 @@ class TransformerStrategy(BaseStrategy):
         if self.scaler is not None:
             joblib.dump(self.scaler, self.model_dir / 'transformer_scaler.joblib')
             
-        logger.info(f"Model saved to {model_path}")
+        logger.info(f"Modèle complet sauvegardé dans {model_path}")
+        logger.info(f"Poids du modèle sauvegardés dans {weights_path}")
     
     def _load_model(self) -> None:
-        """Load model from disk"""
-        model_path = self.model_dir / 'transformer_model.pth'
-        if not model_path.exists():
-            logger.warning(f"Model file not found at {model_path}")
+        """Load model from disk with support for both new and legacy formats"""
+        # Vérifier d'abord le nouveau format (.pt pour le modèle complet)
+        model_full_path = self.model_dir / 'transformer_model.pt'
+        weights_path = self.model_dir / 'transformer_model.pth'
+        
+        # Déterminer quel format utiliser
+        use_full_model = model_full_path.exists()
+        use_weights = weights_path.exists()
+        
+        if not (use_full_model or use_weights):
+            logger.warning(f"Aucun fichier de modèle trouvé dans {self.model_dir}")
             return
-            
-        # Load metadata
+        
+        # D'abord charger les métadonnées pour obtenir les paramètres du modèle
         metadata_path = self.model_dir / 'transformer_metadata.json'
         if metadata_path.exists():
-            with open(metadata_path, 'r') as f:
-                metadata = json.load(f)
-                self.feature_columns = metadata.get('feature_columns', self.feature_columns)
-                self.sequence_length = metadata.get('sequence_length', self.sequence_length)
-                self.prediction_horizon = metadata.get('prediction_horizon', self.prediction_horizon)
-                self.signal_threshold = metadata.get('signal_threshold', self.signal_threshold)
-                self.d_model = metadata.get('d_model', self.d_model)
-                self.nhead = metadata.get('nhead', self.nhead)
-                self.num_layers = metadata.get('num_layers', self.num_layers)
-                
-        # Load scaler
+            try:
+                with open(metadata_path, 'r') as f:
+                    metadata = json.load(f)
+                    self.feature_columns = metadata.get('feature_columns', self.feature_columns)
+                    self.sequence_length = metadata.get('sequence_length', self.sequence_length)
+                    self.prediction_horizon = metadata.get('prediction_horizon', self.prediction_horizon)
+                    self.signal_threshold = metadata.get('signal_threshold', self.signal_threshold)
+                    self.d_model = metadata.get('d_model', self.d_model)
+                    self.nhead = metadata.get('nhead', self.nhead)
+                    self.num_layers = metadata.get('num_layers', self.num_layers)
+                    
+                    # Obtenir la version du modèle si disponible
+                    model_version = metadata.get('model_version', '1.0')
+                    logger.info(f"Version du modèle: {model_version}")
+            except Exception as e:
+                logger.error(f"Erreur lors du chargement des métadonnées: {e}")
+                    
+        # Charger le scaler
         scaler_path = self.model_dir / 'transformer_scaler.joblib'
         if scaler_path.exists():
-            self.scaler = joblib.load(scaler_path)
+            try:
+                self.scaler = joblib.load(scaler_path)
+                logger.info(f"Scaler chargé depuis {scaler_path}")
+            except Exception as e:
+                logger.error(f"Erreur lors du chargement du scaler: {e}")
+        
+        try:
+            # Essayer de charger le modèle complet d'abord (format recommandé)
+            if use_full_model:
+                logger.info(f"Chargement du modèle complet depuis {model_full_path}")
+                self.model = torch.load(model_full_path, map_location=self.device)
+                self.model.eval()
+                self.is_trained = True
+            # Sinon, initialiser le modèle et charger les poids
+            elif use_weights:
+                logger.info(f"Initialisation du modèle et chargement des poids depuis {weights_path}")
+                input_dim = len(self.feature_columns) if self.feature_columns else 10
+                self.model = TransformerModel(
+                    input_dim=input_dim,
+                    output_dim=1,
+                    d_model=self.d_model,
+                    nhead=self.nhead,
+                    num_layers=self.num_layers,
+                    dropout=self.dropout
+                ).to(self.device)
+                
+                # Charger les poids du modèle
+                self.model.load_state_dict(torch.load(weights_path, map_location=self.device))
+                self.model.eval()
+                self.is_trained = True
             
-        # Initialize model
-        input_dim = len(self.feature_columns) if self.feature_columns else 10
-        self.model = TransformerModel(
-            input_dim=input_dim,
-            output_dim=1,
-            d_model=self.d_model,
-            nhead=self.nhead,
-            num_layers=self.num_layers,
-            dropout=self.dropout
-        ).to(self.device)
-        
-        # Load model weights
-        self.model.load_state_dict(torch.load(model_path))
-        self.model.eval()
-        
-        self.is_trained = True
-        logger.info(f"Model loaded from {model_path}")
+            logger.info(f"Modèle chargé avec succès")
+        except Exception as e:
+            logger.error(f"Erreur lors du chargement du modèle: {e}")
+            self.is_trained = False

@@ -46,26 +46,35 @@ POPULAR_STOCKS = [
 async def get_all_stocks_alpaca():
     """Récupère tous les symboles d'actions disponibles via Alpaca"""
     # Récupérer les clés API depuis les variables d'environnement
-    alpaca_key = os.getenv("ALPACA_KEY")
-    alpaca_secret = os.getenv("ALPACA_SECRET")
-    
-    if not (alpaca_key and alpaca_secret):
-        logger.error("Clés API Alpaca non trouvées dans les variables d'environnement")
-        return []
-    
-    # Déterminer le mode Alpaca (paper ou live)
     alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
     
     # Configuration selon le mode
     if alpaca_mode == "live":
-        base_url = os.getenv("ALPACA_LIVE_URL", "https://api.alpaca.markets")
+        alpaca_key = os.getenv("ALPACA_LIVE_KEY")
+        alpaca_secret = os.getenv("ALPACA_LIVE_SECRET")
+        base_url = "https://api.alpaca.markets"
+        data_url = "https://data.alpaca.markets"
     else:  # paper mode par défaut
-        base_url = os.getenv("ALPACA_PAPER_URL", "https://paper-api.alpaca.markets")
+        alpaca_key = os.getenv("ALPACA_PAPER_KEY")
+        alpaca_secret = os.getenv("ALPACA_PAPER_SECRET")
+        base_url = "https://paper-api.alpaca.markets"
+        data_url = "https://data.alpaca.markets"
+    
+    if not (alpaca_key and alpaca_secret):
+        logger.error(f"Clés API Alpaca ({alpaca_mode}) non trouvées dans les variables d'environnement")
+        return []
     
     # Initialiser le client Alpaca
     try:
-        api = tradeapi.REST(alpaca_key, alpaca_secret, base_url=base_url)
-        
+        # Utiliser le constructeur approprié pour la version d'Alpaca
+        try:
+            # Nouvelle version d'Alpaca
+            api = tradeapi.REST(api_key=alpaca_key, secret_key=alpaca_secret, base_url=base_url, data_url=data_url)
+        except TypeError:
+            # Ancienne version d'Alpaca
+            logger.info("Utilisation de l'ancien format d'initialisation pour l'API Alpaca")
+            api = tradeapi.REST(alpaca_key, alpaca_secret, base_url=base_url)
+            
         # Récupérer tous les actifs (actions)
         assets = api.list_assets(status='active', asset_class='us_equity')
         
@@ -78,22 +87,48 @@ async def get_all_stocks_alpaca():
         return []
 
 async def get_all_stocks_yahoo():
-    """Récupère les symboles des actions populaires via Yahoo Finance"""
+    """Récupère les symboles des actions populaires via Yahoo Finance avec temporisation"""
     try:
         # On utilise une liste prédéfinie des actions populaires
         valid_symbols = []
         
+        # Utiliser simplement la liste prédéfinie si Yahoo rencontre des problèmes de limitation
+        rate_limit_count = 0
+        rate_limit_threshold = 3  # Après 3 erreurs de limitation, on arrête d'essayer
+        
         for symbol in POPULAR_STOCKS:
             try:
+                # Ajouter une pause de 2 secondes entre chaque requête pour éviter la limitation
+                await asyncio.sleep(2)
+                
                 # Vérifier si le symbole existe en récupérant des données minimales
                 ticker = yf.Ticker(symbol)
                 info = ticker.info
-                if 'symbol' in info:
+                if 'symbol' in info or 'shortName' in info:
                     valid_symbols.append(symbol)
                     logger.info(f"Symbole confirmé via Yahoo Finance: {symbol}")
             except Exception as e:
-                logger.warning(f"Impossible de valider le symbole {symbol} via Yahoo Finance: {e}")
+                error_str = str(e).lower()
+                if "too many requests" in error_str or "rate limit" in error_str:
+                    rate_limit_count += 1
+                    # Ajouter le symbole malgré l'erreur car il fait partie de la liste prédéfinie
+                    valid_symbols.append(symbol)
+                    
+                    # Si nous avons atteint le seuil, arrêter et retourner tous les symboles prédéfinis
+                    if rate_limit_count >= rate_limit_threshold:
+                        logger.warning(f"Trop d'erreurs de limitation avec Yahoo Finance, utilisation de la liste prédéfinie")
+                        return POPULAR_STOCKS
+                    
+                    # Pause plus longue après une erreur de limitation
+                    await asyncio.sleep(5)
+                else:
+                    logger.warning(f"Impossible de valider le symbole {symbol} via Yahoo Finance: {e}")
         
+        # Si on a reçu moins de 10 symboles valides, utiliser la liste prédéfinie par mesure de sécurité
+        if len(valid_symbols) < 10:
+            logger.warning(f"Trop peu de symboles validés ({len(valid_symbols)}), utilisation de la liste prédéfinie")
+            return POPULAR_STOCKS
+            
         logger.info(f"Récupéré {len(valid_symbols)} symboles d'actions populaires via Yahoo Finance")
         return valid_symbols
     except Exception as e:
@@ -191,12 +226,34 @@ async def get_all_crypto():
     Returns:
         Liste des symboles de crypto-monnaies
     """
-    try:
-        # Initialiser le service de données
-        market_data = MarketDataService()
+    # Récupérer les clés API depuis les variables d'environnement
+    alpaca_mode = os.getenv("ALPACA_MODE", "paper").lower()
+    
+    # Configuration selon le mode
+    if alpaca_mode == "live":
+        alpaca_key = os.getenv("ALPACA_LIVE_KEY")
+        alpaca_secret = os.getenv("ALPACA_LIVE_SECRET")
+        base_url = "https://api.alpaca.markets"
+        data_url = "https://data.alpaca.markets"
+    else:  # paper mode par défaut
+        alpaca_key = os.getenv("ALPACA_PAPER_KEY")
+        alpaca_secret = os.getenv("ALPACA_PAPER_SECRET")
+        base_url = "https://paper-api.alpaca.markets"
+        data_url = "https://data.alpaca.markets"
+    
+    if not (alpaca_key and alpaca_secret):
+        logger.error(f"Clés API Alpaca ({alpaca_mode}) non trouvées dans les variables d'environnement")
+        return []
         
-        # Accéder directement au client Alpaca
-        alpaca_client = market_data.alpaca_client
+    try:
+        # Initialiser le client Alpaca directement
+        try:
+            # Nouvelle version d'Alpaca
+            alpaca_client = tradeapi.REST(api_key=alpaca_key, secret_key=alpaca_secret, base_url=base_url, data_url=data_url)
+        except TypeError:
+            # Ancienne version d'Alpaca
+            logger.info("Utilisation de l'ancien format d'initialisation pour l'API Alpaca")
+            alpaca_client = tradeapi.REST(alpaca_key, alpaca_secret, base_url=base_url)
         
         # Récupérer tous les actifs
         assets = alpaca_client.list_assets(status='active', asset_class='crypto')
