@@ -23,6 +23,11 @@ Ce document sert d'index central pour tous les guides et la documentation de Mer
   - Calcul des Grecs et analyse de risque
   - Screening d'opportunités sur options
 
+- [🤖 **Guide LLMStrategyV2**](./guides/LLM_STRATEGY_V2_GUIDE.md) - Trading avec intelligence artificielle avancée
+  - Combinaison d'analyse technique et sentiment
+  - Intégration de grands modèles de langage (LLM)
+  - Configuration et optimisation
+
 ## 💻 Guides Techniques
 
 - [🧠 **Guide d'Entraînement des Modèles**](./model_training_guide.md) - Créer et entraîner vos propres modèles
