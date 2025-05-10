@@ -625,7 +625,11 @@ def main():
     parser.add_argument("--sentiment-threshold", type=float, default=0.6,
                       help="Seuil de sentiment pour la stratégie LLM (default: 0.6)")
     parser.add_argument("--news-lookback", type=int, default=24,
-                      help="Nombre d'heures de données d'actualités à analyser pour la stratégie LLM (default: 24)")
+                       help="Nombre d'heures de données d'actualités à analyser pour la stratégie LLM (default: 24)")
+    parser.add_argument("--sentiment-weight", type=float, default=0.7,
+                       help="Poids du sentiment dans la stratégie LLM_V2 (default: 0.7)")
+    parser.add_argument("--min-confidence", type=float, default=0.6,
+                       help="Confiance minimale pour les signaux de la stratégie LLM_V2 (default: 0.6)")
     
     args = parser.parse_args()
     
@@ -939,6 +943,10 @@ def main():
                       help="Clé API pour le modèle LLM (si nécessaire)")
     parser.add_argument("--sentiment-threshold", type=float, default=0.6, 
                       help="Seuil de sentiment pour la stratégie LLM")
+    parser.add_argument("--sentiment-weight", type=float, default=0.5, 
+                      help="Poids donné à l'analyse de sentiment vs technique (0-1)")
+    parser.add_argument("--min-confidence", type=float, default=0.65, 
+                      help="Seuil minimal de confiance pour les signaux de trading")
     parser.add_argument("--news-lookback", type=int, default=24, 
                       help="Période de recherche d'actualités (en heures)")
     

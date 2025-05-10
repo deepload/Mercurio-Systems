@@ -2,6 +2,7 @@
 
 Ce document présente une analyse détaillée de toutes les stratégies de trading disponibles dans la plateforme MercurioAI, avec leurs forces, faiblesses, cas d'utilisation optimaux et paramètres de configuration.
 
+
 ## Table des matières
 
 1. [Vue d'ensemble des stratégies](#vue-densemble-des-stratégies)

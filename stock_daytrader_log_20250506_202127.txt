@@ -1,5 +1,0 @@
-2025-05-06 20:21:27,179 - stock_daytrader - INFO - Démarrage du script de day trading. Appuyez sur Ctrl+C pour arrêter proprement.
-2025-05-06 20:21:27,180 - stock_daytrader - INFO - Configuré pour le trading PAPER (simulation)
-2025-05-06 20:21:27,180 - stock_daytrader - INFO - Utilisation forcée du niveau d'API Alpaca 3
-2025-05-06 20:21:27,180 - stock_daytrader - INFO - Niveau Premium (3) d'Alpaca activé - Fonctionnalités complètes disponibles
-2025-05-06 20:21:27,180 - stock_daytrader - INFO - StockDayTrader initialisé

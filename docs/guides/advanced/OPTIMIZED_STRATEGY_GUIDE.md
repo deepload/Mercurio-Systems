@@ -4,6 +4,7 @@
 
 This guide explains how to use Mercurio AI's optimized trading strategies based on our simulations and backtests for January 2025. Our analysis has identified the most profitable configuration for each asset, focusing particularly on the Moving Average Crossover strategy which consistently outperformed other approaches in our simulations.
 
+
 ## Table of Contents
 
 1. [Strategy Performance Summary](#strategy-performance-summary)

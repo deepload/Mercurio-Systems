@@ -4,6 +4,7 @@
 
 Managing a portfolio of algorithmic strategies requires a different approach than traditional investment portfolios. The goal is to create an ecosystem of strategies that complement each other.
 
+
 #### The Strategy Portfolio Matrix
 
 | Strategy Type | Market Regime | Capital Allocation | Drawdown Correlation |

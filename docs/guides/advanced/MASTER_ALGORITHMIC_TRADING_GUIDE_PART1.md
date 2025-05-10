@@ -4,6 +4,7 @@
 
 ---
 
+
 ## INTRODUCTION: THE ALGORITHMIC ADVANTAGE
 
 Welcome to the world of algorithmic trading. If you're reading this guide, you've taken the first step toward joining an elite community of investors who have transcended the limitations of emotion-driven decision making and embraced the power of systematic, data-driven trading.
