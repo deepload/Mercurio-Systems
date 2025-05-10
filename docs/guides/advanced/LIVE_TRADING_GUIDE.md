@@ -11,6 +11,7 @@ Before starting with live trading, ensure you have:
 3. Obtained and configured all necessary API keys
 4. Understood the risks associated with algorithmic trading
 
+
 ## Setting Up Live Trading
 
 ### 1. Broker Account Setup

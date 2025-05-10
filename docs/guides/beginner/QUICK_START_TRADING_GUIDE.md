@@ -2,6 +2,7 @@
 
 This guide provides the essential steps to quickly begin trading with MercurioAI, first in paper trading mode to practice without risk, then transitioning to live trading when you're ready.
 
+
 ## Setup (One-Time)
 
 1. **Configure API Keys**
