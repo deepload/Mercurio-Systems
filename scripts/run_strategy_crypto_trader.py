@@ -118,7 +118,38 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("strategy_crypto_trader")
 
 # Liste personnalisée de cryptos à trader
-PERSONALIZED_CRYPTO_LIST = [
+def load_crypto_symbols_from_file(file_path):
+    """Charge les symboles de crypto depuis un fichier externe"""
+    try:
+        symbols = []
+        with open(file_path, 'r') as f:
+            for line in f.readlines():
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    symbols.append(line)
+        logger.info(f"Chargé {len(symbols)} symboles depuis {file_path}")
+        return symbols
+    except Exception as e:
+        logger.error(f"Erreur lors du chargement du fichier {file_path}: {e}")
+        return []
+
+def load_crypto_symbols_from_env():
+    """Charge les symboles de crypto depuis la variable d'environnement"""
+    try:
+        env_symbols = os.getenv("PERSONALIZED_CRYPTO_LIST", "")
+        if env_symbols:
+            symbols = [s.strip() for s in env_symbols.split(',')]
+            logger.info(f"Chargé {len(symbols)} symboles depuis .env")
+            return symbols
+        else:
+            logger.warning("Aucun symbole trouvé dans .env")
+            return []
+    except Exception as e:
+        logger.error(f"Erreur lors du chargement des symboles depuis .env: {e}")
+        return []
+
+# Liste par défaut
+DEFAULT_CRYPTO_LIST = [
     "AAVE/USD", "AAVE/USDT", "AVAX/USD", "BAT/USD", "BCH/USD", 
     "BCH/USDT", "BTC/USD", "BTC/USDT", "CRV/USD", "DOGE/USD", 
     "DOGE/USDT", "DOT/USD", "ETH/USD", "ETH/USDT", "GRT/USD", 
@@ -127,6 +158,9 @@ PERSONALIZED_CRYPTO_LIST = [
     "TRUMP/USD", "UNI/USD", "UNI/USDT", "USDC/USD", "USDT/USD", 
     "XRP/USD", "XTZ/USD", "YFI/USD", "YFI/USDT"
 ]
+
+# Sera initialisé durant l'exécution
+PERSONALIZED_CRYPTO_LIST = []
 
 # Implémentation des stratégies de trading
 class BaseStrategy:
@@ -749,7 +783,7 @@ def main():
                 "stop_loss": args.stop_loss,
                 "take_profit": args.take_profit
             }
-        elif args.strategy == StrategyType.LSTM:
+        elif strategy_upper == StrategyType.LSTM:
             strategy_params = {
                 "sequence_length": args.sequence_length,
                 "prediction_horizon": args.prediction_horizon,
@@ -763,7 +797,7 @@ def main():
                 "stop_loss": args.stop_loss,
                 "take_profit": args.take_profit
             }
-        elif args.strategy == StrategyType.LLM:
+        elif strategy_upper == StrategyType.LLM:
             strategy_params = {
                 "model_name": args.model_name,
                 "use_local_model": args.use_local_model,
@@ -812,6 +846,272 @@ def main():
         # Utiliser la liste personnalisée de symboles
         trader.custom_symbols = PERSONALIZED_CRYPTO_LIST
         trader.use_custom_symbols = args.use_custom_symbols
+        
+        # Démarrer le trader avec la stratégie par défaut adaptée
+        print(f"Démarrage du trader avec adaptation pour la stratégie {strategy_type}")
+        if custom_duration:
+            trader.start(custom_duration)
+        else:
+            trader.start()
+    
+    print("=" * 60)
+    print("SESSION DE TRADING TERMINÉE")
+    print("=" * 60)
+    print("Un rapport détaillé a été généré dans le dossier courant")
+    print("=" * 60)
+
+def main():
+    # Parser les arguments
+    parser = argparse.ArgumentParser(description="Lance le trader de cryptos avec une stratégie spécifique")
+    
+    # Arguments pour la stratégie
+    parser.add_argument("--strategy", type=str, choices=[s.lower() for s in dir(StrategyType) if not s.startswith("_")], 
+                      default="moving_average", help="Stratégie à utiliser (insensible à la casse)")
+    parser.add_argument("--duration", type=str, 
+                      default="continuous", help="Durée de la session: 1h, 4h, 8h, day, night, weekend, continuous")
+    
+    # Arguments pour les symboles
+    parser.add_argument("--use-custom-symbols", action="store_true", 
+                      help="Utiliser la liste personnalisée de symboles")
+    parser.add_argument("--symbols-file", type=str, 
+                      help="Fichier contenant la liste des cryptomonnaies (une par ligne)")
+    parser.add_argument("--use-env-symbols", action="store_true", 
+                      help="Utiliser les symboles définis dans la variable d'environnement PERSONALIZED_CRYPTO_LIST")
+    parser.add_argument("--symbols", type=str, 
+                      help="Liste de symboles séparés par des virgules (ex: BTC/USD,ETH/USD)")
+    
+    # Autres arguments
+    parser.add_argument("--position-size", type=float, default=0.02, 
+                      help="Taille de position en pourcentage du capital (0.02 = 2%)")
+    parser.add_argument("--stop-loss", type=float, default=0.03, 
+                      help="Pourcentage de stop loss (0.03 = 3%)")
+    parser.add_argument("--take-profit", type=float, default=0.06, 
+                      help="Pourcentage de take profit (0.06 = 6%)")
+    parser.add_argument("--verbose", "-v", action="store_true", 
+                      help="Afficher les informations détaillées")
+    
+    # Arguments pour les stratégies avancées
+    # Transformer
+    parser.add_argument("--sequence-length", type=int, default=30, 
+                      help="Longueur de séquence pour Transformer")
+    parser.add_argument("--prediction-horizon", type=int, default=5, 
+                      help="Horizon de prédiction pour Transformer/LSTM")
+    parser.add_argument("--d-model", type=int, default=64, 
+                      help="Dimension du modèle Transformer")
+    parser.add_argument("--nhead", type=int, default=4, 
+                      help="Nombre de têtes d'attention pour Transformer")
+    parser.add_argument("--num-layers", type=int, default=2, 
+                      help="Nombre de couches pour Transformer")
+    parser.add_argument("--dropout", type=float, default=0.1, 
+                      help="Taux de dropout pour Transformer")
+    parser.add_argument("--signal-threshold", type=float, default=0.6, 
+                      help="Seuil de signal pour Transformer")
+    
+    # LSTM
+    parser.add_argument("--lstm-units", type=int, default=50, 
+                      help="Nombre d'unités LSTM")
+    parser.add_argument("--lstm-dropout", type=float, default=0.2, 
+                      help="Taux de dropout pour LSTM")
+    parser.add_argument("--lstm-epochs", type=int, default=50, 
+                      help="Nombre d'époques pour l'entraînement LSTM")
+    parser.add_argument("--lstm-batch-size", type=int, default=32, 
+                      help="Taille du batch pour l'entraînement LSTM")
+    
+    # LLM
+    parser.add_argument("--model-name", type=str, default="gpt-3.5-turbo", 
+                      help="Nom du modèle LLM à utiliser")
+    parser.add_argument("--use-local-model", action="store_true", 
+                      help="Utiliser un modèle LLM local")
+    parser.add_argument("--local-model-path", type=str, 
+                      help="Chemin vers le modèle LLM local")
+    parser.add_argument("--api-key", type=str, 
+                      help="Clé API pour le modèle LLM (si nécessaire)")
+    parser.add_argument("--sentiment-threshold", type=float, default=0.6, 
+                      help="Seuil de sentiment pour la stratégie LLM")
+    parser.add_argument("--news-lookback", type=int, default=24, 
+                      help="Période de recherche d'actualités (en heures)")
+    
+    # Options communes
+    parser.add_argument("--use-gpu", action="store_true", 
+                      help="Utiliser le GPU pour l'entraînement (si disponible)")
+    parser.add_argument("--retrain", action="store_true", 
+                      help="Réentraîner le modèle avant utilisation")
+    
+    args = parser.parse_args()
+    
+    # Chargement des symboles
+    global PERSONALIZED_CRYPTO_LIST
+    
+    # 1. Priorité aux symboles passés en ligne de commande
+    if args.symbols:
+        symbol_list = [s.strip() for s in args.symbols.split(',')]
+        logger.info(f"Utilisation de {len(symbol_list)} symboles fournis en ligne de commande")
+        PERSONALIZED_CRYPTO_LIST = symbol_list
+    
+    # 2. Ensuite, vérifier le fichier de symboles
+    elif args.symbols_file:
+        symbol_list = load_crypto_symbols_from_file(args.symbols_file)
+        if symbol_list:
+            PERSONALIZED_CRYPTO_LIST = symbol_list
+        else:
+            logger.warning(f"Impossible de charger les symboles depuis {args.symbols_file}, utilisation de la liste par défaut")
+            PERSONALIZED_CRYPTO_LIST = DEFAULT_CRYPTO_LIST
+    
+    # 3. Ensuite, vérifier le .env si demandé
+    elif args.use_env_symbols:
+        symbol_list = load_crypto_symbols_from_env()
+        if symbol_list:
+            PERSONALIZED_CRYPTO_LIST = symbol_list
+        else:
+            logger.warning("Impossible de charger les symboles depuis .env, utilisation de la liste par défaut")
+            PERSONALIZED_CRYPTO_LIST = DEFAULT_CRYPTO_LIST
+    
+    # 4. Sinon, utiliser la liste par défaut
+    else:
+        logger.info("Utilisation de la liste de symboles par défaut")
+        PERSONALIZED_CRYPTO_LIST = DEFAULT_CRYPTO_LIST
+    
+    if args.verbose:
+        logger.info(f"Liste des {len(PERSONALIZED_CRYPTO_LIST)} symboles utilisés:")
+        for i, symbol in enumerate(PERSONALIZED_CRYPTO_LIST):
+            logger.info(f"{i+1:3d}. {symbol}")
+    
+    # Détecter le niveau d'accès Alpaca
+    api_level = detect_alpaca_level()
+    
+    # Traiter la durée de session
+    session_duration = None
+    custom_duration = None
+    
+    try:
+        if args.duration.lower() == "continuous":
+            session_duration = SessionDuration.CONTINUOUS
+        elif args.duration.lower() == "day":
+            session_duration = SessionDuration.DAY
+        elif args.duration.lower() == "night":
+            session_duration = SessionDuration.NIGHT
+        elif args.duration.lower() == "weekend":
+            session_duration = SessionDuration.WEEKEND
+        else:
+            # Essayer de parser la durée (ex: 4h, 2d)
+            if args.duration.endswith('h'):
+                hours = int(args.duration[:-1])
+                custom_duration = hours * 60 * 60  # Convertir en secondes
+            elif args.duration.endswith('d'):
+                days = int(args.duration[:-1])
+                custom_duration = days * 24 * 60 * 60  # Convertir en secondes
+            elif args.duration.endswith('m'):
+                minutes = int(args.duration[:-1])
+                custom_duration = minutes * 60  # Convertir en secondes
+            else:
+                try:
+                    # Essayer de parser comme un nombre d'heures
+                    hours = int(args.duration)
+                    custom_duration = hours * 60 * 60  # Convertir en secondes
+                except ValueError:
+                    print(f"Durée non reconnue: {args.duration}, utilisation du mode continu")
+                    session_duration = SessionDuration.CONTINUOUS
+    except Exception as e:
+        print(f"Erreur lors du parsing de la durée: {e}, utilisation du mode continu")
+        session_duration = SessionDuration.CONTINUOUS
+    
+    if custom_duration:
+        print(f"Durée de session personnalisée: {custom_duration} secondes")
+    else:
+        print(f"Mode de session: {session_duration.name}")
+    
+    # Récupérer la classe de stratégie (convertir en majuscules pour correspondre à l'énumération)
+    strategy_upper = args.strategy.upper()
+    strategy_class = get_strategy_class(strategy_upper)
+    
+    if strategy_class:
+        print(f"Stratégie sélectionnée: {args.strategy}")
+        
+        # Configurer les paramètres de la stratégie en fonction du type
+        strategy_params = {
+            "position_size": args.position_size,
+            "stop_loss": args.stop_loss,
+            "take_profit": args.take_profit
+        }
+        
+        if strategy_upper == StrategyType.TRANSFORMER:
+            strategy_params = {
+                "sequence_length": args.sequence_length,
+                "prediction_horizon": args.prediction_horizon,
+                "d_model": args.d_model,
+                "nhead": args.nhead,
+                "num_layers": args.num_layers,
+                "dropout": args.dropout,
+                "signal_threshold": args.signal_threshold,
+                "use_gpu": args.use_gpu,
+                "retrain": args.retrain,
+                "position_size": args.position_size,
+                "stop_loss": args.stop_loss,
+                "take_profit": args.take_profit
+            }
+        elif strategy_upper == StrategyType.LSTM:
+            strategy_params = {
+                "sequence_length": args.sequence_length,
+                "prediction_horizon": args.prediction_horizon,
+                "lstm_units": args.lstm_units,
+                "dropout_rate": args.lstm_dropout,
+                "epochs": args.lstm_epochs,
+                "batch_size": args.lstm_batch_size,
+                "use_gpu": args.use_gpu,
+                "retrain": args.retrain,
+                "position_size": args.position_size,
+                "stop_loss": args.stop_loss,
+                "take_profit": args.take_profit
+            }
+        elif strategy_upper == StrategyType.LLM:
+            strategy_params = {
+                "model_name": args.model_name,
+                "use_local_model": args.use_local_model,
+                "local_model_path": args.local_model_path,
+                "api_key": args.api_key,
+                "sentiment_threshold": args.sentiment_threshold,
+                "news_lookback_hours": args.news_lookback,
+                "position_size": args.position_size,
+                "stop_loss": args.stop_loss,
+                "take_profit": args.take_profit
+            }
+        
+        # Créer l'instance de stratégie
+        strategy_instance = strategy_class(**strategy_params)
+        print(f"Stratégie {strategy_instance.name} initialisée avec succès")
+        print("Utilisation du trader Alpaca de base avec adaptation des signaux")
+        
+        # Créer le trader avec la durée de session spécifiée
+        trader = AlpacaCryptoTrader(session_duration=session_duration)
+        
+        # Configurer le niveau d'API
+        if api_level > 0:
+            print(f"Configuration du niveau d'API Alpaca: {api_level}")
+            trader.subscription_level = api_level
+        
+        # Configurer les paramètres
+        trader.position_size_pct = args.position_size
+        trader.stop_loss_pct = args.stop_loss
+        trader.take_profit_pct = args.take_profit
+        
+        # La stratégie personnalisée sera utilisée dans un script séparé
+        # qui sera exécuté ultérieurement avec les mêmes paramètres
+        strategy_type = args.strategy
+        strategy_file = f"custom_strategy_{strategy_type}_params.json"
+        
+        # Sauvegarder les paramètres dans un fichier pour utilisation future
+        with open(strategy_file, "w") as f:
+            json.dump({
+                "strategy_type": strategy_type,
+                "params": strategy_params,
+                "symbols": PERSONALIZED_CRYPTO_LIST
+            }, f, indent=2)
+        
+        print(f"Configuration de stratégie enregistrée dans {strategy_file}")
+        
+        # Utiliser la liste personnalisée de symboles
+        trader.custom_symbols = PERSONALIZED_CRYPTO_LIST
+        trader.use_custom_symbols = args.use_custom_symbols or args.symbols_file or args.use_env_symbols or args.symbols
         
         # Démarrer le trader avec la stratégie par défaut adaptée
         print(f"Démarrage du trader avec adaptation pour la stratégie {strategy_type}")

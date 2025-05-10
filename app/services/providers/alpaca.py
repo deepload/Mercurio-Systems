@@ -59,21 +59,17 @@ class AlpacaProvider(MarketDataProvider):
                 if self.base_url.endswith("/v2"):
                     self.base_url = self.base_url.rstrip("/v2")
                 
-                # Initialize the client with compatible parameters
+                # Initialize the client without data_url parameter to avoid errors
                 self.client = tradeapi.REST(
                     key_id=self.alpaca_key,
                     secret_key=self.alpaca_secret,
                     base_url=self.base_url
                 )
                 
-                # Try to set data_url attribute if the client supports it
-                try:
-                    if hasattr(self.client, 'data_url'):
-                        self.client.data_url = self.data_url
-                        logger.info(f"AlpacaProvider: Set data_url attribute to {self.data_url}")
-                except Exception as e:
-                    logger.warning(f"AlpacaProvider: Could not set data_url attribute: {e}")
-                logger.info(f"AlpacaProvider: Initialized Alpaca client with base_url: {self.base_url} and data_url: {self.data_url}")
+                # Store data_url separately for direct API calls
+                self.data_url = self.data_url
+                logger.info(f"AlpacaProvider: Initialized Alpaca client with base_url: {self.base_url}")
+                logger.info(f"AlpacaProvider: Will use data_url: {self.data_url} for direct API calls")
             except Exception as e:
                 logger.error(f"AlpacaProvider: Failed to initialize Alpaca client: {e}")
                 self.client = None
@@ -121,9 +117,10 @@ class AlpacaProvider(MarketDataProvider):
             return pd.DataFrame()
         
         try:
-            # Format dates for API
-            start_str = start_date.strftime('%Y-%m-%d')
-            end_str = end_date.strftime('%Y-%m-%d')
+            # Format dates for API with precise timestamps to ensure fresh data
+            start_str = start_date.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+            end_str = end_date.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+            logger.info(f"AlpacaProvider: Using precise timestamps: {start_str} to {end_str}")
             
             # Map timeframe to Alpaca format
             alpaca_timeframe = timeframe
@@ -210,7 +207,8 @@ class AlpacaProvider(MarketDataProvider):
                 "timeframe": v1beta3_timeframe,
                 "start": start_str,
                 "end": end_str,
-                "limit": 1000
+                "limit": 1000,
+                "_cache_buster": datetime.now().timestamp()  # Force refresh by preventing caching
             }
             
             # Authentication headers
@@ -263,6 +261,11 @@ class AlpacaProvider(MarketDataProvider):
             logger.warning(f"AlpacaProvider: Error in direct API call to Alpaca: {str(e)[:200]}")
             return pd.DataFrame()
 
+    # Cache for latest prices to avoid redundant API calls
+    _price_cache = {}
+    _price_cache_time = {}
+    _price_cache_expiry = 5  # seconds - reduced from 60 to enable more frequent price updates
+    
     async def get_latest_price(self, symbol: str) -> float:
         """
         Get the latest price for a symbol.
@@ -271,59 +274,174 @@ class AlpacaProvider(MarketDataProvider):
             symbol: The market symbol (e.g., 'AAPL')
             
         Returns:
-            Latest price
+            The latest price as a float
         """
         if not self.client:
-            logger.warning("AlpacaProvider: Client not initialized, cannot fetch latest price")
+            logger.error(f"AlpacaProvider: Client not initialized, cannot get latest price")
             return 0.0
-
+            
+        # Check if it's a crypto symbol
+        if '/' in symbol:
+            return await self.get_latest_crypto_price_realtime(symbol)
+        
+        # Try to get from cache first if not expired
+        cache_key = f"price_{symbol}"
+        cached_price = self._get_from_cache(cache_key)
+        if cached_price is not None:
+            logger.debug(f"AlpacaProvider: Using cached price for {symbol}: {cached_price}")
+            return cached_price
+        
+        # Not in cache or expired, fetch new price
         try:
-            # Check if it's a crypto symbol
-            if '/' in symbol:
-                # For crypto, use the crypto bars endpoint to get the latest price
-                # Get the most recent bar
-                timeframe = '1Min'
+            # For non-crypto symbols
+            logger.debug(f"AlpacaProvider: Getting latest price for {symbol}")
+            end = datetime.now()
+            start = end - timedelta(hours=24)  # Look back 24 hours max
+            
+            # Try with different timeframes if needed
+            timeframes = ["1Min", "5Min", "1Day"]
+            
+            for timeframe in timeframes:
                 try:
-                    # Try using get_historical_data which is already implemented for crypto
-                    end = datetime.now()
-                    start = end - timedelta(minutes=10)
-                    # Use the existing method that works with crypto
                     bars = await self.get_historical_data(symbol, start, end, timeframe)
-                    if bars is not None and not bars.empty:
-                        return float(bars['close'].iloc[-1])
-
-                    # If we couldn't get historical data, try alternative methods
-                    if hasattr(self, 'crypto_client') and self.crypto_client:
-                        try:
-                            crypto_bars = self.crypto_client.get_crypto_bars(symbol, timeframe, limit=1).df
-                            if not crypto_bars.empty:
-                                return float(crypto_bars['close'].iloc[-1])
-                        except Exception as crypto_client_e:
-                            logger.debug(f"Error using crypto_client for {symbol}: {str(crypto_client_e)}")
-                except Exception as hist_e:
-                    logger.error(f"AlpacaProvider: Error fetching crypto historical data for {symbol}: {str(hist_e)}")
-
-                # Final fallback - try to get price from trade data if available
-                try:
-                    if hasattr(self.client, 'get_latest_crypto_trade'):
-                        last_trade = self.client.get_latest_crypto_trade(symbol)
-                        if last_trade and hasattr(last_trade, 'p'):
-                            return float(last_trade.p)
-                except Exception as trade_e:
-                    logger.debug(f"Error getting latest crypto trade for {symbol}: {str(trade_e)}")
-
-                # If we got here, we couldn't get a price
-                logger.warning(f"Could not fetch latest price for crypto {symbol}, returning 0")
-                return 0.0
-
-            # For stocks, use the last trade
-            last_trade = self.client.get_latest_trade(symbol)
-            if last_trade and hasattr(last_trade, 'p'):
-                return float(last_trade.p)  # price
+                    if not bars.empty:
+                        # Get the latest bar's closing price
+                        latest_price = float(bars['close'].iloc[-1])
+                        logger.info(f"{symbol} prix actuel (dernière barre): ${latest_price:.4f}")
+                        
+                        # Cache the price
+                        self._add_to_cache(cache_key, latest_price, expiry_seconds=60)
+                        return latest_price
+                except Exception as e:
+                    logger.warning(f"AlpacaProvider: Failed to get {timeframe} data for {symbol}: {e}")
+                    continue
+            
+            # If we got here, we couldn't get data from any timeframe
+            logger.error(f"AlpacaProvider: Could not get latest price for {symbol} after trying all timeframes")
             return 0.0
-
         except Exception as e:
-            logger.error(f"AlpacaProvider: Error fetching latest price for {symbol}: {str(e)}")
+            logger.error(f"AlpacaProvider: Error getting price for {symbol}: {str(e)}")
+            return 0.0
+        
+    async def get_latest_crypto_price_realtime(self, symbol: str) -> float:
+        """
+        Get the latest real-time price for a crypto symbol using direct API call.
+        This bypasses the historical bar API to get truly real-time prices.
+        
+        Args:
+            symbol: The crypto symbol (e.g., 'BTC/USD')
+            
+        Returns:
+            The latest real-time price as a float
+        """
+        # Check cache first with very short expiry
+        cache_key = f"rt_price_{symbol}"
+        cached_price = self._get_from_cache(cache_key)
+        if cached_price is not None:
+            logger.debug(f"AlpacaProvider: Using cached real-time price for {symbol}: {cached_price}")
+            return cached_price
+            
+        try:
+            # Direct API call to quotes endpoint
+            timestamp = datetime.now().timestamp()
+            base_url = f"{self.data_url}/v1beta3/crypto/quotes"
+            
+            # Request parameters - add timestamp to prevent caching
+            params = {
+                "symbols": symbol,
+                "_nocache": timestamp
+            }
+            
+            # Authentication headers
+            headers = {
+                "APCA-API-KEY-ID": self.alpaca_key,
+                "APCA-API-SECRET-KEY": self.alpaca_secret
+            }
+            
+            # Execute request
+            logger.info(f"AlpacaProvider: Making direct quote API call for {symbol}")
+            response = requests.get(base_url, params=params, headers=headers)
+            
+            # Check response status
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Verify we have data for this symbol
+                if data and "quotes" in data and symbol in data["quotes"] and len(data["quotes"][symbol]) > 0:
+                    # Get the latest quote
+                    quote = data["quotes"][symbol][0]
+                    # Use ask price as the latest price
+                    latest_price = float(quote.get("ap", 0))
+                    
+                    if latest_price > 0:
+                        logger.info(f"{symbol} prix temps réel (cotation): ${latest_price:.4f}")
+                        # Cache for very short time (1 second)
+                        self._add_to_cache(cache_key, latest_price, expiry_seconds=1)
+                        return latest_price
+            
+            # If direct quote API failed, fall back to trades API
+            base_url = f"{self.data_url}/v1beta3/crypto/trades"
+            response = requests.get(base_url, params=params, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Verify we have data for this symbol
+                if data and "trades" in data and symbol in data["trades"] and len(data["trades"][symbol]) > 0:
+                    # Get the latest trade
+                    trade = data["trades"][symbol][0]
+                    # Use trade price
+                    latest_price = float(trade.get("p", 0))
+                    
+                    if latest_price > 0:
+                        logger.info(f"{symbol} prix temps réel (dernière transaction): ${latest_price:.4f}")
+                        # Cache for very short time
+                        self._add_to_cache(cache_key, latest_price, expiry_seconds=1)
+                        return latest_price
+            
+            # If both realtime methods failed, fall back to the historical method
+            logger.warning(f"AlpacaProvider: Real-time quote not available for {symbol}, falling back to bars")
+            return await self._get_crypto_price_from_bars(symbol)
+        except Exception as e:
+            logger.warning(f"AlpacaProvider: Error getting real-time price: {str(e)}")
+            # Fall back to the historical method
+            return await self._get_crypto_price_from_bars(symbol)
+            
+    async def _get_crypto_price_from_bars(self, symbol: str) -> float:
+        """
+        Fallback method to get crypto price from historical bars when real-time fails.
+        
+        Args:
+            symbol: The crypto symbol (e.g., 'BTC/USD')
+            
+        Returns:
+            The latest bar price as a float
+        """
+        try:
+            # For crypto fallback, use the historical data approach
+            end = datetime.now()
+            start = end - timedelta(minutes=5)  # Look back just 5 minutes to get freshest data
+            
+            # Try with different timeframes if needed
+            timeframes = ["1Min", "5Min", "1Day"]
+            
+            for timeframe in timeframes:
+                try:
+                    bars = await self.get_historical_data(symbol, start, end, timeframe)
+                    if not bars.empty:
+                        # Get the latest bar's closing price
+                        latest_price = float(bars['close'].iloc[-1])
+                        logger.info(f"{symbol} prix (barre historique): ${latest_price:.4f}")
+                        return latest_price
+                except Exception as e:
+                    continue
+            
+            # If all attempts fail
+            logger.error(f"AlpacaProvider: Could not get any price data for {symbol}")
+            return 0.0
+        except Exception as e:
+            logger.error(f"AlpacaProvider: Error in fallback price fetch: {str(e)}")
+            return 0.0
             return 0.0
 
     async def get_market_symbols(self, market_type: str = "stock") -> List[str]:
