@@ -3,16 +3,20 @@ import pandas as pd
 from unittest.mock import MagicMock
 from app.services.market_data import MarketDataService
 
+@pytest.fixture
+def alpaca_mode():
+    # Return a default or mock mode for alpaca tests
+    return 'paper'
+
+@pytest.fixture(params=['stock', 'crypto'])
+def asset_type(request):
+    return request.param
 
 @pytest.fixture
 def api():
     from app.main import app
     from fastapi.testclient import TestClient
     return TestClient(app)
-
-@pytest.fixture
-def provider_name():
-    return 'alpaca'
 
 @pytest.fixture
 def market_data():

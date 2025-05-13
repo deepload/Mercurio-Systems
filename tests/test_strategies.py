@@ -10,6 +10,19 @@ from app.strategies.moving_average import MovingAverageCrossover
 from app.strategies.lstm_predictor import LSTMPredictor
 from app.db.models import TradeAction
 
+@pytest.fixture
+def mock_market_data():
+    # Create a DataFrame with required columns for strategy tests
+    dates = pd.date_range(start='2023-01-01', end='2023-03-01')
+    df = pd.DataFrame({
+        'open': np.random.uniform(95, 105, len(dates)),
+        'high': np.random.uniform(100, 110, len(dates)),
+        'low': np.random.uniform(90, 100, len(dates)),
+        'close': np.random.uniform(95, 105, len(dates)),
+        'volume': np.random.randint(1000, 100000, len(dates))
+    }, index=dates)
+    return df
+
 @pytest.mark.asyncio
 async def test_moving_average_strategy(mock_market_data):
     """Test the Moving Average Crossover strategy."""

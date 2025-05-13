@@ -45,92 +45,6 @@ class SubscriptionService:
         """
         return self.db.query(Subscription).filter(Subscription.user_id == user_id).first()
     
-    def start_free_tier(self, user_id: int) -> Subscription:
-        """
-        Start a free tier subscription for a user.
-        
-        Args:
-            user_id: ID of the user
-            
-        Returns:
-            The created subscription
-        """
-        # Check if user already has a subscription
-        existing = self.get_user_subscription(user_id)
-        if existing:
-            return existing
-            
-        # Create new free subscription
-        subscription = Subscription(
-            user_id=user_id,
-            tier=SubscriptionTier.FREE,
-            status=SubscriptionStatus.ACTIVE,
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
-        )
-        
-        self.db.add(subscription)
-        self.db.commit()
-        self.db.refresh(subscription)
-        
-        return subscription
-    
-    def start_trial(self, user_id: int, tier: SubscriptionTier, days: int = 7) -> Subscription:
-        """
-        Start a trial subscription for a user.
-        
-        Args:
-            user_id: ID of the user
-            tier: Subscription tier for the trial
-            days: Number of days for the trial (default: 7)
-            
-        Returns:
-            The created subscription
-        """
-        # Check if user already has a subscription
-        existing = self.get_user_subscription(user_id)
-        if existing and existing.is_active:
-            # If existing subscription is active, don't start trial
-            return existing
-            
-        # Set trial dates
-        now = datetime.utcnow()
-        trial_ends = now + timedelta(days=days)
-        
-        # Create or update subscription
-        if existing:
-            # Update existing subscription
-            existing.tier = tier
-            existing.status = SubscriptionStatus.TRIAL
-            existing.is_trial = True
-            existing.trial_started_at = now
-            existing.trial_ends_at = trial_ends
-            existing.current_period_start = now
-            existing.current_period_end = trial_ends
-            existing.updated_at = now
-            
-            subscription = existing
-        else:
-            # Create new subscription
-            subscription = Subscription(
-                user_id=user_id,
-                tier=tier,
-                status=SubscriptionStatus.TRIAL,
-                is_trial=True,
-                trial_started_at=now,
-                trial_ends_at=trial_ends,
-                current_period_start=now,
-                current_period_end=trial_ends,
-                created_at=now,
-                updated_at=now
-            )
-            self.db.add(subscription)
-            
-        self.db.commit()
-        self.db.refresh(subscription)
-        
-        return subscription
-    
     async def activate_subscription(
         self, 
         user_id: int, 
@@ -807,14 +721,8 @@ class SubscriptionService:
         """
         subscription = self.get_user_subscription(user_id)
         if not subscription or not subscription.is_active:
-            tier = SubscriptionTier.FREE
-        else:
-            tier = subscription.tier
-            
-        features = get_tier_features(tier)
-        strategies = features.get('strategies', {})
-        
-        return strategies.get('allowed_types', [])
+            return 0
+        return subscription.get_max_strategies()
     
     def get_symbol_limit(self, user_id: int) -> int:
         """
@@ -828,14 +736,8 @@ class SubscriptionService:
         """
         subscription = self.get_user_subscription(user_id)
         if not subscription or not subscription.is_active:
-            tier = SubscriptionTier.FREE
-        else:
-            tier = subscription.tier
-            
-        features = get_tier_features(tier)
-        market_data = features.get('market_data', {})
-        
-        return market_data.get('max_symbols', 0)
+            return 0
+        return subscription.get_max_portfolio()
     
     def get_tier_comparison(self) -> Dict[str, Dict]:
         """
@@ -861,49 +763,31 @@ class SubscriptionService:
         if not subscription:
             return {
                 'has_subscription': False,
-                'tier': 'FREE',
+                'tier': None,
                 'status': 'none',
                 'is_active': False,
                 'days_remaining': 0
             }
             
-        # Check if trial has expired
+        # Check if subscription period has expired
         now = datetime.utcnow()
-        if subscription.is_trial and subscription.trial_ends_at and subscription.trial_ends_at < now:
-            # Trial expired, change to free tier
-            subscription.is_trial = False
-            subscription.tier = SubscriptionTier.FREE
-            subscription.status = SubscriptionStatus.EXPIRED
+        if subscription.current_period_end and subscription.current_period_end < now:
+            subscription.status = SubscriptionStatus.PAST_DUE
             subscription.updated_at = now
             self.db.commit()
             self.db.refresh(subscription)
-            
-        # Check if subscription period has expired
-        elif not subscription.is_trial and subscription.current_period_end and subscription.current_period_end < now:
-            # Check if it's a paid subscription
-            if subscription.tier != SubscriptionTier.FREE:
-                # Mark as past due - would typically be handled by payment processor
-                subscription.status = SubscriptionStatus.PAST_DUE
-                subscription.updated_at = now
-                self.db.commit()
-                self.db.refresh(subscription)
-            
-        # Determine days remaining
+
         days_remaining = 0
-        if subscription.is_trial and subscription.trial_ends_at:
-            delta = subscription.trial_ends_at - now
-            days_remaining = max(0, delta.days)
-        elif subscription.current_period_end:
+        if subscription.current_period_end:
             delta = subscription.current_period_end - now
             days_remaining = max(0, delta.days)
-            
+
         return {
             'has_subscription': True,
             'tier': subscription.tier.name,
             'display_tier': get_tier_name(subscription.tier),
             'status': subscription.status.value,
             'is_active': subscription.is_active,
-            'is_trial': subscription.is_trial,
             'days_remaining': days_remaining,
             'renewal_date': subscription.current_period_end
         }

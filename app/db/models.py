@@ -152,83 +152,67 @@ class SubscriptionStatus(str, enum.Enum):
 
 
 class Subscription(Base):
-    """Subscription model representing a user's subscription information."""
+    """Subscription model representing a user's subscription information (Mercurio Alpha Model 3)."""
     __tablename__ = "subscriptions"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), index=True)
-    tier = Column(Enum(SubscriptionTier), index=True, default=SubscriptionTier.FREE)
+    tier = Column(Enum(SubscriptionTier), index=True, default=SubscriptionTier.STARTER)
     status = Column(Enum(SubscriptionStatus), index=True, default=SubscriptionStatus.ACTIVE)
-    
-    # Trial information
-    is_trial = Column(Boolean, default=False)
-    trial_started_at = Column(DateTime, nullable=True)
-    trial_ends_at = Column(DateTime, nullable=True)
-    
+
+    # Performance-based profit sharing fields
+    profit_share = Column(Float, nullable=False, default=0.10)  # e.g., 0.10 for 10%
+    base_fee = Column(Float, nullable=False, default=0.0)  # $0/month, flexible for future
+    high_water_mark = Column(Float, nullable=True)  # Last peak portfolio value
+    last_profit_calc_date = Column(DateTime, nullable=True)
+    net_profit_this_period = Column(Float, nullable=True, default=0.0)
+
     # Subscription dates
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     current_period_start = Column(DateTime, nullable=True)
     current_period_end = Column(DateTime, nullable=True)
-    
+
     # Payment information
-    external_subscription_id = Column(String(255), nullable=True)  # ID from payment processor (e.g., Stripe)
+    external_subscription_id = Column(String(255), nullable=True)  # ID from payment processor
     payment_method_id = Column(String(255), nullable=True)
-    
+
+    # Provider support (for future multi-broker integration)
+    broker_provider = Column(String(64), default="alpaca")  # e.g., "alpaca", "ibkr", ...
+    broker_account_id = Column(String(255), nullable=True)
+
     # Additional data
     extra_data = Column(Text, nullable=True)  # JSON storage for additional info
-    
+
     # Relationships
     user = relationship("User", back_populates="subscription")
     payment_history = relationship("SubscriptionPayment", back_populates="subscription")
-    
+
     @property
     def is_active(self) -> bool:
         """
         Check if the subscription is active.
-        
         Returns:
-            bool: True if the subscription is active or in trial, False otherwise
+            bool: True if the subscription is active
         """
-        return self.status in [SubscriptionStatus.ACTIVE, SubscriptionStatus.TRIAL]
-    
-    @property
-    def days_left_in_period(self) -> Optional[int]:
-        """
-        Calculate days left in the current period.
-        
-        Returns:
-            Optional[int]: Number of days left or None if period end is not set
-        """
-        if not self.current_period_end:
-            return None
-            
-        delta = self.current_period_end - datetime.utcnow()
-        return max(0, delta.days)
-    
-    @property
-    def days_left_in_trial(self) -> Optional[int]:
-        """
-        Calculate days left in trial period.
-        
-        Returns:
-            Optional[int]: Number of days left in trial or None if not in trial
-        """
-        if not self.is_trial or not self.trial_ends_at:
-            return None
-            
-        delta = self.trial_ends_at - datetime.utcnow()
-        return max(0, delta.days)
-    
-    def get_features(self) -> Dict[str, Any]:
-        """
-        Get the features available for this subscription.
-        
-        Returns:
-            Dict[str, Any]: Dictionary of features for the subscription tier
-        """
-        from app.utils.subscription_config import get_tier_features
-        return get_tier_features(self.tier)
+        return self.status == SubscriptionStatus.ACTIVE
+
+    def get_tier_info(self) -> dict:
+        from app.utils.subscription_config import get_tier_info
+        return get_tier_info(self.tier)
+
+    def get_profit_share_rate(self) -> float:
+        return self.profit_share or self.get_tier_info().get("profit_share", 0.10)
+
+    def get_base_fee(self) -> float:
+        return self.base_fee or self.get_tier_info().get("base_fee", 0.0)
+
+    def get_max_strategies(self) -> int:
+        return self.get_tier_info().get("max_strategies")
+
+    def get_max_portfolio(self) -> float:
+        return self.get_tier_info().get("max_portfolio")
+
 
 
 class SubscriptionPayment(Base):

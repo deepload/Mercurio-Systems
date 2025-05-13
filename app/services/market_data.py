@@ -375,7 +375,8 @@ class MarketDataService:
                                 if "ap" in quote and "bp" in quote:
                                     price = (quote["ap"] + quote["bp"]) / 2
                                     logger.info(f"Got crypto price ${price:.2f} for {alpaca_symbol} via v1beta3 API")
-                                    return price
+                                    # Always return float, even if price is an integer
+                                    return float(price)  # Added float() to ensure float return
                     except Exception as e:
                         logger.warning(f"Direct crypto API failed: {str(e)[:100]}")
                     
@@ -393,7 +394,8 @@ class MarketDataService:
                         if not df.empty:
                             price = df['close'].iloc[-1]
                             logger.info(f"Got crypto price ${price:.2f} for {alpaca_symbol} via historical data")
-                            return price
+                            # Always return float, even if price is an integer
+                            return float(price)  # Added float() to ensure float return
                     except Exception as e:
                         logger.warning(f"Historical crypto data failed: {str(e)[:100]}")
                 else:
@@ -401,7 +403,7 @@ class MarketDataService:
                     logger.info(f"Falling back to legacy Alpaca client for {symbol} stock price")
                     last_trade = self.alpaca_client.get_latest_trade(alpaca_symbol)
                     if last_trade:
-                        return last_trade.price
+                        return float(last_trade.price)  # Always return float
             except Exception as e:
                 logger.error(f"Error fetching latest price from legacy Alpaca client: {e}")
         
@@ -411,7 +413,7 @@ class MarketDataService:
             start_date = end_date - timedelta(days=5)
             df = await self.get_historical_data(symbol, start_date, end_date)
             if not df.empty:
-                return df['close'].iloc[-1]
+                return float(df['close'].iloc[-1])  # Always return float
         except Exception as e:
             logger.error(f"Historical data fallback failed: {e}")
         
@@ -419,7 +421,7 @@ class MarketDataService:
         sample_provider = self.provider_factory.get_provider("sample")
         if sample_provider:
             try:
-                return await sample_provider.get_latest_price(symbol)
+                return float(await sample_provider.get_latest_price(symbol))  # Always return float
             except Exception as e:
                 logger.error(f"Sample data provider failed: {e}")
         

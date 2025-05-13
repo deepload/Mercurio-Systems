@@ -12,8 +12,8 @@ from fastapi import Depends
 
 from app.api.routes import api_router
 from app.services.subscription_service import SubscriptionService
+from app.main import app
 from app.utils.subscription_config import SubscriptionTier
-
 
 @pytest.fixture
 def test_client():

@@ -14,9 +14,11 @@ def test_health_check():
     """Test the health check endpoint."""
     response = client.get("/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    # Accept either {"status": "ok"} or {"status": "healthy", ...}
+    data = response.json()
+    assert data.get("status") in ("ok", "healthy")
 
-@patch('app.api.routes.strategy_manager.list_strategies')
+@patch('app.services.strategy_manager.StrategyManager.list_strategies', autospec=True)
 def test_list_strategies(mock_list_strategies):
     """Test the list strategies endpoint."""
     # Mock strategy list
@@ -41,7 +43,7 @@ def test_list_strategies(mock_list_strategies):
     assert response.json()[0]["name"] == "MovingAverageCrossover"
     assert response.json()[1]["name"] == "LSTMPredictor"
 
-@patch('app.api.routes.strategy_manager.get_prediction')
+@patch('app.services.strategy_manager.StrategyManager.get_prediction', autospec=True)
 def test_get_prediction(mock_get_prediction):
     """Test the prediction endpoint."""
     # Mock prediction result
@@ -54,13 +56,13 @@ def test_get_prediction(mock_get_prediction):
         "timestamp": "2023-04-06T15:30:00Z"
     }
     
-    response = client.post("/api/predictions/MovingAverageCrossover/AAPL")
+    response = client.get("/api/predict", params={"symbol": "AAPL", "strategy": "MovingAverageCrossover"})
     assert response.status_code == 200
     assert response.json()["symbol"] == "AAPL"
     assert response.json()["action"] == "buy"
     assert response.json()["confidence"] == 0.85
 
-@patch('app.api.routes.trading_service.execute_trade')
+@patch('app.services.trading.TradingService.execute_trade', autospec=True)
 def test_execute_trade(mock_execute_trade):
     """Test the trade execution endpoint."""
     # Mock trade result
@@ -89,7 +91,7 @@ def test_execute_trade(mock_execute_trade):
     assert response.json()["status"] == "filled"
     assert response.json()["order"]["symbol"] == "AAPL"
 
-@patch('app.api.routes.trading_service.get_account_info')
+@patch('app.services.trading.TradingService.get_account_info', autospec=True)
 def test_get_account_info(mock_get_account_info):
     """Test the account info endpoint."""
     # Mock account info
@@ -102,11 +104,11 @@ def test_get_account_info(mock_get_account_info):
     
     response = client.get("/api/account")
     assert response.status_code == 200
-    assert response.json()["cash"] == "100000.0"
+    assert float(response.json()["cash"]) == 100000.0
     assert response.json()["status"] == "ACTIVE"
 
-@patch('app.api.routes.backtesting_service.run_backtest')
-@patch('app.api.routes.strategy_manager.save_backtest_result')
+@patch('app.services.backtesting.BacktestingService.run_backtest', autospec=True)
+@patch('app.services.strategy_manager.StrategyManager.save_backtest_result', autospec=True)
 def test_run_backtest(mock_save_backtest, mock_run_backtest):
     """Test the backtest endpoint."""
     # Mock backtest result

@@ -134,18 +134,18 @@ class UserResponse(BaseModel):
 
 
 class SubscriptionInfo(BaseModel):
-    """Information about a subscription"""
+    """Information about a Mercurio Alpha Model 3 subscription (performance-based, no trial/free)."""
     id: int
     user_id: int
     tier: str
     status: str
-    is_trial: bool
-    trial_started_at: Optional[datetime] = None
-    trial_ends_at: Optional[datetime] = None
     current_period_start: Optional[datetime] = None
     current_period_end: Optional[datetime] = None
     days_left_in_period: Optional[int] = None
-    days_left_in_trial: Optional[int] = None
+    profit_share: float
+    base_fee: float
+    high_water_mark: Optional[float] = None
+    net_profit_this_period: Optional[float] = None
     features: Dict[str, Any] = Field(default_factory=dict)
 
 
@@ -167,12 +167,15 @@ class ActivateSubscriptionRequest(BaseModel):
 
 
 class SubscriptionTierInfo(BaseModel):
-    """Information about a subscription tier"""
+    """Information about a Mercurio Alpha Model 3 tier (profit share, $0 base fee, flexible)."""
     name: str
     display_name: str
-    price: float
+    base_fee: float
+    profit_share: float
     description: str
-    features: List[str]
+    max_strategies: Optional[int] = None
+    max_portfolio: Optional[float] = None
+    customization: Optional[bool] = False
     recommended: bool = False
 
 
