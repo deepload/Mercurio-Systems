@@ -9,6 +9,8 @@ from datetime import datetime
 from enum import Enum
 
 from app.db.models import TradeAction
+from app.utils.subscription_config import SubscriptionTier
+from app.db.models import SubscriptionStatus
 
 class StrategyInfo(BaseModel):
     """Information about a trading strategy"""
@@ -100,3 +102,77 @@ class AccountInfo(BaseModel):
     daytrade_count: Optional[int] = None
     status: Optional[str] = None
     error: Optional[str] = None
+
+
+class UserCreate(BaseModel):
+    """Request to create a new user"""
+    email: str
+    username: Optional[str] = None
+    password: str
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    phone_number: Optional[str] = None
+    risk_profile: Optional[str] = None
+    investment_goals: Optional[Dict[str, Any]] = None
+
+
+class UserResponse(BaseModel):
+    """Response with user information"""
+    id: int
+    email: str
+    username: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    is_active: bool
+    is_verified: bool
+    created_at: datetime
+    subscription_tier: Optional[str] = None
+    subscription_status: Optional[str] = None
+
+
+class SubscriptionInfo(BaseModel):
+    """Information about a subscription"""
+    id: int
+    user_id: int
+    tier: str
+    status: str
+    is_trial: bool
+    trial_started_at: Optional[datetime] = None
+    trial_ends_at: Optional[datetime] = None
+    current_period_start: Optional[datetime] = None
+    current_period_end: Optional[datetime] = None
+    days_left_in_period: Optional[int] = None
+    days_left_in_trial: Optional[int] = None
+    features: Dict[str, Any] = Field(default_factory=dict)
+
+
+class SubscriptionResponse(BaseModel):
+    """Response with subscription information"""
+    subscription: SubscriptionInfo
+    user: UserResponse
+
+
+class TrialRequest(BaseModel):
+    """Request to start a trial subscription"""
+    tier: SubscriptionTier
+
+
+class ActivateSubscriptionRequest(BaseModel):
+    """Request to activate a paid subscription"""
+    tier: SubscriptionTier
+    payment_method_id: str
+
+
+class SubscriptionTierInfo(BaseModel):
+    """Information about a subscription tier"""
+    name: str
+    display_name: str
+    price: float
+    description: str
+    features: List[str]
+    recommended: bool = False
+
+
+class SubscriptionTiersResponse(BaseModel):
+    """Response with all subscription tiers"""
+    tiers: List[SubscriptionTierInfo]

@@ -36,6 +36,7 @@ async def init_db():
     async with engine.begin() as conn:
         # Import all models to ensure they are registered with Base
         from app.db.models import Trade, BacktestResult, AIModel
+        from app.db.models import User, Subscription, SubscriptionPayment, SubscriptionStatus
         
         # Create tables
         await conn.run_sync(Base.metadata.create_all)
