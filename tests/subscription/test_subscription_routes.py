@@ -210,3 +210,174 @@ class TestSubscriptionRoutes:
             
             # Check that the service method was called with right user ID
             mock_subscription_service.cancel_subscription.assert_called_once_with(1)
+    
+    def test_upgrade_subscription(self, test_client, mock_subscription_service):
+        """Test upgrading a subscription."""
+        # Mock user ID from auth
+        with patch('app.api.routes.get_current_user_id', return_value=1):
+            # Mock the upgrade_subscription method
+            mock_subscription = MagicMock()
+            mock_subscription.tier = SubscriptionTier.PRO
+            mock_subscription.status = "active"
+            mock_subscription.get_features.return_value = {"feature1": True, "feature2": False}
+            mock_subscription_service.upgrade_subscription.return_value = mock_subscription
+            
+            # Make the request
+            response = test_client.post(
+                "/users/me/subscription/upgrade",
+                json={
+                    "tier": "PRO",
+                    "payment_method_id": "pm_123456",
+                    "prorate": True
+                }
+            )
+            
+            # Check the response
+            assert response.status_code == 200
+            data = response.json()
+            assert data["tier"] == "PRO"
+            assert data["status"] == "active"
+            assert "features" in data
+            
+            # Check that the service method was called with right parameters
+            mock_subscription_service.upgrade_subscription.assert_called_once_with(
+                user_id=1, 
+                new_tier=SubscriptionTier.PRO,
+                payment_method_id="pm_123456",
+                prorate=True
+            )
+    
+    def test_get_payment_history(self, test_client, mock_subscription_service):
+        """Test getting payment history."""
+        # Mock user ID from auth
+        with patch('app.api.routes.get_current_user_id', return_value=1):
+            # Mock the get_payment_history and get_total_spent methods
+            mock_payment1 = MagicMock()
+            mock_payment1.id = 1
+            mock_payment1.subscription_id = 100
+            mock_payment1.amount = 49.99
+            mock_payment1.payment_method = "credit_card"
+            mock_payment1.status = "succeeded"
+            mock_payment1.payment_date = "2025-04-01T00:00:00"
+            mock_payment1.period_start = "2025-04-01T00:00:00"
+            mock_payment1.period_end = "2025-05-01T00:00:00"
+            
+            mock_payment2 = MagicMock()
+            mock_payment2.id = 2
+            mock_payment2.subscription_id = 100
+            mock_payment2.amount = 49.99
+            mock_payment2.payment_method = "credit_card"
+            mock_payment2.status = "succeeded"
+            mock_payment2.payment_date = "2025-05-01T00:00:00"
+            mock_payment2.period_start = "2025-05-01T00:00:00"
+            mock_payment2.period_end = "2025-06-01T00:00:00"
+            
+            mock_subscription_service.get_payment_history.return_value = [mock_payment1, mock_payment2]
+            mock_subscription_service.get_total_spent.return_value = 99.98
+            
+            # Make the request
+            response = test_client.get("/users/me/subscription/payments")
+            
+            # Check the response
+            assert response.status_code == 200
+            data = response.json()
+            assert "payments" in data
+            assert len(data["payments"]) == 2
+            assert data["total_spent"] == 99.98
+            assert data["currency"] == "USD"
+            
+            # Verify first payment details
+            payment1 = data["payments"][0]
+            assert payment1["id"] == 1
+            assert payment1["amount"] == 49.99
+            assert payment1["status"] == "succeeded"
+            
+            # Check that the service methods were called with the right user ID
+            mock_subscription_service.get_payment_history.assert_called_once_with(1)
+            mock_subscription_service.get_total_spent.assert_called_once_with(1)
+    
+    def test_get_usage_metrics(self, test_client, mock_subscription_service):
+        """Test getting usage metrics."""
+        # Mock user ID from auth
+        with patch('app.api.routes.get_current_user_id', return_value=1):
+            # Mock the get_usage_metrics method
+            mock_usage = {
+                "metrics": [
+                    {
+                        "name": "strategies",
+                        "display_name": "Strategy Slots",
+                        "current_usage": 3,
+                        "limit": 5,
+                        "percentage_used": 60.0
+                    },
+                    {
+                        "name": "symbols",
+                        "display_name": "Watchlist Symbols",
+                        "current_usage": 10,
+                        "limit": 20,
+                        "percentage_used": 50.0
+                    }
+                ],
+                "billing_cycle_start": "2025-05-01T00:00:00",
+                "billing_cycle_end": "2025-06-01T00:00:00",
+                "days_left_in_cycle": 19
+            }
+            mock_subscription_service.get_usage_metrics.return_value = mock_usage
+            
+            # Make the request
+            response = test_client.get("/users/me/subscription/usage")
+            
+            # Check the response
+            assert response.status_code == 200
+            data = response.json()
+            assert "metrics" in data
+            assert len(data["metrics"]) == 2
+            assert data["days_left_in_cycle"] == 19
+            
+            # Verify usage metrics details
+            strategies = data["metrics"][0]
+            assert strategies["name"] == "strategies"
+            assert strategies["current_usage"] == 3
+            assert strategies["limit"] == 5
+            assert strategies["percentage_used"] == 60.0
+            
+            # Check that the service method was called with the right user ID
+            mock_subscription_service.get_usage_metrics.assert_called_once_with(1)
+    
+    def test_payment_webhook(self, test_client, mock_subscription_service):
+        """Test payment webhook handler."""
+        # Mock the handle_payment_webhook method
+        mock_subscription_service.handle_payment_webhook.return_value = {
+            "success": True,
+            "payment_id": 123
+        }
+        
+        # Make the request with a mock webhook payload
+        webhook_payload = {
+            "event_type": "payment_succeeded",
+            "event_id": "evt_123456",
+            "timestamp": "2025-05-13T14:30:00",
+            "data": {
+                "subscription_id": 100,
+                "amount": 49.99,
+                "payment_id": "pi_123456",
+                "receipt_url": "https://example.com/receipt"
+            }
+        }
+        
+        response = test_client.post(
+            "/webhooks/payment",
+            json=webhook_payload
+        )
+        
+        # Check the response
+        assert response.status_code == 200
+        data = response.json()
+        assert data["status"] == "success"
+        assert data["payment_id"] == 123
+        
+        # Check that the service method was called with the right parameters
+        mock_subscription_service.handle_payment_webhook.assert_called_once_with(
+            event_type="payment_succeeded",
+            event_data=webhook_payload["data"]
+        )

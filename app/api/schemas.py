@@ -69,6 +69,9 @@ class TrainResponse(BaseModel):
     start_date: str
     end_date: str
     model_path: str
+    model_config = {
+        'protected_namespaces': ()
+    }
     metrics: Dict[str, Any] = Field(default_factory=dict)
     parameters: Optional[Dict[str, Any]] = None
 
@@ -176,3 +179,67 @@ class SubscriptionTierInfo(BaseModel):
 class SubscriptionTiersResponse(BaseModel):
     """Response with all subscription tiers"""
     tiers: List[SubscriptionTierInfo]
+
+
+class UpgradeSubscriptionRequest(BaseModel):
+    """Request to upgrade or downgrade a subscription"""
+    tier: SubscriptionTier
+    payment_method_id: Optional[str] = None  # Required only when upgrading from free
+    prorate: bool = True  # Whether to prorate the charges
+
+
+class SubscriptionPaymentInfo(BaseModel):
+    """Information about a subscription payment"""
+    id: int
+    subscription_id: int
+    amount: float
+    currency: str = "USD"
+    payment_method: str
+    status: str
+    payment_date: datetime
+    billing_period_start: datetime
+    billing_period_end: datetime
+    invoice_url: Optional[str] = None
+    receipt_url: Optional[str] = None
+    extra_data: Optional[Dict[str, Any]] = None
+
+
+class PaymentHistoryResponse(BaseModel):
+    """Response with payment history"""
+    payments: List[SubscriptionPaymentInfo]
+    total_spent: float
+    currency: str = "USD"
+
+
+class UsageMetric(BaseModel):
+    """Information about a usage metric"""
+    name: str
+    display_name: str
+    current_usage: int
+    limit: int  # 0 means unlimited
+    percentage_used: float  # 0-100
+
+
+class UsageMetricsResponse(BaseModel):
+    """Response with usage metrics"""
+    metrics: List[UsageMetric]
+    billing_cycle_start: datetime
+    billing_cycle_end: datetime
+    days_left_in_cycle: int
+
+
+class WebhookEvent(str, Enum):
+    """Payment provider webhook event types"""
+    PAYMENT_SUCCEEDED = "payment_succeeded"
+    PAYMENT_FAILED = "payment_failed"
+    SUBSCRIPTION_CREATED = "subscription_created"
+    SUBSCRIPTION_UPDATED = "subscription_updated"
+    SUBSCRIPTION_CANCELED = "subscription_canceled"
+
+
+class PaymentWebhookRequest(BaseModel):
+    """Webhook request from payment provider"""
+    event_type: WebhookEvent
+    event_id: str
+    timestamp: datetime
+    data: Dict[str, Any]

@@ -525,3 +525,145 @@ async def cancel_subscription(db: AsyncSession = Depends(get_db), current_user_i
     except Exception as e:
         logger.error(f"Error cancelling subscription: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.post("/users/me/subscription/upgrade", response_model=SubscriptionInfo, tags=["Subscription"])
+async def upgrade_subscription(request: UpgradeSubscriptionRequest, db: AsyncSession = Depends(get_db), current_user_id: int = Depends(get_current_user_id)):
+    """
+    Upgrade or downgrade the current user's subscription tier.
+    """
+    try:
+        subscription_service = SubscriptionService(db)
+        subscription = await subscription_service.upgrade_subscription(
+            user_id=current_user_id,
+            new_tier=request.tier,
+            payment_method_id=request.payment_method_id,
+            prorate=request.prorate
+        )
+        
+        # Get subscription features
+        features = subscription.get_features()
+        
+        # Create response
+        return SubscriptionInfo(
+            id=subscription.id,
+            user_id=subscription.user_id,
+            tier=subscription.tier.name,
+            status=subscription.status.value,
+            is_trial=subscription.is_trial,
+            trial_started_at=subscription.trial_started_at,
+            trial_ends_at=subscription.trial_ends_at,
+            current_period_start=subscription.current_period_start,
+            current_period_end=subscription.current_period_end,
+            days_left_in_period=subscription.days_left_in_period,
+            days_left_in_trial=subscription.days_left_in_trial,
+            features=features
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Error upgrading subscription: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/users/me/subscription/payments", response_model=PaymentHistoryResponse, tags=["Subscription"])
+async def get_payment_history(db: AsyncSession = Depends(get_db), current_user_id: int = Depends(get_current_user_id)):
+    """
+    Get payment history for the current user's subscription.
+    """
+    try:
+        subscription_service = SubscriptionService(db)
+        payments = await subscription_service.get_payment_history(current_user_id)
+        total_spent = await subscription_service.get_total_spent(current_user_id)
+        
+        # Convert to response model
+        payment_infos = []
+        for payment in payments:
+            payment_infos.append(SubscriptionPaymentInfo(
+                id=payment.id,
+                subscription_id=payment.subscription_id,
+                amount=payment.amount,
+                currency="USD",  # Default currency
+                payment_method=payment.payment_method,
+                status=payment.status,
+                payment_date=payment.payment_date,
+                billing_period_start=payment.period_start,
+                billing_period_end=payment.period_end,
+                receipt_url=payment.receipt_url,
+                extra_data=payment.extra_data
+            ))
+        
+        return PaymentHistoryResponse(
+            payments=payment_infos,
+            total_spent=total_spent,
+            currency="USD"
+        )
+    except Exception as e:
+        logger.error(f"Error getting payment history: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.get("/users/me/subscription/usage", response_model=UsageMetricsResponse, tags=["Subscription"])
+async def get_usage_metrics(db: AsyncSession = Depends(get_db), current_user_id: int = Depends(get_current_user_id)):
+    """
+    Get usage metrics for the current user's subscription.
+    Shows current usage vs limits for various features.
+    """
+    try:
+        subscription_service = SubscriptionService(db)
+        usage_data = await subscription_service.get_usage_metrics(current_user_id)
+        
+        if not usage_data:
+            raise HTTPException(status_code=404, detail="No active subscription found")
+        
+        # Convert to response model
+        metrics = []
+        for metric in usage_data.get("metrics", []):
+            metrics.append(UsageMetric(
+                name=metric["name"],
+                display_name=metric["display_name"],
+                current_usage=metric["current_usage"],
+                limit=metric["limit"],
+                percentage_used=metric["percentage_used"]
+            ))
+        
+        return UsageMetricsResponse(
+            metrics=metrics,
+            billing_cycle_start=usage_data["billing_cycle_start"],
+            billing_cycle_end=usage_data["billing_cycle_end"],
+            days_left_in_cycle=usage_data["days_left_in_cycle"]
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting usage metrics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@api_router.post("/webhooks/payment", tags=["Subscription"])
+async def payment_webhook(request: PaymentWebhookRequest, db: AsyncSession = Depends(get_db)):
+    """
+    Handle webhook callbacks from payment provider.
+    This endpoint would typically be secured with a shared secret or signature verification.
+    """
+    try:
+        # Validate the webhook signature - would be implemented with your payment provider's SDK
+        # For example, stripe.Webhook.construct_event(payload, signature, webhook_secret)
+        
+        subscription_service = SubscriptionService(db)
+        result = await subscription_service.handle_payment_webhook(
+            event_type=request.event_type.value,
+            event_data=request.data
+        )
+        
+        if "error" in result:
+            raise HTTPException(status_code=400, detail=result["error"])
+            
+        return {"status": "success", **result}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error processing payment webhook: {e}")
+        # Always return 200 to the payment provider to avoid retries
+        # but log the error for investigation
+        return {"status": "received", "processing_error": str(e)}
