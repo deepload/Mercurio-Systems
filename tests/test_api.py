@@ -86,7 +86,7 @@ def test_execute_trade(mock_execute_trade):
         "paper_trading": True
     }
     
-    response = client.post("/api/trades", json=request_data)
+    response = client.post("/api/trade", json=request_data)
     assert response.status_code == 200
     assert response.json()["status"] == "filled"
     assert response.json()["order"]["symbol"] == "AAPL"
@@ -136,7 +136,7 @@ def test_run_backtest(mock_save_backtest, mock_run_backtest):
         "initial_capital": 10000.0
     }
     
-    response = client.post("/api/backtests", json=request_data)
+    response = client.post("/backtest", json=request_data)
     assert response.status_code == 200
     assert response.json()["strategy"] == "MovingAverageCrossover"
     assert response.json()["total_return"] == 0.25

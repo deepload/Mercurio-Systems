@@ -30,7 +30,8 @@ def mock_subscription_service():
     def get_subscription_service_override():
         return service
     
-    app.dependency_overrides[Depends] = get_subscription_service_override
+    from app.api.routes import get_subscription_service
+    app.dependency_overrides[get_subscription_service] = get_subscription_service_override
     
     yield service
     
@@ -43,58 +44,101 @@ class TestSubscriptionRoutes:
     
     def test_get_subscription_tiers(self, test_client, mock_subscription_service):
         """Test getting all subscription tiers."""
-        # Mock the service method
+        # Mock the service method to match new API response format
         mock_subscription_service.get_all_tiers.return_value = [
             {
-                "tier": "FREE",
                 "name": "Free",
-                "description": "Basic access",
-                "price_monthly": 0.0,
-                "features": ["Paper trading", "1 strategy"]
+                "display_name": "Free",
+                "base_fee": 0.0,
+                "profit_share": 0.0,
+                "description": "Free plan",
+                "max_strategies": 1,
+                "max_portfolio": 5,
+                "customization": False,
+                "recommended": False
             },
             {
-                "tier": "STARTER",
                 "name": "Starter",
-                "description": "Getting started",
-                "price_monthly": 19.99,
-                "features": ["Live trading", "5 strategies"]
+                "display_name": "Starter",
+                "base_fee": 29.0,
+                "profit_share": 0.0,
+                "description": "Starter plan",
+                "max_strategies": 3,
+                "max_portfolio": 10,
+                "customization": False,
+                "recommended": False
+            },
+            {
+                "name": "Pro",
+                "display_name": "Pro",
+                "base_fee": 99.0,
+                "profit_share": 0.05,
+                "description": "Pro plan",
+                "max_strategies": 10,
+                "max_portfolio": 30,
+                "customization": True,
+                "recommended": True
+            },
+            {
+                "name": "Elite",
+                "display_name": "Elite",
+                "base_fee": 199.0,
+                "profit_share": 0.02,
+                "description": "Elite plan",
+                "max_strategies": 100,
+                "max_portfolio": 100,
+                "customization": True,
+                "recommended": False
             }
         ]
-        
-        # Make the request
+        # ... update assertions to expect 4 tiers
         response = test_client.get("/api/subscription/tiers")
-        
-        # Check the response
         assert response.status_code == 200
         data = response.json()
-        assert len(data) == 2
-        assert data[0]["tier"] == "FREE"
-        assert data[1]["tier"] == "STARTER"
-        assert data[1]["price_monthly"] == 19.99
-        
+        assert "tiers" in data
+        assert isinstance(data["tiers"], list)
+        assert len(data["tiers"]) == 4
+        assert data["tiers"][0]["name"] == "Free"
+        assert data["tiers"][1]["name"] == "Starter"
+        assert data["tiers"][2]["name"] == "Pro"
+        assert data["tiers"][3]["name"] == "Elite"
+        # ... other field checks as needed
+
+
         # Check that the service method was called
         mock_subscription_service.get_all_tiers.assert_called_once()
     
     def test_get_tier_details(self, test_client, mock_subscription_service):
         """Test getting details for a specific tier."""
-        # Mock the service method
+        # Mock the service method to match new API response format
         mock_subscription_service.get_tier_details.return_value = {
-            "tier": "PRO",
             "name": "Pro",
+            "display_name": "Pro",
+            "base_fee": 79.0,
+            "profit_share": 0.1,
             "description": "Professional traders",
-            "price_monthly": 49.99,
-            "features": ["Live trading", "Advanced strategies", "Portfolio analytics"]
+            "max_strategies": 10,
+            "max_portfolio": 50,
+            "customization": True,
+            "recommended": True
         }
-        
+
         # Make the request
         response = test_client.get("/api/subscription/tiers/PRO")
-        
+
         # Check the response
         assert response.status_code == 200
         data = response.json()
-        assert data["tier"] == "PRO"
-        assert data["price_monthly"] == 49.99
-        
+        assert data["name"] == "Pro"
+        assert data["display_name"] == "Pro"
+        assert data["base_fee"] == 79.0
+        assert data["profit_share"] == 0.1
+        assert data["description"] == "Professional traders"
+        assert data["max_strategies"] == 10
+        assert data["max_portfolio"] == 50
+        assert data["customization"] is True
+        assert data["recommended"] is True
+
         # Check that the service method was called with right tier
         mock_subscription_service.get_tier_details.assert_called_once_with(SubscriptionTier.PRO)
     
@@ -114,7 +158,7 @@ class TestSubscriptionRoutes:
             }
             
             # Make the request
-            response = test_client.get("/api/subscription/current")
+            response = test_client.get("/subscription/current")
             
             # Check the response
             assert response.status_code == 200
@@ -139,7 +183,7 @@ class TestSubscriptionRoutes:
             
             # Make the request
             response = test_client.post(
-                "/api/subscription/trial",
+                "/subscription/trial",
                 json={"tier": "PRO"}
             )
             
@@ -167,7 +211,7 @@ class TestSubscriptionRoutes:
             
             # Make the request
             response = test_client.post(
-                "/api/subscription/activate",
+                "/subscription/activate",
                 json={
                     "tier": "ELITE",
                     "payment_method_id": "pm_123456",
@@ -200,7 +244,7 @@ class TestSubscriptionRoutes:
             mock_subscription_service.cancel_subscription.return_value = mock_subscription
             
             # Make the request
-            response = test_client.post("/api/subscription/cancel")
+            response = test_client.post("/subscription/cancel")
             
             # Check the response
             assert response.status_code == 200

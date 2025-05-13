@@ -105,6 +105,8 @@ def is_market_open():
             logger.error(f"Erreur lors de la vérification de l'état du marché avec MarketCalendarService: {e}")
             # Utiliser la méthode alternative en cas d'erreur
             logger.info("Utilisation de la méthode alternative pour vérifier l'état du marché")
+            # En cas d'exception, retourner False explicitement
+            return False
     
     # Méthode alternative basée sur l'heure locale
     try:

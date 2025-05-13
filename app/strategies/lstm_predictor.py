@@ -255,6 +255,8 @@ class LSTMPredictorStrategy(BaseStrategy):
         y_train, y_test = y[:train_size], y[train_size:]
         
         # Build the model
+        if len(X_train) == 0:
+            raise ValueError("Not enough data after preprocessing to create training sequences for LSTM. Got 0 samples. Check your sequence_length and input data size.")
         self.model = self._build_model(X_train[0].shape)
         
         # Early stopping

@@ -14,19 +14,306 @@ from app.db.models import Subscription, SubscriptionStatus, SubscriptionPayment
 from app.utils.subscription_config import SubscriptionTier
 
 
-class TestSubscriptionService(unittest.TestCase):
-    """Tests for subscription service functionality."""
-    
-    def setUp(self):
-        """Set up test fixtures."""
-        # Create a mock database session
-        self.db = MagicMock()
-        
-        # Create the subscription service with the mock DB
-        self.service = SubscriptionService(self.db)
-        
-        # Mock user ID for testing
-        self.user_id = 1
+import pytest
+import asyncio
+
+import pytest
+from unittest.mock import MagicMock
+
+@pytest.fixture(autouse=True)
+def setup_service():
+    db = MagicMock()
+    service = SubscriptionService(db)
+    user_id = 1
+    yield db, service, user_id
+
+@pytest.mark.asyncio
+async def test_start_free_tier_new_user(setup_service):
+    db, service, user_id = setup_service
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = None
+    query_mock.get.return_value = MagicMock()  # Mock user exists
+    result = await service.start_free_tier(user_id)
+    db.add.assert_called_once()
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+    subscription = db.add.call_args[0][0]
+    assert subscription.user_id == user_id
+    assert subscription.tier == SubscriptionTier.FREE
+    assert subscription.status == SubscriptionStatus.ACTIVE
+
+@pytest.mark.asyncio
+async def test_start_free_tier_existing_user(setup_service):
+    db, service, user_id = setup_service
+    mock_subscription = MagicMock(spec=Subscription)
+    mock_subscription.user_id = user_id
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = mock_subscription
+    query_mock.get.return_value = MagicMock()
+    result = await service.start_free_tier(user_id)
+    db.add.assert_not_called()
+    assert result == mock_subscription
+
+@pytest.mark.asyncio
+async def test_start_trial(setup_service):
+    db, service, user_id = setup_service
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = None
+    query_mock.get.return_value = MagicMock()
+    result = await service.start_trial(user_id, SubscriptionTier.PRO, days=7)
+    db.add.assert_called_once()
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+    subscription = db.add.call_args[0][0]
+    assert subscription.user_id == user_id
+    assert subscription.tier == SubscriptionTier.PRO
+    assert subscription.status == SubscriptionStatus.TRIAL
+
+@pytest.mark.asyncio
+async def test_start_trial_existing_active(setup_service):
+    db, service, user_id = setup_service
+    mock_subscription = MagicMock(spec=Subscription)
+    mock_subscription.user_id = user_id
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = mock_subscription
+    query_mock.get.return_value = MagicMock()
+    result = await service.start_trial(user_id, SubscriptionTier.PRO, days=7)
+    db.add.assert_not_called()
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+    assert result == mock_subscription
+
+@pytest.mark.asyncio
+async def test_activate_subscription_new(setup_service):
+    db, service, user_id = setup_service
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = None
+    query_mock.get.return_value = MagicMock()
+    result = await service.activate_subscription(
+        user_id,
+        SubscriptionTier.PRO,
+        payment_method_id="pm_123456",
+        external_subscription_id="sub_123456"
+    )
+    db.add.assert_called_once()
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+
+@pytest.mark.asyncio
+async def test_activate_subscription_existing(setup_service):
+    db, service, user_id = setup_service
+    mock_subscription = MagicMock(spec=Subscription)
+    mock_subscription.user_id = user_id
+    mock_subscription.is_trial = True
+    mock_subscription.current_period_start = None
+    mock_subscription.current_period_end = None
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = mock_subscription
+    query_mock.get.return_value = MagicMock()
+    result = await service.activate_subscription(
+        user_id,
+        SubscriptionTier.ELITE,
+        payment_method_id="pm_123456",
+        external_subscription_id="sub_123456"
+    )
+    db.add.assert_not_called()
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+
+@pytest.mark.asyncio
+async def test_record_payment(setup_service):
+    db, service, user_id = setup_service
+    mock_subscription = MagicMock(spec=Subscription)
+    mock_subscription.id = 1
+    mock_subscription.user_id = user_id
+    query_mock = db.query.return_value
+    query_mock.get.return_value = mock_subscription
+    result = await service.record_payment(
+        subscription_id=mock_subscription.id,
+        amount=79.0,
+        external_payment_id="pi_123456",
+        payment_method="credit_card",
+        status="succeeded",
+        receipt_url="https://receipt.url"
+    )
+    db.add.assert_called_once()
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+
+@pytest.mark.asyncio
+async def test_cancel_subscription(setup_service):
+    db, service, user_id = setup_service
+    mock_subscription = MagicMock(spec=Subscription)
+    mock_subscription.id = 1
+    mock_subscription.user_id = user_id
+    mock_subscription.status = SubscriptionStatus.ACTIVE
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = mock_subscription
+    result = await service.cancel_subscription(user_id)
+    assert mock_subscription.status == SubscriptionStatus.CANCELLED
+    db.commit.assert_called_once()
+    db.refresh.assert_called_once()
+
+@pytest.mark.asyncio
+async def test_cancel_nonexistent_subscription(setup_service):
+    db, service, user_id = setup_service
+    query_mock = db.query.return_value
+    filter_mock = query_mock.filter.return_value
+    filter_mock.first.return_value = None
+    result = await service.cancel_subscription(user_id)
+    assert result is None
+    db.commit.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_start_free_tier_new_user(self):
+        """Test starting a free tier for a new user."""
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = None
+        query_mock.get.return_value = MagicMock()  # Mock user exists
+        result = await self.service.start_free_tier(self.user_id)
+        self.db.add.assert_called_once()
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+        subscription = self.db.add.call_args[0][0]
+        self.assertEqual(subscription.user_id, self.user_id)
+        self.assertEqual(subscription.tier, SubscriptionTier.FREE)
+        self.assertEqual(subscription.status, SubscriptionStatus.ACTIVE)
+
+    @pytest.mark.asyncio
+    async def test_start_free_tier_existing_user(self):
+        """Test starting a free tier for a user with existing subscription."""
+        mock_subscription = MagicMock(spec=Subscription)
+        mock_subscription.user_id = self.user_id
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = mock_subscription
+        query_mock.get.return_value = MagicMock()
+        result = await self.service.start_free_tier(self.user_id)
+        self.db.add.assert_not_called()
+        self.assertEqual(result, mock_subscription)
+
+    @pytest.mark.asyncio
+    async def test_start_trial(self):
+        """Test starting a trial subscription."""
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = None
+        query_mock.get.return_value = MagicMock()
+        result = await self.service.start_trial(self.user_id, SubscriptionTier.PRO, days=7)
+        self.db.add.assert_called_once()
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+        subscription = self.db.add.call_args[0][0]
+        self.assertEqual(subscription.user_id, self.user_id)
+        self.assertEqual(subscription.tier, SubscriptionTier.PRO)
+        self.assertEqual(subscription.status, SubscriptionStatus.TRIAL)
+
+    @pytest.mark.asyncio
+    async def test_start_trial_existing_active(self):
+        """Test starting a trial for a user with an existing active subscription."""
+        mock_subscription = MagicMock(spec=Subscription)
+        mock_subscription.user_id = self.user_id
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = mock_subscription
+        query_mock.get.return_value = MagicMock()
+        result = await self.service.start_trial(self.user_id, SubscriptionTier.PRO, days=7)
+        self.db.add.assert_not_called()
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+        self.assertEqual(result, mock_subscription)
+
+    @pytest.mark.asyncio
+    async def test_activate_subscription_new(self):
+        """Test activating a new paid subscription."""
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = None
+        query_mock.get.return_value = MagicMock()
+        result = await self.service.activate_subscription(
+            self.user_id,
+            SubscriptionTier.PRO,
+            payment_method_id="pm_123456",
+            external_subscription_id="sub_123456"
+        )
+        self.db.add.assert_called_once()
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_activate_subscription_existing(self):
+        """Test activating an existing subscription."""
+        mock_subscription = MagicMock(spec=Subscription)
+        mock_subscription.user_id = self.user_id
+        mock_subscription.is_trial = True
+        mock_subscription.current_period_start = None
+        mock_subscription.current_period_end = None
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = mock_subscription
+        query_mock.get.return_value = MagicMock()
+        result = await self.service.activate_subscription(
+            self.user_id,
+            SubscriptionTier.ELITE,
+            payment_method_id="pm_123456",
+            external_subscription_id="sub_123456"
+        )
+        self.db.add.assert_not_called()
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_record_payment(self):
+        """Test recording a subscription payment."""
+        mock_subscription = MagicMock(spec=Subscription)
+        mock_subscription.id = 1
+        mock_subscription.user_id = self.user_id
+        query_mock = self.db.query.return_value
+        query_mock.get.return_value = mock_subscription
+        result = await self.service.record_payment(
+            subscription_id=mock_subscription.id,
+            amount=79.0,
+            external_payment_id="pi_123456",
+            payment_method="credit_card",
+            status="succeeded",
+            receipt_url="https://receipt.url"
+        )
+        self.db.add.assert_called_once()
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_cancel_subscription(self):
+        """Test cancelling a subscription."""
+        mock_subscription = MagicMock(spec=Subscription)
+        mock_subscription.id = 1
+        mock_subscription.user_id = self.user_id
+        mock_subscription.status = SubscriptionStatus.ACTIVE
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = mock_subscription
+        result = await self.service.cancel_subscription(self.user_id)
+        self.assertEqual(mock_subscription.status, SubscriptionStatus.CANCELLED)
+        self.db.commit.assert_called_once()
+        self.db.refresh.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_cancel_nonexistent_subscription(self):
+        """Test cancelling a non-existent subscription."""
+        query_mock = self.db.query.return_value
+        filter_mock = query_mock.filter.return_value
+        filter_mock.first.return_value = None
+        result = await self.service.cancel_subscription(self.user_id)
+        self.assertIsNone(result)
+        self.db.commit.assert_not_called()
     
     def test_get_user_subscription(self):
         """Test getting a user's subscription."""

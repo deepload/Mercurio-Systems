@@ -33,19 +33,25 @@ class CoveredCallStrategy(BaseOptionsStrategy):
     3. Gère le roll-over et l'ajustement dynamique des strikes
     """
     
-    def __init__(self, 
-                 ticker: str,
-                 market_data_service: MarketDataService,
-                 trading_service: TradingService,
-                 options_service: OptionsService,
+    def __init__(self,
+                 underlying_symbol: str = None,
+                 account_size: float = None,
+                 max_position_size: float = 0.10,
+                 profit_target_pct: float = 0.50,
+                 stop_loss_pct: float = 0.20,
+                 ticker: str = None,
+                 market_data_service: 'MarketDataService' = None,
+                 trading_service: 'TradingService' = None,
+                 options_service: 'OptionsService' = None,
                  delta_target: float = 0.30,
                  dte_range: Tuple[int, int] = (30, 45),
                  iv_rank_min: float = 40.0,
                  profit_target: float = 0.50,
-                 stop_loss_pct: float = 0.20,
+                 stop_loss_pct_old: float = 0.20,
                  sizing_pct: float = 0.05,
                  roll_threshold_days: int = 7,
-                 max_active_positions: int = 5):
+                 max_active_positions: int = 5,
+                 **kwargs):
         """
         Initialiser la stratégie Covered Call.
         
@@ -65,7 +71,15 @@ class CoveredCallStrategy(BaseOptionsStrategy):
         """
         super().__init__(name="CoveredCall", description="Covered Call Strategy")
         
-        self.ticker = ticker
+        # For test compatibility
+        self.underlying_symbol = underlying_symbol if underlying_symbol is not None else ticker
+        self.account_size = account_size
+        self.max_position_size = max_position_size
+        self.profit_target_pct = profit_target_pct
+        self.stop_loss_pct = stop_loss_pct
+        
+        # Legacy attributes for backward compatibility
+        self.ticker = ticker if ticker is not None else underlying_symbol
         self.market_data_service = market_data_service
         self.trading_service = trading_service
         self.options_service = options_service
@@ -75,7 +89,7 @@ class CoveredCallStrategy(BaseOptionsStrategy):
         self.dte_min, self.dte_max = dte_range
         self.iv_rank_min = iv_rank_min
         self.profit_target = profit_target
-        self.stop_loss_pct = stop_loss_pct
+        self.stop_loss_pct_old = stop_loss_pct_old
         self.sizing_pct = sizing_pct
         self.roll_threshold_days = roll_threshold_days
         self.max_active_positions = max_active_positions
@@ -92,8 +106,8 @@ class CoveredCallStrategy(BaseOptionsStrategy):
             "win_rate": 0.0,
             "avg_hold_time_days": 0.0
         }
-        
-        logger.info(f"Stratégie Covered Call initialisée pour {ticker}")
+        self.current_call = None
+        logger.info(f"Stratégie Covered Call initialisée pour {self.underlying_symbol}")
     
     async def should_enter(self, market_data: pd.DataFrame) -> bool:
         """

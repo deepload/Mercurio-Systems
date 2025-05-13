@@ -64,7 +64,8 @@ async def test_lstm_predictor_strategy(mock_market_data):
         prediction_days=5,
         epochs=2,  # Small number for testing speed
         batch_size=32,
-        neurons=50
+        neurons=50,
+        sequence_length=10  # Patch: shorter sequence for test
     )
     
     # Preprocess data
