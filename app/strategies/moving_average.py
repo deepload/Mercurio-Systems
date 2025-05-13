@@ -558,3 +558,6 @@ class MovingAverageBT(bt.Strategy):
             else:
                 pass
             self.order = None
+
+# Alias for compatibility with tests
+MovingAverageCrossover = MovingAverageStrategy

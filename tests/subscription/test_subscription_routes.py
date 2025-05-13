@@ -10,7 +10,7 @@ from unittest.mock import MagicMock, patch
 from fastapi.testclient import TestClient
 from fastapi import Depends
 
-from app.api.routes import app, api_router
+from app.api.routes import api_router
 from app.services.subscription_service import SubscriptionService
 from app.utils.subscription_config import SubscriptionTier
 

@@ -5,11 +5,38 @@ This module provides functions for:
 - Black-Scholes option pricing model
 - Implied volatility calculations
 - Greeks calculations (delta, gamma, theta, vega, rho)
-- Other financial mathematics utilities
+- Other financial math utilities
 """
 
 import numpy as np
 from scipy.stats import norm
+
+def black_scholes_call(S, K, T, r, sigma):
+    """
+    Wrapper for Black-Scholes call option price for test compatibility.
+    S: spot price
+    K: strike price
+    T: time to expiry (years)
+    r: risk-free rate
+    sigma: volatility
+    """
+    return bs_option_price(
+        spot=S, strike=K, time_to_expiry=T, risk_free_rate=r, volatility=sigma, option_type="call"
+    )
+
+def black_scholes_put(S, K, T, r, sigma):
+    """
+    Wrapper for Black-Scholes put option price for test compatibility.
+    S: spot price
+    K: strike price
+    T: time to expiry (years)
+    r: risk-free rate
+    sigma: volatility
+    """
+    return bs_option_price(
+        spot=S, strike=K, time_to_expiry=T, risk_free_rate=r, volatility=sigma, option_type="put"
+    )
+
 from scipy.optimize import brentq
 import math
 from typing import Optional, Tuple, Dict, Union

@@ -489,3 +489,6 @@ class LSTMPredictorStrategy(BaseStrategy):
         except Exception as e:
             logger.error(f"Erreur lors du chargement des paramètres depuis {scaler_path}: {e}")
             raise
+
+# Alias for compatibility with tests
+LSTMPredictor = LSTMPredictorStrategy

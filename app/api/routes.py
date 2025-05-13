@@ -30,16 +30,28 @@ logger = logging.getLogger(__name__)
 # Create router
 api_router = APIRouter()
 
-# Authentication dependency
-async def get_current_user_id():
+# Import our authentication routes
+from app.api.auth_routes import router as auth_router
+from app.api.schemas import UpgradeSubscriptionRequest, PaymentHistoryResponse, UsageMetricsResponse, PaymentWebhookRequest
+from app.api.oauth_routes import router as oauth_router
+from app.middleware.auth_middleware import AuthMiddleware
+
+# Include authentication routers
+api_router.include_router(auth_router)
+api_router.include_router(oauth_router)
+
+# Authentication dependency - uses our real authentication middleware now
+async def get_current_user_id(current_user = Depends(AuthMiddleware.get_current_user)):
     """
-    Get the ID of the currently authenticated user.
-    In a real application, this would verify the JWT token in the request.
-    For this example, we return a mock user ID.
+    Get the ID of the currently authenticated user using our auth middleware.
+    
+    Args:
+        current_user: User object from authentication middleware
+        
+    Returns:
+        User ID of the authenticated user
     """
-    # Mock implementation - in a real app, you would validate the JWT token
-    # and retrieve the user ID from the token payload
-    return 1  # Mock user ID
+    return current_user.id
 
 # Strategy API endpoints
 @api_router.get("/strategies", response_model=List[StrategyInfo], tags=["Strategies"])
